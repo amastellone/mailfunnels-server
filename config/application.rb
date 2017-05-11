@@ -11,7 +11,8 @@ Dotenv::Railtie.load
 module MailFunnelClient
 	class Application < Rails::Application
 
-		config.web_console.whitelisted_ips = '173.170.66.40'
+		config.web_console.whitelisted_ips = '127.0.0.1'
+		#config.web_console.whitelisted_ips = '173.170.66.40'
 
 		config.logger = Logger.new(STDOUT)
 		config.logger.level = Logger::ERROR

@@ -25,9 +25,10 @@ class ApplicationController < ActionController::Base
           token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], domain)).strip
           server_app = App.create(name: domain, auth_token: token)
         end
-
       end
     end
+    
+
   rescue => e
     logger.error e.message
   end
