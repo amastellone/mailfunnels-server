@@ -13,7 +13,6 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( shopify.css )
 Rails.application.config.assets.precompile += %w( modals.js )
 Rails.application.config.assets.precompile += %w( jquery.vertical.flowchart.css )
-Rails.application.config.assets.precompile += %w( funnelstyle.css )
 Rails.application.config.assets.precompile += %w( jquery.vertical.flowchart.js )
 Rails.application.config.assets.precompile += %w( campaign_funnel_builder_manifest.js )
 
