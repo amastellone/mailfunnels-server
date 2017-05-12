@@ -1,6 +1,5 @@
 /*
  * @name campaign_funnel_builder.js
- * @Author Vas Kaloidis vas.kaloidis@gmail.com
  * @Author Matt Twardowski
  * 
  * @file
