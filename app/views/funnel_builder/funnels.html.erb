@@ -1,0 +1,130 @@
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+        });
+    </script>
+
+
+    <div class="page-title">
+      <div class="title_left">
+        <h3>MailFunnels <small>Funnels</small></h3>
+      </div>
+
+      <div class="title_right">
+          <button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newFunnelModal"><i class="fa fa-plus"></i> New Funnel</button>
+      </div>
+
+      <hr/>
+      <div class="clearfix"></div>
+    </div>
+
+
+    <div class="row">
+
+      <!-- START FUNNEL PANEL -->
+      <!-- ~~~~~~~~~~~~~~~~~~ -->
+      <div class="col-md-3 col-xs-12 widget widget_tally_box">
+        <div class="x_panel fixed_height_300">
+          <div class="x_content">
+
+            <h3 class="name">Funnel 1</h3>
+
+            <div class="flex">
+              <ul class="list-inline count2">
+                <li>
+
+                </li>
+                <li>
+                  <h3>$1,324</h3>
+                  <span>Revenue</span>
+                </li>
+                <li>
+                </li>
+              </ul>
+            </div>
+            <p>
+              This is a test description for a funnel. Add a description to make custom funnels.
+            </p>
+
+            <div class="flex">
+              <div class="col-xs-6">
+                <button class="btn btn-block btn-primary">Edit</button>
+              </div>
+
+              <div class="col-xs-6">
+                <button class="btn btn-block btn-danger">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ~~~~~~~~~~~~~~~~ -->
+      <!-- END FUNNEL PANEL -->
+    </div>
+
+
+    <div id="newFunnelModal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Create New Funnel</h4>
+          </div>
+
+          <form class="form-horizontal form-label-left">
+
+          <div class="modal-body">
+
+
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Funnel Name</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input type="text" class="form-control" placeholder="Name">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Funnel Description
+                </label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <textarea class="form-control" rows="3" placeholder="Description for funnel"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <select class="form-control">
+                    <option>Choose option</option>
+                    <option>Option one</option>
+                    <option>Option two</option>
+                    <option>Option three</option>
+                    <option>Option four</option>
+                  </select>
+                </div>
+              </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="reset" class="btn btn-primary">Reset</button>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+<% end %>
