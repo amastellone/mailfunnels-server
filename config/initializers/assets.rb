@@ -10,11 +10,9 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-Rails.application.config.assets.precompile += %w( shopify.css )
-Rails.application.config.assets.precompile += %w( modals.js )
-Rails.application.config.assets.precompile += %w( jquery.vertical.flowchart.css )
-Rails.application.config.assets.precompile += %w( jquery.vertical.flowchart.js )
 Rails.application.config.assets.precompile += %w( campaign_funnel_builder_manifest.js )
+Rails.application.config.assets.precompile += %w( dashboard_manifest.js )
+Rails.application.config.assets.precompile += %w( dashboard.css )
 
 
 # TODO: DEPLOYMENT - Production, Swap these out for minified versions when we go to production

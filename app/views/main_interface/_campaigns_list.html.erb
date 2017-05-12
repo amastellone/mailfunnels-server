@@ -10,12 +10,12 @@
 	
 	<!-- Hooks Table Header -->
 	<thead>
-	<tr class="active" style="color: #ffffff !important">
-		<th style="background-color: #008cba !important;"><h5>Campaign Name</h5></th>
-		<th style="background-color: #008cba !important;"><h5>Hook</h5></th>
-		<th style="background-color: #008cba !important;"><h5>Email-List</h5></th>
-		<th style="background-color: #008cba !important;"><h5>Subscribers</h5></th>
-		<th style="background-color: #008cba !important;" class="no-sort"><h5></h5></th>
+	<tr class="active">
+		<th><h5>Campaign Name</h5></th>
+		<th><h5>Hook</h5></th>
+		<th><h5>Email-List</h5></th>
+		<th><h5>Subscribers</h5></th>
+		<th class="no-sort"><h5></h5></th>
 	</tr>
 	</thead>
 	<!-- END Hooks Table Header -->
@@ -61,17 +61,3 @@
 
 </table>
 <!-- END Hooks Table -->
-
-<script type="text/javascript">
-	$(document).ready( function () {
-		$('#campaigns_table').DataTable({
-			"columnDefs": [ {
-				"targets": 'no-sort',
-				"orderable": false,
-			} ]
-		});
-		
-		
-	});
-
-</script>

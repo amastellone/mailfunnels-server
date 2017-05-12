@@ -11,5 +11,6 @@
 // about supported directives.
 
 //= require_self
+//= require required
 //= require vendor
 //= require custom
