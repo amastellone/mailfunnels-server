@@ -7,6 +7,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     @campaigns = Campaign.where(app_id: app.id)
   end
 
+
   def job
 
     app = BluehelmetUtil.get_app
