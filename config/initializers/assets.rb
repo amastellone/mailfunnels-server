@@ -13,15 +13,5 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( campaign_funnel_builder_manifest.js )
 Rails.application.config.assets.precompile += %w( dashboard_manifest.js )
 Rails.application.config.assets.precompile += %w( dashboard.css )
+Rails.application.config.assets.precompile += %w( pages/funnels.js )
 
-
-# TODO: DEPLOYMENT - Production, Swap these out for minified versions when we go to production
-
-# MermaidJS
-# Rails.application.config.assets.precompile += %w( mermaid.css )
-# Rails.application.config.assets.precompile += %w( mermaidAPI.js )
-# Rails.application.config.assets.precompile += %w( mermaid.js )
-
-
-# Rails.application.config.assets.precompile += %w( jquery.popdown.js )
-# Rails.application.config.assets.precompile += %w( jquery.popdown.css )

@@ -1,0 +1,2 @@
+class FunnelModel < RestModel
+end

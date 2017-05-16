@@ -6,15 +6,6 @@ require 'date'
 
 class FunnelBuilderController < ShopifyApp::AuthenticatedController
 
-
-	def edit_funnel
-
-	end
-
-	def funnels
-
-	end
-
 	def api_read
 
 		id = params[:job_id]

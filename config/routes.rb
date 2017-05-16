@@ -10,15 +10,15 @@ Rails.application.routes.draw do
   get '/edit_campaign/:id', to: 'main_interface#edit_campaign'
   get '/job/:id', to: 'main_interface#job'
 
-
-  get '/triggers', to: 'triggers#index'
+  # Funnel Routes
+  get '/funnels', to: 'funnel#index'
+  get '/edit_funnel', to: 'funnel#edit_funnel'
 
   # Funnel-Builder
   get '/funnel/:campaign_id', to: 'funnel_builder#index'
   get '/funnel', to: 'funnel_builder#index'
   get '/mainfb/', to: 'funnel_builder#superfunnel'
-  get '/funnels', to: 'funnel_builder#funnels'
-  get '/edit_funnel', to: 'funnel_builder#edit_funnel'
+
 
   # Funnel-Builder JSON API
   post '/fbapi_index' => 'funnel_builder#api_index'
