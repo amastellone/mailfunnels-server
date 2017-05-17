@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   get '/job/:id', to: 'main_interface#job'
 
   # Funnel Routes
-  get '/funnels', to: 'funnel#index'
-  get '/edit_funnel', to: 'funnel#edit_funnel'
+  get '/funnels', to: 'funnels#index'
+  get '/edit_funnel', to: 'funnels#edit_funnel'
 
   # Funnel-Builder
   get '/funnel/:campaign_id', to: 'funnel_builder#index'

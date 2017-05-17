@@ -1,2 +1,0 @@
-class FunnelModel < RestModel
-end

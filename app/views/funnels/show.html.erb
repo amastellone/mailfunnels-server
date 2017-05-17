@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @funnel.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @funnel.description %>
+</p>
+
+<p>
+  <strong>Numtriggers:</strong>
+  <%= @funnel.numTriggers %>
+</p>
+
+<p>
+  <strong>Numrevenue:</strong>
+  <%= @funnel.numRevenue %>
+</p>
+
+<%= link_to 'Edit', edit_funnel_path(@funnel) %> |
+<%= link_to 'Back', funnels_path %>
