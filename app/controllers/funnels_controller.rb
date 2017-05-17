@@ -65,6 +65,44 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     end
   end
 
+
+  # USED WITH AJAX
+  # Creates a new Funnel Model
+  #
+  # PARAMETERS
+  # ----------
+  # name: Name of the Funnel
+  # description: description of the funnel
+  #
+  def ajax_create_funnel
+
+    # Create new Funnel Model
+    funnel = Funnel.new
+
+    # Update the Fields of Funnel Model
+    funnel.name = params[:name]
+    funnel.description = params[:description]
+    funnel.numTriggers = 0
+    funnel.numRevenue = 0
+
+    # Save Funnel to DB
+    saveResponse = funnel.save!
+
+    # Check to see if the job was saved and return correct JSON response
+    if saveResponse
+      final_json = JSON.pretty_generate(result = {
+          'status' => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          'status' => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_funnel

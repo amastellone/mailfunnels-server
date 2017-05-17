@@ -8,6 +8,9 @@
 
 $(function() {
 
+    /* --- AUTHENTICATION --- */
+    var csrf_token = $('meta[name=csrf-token]').attr('content');
+
     /* --- MODALS --- */
     var new_funnel_modal = $('#newFunnelModal');
 
@@ -32,14 +35,27 @@ $(function() {
 
         e.preventDefault();
 
-
         var funnel_name = funnel_name_input.val();
         var funnel_description = funnel_description_input.val();
 
-        console.log("FUNNEL NAME: " + funnel_name);
-        console.log("FUNNEL DESCRIPTION: " + funnel_description);
 
-        new_funnel_modal.modal('toggle');
+        $.ajax({
+            type:'POST',
+            url: '/create_funnel',
+            dataType: "json",
+            data: {
+                name: funnel_name,
+                description: funnel_description,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                new_funnel_modal.modal('toggle');
+            }
+        });
 
     });
 
