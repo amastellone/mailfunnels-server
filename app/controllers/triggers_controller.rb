@@ -9,7 +9,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
     @app_id = BluehelmetUtil.get_app.id
 
     # Get All Triggers
-    @triggers = Trigger.all
+    @triggers = Trigger.where(app_id: @app_id)
 
     # Get All Lists
     @lists = EmailList.where(app_id: @app_id)
@@ -95,6 +95,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
     # Update fields in Trigger model
     trigger.name = params[:name]
+    trigger.app_id = params[:app_id]
     trigger.description = params[:description]
     trigger.emailSubject = params[:emailSubject]
     trigger.emailContent = params[:emailContent]
@@ -132,6 +133,6 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trigger_params
-      params.require(:trigger).permit(:name, :description, :emailSubject, :emailContent, :num_times_triggered, :num_emails_sent, :delayTime, :hook_id)
+      params.require(:trigger).permit(:name, :description, :emailSubject, :emailContent, :num_times_triggered, :num_emails_sent, :delayTime, :hook_id, :app_id)
     end
 end

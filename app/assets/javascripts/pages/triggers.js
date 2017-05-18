@@ -3,6 +3,9 @@
  */
 $(function(){
 
+    /* --- APP VALUES --- */
+    var app_id = $('#current_app_id').val();
+
 
     $('#triggers_table').dataTable({
         "columnDefs": [ {
@@ -59,6 +62,7 @@ $(function(){
             url: '/create_trigger',
             dataType: "json",
             data: {
+                app_id: app_id,
                 name: trigger_name,
                 description: trigger_description,
                 emailSubject: trigger_email_subject,
