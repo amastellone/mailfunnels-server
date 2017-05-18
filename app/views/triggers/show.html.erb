@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @trigger.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @trigger.description %>
+</p>
+
+<p>
+  <strong>Emailsubject:</strong>
+  <%= @trigger.emailSubject %>
+</p>
+
+<p>
+  <strong>Emailcontent:</strong>
+  <%= @trigger.emailContent %>
+</p>
+
+<p>
+  <strong>Num times triggered:</strong>
+  <%= @trigger.num_times_triggered %>
+</p>
+
+<p>
+  <strong>Num emails sent:</strong>
+  <%= @trigger.num_emails_sent %>
+</p>
+
+<p>
+  <strong>Delaytime:</strong>
+  <%= @trigger.delayTime %>
+</p>
+
+<%= link_to 'Edit', edit_trigger_path(@trigger) %> |
+<%= link_to 'Back', triggers_path %>

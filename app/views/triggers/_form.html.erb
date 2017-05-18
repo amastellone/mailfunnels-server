@@ -1,0 +1,52 @@
+<%= form_for(trigger) do |f| %>
+  <% if trigger.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trigger.errors.count, "error") %> prohibited this trigger from being saved:</h2>
+
+      <ul>
+      <% trigger.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :emailSubject %>
+    <%= f.text_field :emailSubject %>
+  </div>
+
+  <div class="field">
+    <%= f.label :emailContent %>
+    <%= f.text_field :emailContent %>
+  </div>
+
+  <div class="field">
+    <%= f.label :num_times_triggered %>
+    <%= f.number_field :num_times_triggered %>
+  </div>
+
+  <div class="field">
+    <%= f.label :num_emails_sent %>
+    <%= f.number_field :num_emails_sent %>
+  </div>
+
+  <div class="field">
+    <%= f.label :delayTime %>
+    <%= f.number_field :delayTime %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

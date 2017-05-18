@@ -1,0 +1,172 @@
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+        });
+    </script>
+
+    <%= javascript_include_tag 'triggers_manifest.js' %>
+
+
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Triggers</h3>
+      </div>
+
+      <div class="title_right">
+        <button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newTriggerModal"><i class="fa fa-plus"></i> New Trigger</button>
+      </div>
+
+      <hr/>
+      <div class="clearfix"></div>
+    </div>
+
+
+    <div class="row">
+
+
+      <!-- Triggers Table -->
+      <table id="triggers_table" class="table table-striped borderless">
+
+        <!-- Triggers Table Header -->
+        <thead>
+        <tr class="active">
+          <th><h5>Trigger Name</h5></th>
+          <th><h5>Hook</h5></th>
+          <th><h5>Email-List</h5></th>
+          <th><h5>Subscribers</h5></th>
+          <th class="no-sort"><h5></h5></th>
+        </tr>
+        </thead>
+        <!-- END Hooks Table Header -->
+
+        <!-- Hooks Table BODY -->
+        <tbody>
+        <tr>
+          <td style="width:40%;">
+            sadfasdf
+          </td>
+          <td>
+            new1
+          </td>
+          <td>
+            new2
+          </td>
+          <td class="text-center">
+            <h6>0</h6>
+          </td>
+          <td style="width:35px;">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu pull-right">
+                <li><a href="<%= root_url %>">Funnel Builder</a></li>
+                <li><a href="<%= root_url %>">View Jobs</a></li>
+              </ul>
+            </div>
+
+          </td>
+
+        </tr>
+        </tbody>
+        <!-- END Hooks Table BODY -->
+
+      </table>
+      <!-- END Hooks Table -->
+
+
+
+    </div>
+
+
+    <div id="newTriggerModal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Create New Trigger</h4>
+          </div>
+
+          <form class="form-horizontal form-label-left">
+
+            <div class="modal-body">
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Trigger Name</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="trigger_name_input" type="text" class="form-control" placeholder="Trigger Name">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Trigger Description
+                </label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <textarea id="trigger_description_input" class="form-control" rows="3" placeholder="Description For Trigger"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Subject</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <textarea id="trigger_email_subject_input" type="text" class="form-control" placeholder="Email Subject"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Content</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <textarea id="trigger_email_content_input" type="text" class="form-control" placeholder="Email Content"></textarea>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
+              <div class="col-md-9 col-sm-9 col-xs-12">
+                <%= render 'main_interface/email_list_select' %>
+              </div>
+            </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Hook List</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <%= render 'main_interface/hook_list_select' %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Delay Time</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="delay_time_input" type="number" class="form-control" placeholder="Delay Time"></input>
+                </div>
+              </div>
+
+
+
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="reset" class="btn btn-primary">Reset</button>
+              <button id="new_trigger_submit_button" type="button" class="btn btn-success">Submit</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+<% end %>
+
+
+

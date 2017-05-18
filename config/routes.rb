@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :triggers
   # MF-CLIENT - ROUTES.RB
 
   # Main
@@ -13,6 +14,10 @@ Rails.application.routes.draw do
   # Funnel Routes
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel', to: 'funnels#edit_funnel'
+
+  # Trigger Routes
+  get '/triggers', to: 'triggers#index'
+  post '/create_trigger', to: 'triggers#ajax_create_trigger'
 
   # Funnel-Builder
   get '/funnel/:campaign_id', to: 'funnel_builder#index'

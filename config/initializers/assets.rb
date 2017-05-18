@@ -14,4 +14,4 @@ Rails.application.config.assets.precompile += %w( campaign_funnel_builder_manife
 Rails.application.config.assets.precompile += %w( dashboard_manifest.js )
 Rails.application.config.assets.precompile += %w( dashboard.css )
 Rails.application.config.assets.precompile += %w( pages/funnels.js )
-
+Rails.application.config.assets.precompile += %w( triggers_manifest.js )
