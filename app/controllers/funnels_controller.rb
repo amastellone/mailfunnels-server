@@ -1,13 +1,37 @@
 class FunnelsController < ShopifyApp::AuthenticatedController
   before_action :set_funnel, only: [:show, :edit, :update, :destroy]
 
-  # GET /funnels
-  # GET /funnels.json
+
+  # Page Render Function
+  # --------------------
+  # Renders the "Funnels" Page which lists out all
+  # the funnels for the current app instance
+  #
   def index
-    @funnels = Funnel.all
+
+    # Get the current app loaded
+    @app_id = BluehelmetUtil.get_app.id
+
+    # Get all Funnel models
+    @funnels = Funnel.where(app_id: @app_id)
+
+    logger.info @funnels
   end
 
+
+  # Page Render Function
+  # --------------------
+  # Renders the "Edit Funnel" Page which allows user
+  # to edit the funnel using drag and drop funnel builder
+  #
+  # PARAMETERS
+  # ----------
+  # funnel_id: ID of the funnel we are editing
+  #
   def edit_funnel
+
+    # Find the funnel from the DB
+    @funnel = Funnel.find(params[:funnel_id])
 
   end
 
@@ -65,6 +89,46 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     end
   end
 
+
+  # USED WITH AJAX
+  # Creates a new Funnel Model
+  #
+  # PARAMETERS
+  # ----------
+  # app_id: ID of the current app being used
+  # name: Name of the Funnel
+  # description: description of the funnel
+  #
+  def ajax_create_funnel
+
+    # Create new Funnel Model
+    funnel = Funnel.new
+
+    # Update the Fields of Funnel Model
+    funnel.name = params[:name]
+    funnel.description = params[:description]
+    funnel.app_id = params[:app_id]
+    funnel.numTriggers = 0
+    funnel.numRevenue = 0
+
+    # Save Funnel to DB
+    saveResponse = funnel.save!
+
+    # Check to see if the job was saved and return correct JSON response
+    if saveResponse
+      final_json = JSON.pretty_generate(result = {
+          'status' => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          'status' => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_funnel
@@ -73,6 +137,6 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def funnel_params
-      params.require(:funnel).permit(:name, :description, :numTriggers, :numRevenue)
+      params.require(:funnel).permit(:name, :description, :numTriggers, :numRevenue, :app_id)
     end
 end

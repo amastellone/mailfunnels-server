@@ -80,6 +80,11 @@ if rest_server_interaction
 	end
 
 
+  # Add a Testing Funnel
+  Funnel.create(name: 'Testing Funnel 1',
+  							description: 'This is a testing funnel for development purposes.',
+  							app_id: app.id)
+
 	Hook.all.each do |h|
 		$x = 0
 		until $x >= Random.rand(0...2) do

@@ -13,7 +13,8 @@ Rails.application.routes.draw do
 
   # Funnel Routes
   get '/funnels', to: 'funnels#index'
-  get '/edit_funnel', to: 'funnels#edit_funnel'
+  get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'
+  post '/create_funnel' => 'funnels#ajax_create_funnel'
 
   # Trigger Routes
   get '/triggers', to: 'triggers#index'

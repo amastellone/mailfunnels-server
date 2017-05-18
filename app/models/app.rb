@@ -4,6 +4,7 @@ class App < RestModel
 	has_many :emails
 	has_many :campaigns
 	has_many :campaign_product_leads
+	has_many :funnels
 
 	def myId()
 		# TODO: Verify this works / get it working
