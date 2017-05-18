@@ -11,7 +11,22 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     @funnels = Funnel.all
   end
 
+
+  # Page Render Function
+  # --------------------
+  # Renders the "Edit Funnel" Page which allows user
+  # to edit the funnel using drag and drop funnel builder
+  #
+  # PARAMETERS
+  # ----------
+  # funnel_id: ID of the funnel we are editing
+  #
   def edit_funnel
+
+    # Find the funnel from the DB
+    @funnel = Funnel.find(params[:funnel_id])
+
+
 
   end
 
