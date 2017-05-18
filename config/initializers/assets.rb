@@ -14,12 +14,9 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( campaign_funnel_builder_manifest.js )
 Rails.application.config.assets.precompile += %w( dashboard_manifest.js )
 Rails.application.config.assets.precompile += %w( pages/funnels.js )
-<<<<<<< HEAD
 Rails.application.config.assets.precompile += %w( triggers_manifest.js )
-=======
 Rails.application.config.assets.precompile += %w( funnel_builder_manifest.js )
 
 # CSS Files
 Rails.application.config.assets.precompile += %w( dashboard.css )
 Rails.application.config.assets.precompile += %w( components/jquery.flowchart.css )
->>>>>>> 43fcb0e356433387a82653fd9f84f4e414ad031a
