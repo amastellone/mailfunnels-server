@@ -10,8 +10,12 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
+# JS Files
 Rails.application.config.assets.precompile += %w( campaign_funnel_builder_manifest.js )
 Rails.application.config.assets.precompile += %w( dashboard_manifest.js )
-Rails.application.config.assets.precompile += %w( dashboard.css )
 Rails.application.config.assets.precompile += %w( pages/funnels.js )
+Rails.application.config.assets.precompile += %w( funnel_builder_manifest.js )
 
+# CSS Files
+Rails.application.config.assets.precompile += %w( dashboard.css )
+Rails.application.config.assets.precompile += %w( components/jquery.flowchart.css )

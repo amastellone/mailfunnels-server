@@ -1,5 +1,4 @@
 <% content_for :javascript do %>
-    <%= javascript_include_tag 'campaign_funnel_builder_manifest' %>
     <script type="text/javascript">
         window.mainPageTitle = 'Main Page';
         ShopifyApp.ready(function () {
@@ -16,6 +15,11 @@
             });
         });
     </script>
+
+
+    <%= javascript_include_tag 'funnel_builder_manifest' %>
+    <%= stylesheet_link_tag 'components/jquery.flowchart.css' %>
+
 
     <div class="page-title">
       <div class="title_left">
@@ -59,12 +63,12 @@
 
               <!-- Campaign Info Title -->
               <div class="panel-heading">
-                <h3 class="panel-title">Job Actions</h3>
+                <h3 class="panel-title">Funnel Actions</h3>
               </div>
 
               <!-- Campaign Info Body -->
               <div class="panel-body">
-                <button class="btn btn-primary" id="create_button">New Job</button>
+                <button class="btn btn-primary" id="create_button">Add Trigger</button>
                 <button class="btn btn-danger" style="" id="delete_selected_button">Delete Selected Job</button>
                 <button class="btn btn-success" style="" id="edit_selected_button">Edit Selected Job</button>
               </div>
@@ -106,8 +110,10 @@
               </div>
 
               <!-- Campaign Info Body -->
-              <div class="panel-body">
+              <div class="panel-body text-center" id="funnel_builder">
 
+
+                <div class="clearfix"></div>
               </div>
 
             </div>
@@ -122,5 +128,42 @@
       </div>
     </div>
 
-    <!-- REMOVED ALL JS THAT WAS HERE AND PUT IT IN SEPERATE FILE -->
+
+    <!-- NEW JOB MODAL -->
+    <div class="modal fade" id="modal_node_create" aria-labelledby="#modal_node_create">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add Trigger</h4>
+          </div>
+          <div class="modal-body">
+
+            <form>
+              <div class="well">
+                <div class="form-group">
+                  <label for="node_update_job_name" class="control-label"><b>Label:</b></label>
+                  <input type="text" class="form-control" id="node_new_job_name" placeholder="Enter a name for the trigger"/>
+                </div>
+
+                <div class="form-group">
+                  <label for="node_update_execute_time" class="control-label"><b>Email Execute-Time (Hours after hook is hit):</b></label>
+                  <input type="number" name="execute_time" class="form-control" id="node_new_job_execute_time" placeholder="How many hours after the hook should we send the followup email"/>
+                </div>
+              </div>
+
+            </form>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id="new_job_submit" class="btn btn-primary">Create Job</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END NEW JOB MODAL -->
+
 <% end %>
