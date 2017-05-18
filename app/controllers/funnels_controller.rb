@@ -8,7 +8,14 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   # the funnels for the current app instance
   #
   def index
-    @funnels = Funnel.all
+
+    # Get the current app loaded
+    @app_id = BluehelmetUtil.get_app.id
+
+    # Get all Funnel models
+    @funnels = Funnel.where(app_id: @app_id)
+
+    logger.info @funnels
   end
 
 
@@ -25,8 +32,6 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
     # Find the funnel from the DB
     @funnel = Funnel.find(params[:funnel_id])
-
-
 
   end
 
@@ -90,6 +95,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   #
   # PARAMETERS
   # ----------
+  # app_id: ID of the current app being used
   # name: Name of the Funnel
   # description: description of the funnel
   #
@@ -101,6 +107,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # Update the Fields of Funnel Model
     funnel.name = params[:name]
     funnel.description = params[:description]
+    funnel.app_id = params[:app_id]
     funnel.numTriggers = 0
     funnel.numRevenue = 0
 
@@ -130,6 +137,6 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def funnel_params
-      params.require(:funnel).permit(:name, :description, :numTriggers, :numRevenue)
+      params.require(:funnel).permit(:name, :description, :numTriggers, :numRevenue, :app_id)
     end
 end

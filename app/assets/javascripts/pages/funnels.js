@@ -11,6 +11,9 @@ $(function() {
     /* --- AUTHENTICATION --- */
     var csrf_token = $('meta[name=csrf-token]').attr('content');
 
+    /* --- APP VALUES --- */
+    var app_id = $('#current_app_id').val();
+
     /* --- MODALS --- */
     var new_funnel_modal = $('#newFunnelModal');
 
@@ -44,6 +47,7 @@ $(function() {
             url: '/create_funnel',
             dataType: "json",
             data: {
+                app_id: app_id,
                 name: funnel_name,
                 description: funnel_description,
                 authenticity_token: csrf_token
