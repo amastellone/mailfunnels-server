@@ -1,8 +1,12 @@
 class FunnelsController < ShopifyApp::AuthenticatedController
   before_action :set_funnel, only: [:show, :edit, :update, :destroy]
 
-  # GET /funnels
-  # GET /funnels.json
+
+  # Page Render Function
+  # --------------------
+  # Renders the "Funnels" Page which lists out all
+  # the funnels for the current app instance
+  #
   def index
     @funnels = Funnel.all
   end
