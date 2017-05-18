@@ -19,7 +19,7 @@
 
     <div class="page-title">
       <div class="title_left">
-        <h3>Funnel Editor <small><%= @funnel.try(:name) %></small></h3>
+        <h3>Funnel Editor <small><%= @funnel.attributes['attributes'].name %></small></h3>
       </div>
 
       <hr/>
@@ -46,8 +46,8 @@
 
               <!-- Campaign Info Body -->
               <div class="panel-body">
-                <h5><b>Funnel Name: </b> Funnel 1</h5>
-                <h5><b>Description: </b> This is a test description for a funnel. Add a description to make custom funnels.</h5>
+                <h5><b>Funnel Name: </b> <%= @funnel.attributes['attributes'].name %></h5>
+                <h5><b>Description: </b> <%= @funnel.attributes['attributes'].description %></h5>
               </div>
 
             </div>
