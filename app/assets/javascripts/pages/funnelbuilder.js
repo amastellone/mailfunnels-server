@@ -16,13 +16,14 @@ $(function() {
     /* --- BUTTONS --- */
     var new_job_button = $('#create_button'); //Create New Job Button
     var submit_new_trigger_button = $('#add_new_trigger_button');
+    var delete_selected_button = $('#delete_selected_button'); //Campaign Job Delete Button
+    var edit_selected_job_button = $('#edit_selected_button'); //Campaign Job Edit Button
 
     /* --- MODALS --- */
     var create_new_job_modal = $('#modal_node_create'); //New Job Modal
 
     // Set the height of the funnel builder panel
     funnel_builder.css('min-height', $(window).height() - 200);
-
 
 
         var data = {
@@ -92,7 +93,15 @@ $(function() {
         // Apply the plugin on a standard, empty div...
         funnel_builder.flowchart({
             verticalConnection: true,
-            data: data
+            data: data,
+            onOperatorSelect: function(operatorId) {
+                showButtons(operatorId);
+                return true;
+            },
+            onOperatorUnselect: function() {
+                hideButtons();
+                return true;
+            }
         });
 
 
@@ -105,7 +114,7 @@ $(function() {
 
 
 
-    var operatorI = 0;
+    var operatorI = 4;
     submit_new_trigger_button.click(function() {
 
 
@@ -118,14 +127,15 @@ $(function() {
             left: 500,
             properties: {
                 title: new_trigger_label,
+                class: 'flowchart-operator-email-node',
                 inputs: {
                     input_1: {
-                        label: 'In',
+                        label: ' ',
                     }
                 },
                 outputs: {
                     output_1: {
-                        label: 'Out',
+                        label: ' ',
                     }
                 }
             }
@@ -138,12 +148,28 @@ $(function() {
         create_new_job_modal.modal('toggle');
     });
 
+    delete_selected_button.click(function() {
+        funnel_builder.flowchart('deleteSelected');
+    });
+
+
+    function showButtons(operatorID) {
+
+        //Otherwise, show the delete and edit button
+        delete_selected_button.show();
+        edit_selected_job_button.show();
+
+    }
+
+    function hideButtons() {
+        delete_selected_button.hide();
+        edit_selected_job_button.hide();
+    }
+
 
 
 });
 
 
 
-$('#delete_selected_button').click(function() {
-    $('#example').flowchart('deleteSelected');
-});
+
