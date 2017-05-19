@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'
   post '/create_funnel' => 'funnels#ajax_create_funnel'
+  post '/ajax_add_new_node' => 'funnels#ajax_add_node'
+  post '/ajax_load_funnel_json' => 'funnels#ajax_load_funnel_json'
 
   # Trigger Routes
   get '/triggers', to: 'triggers#index'

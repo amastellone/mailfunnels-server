@@ -8,144 +8,85 @@
 
 $(function() {
 
+    /* --- AUTHENTICATION --- */
+    var csrf_token = $('meta[name=csrf-token]').attr('content');
+
+    /* --- APP VALUES --- */
+    var funnel_id = $('#current_funnel_id').val();
 
     /* --- FUNNEL BUILDER COMPONENTS --- */
     var funnel_builder = $('#funnel_builder');
 
-
     /* --- BUTTONS --- */
-    var new_job_button = $('#create_button'); //Create New Job Button
-    var submit_new_trigger_button = $('#add_new_trigger_button');
+    var new_node_button = $('#create_button'); //Create New Job Button
     var delete_selected_button = $('#delete_selected_button'); //Campaign Job Delete Button
     var edit_selected_job_button = $('#edit_selected_button'); //Campaign Job Edit Button
+    var submit_new_node_button = $('#new_node_submit_button'); //Add Node Form Submit Button
+
+    /* --- FORM INPUTS --- */
+    var new_node_label = $('#new_node_label_input');
+    var new_node_trigger = $('#new_node_trigger_select');
 
     /* --- MODALS --- */
-    var create_new_job_modal = $('#modal_node_create'); //New Job Modal
-
-    // Set the height of the funnel builder panel
-    funnel_builder.css('min-height', $(window).height() - 200);
+    var create_new_node_modal = $('#modal_node_create'); //New Job Modal
+    var view_node_modal = $('#view_node_modal');
 
 
-        var data = {
-            operators: {
-                operator1: {
-                    top: 20,
-                    left: 20,
-                    properties: {
-                        title: 'Start',
-                        class: 'flowchart-operator-start-node',
-                        inputs: {},
-                        outputs: {
-                            output_1: {
-                                label: ' ',
-                            }
-                        }
-                    }
-                },
-                operator2: {
-                    top: 80,
-                    left: 300,
-                    properties: {
-                        title: 'Trigger 1',
-                        class: 'flowchart-operator-email-node',
-                        inputs: {
-                            input_1: {
-                                label: ' ',
-                            }
-                        },
-                        outputs: {
-                            output_1: {
-                                label: ' ',
-                            }
-                        }
-                    }
-                },
-                operator3: {
-                    top: 300,
-                    left: 300,
-                    properties: {
-                        title: 'Trigger 2',
-                        class: 'flowchart-operator-email-node',
-                        inputs: {
-                            input_1: {
-                                label: ' ',
-                            }
-                        },
-                        outputs: {
-                            output_1: {
-                                label: ' ',
-                            }
-                        }
-                    }
-                },
-            },
-            links: {
-                link1: {
-                    fromOperator: 'operator1',
-                    fromConnector: 'output_1',
-                    toOperator: 'operator2',
-                    toConnector: 'input_1',
-                }
-
-            }
-        };
-
-        // Apply the plugin on a standard, empty div...
-        funnel_builder.flowchart({
-            verticalConnection: true,
-            data: data,
-            onOperatorSelect: function(operatorId) {
-                showButtons(operatorId);
-                return true;
-            },
-            onOperatorUnselect: function() {
-                hideButtons();
-                return true;
-            }
-        });
+    //Setup the initial funnel builder
+    init();
 
 
-    //On New Job Button Click
-    new_job_button.click(function(event) {
+    //On New Node Button Click
+    new_node_button.click(function(event) {
 
-        create_new_job_modal.modal('toggle');
+        create_new_node_modal.modal('toggle');
 
     });
 
+    submit_new_node_button.click(function() {
 
+        var label = new_node_label.val();
+        var trigger_id = new_node_trigger.val();
 
-    var operatorI = 4;
-    submit_new_trigger_button.click(function() {
-
-
-        var new_trigger_label = $('#new_trigger_label_input').val();
-
-
-        var operatorId = 'created_operator_' + operatorI;
-        var operatorData = {
-            top: 60,
-            left: 500,
-            properties: {
-                title: new_trigger_label,
-                class: 'flowchart-operator-email-node',
-                inputs: {
-                    input_1: {
-                        label: ' ',
+        $.ajax({
+            type:'POST',
+            url: '/ajax_add_new_node',
+            dataType: "json",
+            data: {
+                funnel_id: funnel_id,
+                trigger_id: trigger_id,
+                name: label,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                var operatorId = response.id;
+                var operatorData = {
+                    top: 60,
+                    left: 500,
+                    properties: {
+                        title: label,
+                        class: 'flowchart-operator-email-node',
+                        inputs: {
+                            input_1: {
+                                label: ' ',
+                            }
+                        },
+                        outputs: {
+                            output_1: {
+                                label: ' ',
+                            }
+                        }
                     }
-                },
-                outputs: {
-                    output_1: {
-                        label: ' ',
-                    }
-                }
+                };
+                funnel_builder.flowchart('createOperator', operatorId, operatorData);
             }
-        };
+        });
 
-        operatorI++;
-
-        funnel_builder.flowchart('createOperator', operatorId, operatorData);
-
-        create_new_job_modal.modal('toggle');
+        create_new_node_modal.modal('toggle');
     });
 
     delete_selected_button.click(function() {
@@ -153,7 +94,62 @@ $(function() {
     });
 
 
+    edit_selected_job_button.click(function() {
+
+        view_node_modal.modal('toggle');
+
+    });
+
+
+    function init() {
+
+        // Set the height of the funnel builder panel
+        funnel_builder.css('min-height', $(window).height() - 200);
+
+        //Hide the delete and edit selected buttons
+        hideButtons();
+
+        //Fake Data For now, switch to live data later
+        var data = {};
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_load_funnel_json',
+            dataType: "json",
+            data: {
+                funnel_id: funnel_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                //Start the flowchart plugin
+                funnel_builder.flowchart({
+                    verticalConnection: true,
+                    data: response,
+                    onOperatorSelect: function(operatorId) {
+                        showButtons(operatorId);
+                        return true;
+                    },
+                    onOperatorUnselect: function() {
+                        hideButtons();
+                        return true;
+                    }
+                });
+
+            }
+        });
+
+    }
+
+
     function showButtons(operatorID) {
+
+        if (operatorID === 'startNode') {
+            return;
+        }
 
         //Otherwise, show the delete and edit button
         delete_selected_button.show();

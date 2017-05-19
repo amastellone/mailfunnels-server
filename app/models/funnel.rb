@@ -3,4 +3,5 @@ class Funnel < RestModel
   validates :description, presence: true
 
   belongs_to :app
+  has_many :nodes
 end
