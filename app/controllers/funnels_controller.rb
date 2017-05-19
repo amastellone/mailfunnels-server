@@ -30,8 +30,13 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   #
   def edit_funnel
 
+    # Get the Current App ID
+    @app_id = BluehelmetUtil.get_app.id
+
     # Find the funnel from the DB
     @funnel = Funnel.find(params[:funnel_id])
+
+    @triggers = Trigger.where(app_id: @app_id)
 
   end
 

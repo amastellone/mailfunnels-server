@@ -15,6 +15,7 @@ $(function() {
 
     /* --- BUTTONS --- */
     var new_job_button = $('#create_button'); //Create New Job Button
+    var submit_new_trigger_button = $('#add_new_trigger_button');
 
     /* --- MODALS --- */
     var create_new_job_modal = $('#modal_node_create'); //New Job Modal
@@ -43,15 +44,12 @@ $(function() {
                         title: 'Trigger 1',
                         inputs: {
                             input_1: {
-                                label: 'Input 1',
-                            },
-                            input_2: {
-                                label: 'Input 2',
-                            },
+                                label: 'In',
+                            }
                         },
                         outputs: {
                             output_1: {
-                                label: 'Output 1',
+                                label: 'Out',
                             }
                         }
                     }
@@ -63,20 +61,31 @@ $(function() {
                         title: 'Trigger 2',
                         inputs: {
                             input_1: {
-                                label: 'Input 1',
-                            },
-                            input_2: {
-                                label: 'Input 2',
-                            },
+                                label: 'In',
+                            }
                         },
-                        outputs: {}
+                        outputs: {
+                            output_1: {
+                                label: 'Out',
+                            }
+                        }
                     }
                 },
+            },
+            links: {
+                link1: {
+                    fromOperator: 'operator1',
+                    fromConnector: 'output_1',
+                    toOperator: 'operator2',
+                    toConnector: 'input_1',
+                }
+
             }
         };
 
         // Apply the plugin on a standard, empty div...
         funnel_builder.flowchart({
+            verticalConnection: true,
             data: data
         });
 
@@ -84,39 +93,50 @@ $(function() {
     //On New Job Button Click
     new_job_button.click(function(event) {
 
-        create_new_job_modal.modal('show');
+        create_new_job_modal.modal('toggle');
 
+    });
+
+
+
+    var operatorI = 0;
+    submit_new_trigger_button.click(function() {
+
+
+        var new_trigger_label = $('#new_trigger_label_input').val();
+
+
+        var operatorId = 'created_operator_' + operatorI;
+        var operatorData = {
+            top: 60,
+            left: 500,
+            properties: {
+                title: new_trigger_label,
+                inputs: {
+                    input_1: {
+                        label: 'In',
+                    }
+                },
+                outputs: {
+                    output_1: {
+                        label: 'Out',
+                    }
+                }
+            }
+        };
+
+        operatorI++;
+
+        funnel_builder.flowchart('createOperator', operatorId, operatorData);
+
+        create_new_job_modal.modal('toggle');
     });
 
 
 
 });
 
-var operatorI = 0;
-$('#create_operator').click(function() {
-    var operatorId = 'created_operator_' + operatorI;
-    var operatorData = {
-        top: 60,
-        left: 500,
-        properties: {
-            title: 'Operator ' + (operatorI + 3),
-            inputs: {
-                input_1: {
-                    label: 'Input 1',
-                }
-            },
-            outputs: {
-                output_1: {
-                    label: 'Output 1',
-                }
-            }
-        }
-    };
 
-    operatorI++;
-
-    $('#example').flowchart('createOperator', operatorId, operatorData);
-});
 
 $('#delete_selected_button').click(function() {
     $('#example').flowchart('deleteSelected');
