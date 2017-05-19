@@ -20,7 +20,10 @@ $(function() {
     /* --- MODALS --- */
     var create_new_job_modal = $('#modal_node_create'); //New Job Modal
 
+    // Set the height of the funnel builder panel
     funnel_builder.css('min-height', $(window).height() - 200);
+
+
 
         var data = {
             operators: {
@@ -29,10 +32,11 @@ $(function() {
                     left: 20,
                     properties: {
                         title: 'Start',
+                        class: 'flowchart-operator-start-node',
                         inputs: {},
                         outputs: {
                             output_1: {
-                                label: 'Out',
+                                label: ' ',
                             }
                         }
                     }
@@ -42,14 +46,15 @@ $(function() {
                     left: 300,
                     properties: {
                         title: 'Trigger 1',
+                        class: 'flowchart-operator-email-node',
                         inputs: {
                             input_1: {
-                                label: 'In',
+                                label: ' ',
                             }
                         },
                         outputs: {
                             output_1: {
-                                label: 'Out',
+                                label: ' ',
                             }
                         }
                     }
@@ -59,14 +64,15 @@ $(function() {
                     left: 300,
                     properties: {
                         title: 'Trigger 2',
+                        class: 'flowchart-operator-email-node',
                         inputs: {
                             input_1: {
-                                label: 'In',
+                                label: ' ',
                             }
                         },
                         outputs: {
                             output_1: {
-                                label: 'Out',
+                                label: ' ',
                             }
                         }
                     }
