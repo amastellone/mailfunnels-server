@@ -10,6 +10,7 @@
     </script>
 
     <%= javascript_include_tag 'triggers_manifest.js' %>
+    <%= stylesheet_link_tag 'dashboard.css' %>
 
     <div class="hidden">
       <input id="current_app_id" type="number" value="<%= @app_id %>"/>
@@ -32,56 +33,104 @@
 
     <div class="row">
 
+      <% if @triggers %>
+          <% @triggers.each do |trigger| %>
 
-      <!-- Triggers Table -->
-      <table id="triggers_table" class="table table-striped borderless">
 
-        <!-- Triggers Table Header -->
-        <thead>
-        <tr class="active">
-          <th><h5>Trigger Name</h5></th>
-          <th><h5>Hook</h5></th>
-          <th><h5>Email-List</h5></th>
-          <th><h5>Subscribers</h5></th>
-          <th class="no-sort"><h5></h5></th>
-        </tr>
-        </thead>
-        <!-- END Hooks Table Header -->
+              <!--Copied html from gentelella-->
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Triggers Table</h2>
 
-        <!-- Hooks Table BODY -->
-        <tbody>
-        <tr>
-          <td style="width:40%;">
-            sadfasdf
-          </td>
-          <td>
-            new1
-          </td>
-          <td>
-            new2
-          </td>
-          <td class="text-center">
-            <h6>0</h6>
-          </td>
-          <td style="width:35px;">
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu pull-right">
-                <li><a href="<%= root_url %>">Funnel Builder</a></li>
-                <li><a href="<%= root_url %>">View Jobs</a></li>
-              </ul>
-            </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table id="triggers_table" class="table table-striped">
+                      <thead>
+                      <tr role="row">
+                        <th class="sorting_asc" aria-controls="datatable" aria-label="Name: activate to sort column descending" style="width: 141px;" aria-sort="ascending">Name</th>
+                        <th class="sorting" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Hook: activate to sort column ascending" style="width: 103px;">Hook</th>
+                        <th class="sorting" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Number of emails sent: activate to sort column ascending" style="width: 51px;">Num Emails Sent</th>
+                        <th class="sorting" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Number of times triggered: activate to sort column ascending" style="width: 104px;">Num Times Triggered</th>
+                        <th class="sorting" aria-controls="datatable" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending" style="width: 79px;">Description</th>
+                      </tr>
+                      </thead>
 
-          </td>
 
-        </tr>
-        </tbody>
-        <!-- END Hooks Table BODY -->
+                      <tbody>
 
-      </table>
-      <!-- END Hooks Table -->
+
+                      <tr role="row" class="odd">
+                        <td class="sorting_1"><%= trigger.attributes['attributes'].name %></td>
+                        <td>Hook id</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td><%= trigger.attributes['attributes'].description %></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--end copied html from gentelella-->
+
+          <% end %>
+      <% end %>
+
+
+
+      <!--&lt;!&ndash; Triggers Table &ndash;&gt;-->
+      <!--<table id="triggers_table" class="table table-striped borderless">-->
+
+      <!--&lt;!&ndash; Triggers Table Header &ndash;&gt;-->
+      <!--<thead>-->
+      <!--<tr class="active">-->
+      <!--<th><h5>Trigger Name</h5></th>-->
+      <!--<th><h5>Hook</h5></th>-->
+      <!--<th><h5>Email-List</h5></th>-->
+      <!--<th><h5>Subscribers</h5></th>-->
+      <!--<th class="no-sort"><h5></h5></th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--&lt;!&ndash; END Hooks Table Header &ndash;&gt;-->
+
+      <!--&lt;!&ndash; Hooks Table BODY &ndash;&gt;-->
+      <!--<tbody>-->
+      <!--<tr>-->
+      <!--<td style="width:40%;">-->
+      <!--sadfasdf-->
+      <!--</td>-->
+      <!--<td>-->
+      <!--new1-->
+      <!--</td>-->
+      <!--<td>-->
+      <!--new2-->
+      <!--</td>-->
+      <!--<td class="text-center">-->
+      <!--<h6>0</h6>-->
+      <!--</td>-->
+      <!--<td style="width:35px;">-->
+      <!--<div class="btn-group">-->
+      <!--<button type="button" class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
+      <!--<span class="caret"></span>-->
+      <!--</button>-->
+      <!--<ul class="dropdown-menu pull-right">-->
+      <!--<li><a href="<%= root_url %>">Funnel Builder</a></li>-->
+      <!--<li><a href="<%= root_url %>">View Jobs</a></li>-->
+      <!--</ul>-->
+      <!--</div>-->
+
+      <!--</td>-->
+
+      <!--</tr>-->
+      <!--</tbody>-->
+      <!--&lt;!&ndash; END Hooks Table BODY &ndash;&gt;-->
+
+      <!--</table>-->
+      <!--&lt;!&ndash; END Hooks Table &ndash;&gt;-->
 
 
 
@@ -133,11 +182,11 @@
 
 
               <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <%= render 'main_interface/email_list_select' %>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <%= render 'main_interface/email_list_select' %>
+                </div>
               </div>
-            </div>
 
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Hook List</label>
