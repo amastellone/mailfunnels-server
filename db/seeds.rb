@@ -79,46 +79,6 @@ if rest_server_interaction
 		$x += 1
 	end
 
-	Hook.all.each do |h|
-		$x = 0
-		until $x >= Random.rand(0...2) do
-			this_list       = lists.fetch(Random.rand(0...(lists.size-1)))
-			c               = Campaign.new
-			c.hook_id       = h.id
-			c.name          = Faker::Lorem.sentence
-			c.app_id        = app.id
-			c.email_list_id = defaultlist.id
-			c.save
-
-			$y = 0
-			# until $y >= Random.rand(0...1) do
-			until $y >= 1 do
-				j                   = Job.new
-				j.hook_id           = h.id
-				j.name              = Faker::App.name
-				j.hook_identifier   = h.identifier
-				j.subject           = Faker::Lorem.sentence
-				j.content           = Faker::Lorem.paragraphs(1)
-				j.app_id            = app.id
-				j.campaign_id       = c.id
-				j.app_id            = app.id
-				j.execute_frequency = "execute_now"
-				j.execute_time      = Random.rand(3...5)
-				j.execute_set_time  = DateTime.current
-				j.executed = false
-				j.save
-				$y         += 1
-			end
-			$x += 1
-		end
-		# Execute_Frequency_Types
-		# execute_now
-		# execute_once
-		# execute_twice
-		# execute_thrice
-		# execute_date 2015-01-10 = 20150110
-  end
-
 
 	# Add a Testing Funnel
 	Funnel.create(name: 'Testing Funnel 1',
