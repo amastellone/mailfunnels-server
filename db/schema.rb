@@ -15,11 +15,6 @@ ActiveRecord::Schema.define(version: 20170519205148) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "job_queues", force: :cascade do |t|
-    t.datetime "created_at", :null=>false
-    t.datetime "updated_at", :null=>false
-  end
-
   create_table "mail_funnel_configs", force: :cascade do |t|
     t.string   "name",       :index=>{:name=>"index_mail_funnel_configs_on_name", :unique=>true, :using=>:btree}
     t.string   "value"
