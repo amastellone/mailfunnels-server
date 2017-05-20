@@ -32,6 +32,10 @@ $(function() {
     var view_node_modal = $('#view_node_modal');
 
 
+    /* --- DYNAMIC VALUES --- */
+    var isLoading = false;
+
+
     //Setup the initial funnel builder
     init();
 
@@ -103,6 +107,9 @@ $(function() {
 
     function init() {
 
+        // Set loading to true
+        isLoading = true;
+
         // Set the height of the funnel builder panel
         funnel_builder.css('min-height', $(window).height() - 200);
 
@@ -136,8 +143,19 @@ $(function() {
                     onOperatorUnselect: function() {
                         hideButtons();
                         return true;
+                    },
+                    onOperatorMoved: function(operatorId) {
+                        saveNodeLocation(operatorId);
+                        return true;
+                    },
+                    onLinkCreate: function(linkId, linkData) {
+                        saveNewLink(linkId, linkData);
+                        return true;
                     }
                 });
+
+                // Set loading to false
+                isLoading = false;
 
             }
         });
@@ -145,6 +163,84 @@ $(function() {
     }
 
 
+    /**
+     * When a node of the funnel is moved, save the location
+     * of the node by calling API call ajax_save_node
+     *
+     * @param operatorId
+     */
+    function saveNodeLocation(operatorId) {
+
+        //If Flowchart is loading, return don't create link
+        if (isLoading) {
+            return;
+        }
+
+        var operatorData = funnel_builder.flowchart('getOperatorData', operatorId);
+
+        console.log(operatorData);
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_save_node',
+            dataType: "json",
+            data: {
+                node_id: operatorId,
+                top: operatorData.top,
+                left: operatorData.left,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+            }
+        });
+
+    }
+
+    /**
+     * When a new link is created, save the link to the DB
+     * by calling API call ajax_add_link
+     *
+     *
+     * @param linkId
+     * @param linkData
+     */
+    function saveNewLink(linkId, linkData) {
+
+        //If Flowchart is loading, return don't create link
+        if (isLoading) {
+            return;
+        }
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_add_link',
+            dataType: "json",
+            data: {
+                funnel_id: funnel_id,
+                from_operator_id: linkData.fromOperator,
+                to_operator_id: linkData.toOperator,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    }
+
+
+    /**
+     *
+     * When a node is selected show the
+     *
+     * @param operatorID
+     */
     function showButtons(operatorID) {
 
         if (operatorID === 'startNode') {

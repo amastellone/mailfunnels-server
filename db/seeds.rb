@@ -79,12 +79,6 @@ if rest_server_interaction
 		$x += 1
 	end
 
-
-  # Add a Testing Funnel
-  Funnel.create(name: 'Testing Funnel 1',
-  							description: 'This is a testing funnel for development purposes.',
-  							app_id: app.id)
-
 	Hook.all.each do |h|
 		$x = 0
 		until $x >= Random.rand(0...2) do
@@ -123,5 +117,25 @@ if rest_server_interaction
 		# execute_twice
 		# execute_thrice
 		# execute_date 2015-01-10 = 20150110
-	end
+  end
+
+
+	# Add a Testing Funnel
+	Funnel.create(name: 'Testing Funnel 1',
+								description: 'This is a testing funnel for development purposes.',
+								app_id: app.id)
+
+
+	# Add A Trigger
+	Trigger.create(name: 'Add Product To Cart',
+								 description: 'When a product is added to cart, this trigger is hit.',
+								 esubject: 'Welcome!',
+								 econtent: 'Thanks for adding a product to the cart. Look at the deals here!',
+								 app_id: app.id,
+								 email_list_id: 1,
+								 hook_id: 1,
+								 ntriggered: 0,
+								 nesent: 0,
+								 delayt: 3)
+
 end

@@ -11,12 +11,16 @@ Rails.application.routes.draw do
   get '/edit_campaign/:id', to: 'main_interface#edit_campaign'
   get '/job/:id', to: 'main_interface#job'
 
-  # Funnel Routes
+  # Funnel Page Render Routes
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'
+
+  # Funnel Editor POST Routes
   post '/create_funnel' => 'funnels#ajax_create_funnel'
   post '/ajax_add_new_node' => 'funnels#ajax_add_node'
   post '/ajax_load_funnel_json' => 'funnels#ajax_load_funnel_json'
+  post '/ajax_save_node' => 'funnels#ajax_save_node'
+  post '/ajax_add_link' => 'funnels#ajax_add_link'
 
   # Trigger Routes
   get '/triggers', to: 'triggers#index'

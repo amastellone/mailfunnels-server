@@ -34,18 +34,6 @@ ActiveRecord::Schema.define(version: 20170519205148) do
     t.datetime "updated_at"
   end
 
-  create_table "triggers", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "emailSubject"
-    t.string   "emailContent"
-    t.integer  "num_times_triggered"
-    t.integer  "num_emails_sent"
-    t.integer  "delayTime"
-    t.datetime "created_at",          :null=>false
-    t.datetime "updated_at",          :null=>false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"

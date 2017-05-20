@@ -116,17 +116,15 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     funnel.numTriggers = 0
     funnel.numRevenue = 0
 
-    # Save Funnel to DB
-    saveResponse = funnel.save!
 
-    # Check to see if the job was saved and return correct JSON response
-    if saveResponse
+    # Save and verify Funnel and return correct JSON response
+    if funnel.save!
       final_json = JSON.pretty_generate(result = {
-          'status' => true
+          :success => true
       })
     else
       final_json = JSON.pretty_generate(result = {
-          'status' => false
+          :success => false
       })
     end
 
@@ -160,18 +158,60 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     node.nemails = 0
     node.nesent = 0
 
-    # Save Node to DB
-    saveResponse = node.save!
 
-    # Check to see if the node was saved and return correct JSON response
-    if saveResponse
+    # Save and verify Node and return correct JSON response
+    if node.save!
       final_json = JSON.pretty_generate(result = {
-          'status' => true,
-          'id' => node.id
+          :success => true,
+          :id => node.id
       })
     else
       final_json = JSON.pretty_generate(result = {
-          'status' => false
+          :success => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+
+  end
+
+  # USED WITH AJAX
+  # --------------
+  # Adds a new link to the funnel being edited
+  #
+  # PARAMETERS
+  # ----------
+  # funnel_id: ID of the funnel the link is being added on
+  # from_operator_id: Operator we are starting link from
+  # to_operator_id: Operator we are ending the link on
+  #
+  def ajax_add_link
+
+    # Create a new Link Instance
+    link = Link.new
+
+    # Update the fields of Link Instance
+    link.funnel_id = params[:funnel_id]
+    link.tni = params[:to_operator_id].to_i
+
+    if params[:from_operator_id].to_i === 0
+      # If the link starts at the start node, set slink to 1
+      link.slink = 1
+    else
+      # Otherwise, set slink to 0 (false) and set from_operator_id
+      link.slink = 0
+      link.fni = params[:from_operator_id].to_i
+    end
+
+    # Save and verify Link and return correct JSON response
+    if link.save!
+      final_json = JSON.pretty_generate(result = {
+          :success => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          :success => false
       })
     end
 
@@ -192,12 +232,15 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   #
   def ajax_load_funnel_json
 
+    # Load all the Nodes and Links for the current Funnel
     @nodes = Node.where(funnel_id: params[:funnel_id])
+    @links = Link.where(funnel_id: params[:funnel_id])
 
     # Create a new array to hold the operators
     operators = Hash.new
 
-    operators['startNode'] =
+    # Create start operator
+    operators[0] =
         {
             :top => 20,
             :left => 20,
@@ -213,6 +256,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
             }
         }
 
+    # For every Node we have in the DB, create an operator with its fields
     @nodes.each do |node|
 
       operators[node.id] =
@@ -221,7 +265,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
               :left => node.attributes['attributes'].left,
               :properties => {
                   :title => node.attributes['attributes'].name,
-                  class: 'flowchart-operator-email-node',
+                  class:'flowchart-operator-email-node',
                   :inputs => {
                       :input_1 => {
                           :label => ' '
@@ -238,18 +282,79 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
     end
 
+    # Create a new links array
     links = Hash.new
 
+    # For every Link for the funnel, create a flowchart link with its fields
+    @links.each do |link|
 
+      if link.attributes['attributes'].slink === 1
+        fromNode = 0
+      else
+        fromNode = link.attributes['attributes'].fni
+      end
+
+      links[link.id] =
+          {
+              :fromConnector => 'output_1',
+              :toConnector => 'input_1',
+              :fromOperator => fromNode,
+              :toOperator => link.attributes['attributes'].tni,
+          }
+    end
+
+
+
+    # Create data JSON with operators and links
     data = JSON.pretty_generate({
                                     'operators' => operators,
                                     'links' => links
                                 })
 
 
+    # Return JSON array with flowchart data
     render json: data
 
   end
+
+
+  # USED WITH AJAX
+  # --------------
+  # Updates the node on the funnel when moved
+  #
+  # PARAMETERS
+  # ----------
+  # node_id: ID of the node that was updated
+  # top: Distance from top in pixels
+  # left: Distance from left in pixels
+  #
+  def ajax_save_node
+
+    # Get the Node from the DB
+    node = Node.where(id: params[:node_id]).first
+
+    # Update the Node
+    node.top = params[:top]
+    node.left = params[:left]
+
+    # Save and verify Node and return correct JSON response
+    if node.save!
+      final_json = JSON.pretty_generate(result = {
+          :success => true,
+          :id => node.id
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          :success => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+
+  end
+
+
 
 
 
