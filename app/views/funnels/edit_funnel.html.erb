@@ -27,7 +27,7 @@
 
     <div class="page-title">
       <div class="title_left">
-        <h3>Funnel Editor <small><%= @funnel.attributes['attributes'].name %></small></h3>
+        <h3>Funnel Editor <small><%= @funnel.name %></small></h3>
       </div>
 
       <hr/>
@@ -54,8 +54,8 @@
 
               <!-- Campaign Info Body -->
               <div class="panel-body">
-                <h5><b>Funnel Name: </b> <%= @funnel.attributes['attributes'].name %></h5>
-                <h5><b>Description: </b> <%= @funnel.attributes['attributes'].description %></h5>
+                <h5><b>Funnel Name: </b> <%= @funnel.name %></h5>
+                <h5><b>Description: </b> <%= @funnel.description %></h5>
               </div>
 
             </div>
@@ -162,7 +162,7 @@
                     <select class="form-control" id="new_node_trigger_select">
                       <option value="">Select A Trigger To Add...</option>
                       <% @triggers.each do |trigger| %>
-                          <option value="<%= trigger.id %>"><%= trigger.attributes['attributes'].name %></option>
+                          <option value="<%= trigger.id %>"><%= trigger.name %></option>
                       <% end %>
                     </select>
                   </div>

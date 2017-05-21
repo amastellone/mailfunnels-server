@@ -60,9 +60,9 @@
               <% if @triggers %>
                   <% @triggers.each do |trigger| %>
                       <tr>
-                        <td style="width:40%;"><%= trigger.attributes['attributes'].name %></td>
-                        <td><%= trigger.attributes['attributes'].ntriggered %></td>
-                        <td><%= trigger.attributes['attributes'].nesent %></td>
+                        <td style="width:40%;"><%= trigger.name %></td>
+                        <td><%= trigger.ntriggered %></td>
+                        <td><%= trigger.nesent %></td>
                         <td>Default</td>
                         <td style="width:35px;">
                           <div class="btn-group">
