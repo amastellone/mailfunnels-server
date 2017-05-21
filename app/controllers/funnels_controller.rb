@@ -10,7 +10,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   def index
 
     # Get the current app loaded
-    @app_id = BluehelmetUtil.get_app.id
+    @app_id = MailfunnelsUtil.get_app.id
 
     # Get all Funnel models
     @funnels = Funnel.where(app_id: @app_id)
@@ -31,7 +31,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   def edit_funnel
 
     # Get the Current App ID
-    @app_id = BluehelmetUtil.get_app.id
+    @app_id = MailfunnelsUtil.get_app.id
 
     # Find the funnel from the DB
     @funnel = Funnel.find(params[:funnel_id])
