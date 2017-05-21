@@ -6,7 +6,7 @@ class EmailController < ShopifyApp::AuthenticatedController
 	def lists
 
 		# appname = BluehelmetUtil.get_shopify_session_app_name
-		@app  = BluehelmetUtil.get_app
+		@app  = MailfunnelsUtil.get_app
 		@list = EmailList.where(app_id: @app.id)
 
 	end

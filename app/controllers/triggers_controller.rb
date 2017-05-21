@@ -6,7 +6,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
   def index
 
     # Get the current app id
-    @app_id = BluehelmetUtil.get_app.id
+    @app_id = MailfunnelsUtil.get_app.id
 
     # Get All Triggers
     @triggers = Trigger.where(app_id: @app_id)

@@ -2,8 +2,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   before_action :set_campaign_id, only: [:edit_campaign]
 
   def index
-    app = BluehelmetUtil.get_app
-    logger.info("App-Name: " + BluehelmetUtil.get_app_name)
+    app = MailfunnelsUtil.get_app
+    logger.info("App-Name: " + MailfunnelsUtil.get_app_name)
   end
 
   def form_page
