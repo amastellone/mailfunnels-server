@@ -20,6 +20,10 @@
     <%= javascript_include_tag 'funnel_builder_manifest' %>
     <%= stylesheet_link_tag 'components/jquery.flowchart.css' %>
 
+    <div class="hidden">
+      <input id="current_funnel_id" type="number" value="<%= @funnel.id %>"/>
+    </div>
+
 
     <div class="page-title">
       <div class="title_left">
@@ -68,9 +72,9 @@
 
               <!-- Campaign Info Body -->
               <div class="panel-body">
-                <button class="btn btn-primary" id="create_button">Add Trigger</button>
-                <button class="btn btn-danger" style="" id="delete_selected_button">Delete Selected Job</button>
-                <button class="btn btn-success" style="" id="edit_selected_button">Edit Selected Job</button>
+                <button class="btn btn-block btn-primary" id="create_button">Add Node</button>
+                <button class="btn btn-block btn-success" style="" id="edit_selected_button">View Node Info</button>
+                <button class="btn btn-block btn-danger" style="" id="delete_selected_button">Delete Node</button>
               </div>
 
             </div>
@@ -129,41 +133,146 @@
     </div>
 
 
-    <!-- NEW JOB MODAL -->
+
+    <!-- NEW NODE MODAL -->
     <div class="modal fade" id="modal_node_create" aria-labelledby="#modal_node_create">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Add Trigger</h4>
+            <h4 class="modal-title" id="myModalLabel">Add Node</h4>
           </div>
-          <div class="modal-body">
 
-            <form>
-              <div class="well">
+            <form class="form-horizontal form-label-left">
+
+              <div class="modal-body">
+
                 <div class="form-group">
-                  <label for="node_update_job_name" class="control-label"><b>Label:</b></label>
-                  <input type="text" class="form-control" id="node_new_job_name" placeholder="Enter a name for the trigger"/>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Node Label</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <input id="new_node_label_input" type="text" class="form-control"  placeholder="Enter a label for the node"/>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="node_update_execute_time" class="control-label"><b>Email Execute-Time (Hours after hook is hit):</b></label>
-                  <input type="number" name="execute_time" class="form-control" id="node_new_job_execute_time" placeholder="How many hours after the hook should we send the followup email"/>
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Trigger
+                  </label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <select class="form-control" id="new_node_trigger_select">
+                      <option value="">Select A Trigger To Add...</option>
+                      <% @triggers.each do |trigger| %>
+                          <option value="<%= trigger.id %>"><%= trigger.attributes['attributes'].name %></option>
+                      <% end %>
+                    </select>
+                  </div>
                 </div>
+
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="reset" class="btn btn-primary">Reset</button>
+                <button id="new_node_submit_button" type="button" class="btn btn-success">Submit</button>
               </div>
 
             </form>
-
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" id="new_job_submit" class="btn btn-primary">Create Job</button>
-          </div>
         </div>
       </div>
     </div>
-    <!-- END NEW JOB MODAL -->
+    <!-- END NODE MODAL -->
+
+
+
+    <!-- VIEW NODE MODAL -->
+    <div class="modal fade" id="view_node_modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Funnel Node Info</h4>
+          </div>
+
+            <div class="modal-body">
+
+              <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel">
+                  <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h4 class="panel-title">General Info</h4>
+                  </a>
+                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
+                    <div class="panel-body">
+                      <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                          <th scope="row">Node Name:</th>
+                          <td>Add Product</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Trigger Name:</th>
+                          <td>Trigger 1</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Trigger Description</th>
+                          <td>When product is added to cart, this trigger is hit and a welcome email message will be sent 4 hours later.</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Hook</th>
+                          <td>Cart / Create</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Email List</th>
+                          <td>Added Product 1 to Cart Email List</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Email Subject</th>
+                          <td>Welcome</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Email Content</th>
+                          <td>We see that you recently added a product to your cart from our store. Complete your order now!</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel">
+                  <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <h4 class="panel-title">Statistics</h4>
+                  </a>
+                  <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                    <div class="panel-body">
+                      <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                          <th scope="row">Total Hits:</th>
+                          <td>1234</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total Unique Hits:</th>
+                          <td>987</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total Emails:</th>
+                          <td>1075</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total Emails Sent:</th>
+                          <td>576</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- END VIEW NODE MODAL -->
 
 <% end %>

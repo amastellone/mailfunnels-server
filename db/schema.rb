@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517211806) do
+ActiveRecord::Schema.define(version: 20170519205148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-
-  create_table "job_queues", force: :cascade do |t|
-    t.datetime "created_at", :null=>false
-    t.datetime "updated_at", :null=>false
-  end
 
   create_table "mail_funnel_configs", force: :cascade do |t|
     t.string   "name",       :index=>{:name=>"index_mail_funnel_configs_on_name", :unique=>true, :using=>:btree}
@@ -33,18 +27,6 @@ ActiveRecord::Schema.define(version: 20170517211806) do
     t.string   "shopify_token",  :null=>false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "triggers", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "emailSubject"
-    t.string   "emailContent"
-    t.integer  "num_times_triggered"
-    t.integer  "num_emails_sent"
-    t.integer  "delayTime"
-    t.datetime "created_at",          :null=>false
-    t.datetime "updated_at",          :null=>false
   end
 
   create_table "users", force: :cascade do |t|

@@ -106,10 +106,12 @@
 
 .flowchart-operator {
     position: absolute;
-    width: 140px;
+    width: 120px;
+    height: 100px;
     border: 1px solid #CCCCCC;
     background: #FAFAFA;
     pointer-events: initial;
+    border-radius: 25px;
 }
 
 .flowchart-operator.hover {
@@ -120,20 +122,16 @@
     border-color: #555;
 }
 
-
-
 .flowchart-operator .flowchart-operator-title {
     width: 100%;
+    height:auto;
     padding: 5px;
     font-weight: bold;
     box-sizing: border-box;
-    border-bottom: 1px solid #DDDDDD;
-    background: #F0F0F0;
-    height: auto;
-    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: move;
+    border-radius: 25px;
 }
 
 .flowchart-operator .flowchart-operator-inputs-outputs {
@@ -146,4 +144,65 @@
 .flowchart-operator .flowchart-operator-inputs, .flowchart-default-operator .flowchart-operator-outputs {
     display: table-cell;
     width: 50%;
+}
+
+
+/* --- START NODE OPERATOR --- */
+
+
+.flowchart-operator-start-node {
+    position: absolute;
+    width: 100px;
+    height: 90px;
+    min-width: 100px;
+    min-height: 90px;
+    border: 1px solid #CCCCCC;
+    color: #FFFFFF;
+    background: rgba(51, 122, 183, 0.4);
+    pointer-events: initial;
+    border-radius: 25px;
+}
+
+.flowchart-operator-start-node:after {
+    content: "\f015";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #FFFFFF;
+    top: 20%;
+    left: 27%;
+    z-index: 1;
+}
+
+
+/* --- EMAIL NODE OPERATOR  --- */
+
+.flowchart-operator-email-node {
+    position: absolute;
+    width: 100px;
+    height: 90px;
+    min-width: 100px;
+    min-height: 90px;
+    border: 1px solid #CCCCCC;
+    color: #FFFFFF;
+    background: rgba(217, 83, 79, 0.4);
+    pointer-events: initial;
+    border-radius: 25px;
+}
+
+.flowchart-operator-email-node:after {
+    content: "\f0e0";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 50px;
+    color: #FFFFFF;
+    top: 20%;
+    left: 27%;
+    z-index: 1;
 }

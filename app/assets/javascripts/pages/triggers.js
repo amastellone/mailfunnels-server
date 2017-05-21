@@ -69,7 +69,7 @@ $(function(){
                 emailContent: trigger_email_content,
                 email_list_id: emailList,
                 hook_id: hook,
-                delayTime: delayTime,
+                delay_time: delayTime,
                 authenticity_token: csrf_token
             },
             error: function(e) {
