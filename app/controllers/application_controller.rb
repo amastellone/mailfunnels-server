@@ -14,13 +14,24 @@ class ApplicationController < ActionController::Base
 
   def install_server_app
 
+    puts "INSIDE INSATLL_SERVER_APP"
+
     begin
-      domain = ShopifyAPI::Shop.current.domain
+      puts "INSIDE BEGIN"
+      domain = params[:shop]
+
+      puts "GOT THE DOMAIN: DOMAIN: " + domain
+
 
       if domain != nil
+
+        puts "DOMAIN IS NULL"
         server_app = App.where(name: domain)
 
+
         if server_app.any? == false
+
+          puts "INSIDE OF SERVERAPP_ANY is FALSE"
           digest = OpenSSL::Digest.new('sha256')
           token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], domain)).strip
           server_app = App.create(name: domain, auth_token: token)
