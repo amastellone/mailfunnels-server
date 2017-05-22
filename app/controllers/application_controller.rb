@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
       if domain != nil
         server_app = App.where(name: domain)
 
-
         if server_app.any? == false
           digest = OpenSSL::Digest.new('sha256')
           token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], domain)).strip

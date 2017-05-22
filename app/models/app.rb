@@ -1,7 +1,6 @@
 class App < RestModel
 	has_many :email_lists
-	has_many :emails
-	has_many :campaign_product_leads
+	has_many :subscribers
 	has_many :funnels
 	has_many :triggers
 

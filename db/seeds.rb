@@ -1,7 +1,5 @@
 # MAIL FUNNEL - CLIENT SEEDS
 
-
-# TODO: Finish the Config Model
 MailFunnelConfig.create(name: "app_installed", value: "true")
 MailFunnelConfig.create(name: "app_key", value: ENV['APP_KEY'])
 MailFunnelConfig.create(name: "app_secret", value: ENV['APP_SECRET'])
