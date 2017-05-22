@@ -30,33 +30,51 @@ class EmailController < ShopifyApp::AuthenticatedController
 
     # Get all Email Templates For the App
     @templates = EmailTemplate.where(app_id: @app.id)
-    
+
   end
 
-	# POST /create_list
-	def create_list
 
-		logger.debug 'We made it to create_list'
+  # USED WITH AJAX
+  # Creates a new EmailTemplate Instance
+  #
+  # PARAMETERS
+  # ----------
+  # app_id: ID of the current app being used
+  # name: Name of the EmailTemplate
+  # description: description of the EmailTemplate
+  # email_subject: Email Subject of the EmailTemplate
+  # email_content: Email Content of the EmailTemplate
+  #
+  def ajax_create_email_template
 
-		app = MailfunnelsUtil.get_app
+    # Create a new EmailTemplate Instance
+    template = EmailTemplate.new
 
-		@email_list = EmailList.new(name: params[:name], description: params[:description], app_id: app.id)
-
-		if @email_list.save
-			@message = 'Email list was successfully created.'
-		else
-			@message = 'Email list was NOT created.'
-		end
-
-	end
-
-	def emails
-
-		@app    = MailfunnelsUtil.get_app
-		@emails = Email.where(email_list_id: @list.id)
+    # Update the attributes of the EmailTemplate
+    template.app_id = params[:app_id]
+    template.name = params[:name]
+    template.description = params[:description]
+    template.email_subject = params[:email_subject]
+    template.email_content = params[:email_content]
 
 
-	end
+
+    # Save and verify Funnel and return correct JSON response
+    if template.save!
+      final_json = JSON.pretty_generate(result = {
+          :success => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          :success => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+  end
+
+
 
 
 	private

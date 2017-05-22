@@ -13,7 +13,7 @@
 
 
     <div class="hidden">
-      <input id="current_app_id" type="number" value="<%= @app_id %>"/>
+      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
     </div>
 
     <div class="page-title">
@@ -44,7 +44,7 @@
                     <h3 class="name"><%= template.name %></h3>
 
                     <p>
-                      <%= funnel.description %>
+                      <%= template.description %>
                     </p>
 
                     <div class="flex">

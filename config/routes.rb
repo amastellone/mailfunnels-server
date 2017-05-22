@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   # Email Template Routes
   get '/email_templates', to: 'email#email_templates'
+  post '/ajax_create_email_template' => 'email#ajax_create_email_template'
+
 
   # Email Controller
   get '/lists', to: 'email#lists'

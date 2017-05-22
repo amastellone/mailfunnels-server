@@ -11,7 +11,7 @@ $(function(){
     var csrf_token = $('meta[name=csrf-token]').attr('content');
 
     /* --- MODALS --- */
-    var new_trigger_modal = $('#newEmailTemplateModal');
+    var new_template_modal = $('#newEmailTemplateModal');
 
     /* --- INPUT FIELDS --- */
     var template_name_input = $('#template_name_input');
@@ -46,17 +46,14 @@ $(function(){
 
         $.ajax({
             type:'POST',
-            url: '/create_trigger',
+            url: '/ajax_create_email_template',
             dataType: "json",
             data: {
                 app_id: app_id,
-                name: trigger_name,
-                description: trigger_description,
-                emailSubject: trigger_email_subject,
-                emailContent: trigger_email_content,
-                email_list_id: emailList,
-                hook_id: hook,
-                delay_time: delayTime,
+                name: template_name,
+                description: template_description,
+                email_subject: template_email_subject,
+                email_content: template_email_content,
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -64,7 +61,7 @@ $(function(){
             },
             success: function(response) {
                 console.log(response);
-                new_trigger_modal.modal('toggle');
+                new_template_modal.modal('toggle');
             }
         });
 
