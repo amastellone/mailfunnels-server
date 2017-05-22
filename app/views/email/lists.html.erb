@@ -1,54 +1,63 @@
 
 <div class="col-xs-12">
 
-<div class="row">
-	<div class="col-xs-12">
-		<!-- Create New List Form -->
-		<%= render 'new_list_form' %>
-		<!-- END Create New List Form -->
+	<div class="page-title">
+		<div class="title_left">
+			<h3>Email Lists</h3>
+		</div>
+
+		<div class="title_right">
+			<button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newFunnelModal"><i class="fa fa-plus"></i> New Funnel</button>
+		</div>
+
+		<hr/>
+		<div class="clearfix"></div>
 	</div>
-</div>
 
 	<!-- Email Lists -->
-<div class="row">
-<div class="col-xs-12">
+	<div class="row">
 
-	<legend>Email Lists</legend>
+						<!-- START FUNNEL PANEL -->
+						<!-- ~~~~~~~~~~~~~~~~~~ -->
+						<div class="col-md-3 col-xs-12 widget widget_tally_box">
+							<div class="x_panel fixed_height_300">
+								<div class="x_content">
 
-<!--<b><%= link_to "Create New List", root_url + "new_list" %></b>-->
+									<h3 class="name">Default List</h3>
 
-	<!-- Emails Lists Table -->
-	<table class="table table-striped">
+									<div class="flex">
+										<ul class="list-inline count2">
+											<li>
 
-		<!-- Emails List Table Headers -->
-		<tr class="active" style="color: #ffffff !important">
-			<th style="background-color: #008cba !important;"><h4>Name</h4></th>
-			<th style="background-color: #008cba !important;"><h4>Description</h4></th>
-		</tr>
-		<!-- END Emails List Table Headers -->
+											</li>
+											<li>
+												<h3>1</h3>
+												<span>Subscribers</span>
+											</li>
+											<li>
+											</li>
+										</ul>
+									</div>
+									<p>
+										Default list which contains all subscribers
+									</p>
 
-		<!-- Emails List Table BODY -->
-		<tbody>
-		<% @list.each do |el| %>
-				<tr>
-					<td>
-						<h6 class="text-primary"><a href="<%= root_url %>emails/<%= el.id %>"><%= el.name %></a></h6>
-					</td>
+									<div class="flex">
+										<div class="col-xs-6">
+											<a href="#" class="btn btn-block btn-primary">View</a>
+										</div>
 
-					<td>
-						<p><%= el.description %></p>
-					</td>
+										<div class="col-xs-6">
+											<button class="btn btn-block btn-primary">Edit</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- ~~~~~~~~~~~~~~~~ -->
+						<!-- END FUNNEL PANEL -->
 
-				</tr>
-		<% end %>
-		</tbody>
-		<!-- END Emails List Table BODY -->
 
-	</table>
-	<!-- END Email Lists Table -->
-
-</div>
-</div>
-	<!-- END Email Lists -->
+	</div>
 
 </div>

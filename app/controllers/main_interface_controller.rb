@@ -1,9 +1,17 @@
 class MainInterfaceController < ShopifyApp::AuthenticatedController
   before_action :set_campaign_id, only: [:edit_campaign]
 
+
+  # Page Render Function
+  # --------------------
+  # Renders the Home Page of the MailFunnels App
+  #
+  #
   def index
-    app = MailfunnelsUtil.get_app
-    logger.info("App-Name: " + MailfunnelsUtil.get_app_name)
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
   end
 
   def form_page
