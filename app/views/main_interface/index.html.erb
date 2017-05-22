@@ -13,6 +13,16 @@
     <%= javascript_include_tag 'dashboard_manifest' %>
     <%= stylesheet_link_tag 'dashboard.css' %>
 
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>MailFunnels <small>Dashboard</small></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="row">
       <div class="col-md-12">
@@ -48,11 +58,11 @@
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-tag text-info"></i>
+                  <div class="icon"><i class="fa fa-envelope text-info"></i>
                   </div>
-                  <div class="count">14</div>
+                  <div class="count"><%= @app.email_templates.size %></div>
 
-                  <h3>Products</h3>
+                  <h3>Email Templates</h3>
                 </div>
               </div>
             </div>
