@@ -16,6 +16,23 @@ class EmailController < ShopifyApp::AuthenticatedController
 
   end
 
+
+  # Page Render Function
+  # --------------------
+  # Renders the All Email Templates Page
+  # which displays card view of all the email
+  # templates for the app
+  #
+  def email_templates
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get all Email Templates For the App
+    @templates = EmailTemplate.where(app_id: @app.id)
+    
+  end
+
 	# POST /create_list
 	def create_list
 
