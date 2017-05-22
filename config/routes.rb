@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
-  resources :triggers
-  # MF-CLIENT - ROUTES.RB
-
   # Main
   root :to => 'main_interface#index'
-
 
   # Funnel Page Render Routes
   get '/funnels', to: 'funnels#index'
@@ -20,6 +16,10 @@ Rails.application.routes.draw do
   # Trigger Routes
   get '/triggers', to: 'triggers#index'
   post '/create_trigger', to: 'triggers#ajax_create_trigger'
+
+
+  # Subscribers Routes
+  get '/all_subscribers', to: 'main_interface#all_subscribers'
 
   # Email Controller
   get '/lists', to: 'email#lists'

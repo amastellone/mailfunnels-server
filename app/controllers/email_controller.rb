@@ -3,26 +3,18 @@ class EmailController < ShopifyApp::AuthenticatedController
 	before_action :set_email_list, only: [:editlist, :updatelist, :destroylist]
 	protect_from_forgery with: :null_session
 
+
+  # Page Render Function
+  # --------------------
+  # Renders the Email Lists Page which displays
+  # card view of all Email Lists
+  #
 	def lists
 
-		# appname = BluehelmetUtil.get_shopify_session_app_name
 		@app  = MailfunnelsUtil.get_app
 		@list = EmailList.where(app_id: @app.id)
 
-	end
-
-
-	def editlist
-
-	end
-
-	def destroylist
-
-	end
-
-	# GET /newlist
-	def newlist
-	end
+  end
 
 	# POST /create_list
 	def create_list
@@ -43,24 +35,12 @@ class EmailController < ShopifyApp::AuthenticatedController
 
 	def emails
 
-		# appname = BluehelmetUtil.get_shopify_session_app_name
 		@app    = MailfunnelsUtil.get_app
 		@emails = Email.where(email_list_id: @list.id)
 
 
 	end
 
-	def newemail
-
-	end
-
-	def editemail
-
-	end
-
-	def deleteemail
-
-	end
 
 	private
 	# Use callbacks to share common setup or constraints between actions.

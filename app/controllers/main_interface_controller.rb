@@ -1,6 +1,4 @@
 class MainInterfaceController < ShopifyApp::AuthenticatedController
-  before_action :set_campaign_id, only: [:edit_campaign]
-
 
   # Page Render Function
   # --------------------
@@ -11,6 +9,24 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Get the Current App
     @app = MailfunnelsUtil.get_app
+
+  end
+
+
+  # Page Render Function
+  # --------------------
+  # Renders the All Subscribers Page which
+  # contains a table of all subscribers on for the
+  # current app
+  #
+  def all_subscribers
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get all subscriber instances for the app
+    @subscribers = Subscriber.where(app_id: @app.id)
+
 
   end
 

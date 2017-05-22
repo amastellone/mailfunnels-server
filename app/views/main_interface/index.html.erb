@@ -28,6 +28,7 @@
       <div class="col-md-12">
         <div class="">
           <div class="x_content">
+
             <div class="row">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
@@ -58,7 +59,7 @@
               </div>
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-envelope text-info"></i>
+                  <div class="icon"><i class="fa fa-envelope-o text-info"></i>
                   </div>
                   <div class="count"><%= @app.email_templates.size %></div>
 
@@ -67,26 +68,43 @@
               </div>
             </div>
 
-            <div class="row top_tiles" style="margin: 10px 0;">
-              <div class="col-md-3 tile">
-                <span>Total Emails Sent</span>
-                <h2>231,809</h2>
-                <span class="sparkline_two" style="height: 160px;"><canvas width="196" height="40" style="display: inline-block; width: 196px; height: 40px; vertical-align: top;"></canvas></span>
+
+            <div class="row">
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-envelope text-primary"></i>
+                  </div>
+                  <div class="count">0</div>
+
+                  <h3>Emails Sent</h3>
+                </div>
               </div>
-              <div class="col-md-3 tile">
-                <span>Total Emails Opened</span>
-                <h2>31,809</h2>
-                <span class="sparkline_two" style="height: 160px;"><canvas width="196" height="40" style="display: inline-block; width: 196px; height: 40px; vertical-align: top;"></canvas></span>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-envelope-open-o text-info"></i>
+                  </div>
+                  <div class="count">0</div>
+
+                  <h3>Emails Opened</h3>
+                </div>
               </div>
-              <div class="col-md-3 tile">
-                <span>Total Email Clicks</span>
-                <h2>1,809</h2>
-                <span class="sparkline_two" style="height: 160px;"><canvas width="196" height="40" style="display: inline-block; width: 196px; height: 40px; vertical-align: top;"></canvas></span>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-envelope-open text-info"></i>
+                  </div>
+                  <div class="count">0</div>
+
+                  <h3>Emails Clicked</h3>
+                </div>
               </div>
-              <div class="col-md-3 tile">
-                <span>Total Revenue</span>
-                <h2>$ 1,231,809</h2>
-                <span class="sparkline_three" style="height: 160px;"><canvas width="200" height="40" style="display: inline-block; width: 200px; height: 40px; vertical-align: top;"></canvas></span>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-dollar text-info"></i>
+                  </div>
+                  <div class="count">$0.00</div>
+
+                  <h3>Total Revenue</h3>
+                </div>
               </div>
             </div>
 
