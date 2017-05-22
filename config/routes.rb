@@ -17,9 +17,11 @@ Rails.application.routes.draw do
   get '/triggers', to: 'triggers#index'
   post '/create_trigger', to: 'triggers#ajax_create_trigger'
 
-
   # Subscribers Routes
   get '/all_subscribers', to: 'main_interface#all_subscribers'
+
+  # Email Template Routes
+  get '/email_templates', to: 'email#email_templates'
 
   # Email Controller
   get '/lists', to: 'email#lists'

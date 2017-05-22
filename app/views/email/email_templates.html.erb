@@ -9,7 +9,7 @@
         });
     </script>
 
-    <%= javascript_include_tag 'pages/funnels.js' %>
+    <%= javascript_include_tag 'pages/emailtemplates.js' %>
 
 
     <div class="hidden">
@@ -18,11 +18,11 @@
 
     <div class="page-title">
       <div class="title_left">
-        <h3>MailFunnels <small>Funnels</small></h3>
+        <h3>MailFunnels <small>Email Templates</small></h3>
       </div>
 
       <div class="title_right">
-        <button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newFunnelModal"><i class="fa fa-plus"></i> New Funnel</button>
+        <button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newEmailTemplateModal"><i class="fa fa-plus"></i> Add Email Template</button>
       </div>
 
       <hr/>
@@ -32,8 +32,8 @@
 
     <div class="row">
 
-      <% if @funnels.any? %>
-          <% @funnels.each do |funnel| %>
+      <% if @templates.any? %>
+          <% @templates.each do |template| %>
 
               <!-- START FUNNEL PANEL -->
               <!-- ~~~~~~~~~~~~~~~~~~ -->
@@ -41,32 +41,19 @@
                 <div class="x_panel fixed_height_300">
                   <div class="x_content">
 
-                    <h3 class="name"><%= funnel.name %></h3>
+                    <h3 class="name"><%= template.name %></h3>
 
-                    <div class="flex">
-                      <ul class="list-inline count2">
-                        <li>
-
-                        </li>
-                        <li>
-                          <h3>$<%= funnel.numRevenue %></h3>
-                          <span>Revenue</span>
-                        </li>
-                        <li>
-                        </li>
-                      </ul>
-                    </div>
                     <p>
                       <%= funnel.description %>
                     </p>
 
                     <div class="flex">
                       <div class="col-xs-6">
-                        <a href="<% root_url %>edit_funnel/<%= funnel.id %>" class="btn btn-block btn-primary">Edit</a>
+                        <a href="<% root_url %>" class="btn btn-block btn-primary">View</a>
                       </div>
 
                       <div class="col-xs-6">
-                        <button class="btn btn-block btn-danger">Delete</button>
+                        <button class="btn btn-block btn-primary">Edit</button>
                       </div>
                     </div>
                   </div>
@@ -80,22 +67,22 @@
       <% else %>
 
           <br/>
-          <h5 class="text-center">You have no funnels yet.</h5>
-          <p class="text-center">Start a funnel by clicking the button above.</p>
+          <h5 class="text-center">You have no email templates yet.</h5>
+          <p class="text-center">Create an email template by clicking the button above.</p>
 
       <% end %>
 
     </div>
 
 
-    <div id="newFunnelModal" class="modal fade bs-example-modal-sm">
+    <div id="newEmailTemplateModal" class="modal fade bs-example-modal-sm">
       <div class="modal-dialog modal-md">
         <div class="modal-content">
 
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
             </button>
-            <h4 class="modal-title" id="myModalLabel">Create New Funnel</h4>
+            <h4 class="modal-title" id="myModalLabel">Create New Email Template</h4>
           </div>
 
           <form class="form-horizontal form-label-left">
@@ -103,26 +90,42 @@
             <div class="modal-body">
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Funnel Name</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Template Name</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="funnel_name_input" type="text" class="form-control" placeholder="Name">
+                  <input id="template_name_input" type="text" class="form-control" placeholder="Name">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Funnel Description
-                </label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Template Description</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <textarea id="funnel_description_input" class="form-control" rows="3" placeholder="Description for funnel"></textarea>
+                  <textarea id="template_description_input" class="form-control" rows="3" placeholder="Description for email template"></textarea>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Subject</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="template_email_subject_input" type="text" class="form-control" placeholder="Name">
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Content</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <textarea id="template_email_content_input" class="form-control" rows="3" placeholder="Description for email template"></textarea>
+                </div>
+              </div>
+
+
 
             </div>
 
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="reset" class="btn btn-primary">Reset</button>
-              <button id="new_funnel_submit_button" type="button" class="btn btn-success">Submit</button>
+              <button id="new_template_submit_button" type="button" class="btn btn-success">Submit</button>
             </div>
 
           </form>

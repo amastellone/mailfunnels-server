@@ -14,6 +14,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( campaign_funnel_builder_manifest.js )
 Rails.application.config.assets.precompile += %w( dashboard_manifest.js )
 Rails.application.config.assets.precompile += %w( pages/funnels.js )
+Rails.application.config.assets.precompile += %w( pages/emailtemplates.js )
 Rails.application.config.assets.precompile += %w( triggers_manifest.js )
 Rails.application.config.assets.precompile += %w( funnel_builder_manifest.js )
 
