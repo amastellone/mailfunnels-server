@@ -76,6 +76,29 @@ class EmailController < ShopifyApp::AuthenticatedController
 
 
 
+  # Page Render Function
+  # --------------------
+  # Renders the view template page
+  #
+  #
+  # PARAMETERS
+  # ----------
+  # template_id: ID of the EmailTemplate we are viewing
+  #
+  def view_email_template
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the EmailTemplate We want to View
+    @template = EmailTemplate.find(params[:template_id])
+
+
+
+  end
+
+
+
 
 	private
 	# Use callbacks to share common setup or constraints between actions.

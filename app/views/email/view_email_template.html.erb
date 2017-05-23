@@ -1,0 +1,116 @@
+<iframe src="view_email_template.html.erb" style="border:none;">
+  <% content_for :javascript do %>
+      <script type="text/javascript">
+          window.mainPageTitle = 'Main Page';
+          ShopifyApp.ready(function () {
+              ShopifyApp.Bar.initialize({
+                  title: window.mainPageTitle,
+                  icon: '/shopify.png'
+              });
+          });
+      </script>
+
+      <%= javascript_include_tag 'pages/emailtemplates.js' %>
+      <%= stylesheet_link_tag 'EmailTemplate/simple.css' %>
+
+
+      <div class="hidden">
+        <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+      </div>
+
+      <div class="page-title">
+        <div class="title_left">
+          <h3>Email Viewer<small><%= @template.name %></small></h3>
+        </div>
+
+
+        <hr/>
+        <div class="clearfix"></div>
+      </div>
+
+
+      <div class="row">
+
+        <table class="body-wrap">
+          <tr>
+            <td class="container">
+
+              <!-- Message start -->
+              <table>
+                <tr>
+                  <td align="center" class="masthead">
+
+                    <h1>Something Big...</h1>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td class="content">
+
+                    <h2>Hi Stranger,</h2>
+
+                    <p>Kielbasa venison ball tip shankle. Boudin prosciutto landjaeger, pancetta jowl turkey tri-tip porchetta beef pork loin drumstick. Frankfurter short ribs kevin pig ribeye drumstick bacon kielbasa. Pork loin brisket biltong, pork belly filet mignon ribeye pig ground round porchetta turducken turkey. Pork belly beef ribs sausage ham hock, ham doner frankfurter pork chop tail meatball beef pig meatloaf short ribs shoulder. Filet mignon ham hock kielbasa beef ribs shank. Venison swine beef ribs sausage pastrami shoulder.</p>
+
+                    <table>
+                      <tr>
+                        <td align="center">
+                          <p>
+                            <a href="#" class="button">Share the Awesomeness</a>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <p>By the way, if you're wondering where you can find more of this fine meaty filler, visit <a href="http://baconipsum.com">Bacon Ipsum</a>.</p>
+
+                    <p><em>– Mr. Pen</em></p>
+
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+          <tr>
+            <td class="container">
+
+              <!-- Message end  -->
+              <table>
+                <tr>
+                  <td class="content footer" align="center">
+                    <p>Sent by <a href="#">Company Name</a>, 1234 Yellow Brick Road, OZ, 99999</p>
+                    <p><a href="mailto:">hello@company.com</a> | <a href="#">Unsubscribe</a></p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+
+
+      </div>
+
+
+
+
+
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
+        <button id="new_template_submit_button" type="button" class="btn btn-success">Submit</button>
+      </div>
+
+      </form>
+
+      </div>
+      </div>
+      </div>
+
+  <% end %>
+</iframe>
