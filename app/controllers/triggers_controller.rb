@@ -80,12 +80,8 @@ class TriggersController < ShopifyApp::AuthenticatedController
   #---------------------
   # name: Name of new trigger
   # description: Description of new trigger
-  # emailSubject: Email Subject of new trigger
-  # emailContent: Content of email in new trigger
-  # email_list_id: Email list associated with new trigger
-  # num_times_triggered: Number of times trigger has been used
-  # num_emails_sent: Number of emails sent from trigger
-  # delay_time: Time delay until trigger is used
+  # app_id: ID of the Current App
+  # hook_id: ID of the Hook
   #
   #
   def ajax_create_trigger
@@ -94,16 +90,13 @@ class TriggersController < ShopifyApp::AuthenticatedController
     trigger = Trigger.new
 
     # Update fields in Trigger model
-    trigger.name = params[:name]
     trigger.app_id = params[:app_id]
-    trigger.description = params[:description]
-    trigger.esubject = params[:emailSubject]
-    trigger.econtent = params[:emailContent]
-    trigger.email_list_id = params[:email_list_id]
-    trigger.ntriggered = 0
-    trigger.nesent = 0
-    trigger.delayt = params[:delay_time]
     trigger.hook_id = params[:hook_id]
+    trigger.name = params[:name]
+    trigger.description = params[:description]
+    trigger.num_triggered = 0
+    trigger.num_emails_sent = 0
+
 
     # Save Trigger to DB
     saveResponse = trigger.save!
@@ -133,6 +126,6 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trigger_params
-      params.require(:trigger).permit(:name, :description, :esubject, :econtent, :ntriggered, :nesent, :delayt, :hook_id, :app_id)
+      params.require(:trigger).permit(:name, :description, :num_triggered, :num_emails_sent, :hook_id, :app_id)
     end
 end

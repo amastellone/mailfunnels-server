@@ -103,6 +103,8 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   # app_id: ID of the current app being used
   # name: Name of the Funnel
   # description: description of the funnel
+  # trigger_id: ID of the Trigger for Funnel
+  # email_list_id: ID of the EmailList for Funnel
   #
   def ajax_create_funnel
 
@@ -110,12 +112,13 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     funnel = Funnel.new
 
     # Update the Fields of Funnel Model
+    funnel.app_id = params[:app_id]
+    funnel.trigger_id = params[:trigger_id]
+    funnel.email_list_id = params[:email_list_id]
     funnel.name = params[:name]
     funnel.description = params[:description]
-    funnel.app_id = params[:app_id]
-    funnel.numTriggers = 0
-    funnel.numRevenue = 0
-
+    funnel.num_emails_sent = 0
+    funnel.num_revenue = 0.0
 
     # Save and verify Funnel and return correct JSON response
     if funnel.save!
@@ -140,7 +143,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   # ----------
   # funnel_id: ID of the funnel the node is being added on
   # name: Name of the Node
-  # trigger_id: ID of the trigger the node is related to
+  # email_template_id: ID of the trigger the node is related to
   #
   def ajax_add_node
 
@@ -148,15 +151,15 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     node = Node.new
 
     # Update the fields of Node Instance
-    node.name = params[:name]
     node.funnel_id = params[:funnel_id]
-    node.trigger_id = params[:trigger_id]
+    node.email_template_id = params[:email_template_id]
+    node.name = params[:name]
     node.top = 60
     node.left = 500
-    node.hits = 0
-    node.uhits = 0
-    node.nemails = 0
-    node.nesent = 0
+    node.num_emails = 0
+    node.num_emails_sent = 0
+    node.num_revenue = 0.0
+    node.delay_time = 0
 
 
     # Save and verify Node and return correct JSON response
@@ -366,6 +369,6 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def funnel_params
-      params.require(:funnel).permit(:name, :description, :numTriggers, :numRevenue, :app_id)
+      params.require(:funnel).permit(:name, :description, :num_emails_sent, :num_revenue, :app_id, :trigger_id, :email_list_id)
     end
 end
