@@ -261,10 +261,10 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
       operators[node.id] =
           {
-              :top => node.attributes['attributes'].top,
-              :left => node.attributes['attributes'].left,
+              :top => node.top,
+              :left => node.left,
               :properties => {
-                  :title => node.attributes['attributes'].name,
+                  :title => node.name,
                   class:'flowchart-operator-email-node',
                   :inputs => {
                       :input_1 => {
@@ -288,10 +288,10 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # For every Link for the funnel, create a flowchart link with its fields
     @links.each do |link|
 
-      if link.attributes['attributes'].slink === 1
+      if link.slink === 1
         fromNode = 0
       else
-        fromNode = link.attributes['attributes'].fni
+        fromNode = link.fni
       end
 
       links[link.id] =
@@ -299,7 +299,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
               :fromConnector => 'output_1',
               :toConnector => 'input_1',
               :fromOperator => fromNode,
-              :toOperator => link.attributes['attributes'].tni,
+              :toOperator => link.tni,
           }
     end
 

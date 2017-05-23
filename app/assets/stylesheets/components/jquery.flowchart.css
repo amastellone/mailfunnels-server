@@ -158,9 +158,9 @@
     min-height: 90px;
     border: 1px solid #CCCCCC;
     color: #FFFFFF;
-    background: rgba(51, 122, 183, 0.4);
+    background: rgba(51, 122, 183, 0.8);
     pointer-events: initial;
-    border-radius: 25px;
+    border-radius: 15px;
 }
 
 .flowchart-operator-start-node:after {
@@ -188,9 +188,9 @@
     min-height: 90px;
     border: 1px solid #CCCCCC;
     color: #FFFFFF;
-    background: rgba(217, 83, 79, 0.4);
+    background: rgba(250, 116, 117, 1.0);
     pointer-events: initial;
-    border-radius: 25px;
+    border-radius: 15px;
 }
 
 .flowchart-operator-email-node:after {

@@ -176,6 +176,10 @@ $(function() {
             return;
         }
 
+        if (operatorId === "0") {
+            return;
+        }
+
         var operatorData = funnel_builder.flowchart('getOperatorData', operatorId);
 
         console.log(operatorData);
