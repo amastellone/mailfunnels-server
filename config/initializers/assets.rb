@@ -21,3 +21,4 @@ Rails.application.config.assets.precompile += %w( funnel_builder_manifest.js )
 # CSS Files
 Rails.application.config.assets.precompile += %w( dashboard.css )
 Rails.application.config.assets.precompile += %w( components/jquery.flowchart.css )
+Rails.application.config.assets.precompile += %w( EmailTemplate/simple.css )
