@@ -13,7 +13,7 @@
     <%= stylesheet_link_tag 'dashboard.css' %>
 
     <div class="hidden">
-      <input id="current_app_id" type="number" value="<%= @app_id %>"/>
+      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
     </div>
 
 
@@ -40,16 +40,15 @@
           </div>
           <div class="x_content">
             <!-- Triggers Table -->
-            <table id="triggers_table" class="table table-striped">
+            <table id="triggers_table" class="table table-bordered text-center">
 
               <!-- Triggers Table Header -->
               <thead>
-              <tr class="active">
-                <th>Name</th>
-                <th>Hits</th>
-                <th>Emails Sent</th>
-                <th>Email List</th>
-                <th class="no-sort"><h5></h5></th>
+              <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">Hits</th>
+                <th class="text-center">Emails Sent</th>
               </tr>
               </thead>
               <!-- END Hooks Table Header -->
@@ -60,23 +59,10 @@
               <% if @triggers %>
                   <% @triggers.each do |trigger| %>
                       <tr>
-                        <td style="width:40%;"><%= trigger.name %></td>
-                        <td><%= trigger.ntriggered %></td>
-                        <td><%= trigger.nesent %></td>
-                        <td>Default</td>
-                        <td style="width:35px;">
-                          <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                              <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu pull-right">
-                              <li><a href="<%= root_url %>">Funnel Builder</a></li>
-                              <li><a href="<%= root_url %>">View Jobs</a></li>
-                            </ul>
-                          </div>
-
-                        </td>
-
+                        <td><%= trigger.name %></td>
+                        <td style="width:50%;"><%= trigger.description %></td>
+                        <td style="width: 100px;"><%= trigger.num_triggered %></td>
+                        <td style="width: 100px;"><%= trigger.num_emails_sent %></td>
                       </tr>
                   <% end %>
               <% end %>
@@ -121,31 +107,6 @@
                 </div>
               </div>
 
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Subject</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <textarea id="trigger_email_subject_input" type="text" class="form-control" placeholder="Email Subject"></textarea>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Content</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <textarea id="trigger_email_content_input" type="text" class="form-control" placeholder="Email Content"></textarea>
-                </div>
-              </div>
-
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <select class="form-control" id="email_list_select">
-                    <% @lists.each do |el| %>
-                        <option value="<%= el.id %>"><%= el.name %></option>
-                    <% end %>
-                  </select>
-                </div>
-              </div>
 
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Hook List</label>
@@ -157,15 +118,6 @@
                   </select>
                 </div>
               </div>
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Delay Time</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="delay_time_input" type="number" class="form-control" placeholder="Delay Time"></input>
-                </div>
-              </div>
-
-
 
 
             </div>
