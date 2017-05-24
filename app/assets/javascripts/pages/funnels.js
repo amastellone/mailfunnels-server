@@ -20,6 +20,8 @@ $(function() {
     /* --- INPUT FIELDS --- */
     var funnel_name_input = $('#funnel_name_input');
     var funnel_description_input = $('#funnel_description_input');
+    var funnel_trigger_select = $('#funnel_trigger_select');
+    var funnel_email_list_select = $('#funnel_email_list_select');
 
     /* --- BUTTONS --- */
     var new_funnel_submit = $('#new_funnel_submit_button');
@@ -40,6 +42,8 @@ $(function() {
 
         var funnel_name = funnel_name_input.val();
         var funnel_description = funnel_description_input.val();
+        var funnel_trigger_id = funnel_trigger_select.val();
+        var funnel_email_list_id = funnel_email_list_select.val();
 
 
         $.ajax({
@@ -48,6 +52,8 @@ $(function() {
             dataType: "json",
             data: {
                 app_id: app_id,
+                trigger_id: funnel_trigger_id,
+                email_list_id: funnel_email_list_id,
                 name: funnel_name,
                 description: funnel_description,
                 authenticity_token: csrf_token

@@ -10,10 +10,10 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   def index
 
     # Get the current app loaded
-    @app_id = MailfunnelsUtil.get_app.id
+    @app = MailfunnelsUtil.get_app
 
     # Get all Funnel models
-    @funnels = Funnel.where(app_id: @app_id)
+    @funnels = Funnel.where(app_id: @app.id)
 
     logger.info @funnels
   end
@@ -31,69 +31,14 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   def edit_funnel
 
     # Get the Current App ID
-    @app_id = MailfunnelsUtil.get_app.id
+    @app = MailfunnelsUtil.get_app
 
     # Find the funnel from the DB
     @funnel = Funnel.find(params[:funnel_id])
 
-    @triggers = Trigger.where(app_id: @app_id)
+    @triggers = Trigger.where(app_id: @app.id)
 
   end
-
-  # GET /funnels/1
-  # GET /funnels/1.json
-  def show
-  end
-
-  # GET /funnels/new
-  def new
-    @funnel = Funnel.new
-  end
-
-  # GET /funnels/1/edit
-  def edit
-  end
-
-  # POST /funnels
-  # POST /funnels.json
-  def create
-    @funnel = Funnel.new(funnel_params)
-
-    respond_to do |format|
-      if @funnel.save
-        format.html { redirect_to @funnel, notice: 'Funnel was successfully created.' }
-        format.json { render :show, status: :created, location: @funnel }
-      else
-        format.html { render :new }
-        format.json { render json: @funnel.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /funnels/1
-  # PATCH/PUT /funnels/1.json
-  def update
-    respond_to do |format|
-      if @funnel.update(funnel_params)
-        format.html { redirect_to @funnel, notice: 'Funnel was successfully updated.' }
-        format.json { render :show, status: :ok, location: @funnel }
-      else
-        format.html { render :edit }
-        format.json { render json: @funnel.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /funnels/1
-  # DELETE /funnels/1.json
-  def destroy
-    @funnel.destroy
-    respond_to do |format|
-      format.html { redirect_to funnels_url, notice: 'Funnel was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
 
   # USED WITH AJAX
   # Creates a new Funnel Model
@@ -144,6 +89,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   # funnel_id: ID of the funnel the node is being added on
   # name: Name of the Node
   # email_template_id: ID of the trigger the node is related to
+  # delay_time: The delay time for sending the email
   #
   def ajax_add_node
 
@@ -154,12 +100,13 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     node.funnel_id = params[:funnel_id]
     node.email_template_id = params[:email_template_id]
     node.name = params[:name]
+    node.delay_time = params[:delay_time]
     node.top = 60
     node.left = 500
     node.num_emails = 0
     node.num_emails_sent = 0
     node.num_revenue = 0.0
-    node.delay_time = 0
+
 
 
     # Save and verify Node and return correct JSON response

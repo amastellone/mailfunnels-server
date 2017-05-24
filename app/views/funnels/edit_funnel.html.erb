@@ -44,40 +44,34 @@
           <!-- START RIGHT SIDE PANELS -->
           <div class="col-xs-12 col-sm-3 pull-right">
 
-            <!-- Campaign Info Panel -->
-            <div class="panel panel-primary">
-
-              <!-- Campaign Info Title -->
-              <div class="panel-heading">
-                <h3 class="panel-title">Funnel Info</h3>
+            <div class="x_panel tile">
+              <div class="x_title">
+                <h2>Funnel Info</h2>
+                <div class="clearfix"></div>
               </div>
-
-              <!-- Campaign Info Body -->
-              <div class="panel-body">
+              <div class="x_content">
                 <h5><b>Funnel Name: </b> <%= @funnel.name %></h5>
                 <h5><b>Description: </b> <%= @funnel.description %></h5>
-              </div>
 
+              </div>
             </div>
+
             <hr>
             <!-- END Campaign Info Panel -->
 
-            <!-- Job Actions Panel -->
-            <div class="panel panel-primary">
 
-              <!-- Campaign Info Title -->
-              <div class="panel-heading">
-                <h3 class="panel-title">Funnel Actions</h3>
+            <div class="x_panel tile">
+              <div class="x_title">
+                <h2>Funnel Actions</h2>
+                <div class="clearfix"></div>
               </div>
-
-              <!-- Campaign Info Body -->
-              <div class="panel-body">
+              <div class="x_content">
                 <button class="btn btn-block btn-primary" id="create_button">Add Node</button>
-                <button class="btn btn-block btn-success" style="" id="edit_selected_button">View Node Info</button>
+                <button class="btn btn-block btn-success" style="" id="view_selected_button" data-node="2">View Node Info</button>
                 <button class="btn btn-block btn-danger" style="" id="delete_selected_button">Delete Node</button>
               </div>
-
             </div>
+
             <hr>
             <!-- END Job Actions Panel -->
 
@@ -87,24 +81,16 @@
           <!-- START RIGHT SIDE PANELS -->
           <div class="col-xs-12 col-sm-9 pull-left">
 
-            <!-- Campaign Info Panel -->
-            <div class="panel panel-primary">
 
-              <!-- Campaign Info Title -->
-              <div class="panel-heading">
-                <h3 class="panel-title">Funnel Editor</h3>
-              </div>
-
-              <!-- Campaign Info Body -->
-              <div class="panel-body text-center" id="funnel_builder">
-
-
+            <div class="x_panel tile">
+              <div class="x_title">
+                <h2>Funnel Editor</h2>
                 <div class="clearfix"></div>
               </div>
+              <div class="x_content text-center" id="funnel_builder">
 
+              </div>
             </div>
-            <hr>
-            <!-- END Campaign Info Panel -->
 
           </div>
           <!-- END RIGHT SIDE PANELS -->
@@ -138,24 +124,13 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Node Type
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Template
                   </label>
                   <div class="col-md-9 col-sm-9 col-xs-12">
-                    <select class="form-control" id="new_node_trigger_select">
-                      <option value="1">Email</option>
-                      <option value="2">Trigger</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Trigger
-                  </label>
-                  <div class="col-md-9 col-sm-9 col-xs-12">
-                    <select class="form-control" id="new_node_trigger_select">
-                      <option value="">Select A Trigger To Add...</option>
-                      <% @triggers.each do |trigger| %>
-                          <option value="<%= trigger.id %>"><%= trigger.name %></option>
+                    <select class="form-control" id="new_node_email_template_select">
+                      <option value="">Select An Email Template To Add...</option>
+                      <% @app.email_templates.each do |template| %>
+                          <option value="<%= template.id %>"><%= template.name %></option>
                       <% end %>
                     </select>
                   </div>
@@ -164,7 +139,7 @@
                 <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Delay Time</label>
                   <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input type="number" class="form-control"  placeholder="Delay Time"/>
+                    <input id="new_node_delay_time_input" type="number" class="form-control"  placeholder="Delay Time"/>
                   </div>
                 </div>
 
@@ -195,8 +170,9 @@
           </div>
 
             <div class="modal-body">
-
               <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+
+                <!-- START NODE GENERAL INFO -->
                 <div class="panel">
                   <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     <h4 class="panel-title">General Info</h4>
@@ -206,38 +182,29 @@
                       <table class="table table-striped">
                         <tbody>
                         <tr>
+                          <th scope="row">Funnel Name:</th>
+                          <td id="view_node_funnel_name"><%= @funnel.name %></td>
+                        </tr>
+                        <tr>
                           <th scope="row">Node Name:</th>
-                          <td>Add Product</td>
+                          <td id="view_node_name">Loading...</td>
                         </tr>
                         <tr>
-                          <th scope="row">Trigger Name:</th>
-                          <td>Trigger 1</td>
+                          <th scope="row">Email Template:</th>
+                          <td id="view_node_email_template_name">Loading...</td>
                         </tr>
                         <tr>
-                          <th scope="row">Trigger Description</th>
-                          <td>When product is added to cart, this trigger is hit and a welcome email message will be sent 4 hours later.</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Hook</th>
-                          <td>Cart / Create</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Email List</th>
-                          <td>Added Product 1 to Cart Email List</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Email Subject</th>
-                          <td>Welcome</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Email Content</th>
-                          <td>We see that you recently added a product to your cart from our store. Complete your order now!</td>
+                          <th scope="row">Delay Time:</th>
+                          <td id="view_node_delay_time">Loading...</td>
                         </tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
+                <!-- END NODE GENERAL INFO -->
+
+                <!-- START NODE STATISTICS -->
                 <div class="panel">
                   <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     <h4 class="panel-title">Statistics</h4>
@@ -247,26 +214,68 @@
                       <table class="table table-striped">
                         <tbody>
                         <tr>
-                          <th scope="row">Total Hits:</th>
-                          <td>1234</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Total Unique Hits:</th>
-                          <td>987</td>
-                        </tr>
-                        <tr>
                           <th scope="row">Total Emails:</th>
-                          <td>1075</td>
+                          <td id="view_node_total_emails">Loading...</td>
                         </tr>
                         <tr>
-                          <th scope="row">Total Emails Sent:</th>
-                          <td>576</td>
+                          <th scope="row">Emails Sent:</th>
+                          <td id="view_node_emails_sent">Loading...</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Emails Opened:</th>
+                          <td id="view_node_emails_opened">Loading...</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Emails Clicked:</th>
+                          <td id="view_node_emails_clicked">Loading...</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total Revenue:</th>
+                          <td id="view_node_total_revenue">Loading...</td>
                         </tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
+                <!-- END NODE STATISTICS -->
+
+                <!-- START NODE EMAIL SETTINGS -->
+                <div class="panel">
+                  <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <h4 class="panel-title">Email Settings</h4>
+                  </a>
+                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
+                    <div class="panel-body">
+                      <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                          <th scope="row">Total Emails:</th>
+                          <td id="view_node_total_emails">Loading...</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Emails Sent:</th>
+                          <td id="view_node_emails_sent">Loading...</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Emails Opened:</th>
+                          <td id="view_node_emails_opened">Loading...</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Emails Clicked:</th>
+                          <td id="view_node_emails_clicked">Loading...</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total Revenue:</th>
+                          <td id="view_node_total_revenue">Loading...</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- END NODE EMAIL SETTINGS -->
+
               </div>
 
             </div>

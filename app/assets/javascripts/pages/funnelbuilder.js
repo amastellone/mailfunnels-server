@@ -20,12 +20,13 @@ $(function() {
     /* --- BUTTONS --- */
     var new_node_button = $('#create_button'); //Create New Job Button
     var delete_selected_button = $('#delete_selected_button'); //Campaign Job Delete Button
-    var edit_selected_job_button = $('#edit_selected_button'); //Campaign Job Edit Button
+    var view_selected_node_button = $('#view_selected_button'); //Campaign Job Edit Button
     var submit_new_node_button = $('#new_node_submit_button'); //Add Node Form Submit Button
 
     /* --- FORM INPUTS --- */
     var new_node_label = $('#new_node_label_input');
-    var new_node_trigger = $('#new_node_trigger_select');
+    var new_node_email_template_select = $('#new_node_email_template_select');
+    var new_node_delay_time_input = $('#new_node_delay_time_input');
 
     /* --- MODALS --- */
     var create_new_node_modal = $('#modal_node_create'); //New Job Modal
@@ -50,7 +51,8 @@ $(function() {
     submit_new_node_button.click(function() {
 
         var label = new_node_label.val();
-        var trigger_id = new_node_trigger.val();
+        var email_template_id = new_node_email_template_select.val();
+        var delay_time = new_node_delay_time_input.val();
 
         $.ajax({
             type:'POST',
@@ -58,7 +60,8 @@ $(function() {
             dataType: "json",
             data: {
                 funnel_id: funnel_id,
-                trigger_id: trigger_id,
+                email_template_id: email_template_id,
+                delay_time: delay_time,
                 name: label,
                 authenticity_token: csrf_token
             },
@@ -98,7 +101,11 @@ $(function() {
     });
 
 
-    edit_selected_job_button.click(function() {
+    view_selected_node_button.click(function() {
+
+        var node_id = $(this).data('node');
+
+        alert(node_id);
 
         view_node_modal.modal('toggle');
 
@@ -251,15 +258,16 @@ $(function() {
             return;
         }
 
-        //Otherwise, show the delete and edit button
+        //Otherwise, show the delete and edit button and change edit button data-node
         delete_selected_button.show();
-        edit_selected_job_button.show();
+        view_selected_node_button.attr('data-node', operatorID);
+        view_selected_node_button.show();
 
     }
 
     function hideButtons() {
         delete_selected_button.hide();
-        edit_selected_job_button.hide();
+        view_selected_node_button.hide();
     }
 
 
