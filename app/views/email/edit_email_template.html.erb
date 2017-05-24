@@ -12,7 +12,7 @@
         });
     </script>
 
-    <%= javascript_include_tag 'pages/emailtemplates.js' %>
+    <%= javascript_include_tag 'pages/editemailtemplate.js' %>
     <%= stylesheet_link_tag 'EmailTemplate/editEmail.css' %>
 
 
@@ -26,29 +26,18 @@
             <fieldset>
 
               <legend> Edit Email</legend>
-              <input type="text" name="field1" placeholder="Email Title">
-              <textarea name="field2" placeholder="Email Content"></textarea>
+              <input id="emailTitleInput" type="text" name="field1" placeholder="Email Title">
+              <textarea id="emailContentInput" name="field2" placeholder="Email Content"></textarea>
 
-              <h2>Add Button to your email?</h2>
 
-              <ul>
-                <li>
-                  <input type="radio" id="f-option" name="selector">
-                  <label for="f-option">Yes</label>
+              <select id ="addButtonDropDown">
+                <option value='0'>No</option>
+                <option value='1'>Yes</option>
 
-                  <div class="check"></div>
-                </li>
+              </select>
 
-                <li>
-                  <input type="radio" id="s-option" name="selector">
-                  <label for="s-option">No</label>
-
-                  <div class="check"><div class="inside"></div></div>
-                </li>
-              </ul>
-
-              <input type="text" name="field3" placeholder="Button Text">
-              <input type="text" name="field4" placeholder="Button Url">
+              <input id="buttonTextInput" type="text" name="field3" placeholder="Button Text">
+              <input id="buttonUrlInput" type="text" name="field4" placeholder="Button Url">
 
             </fieldset>
 
@@ -58,95 +47,81 @@
 
       </div>
 
+      <div class="col-xs-6">
+        <div class="emailcontent">
+
+          <table class="body-wrap">
+            <tr>
+              <td class="container">
+
+
+                <table>
+                  <tr>
+                    <td align="center" class="masthead">
+
+                      <h1 id="printEmailTitle"></h1>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="content">
+
+                      <h2>Hi {{ customer.first_name + customer.last_name }},</h2>
+
+                      <p id="printEmailContent"></p>
+
+
+                      <div id="emailViewButtonFields" class="hidden">
+                      <table>
+                        <tr>
+                          <td align="center">
+                            <p>
+                              <a href="#" class="button" id="printButtonText"></a>
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                      </div>
+
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
 
 
 
+              </td>
+            </tr>
+            <tr>
+              <td class="container">
 
 
+                <!--Need to include unsubscribe link-->
+                <table>
+                  <tr>
+                    <td class="content footer" align="center">
+                      <p><a href= "#">Unsubscribe</a></p>
+                    </td>
+                  </tr>
+                </table>
 
-
-    <!--Start EmailView Div-->
-    <div class="cos-xs-6">
-
-
-      <div class="hidden">
-        <input id="current_app_id" type="number" value="<%= @app.id %>"/>
-      </div>
-
-
-      <div class="page-title email_info">
-        <div class="title_left">
-          <h3><small><%= @template.name %></small></h3>
+              </td>
+            </tr>
+          </table>
 
         </div>
 
-
-
-        <hr/>
-        <div class="clearfix"></div>
       </div>
 
-      <!-- Message start -->
-      <div class="row emailcontent">
-
-        <table class="body-wrap">
-          <tr>
-            <td class="container">
 
 
-              <table>
-                <tr>
-                  <td align="center" class="masthead">
-
-                    <h1 id="emailHeader"><%= @template.email_subject %></h1>
-
-                  </td>
-                </tr>
-                <tr>
-                  <td class="content">
-
-                    <h2>Hi {{ customer.first_name + customer.last_name }},</h2>
-
-                    <p> <%= @template.email_content %></p>
-
-                    <table>
-                      <tr>
-                        <td align="center">
-                          <p>
-                            <a href="<%= @template.button_url %>" class="button"> <%= @template.button_text %> </a>
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-
-            </td>
-          </tr>
-          <tr>
-            <td class="container">
 
 
-              <!--Need to include unsubscribe link-->
-              <table>
-                <tr>
-                  <td class="content footer" align="center">
-                    <p><a href= "#">Unsubscribe</a></p>
-                  </td>
-                </tr>
-              </table>
-
-            </td>
-          </tr>
-        </table>
-
-      </div>
-
-      <!--End ViewEmail Div-->
     </div>
 
 
+    </div>
     </div>
 
 
