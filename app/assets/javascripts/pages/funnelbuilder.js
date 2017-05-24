@@ -32,6 +32,17 @@ $(function() {
     var create_new_node_modal = $('#modal_node_create'); //New Job Modal
     var view_node_modal = $('#view_node_modal');
 
+    /* --- VIEW INFO MODAL COMPONENTS --- */
+    var node_view_name = $('#view_node_name');
+    var node_view_email_template_name = $('#view_node_email_template_name');
+    var node_view_delay_time = $('#view_node_delay_time');
+    var node_view_total_emails = $('#view_node_total_emails');
+    var node_view_emails_sent = $('#view_node_emails_sent');
+    var node_view_emails_opened = $('#view_node_emails_opened');
+    var node_view_emails_clicked = $('#view_node_emails_clicked');
+    var node_view_total_revenue = $('#view_node_total_revenue');
+    var node_view_email_settings_template = $('#view_node_email_settings_template');
+
 
     /* --- DYNAMIC VALUES --- */
     var isLoading = false;
@@ -103,9 +114,33 @@ $(function() {
 
     view_selected_node_button.click(function() {
 
-        var node_id = $(this).data('node');
+        var node_id = funnel_builder.flowchart('getSelectedOperatorId');
 
-        alert(node_id);
+        $.ajax({
+            type:'POST',
+            url: '/ajax_load_node_info',
+            dataType: "json",
+            data: {
+                node_id: node_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                node_view_name.html(response.node_name);
+                node_view_email_template_name.html(response.email_template_name);
+                node_view_delay_time.html(response.node_delay_time);
+                node_view_total_emails.html(response.node_total_emails);
+                node_view_emails_sent.html(response.node_emails_sent);
+                node_view_emails_opened.html(response.node_emails_opened);
+                node_view_emails_clicked.html(response.node_emails_clicked);
+                node_view_total_revenue.html(response.node_total_revenue);
+                node_view_email_settings_template.html(response.email_template_name);
+                console.log(response);
+            }
+        });
+
 
         view_node_modal.modal('toggle');
 
@@ -254,13 +289,14 @@ $(function() {
      */
     function showButtons(operatorID) {
 
-        if (operatorID === 'startNode') {
+        if (operatorID === '0') {
+            delete_selected_button.hide();
+            view_selected_node_button.hide();
             return;
         }
 
         //Otherwise, show the delete and edit button and change edit button data-node
         delete_selected_button.show();
-        view_selected_node_button.attr('data-node', operatorID);
         view_selected_node_button.show();
 
     }

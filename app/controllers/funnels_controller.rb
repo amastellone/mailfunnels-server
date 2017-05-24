@@ -305,6 +305,42 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Returns a JSON array of all info for the node
+  # used for the view node info modal
+  #
+  # PARAMETERS
+  # ----------
+  # node_id: ID of the node we are getting info for
+  #
+  #
+  def ajax_load_node_info
+
+    # Get the Node from the DB
+    node = Node.find(params[:node_id])
+
+    # Populate data Hash with node info
+    data = {
+        :node_id => node.id,
+        :node_name => node.name,
+        :node_delay_time => node.delay_time,
+        :node_total_emails => node.num_emails,
+        :node_emails_sent => node.num_emails_sent,
+        :node_emails_opened => 0,
+        :node_emails_clicked => 0,
+        :node_total_revenue => node.num_revenue,
+        :email_template_id => node.email_template_id,
+        :email_template_name => node.email_template.name,
+    }
+
+
+    # Return data as JSON
+    render json: data
+
+  end
+
+
 
 
 
