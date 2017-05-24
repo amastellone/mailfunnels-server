@@ -106,6 +106,8 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     node.num_emails = 0
     node.num_emails_sent = 0
     node.num_revenue = 0.0
+    node.num_emails_opened = 0
+    node.num_emails_clicked = 0
 
 
 
@@ -143,15 +145,15 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
     # Update the fields of Link Instance
     link.funnel_id = params[:funnel_id]
-    link.tni = params[:to_operator_id].to_i
+    link.from_node_id = params[:to_operator_id].to_i
 
     if params[:from_operator_id].to_i === 0
       # If the link starts at the start node, set slink to 1
-      link.slink = 1
+      link.start_link = 1
     else
       # Otherwise, set slink to 0 (false) and set from_operator_id
-      link.slink = 0
-      link.fni = params[:from_operator_id].to_i
+      link.start_link = 0
+      link.from_node_id = params[:from_operator_id].to_i
     end
 
     # Save and verify Link and return correct JSON response
@@ -238,10 +240,10 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # For every Link for the funnel, create a flowchart link with its fields
     @links.each do |link|
 
-      if link.slink === 1
+      if link.start_link === 1
         fromNode = 0
       else
-        fromNode = link.fni
+        fromNode = link.from_node_id
       end
 
       links[link.id] =
@@ -249,7 +251,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
               :fromConnector => 'output_1',
               :toConnector => 'input_1',
               :fromOperator => fromNode,
-              :toOperator => link.tni,
+              :toOperator => link.to_node_id,
           }
     end
 
@@ -327,8 +329,8 @@ class FunnelsController < ShopifyApp::AuthenticatedController
         :node_delay_time => node.delay_time,
         :node_total_emails => node.num_emails,
         :node_emails_sent => node.num_emails_sent,
-        :node_emails_opened => 0,
-        :node_emails_clicked => 0,
+        :node_emails_opened => node.num_emails_clicked,
+        :node_emails_clicked => node.num_emails_opened,
         :node_total_revenue => node.num_revenue,
         :email_template_id => node.email_template_id,
         :email_template_name => node.email_template.name,

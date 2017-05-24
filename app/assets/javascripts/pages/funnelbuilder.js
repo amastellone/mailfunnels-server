@@ -108,6 +108,15 @@ $(function() {
     });
 
     delete_selected_button.click(function() {
+
+        var node_id = funnel_builder.flowchart('getSelectedOperatorId');
+
+        if (node_id === '0') {
+            alert("Cannot Delete Start Node!");
+            return;
+        }
+
+
         funnel_builder.flowchart('deleteSelected');
     });
 
