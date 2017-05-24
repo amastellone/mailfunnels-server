@@ -86,6 +86,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   #
   # PARAMETERS
   # ----------
+  # app_id: ID of the current App
   # funnel_id: ID of the funnel the node is being added on
   # name: Name of the Node
   # email_template_id: ID of the trigger the node is related to
@@ -97,6 +98,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     node = Node.new
 
     # Update the fields of Node Instance
+    node.app_id = params[:app_id]
     node.funnel_id = params[:funnel_id]
     node.email_template_id = params[:email_template_id]
     node.name = params[:name]

@@ -12,6 +12,7 @@ $(function() {
     var csrf_token = $('meta[name=csrf-token]').attr('content');
 
     /* --- APP VALUES --- */
+    var app_id = $('#current_app_id').val();
     var funnel_id = $('#current_funnel_id').val();
 
     /* --- FUNNEL BUILDER COMPONENTS --- */
@@ -70,6 +71,7 @@ $(function() {
             url: '/ajax_add_new_node',
             dataType: "json",
             data: {
+                app_id: app_id,
                 funnel_id: funnel_id,
                 email_template_id: email_template_id,
                 delay_time: delay_time,
