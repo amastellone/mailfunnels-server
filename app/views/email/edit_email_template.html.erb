@@ -1,0 +1,158 @@
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+            function goBack() {
+                window.history.back();
+            }
+        });
+    </script>
+
+    <%= javascript_include_tag 'pages/emailtemplates.js' %>
+    <%= stylesheet_link_tag 'EmailTemplate/editEmail.css' %>
+
+
+    <div class="row">
+
+      <!--Start EmailEdit div-->
+      <div class="col-xs-6">
+
+        <div class="form-style-5">
+          <form>
+            <fieldset>
+
+              <legend> Edit Email</legend>
+              <input type="text" name="field1" placeholder="Email Title">
+              <textarea name="field2" placeholder="Email Content"></textarea>
+
+              <h2>Add Button to your email?</h2>
+
+              <ul>
+                <li>
+                  <input type="radio" id="f-option" name="selector">
+                  <label for="f-option">Yes</label>
+
+                  <div class="check"></div>
+                </li>
+
+                <li>
+                  <input type="radio" id="s-option" name="selector">
+                  <label for="s-option">No</label>
+
+                  <div class="check"><div class="inside"></div></div>
+                </li>
+              </ul>
+
+              <input type="text" name="field3" placeholder="Button Text">
+              <input type="text" name="field4" placeholder="Button Url">
+
+            </fieldset>
+
+            <input type="submit" value="Save" />
+          </form>
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+
+    <!--Start EmailView Div-->
+    <div class="cos-xs-6">
+
+
+      <div class="hidden">
+        <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+      </div>
+
+
+      <div class="page-title email_info">
+        <div class="title_left">
+          <h3><small><%= @template.name %></small></h3>
+
+        </div>
+
+
+
+        <hr/>
+        <div class="clearfix"></div>
+      </div>
+
+      <!-- Message start -->
+      <div class="row emailcontent">
+
+        <table class="body-wrap">
+          <tr>
+            <td class="container">
+
+
+              <table>
+                <tr>
+                  <td align="center" class="masthead">
+
+                    <h1 id="emailHeader"><%= @template.email_subject %></h1>
+
+                  </td>
+                </tr>
+                <tr>
+                  <td class="content">
+
+                    <h2>Hi {{ customer.first_name + customer.last_name }},</h2>
+
+                    <p> <%= @template.email_content %></p>
+
+                    <table>
+                      <tr>
+                        <td align="center">
+                          <p>
+                            <a href="<%= @template.button_url %>" class="button"> <%= @template.button_text %> </a>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+          <tr>
+            <td class="container">
+
+
+              <!--Need to include unsubscribe link-->
+              <table>
+                <tr>
+                  <td class="content footer" align="center">
+                    <p><a href= "#">Unsubscribe</a></p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+      <!--End ViewEmail Div-->
+    </div>
+
+
+    </div>
+
+
+
+
+
+
+
+<% end %>

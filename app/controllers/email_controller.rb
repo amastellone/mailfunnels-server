@@ -1,7 +1,7 @@
 class EmailController < ShopifyApp::AuthenticatedController
-	before_action :set_list_id, only: [:emails]
-	before_action :set_email_list, only: [:editlist, :updatelist, :destroylist]
-	protect_from_forgery with: :null_session
+  before_action :set_list_id, only: [:emails]
+  before_action :set_email_list, only: [:editlist, :updatelist, :destroylist]
+  protect_from_forgery with: :null_session
 
 
   # Page Render Function
@@ -9,10 +9,10 @@ class EmailController < ShopifyApp::AuthenticatedController
   # Renders the Email Lists Page which displays
   # card view of all Email Lists
   #
-	def lists
+  def lists
 
-		@app  = MailfunnelsUtil.get_app
-		@list = EmailList.where(app_id: @app.id)
+    @app  = MailfunnelsUtil.get_app
+    @list = EmailList.where(app_id: @app.id)
 
   end
 
@@ -99,20 +99,45 @@ class EmailController < ShopifyApp::AuthenticatedController
 
 
 
+  # Page Render Function
+  # --------------------
+  # Renders the edit template page
+  #
+  #
+  # Parameters
+  # ----------
+  # template_id : ID of the EmailTemplate we are editing
+  #
 
-	private
-	# Use callbacks to share common setup or constraints between actions.
-	def set_list_id
-		@list = EmailList.find(params[:list_id])
-	end
+  def edit_email_template
 
-	# Use callbacks to share common setup or constraints between actions.
-	def set_email_list
-		@email_list = EmailList.find(params[:id])
-	end
 
-	# Never trust parameters from the scary internet, only allow the white list through.
-	def email_list_params
-		params.require(:email_list).permit(:name, :description, :app_id)
-	end
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the EmailTemplate We want to View
+    @template = EmailTemplate.find(params[:template_id])
+
+
+
+  end
+
+
+
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_list_id
+    @list = EmailList.find(params[:list_id])
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_email_list
+    @email_list = EmailList.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def email_list_params
+    params.require(:email_list).permit(:name, :description, :app_id)
+  end
 end
