@@ -285,7 +285,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   def ajax_save_node
 
     # Get the Node from the DB
-    node = Node.where(id: params[:node_id]).first
+    node = Node.find(params[:node_id])
 
     # Update the Node
     node.top = params[:top]
