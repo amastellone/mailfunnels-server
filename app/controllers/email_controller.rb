@@ -59,6 +59,8 @@ class EmailController < ShopifyApp::AuthenticatedController
 
 
 
+
+
     # Save and verify Funnel and return correct JSON response
     if template.save!
       final_json = JSON.pretty_generate(result = {
@@ -72,6 +74,51 @@ class EmailController < ShopifyApp::AuthenticatedController
 
     # Return JSON response
     render json: final_json
+  end
+
+
+  # USED WITH AJAX
+  # Updates a EmailTemplate Instance
+  #
+  # PARAMETERS
+  # ------------
+  # app_id: ID of the current app being used
+  # email_subject: Subject/Title of email
+  # email_content: Content/Body text of email
+  # button: Button boolean to add button to email
+  # button_text: Text displayed on button
+  # button_url: URL that button is linked to
+  #
+  def ajax_update_email_template
+
+    # Access current template being edited
+    template = EmailTemplate.find(params[:template_id])
+
+
+    template.app_id = params[:app_id]
+    template.email_subject = params[:email_subject]
+    template.email_content = params[:email_content]
+    template.button = params[:button]
+    template.button_text = params[:button_text]
+    template.button_url = params[:button_url]
+
+
+
+    # Save and verify Funnel and return correct JSON response
+    if template.save!
+      final_json = JSON.pretty_generate(result = {
+          :success => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          :success => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+
+
   end
 
 

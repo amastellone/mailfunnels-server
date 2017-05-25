@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/edit_email_template/:template_id', to: 'email#edit_email_template'
   get '/view_email', to: 'email#view_email'
   post '/ajax_create_email_template' => 'email#ajax_create_email_template'
+  post 'ajax_update_email_template' => 'email#ajax_update_email_template'
 
 
   # Email Controller
