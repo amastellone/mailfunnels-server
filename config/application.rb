@@ -11,6 +11,9 @@ Dotenv::Railtie.load
 module MailFunnelClient
 	class Application < Rails::Application
 
+		config.shopify_api_key        = ENV['APP_KEY']
+		config.shopify_shared_secret  = ENV['APP_SECRET']
+
 		config.web_console.whitelisted_ips = '173.167.129.37'
 		#config.web_console.whitelisted_ips = '173.170.66.40'
 
