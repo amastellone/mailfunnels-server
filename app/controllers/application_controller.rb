@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   API_KEY = "caa193ae7beecf2475567f5b2c8bef72"
-  API_SECRET = "0622e20a492275f6e4f2b23b9a139000"
+  API_SECRET = "1218992a24b8424147c49b6d3ea5b0a8"
   APP_URL = "a55bda40.ngrok.io"
 
 
@@ -28,19 +28,19 @@ class ApplicationController < ActionController::Base
   #
   # Called after the login page form is submitted
   #
-  def mailfunnels_install
-
-    shop = request.params['shop']
-    scopes = "read_orders,read_products,write_products"
-
-    # construct the installation URL and redirect the merchant
-    install_url = "http://#{shop}/admin/oauth/authorize?client_id=#{API_KEY}"\
-                "&scope=#{scopes}&redirect_uri=https://#{APP_URL}/mailfunnels_auth"
-
-    # redirect to the install_url
-    redirect_to install_url
-
-  end
+  # def mailfunnels_install
+  #
+  #   shop = request.params['shop']
+  #   scopes = "read_orders,read_products,write_products"
+  #
+  #   # construct the installation URL and redirect the merchant
+  #   install_url = "http://#{shop}/admin/oauth/authorize?client_id=#{API_KEY}"\
+  #               "&scope=#{scopes}&redirect_uri=https://#{APP_URL}/mailfunnels_auth"
+  #
+  #   # redirect to the install_url
+  #   redirect_to install_url
+  #
+  # end
 
 
 
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
     create_order_webhook
 
     # now that the session is activated, redirect to the bulk edit page
-    redirect_to "https://#{APP_URL}/order_create_webhook"
+    redirect_to "https://#{APP_URL}/lists"
 
 
       # begin
@@ -82,7 +82,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-  private
   def order_create_webhook
     # inspect hmac value in header and verify webhook
     hmac = request.env['HTTP_X_SHOPIFY_HMAC_SHA256']
@@ -132,6 +131,7 @@ class ApplicationController < ActionController::Base
   end
 
 
+  private
   def get_shop_access_token(shop,client_id,client_secret,code)
     if @tokens[shop].nil?
       url = "https://#{shop}/admin/oauth/access_token"

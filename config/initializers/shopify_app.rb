@@ -1,6 +1,6 @@
 ShopifyApp.configure do |config|
 
-  config.application_name = ENV['APP_NAME']
+  config.application_name = "kjhdkjsh"
   config.api_key = ENV['APP_KEY']
   config.secret = ENV['APP_SECRET']
 
