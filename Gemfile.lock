@@ -128,6 +128,8 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    httparty (0.15.5)
+      multi_xml (>= 0.5.2)
     i18n (0.8.1)
     its-it (1.3.0)
     jbuilder (2.6.4)
@@ -151,9 +153,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.5)
       mime-types (>= 1.16, < 4)
-    meta_request (0.4.2)
+    meta_request (0.4.3)
       callsite (~> 0.0, >= 0.0.11)
-      rack-contrib (~> 1.1)
+      rack-contrib (>= 1.1, < 3)
       railties (>= 3.0.0, < 5.2.0)
     method_source (0.8.2)
     mime-types (3.1)
@@ -334,7 +336,7 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    xpath (2.0.0)
+    xpath (2.1.0)
       nokogiri (~> 1.3)
     yaml_db (0.6.0)
       rails (>= 3.0, < 5.2)
@@ -365,6 +367,7 @@ DEPENDENCIES
   hash_dot
   htmlentities
   http-cookie
+  httparty
   jbuilder (~> 2.5)
   jquery-rails
   json

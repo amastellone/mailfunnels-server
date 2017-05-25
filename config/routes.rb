@@ -2,6 +2,13 @@ Rails.application.routes.draw do
   # Main
   root :to => 'main_interface#index'
 
+  # MailFunnels Install Route
+  get '/mailfunnels_install' => 'application#mailfunnels_install'
+  get '/mailfunnels_auth' => 'application#mailfunnels_auth'
+
+  # MailFunnels Webhook Routes
+  post '/order_create_webhook' => 'application#order_create_webhook'
+
   # Funnel Page Render Routes
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'
