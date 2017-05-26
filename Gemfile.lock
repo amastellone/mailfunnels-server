@@ -1,0 +1,405 @@
+GIT
+  remote: git://github.com/rails/activeresource.git
+  revision: 3cb045d1bea4c0e3a80a55171eca85abd88bef8b
+  specs:
+    activeresource (5.0.0)
+      activemodel (>= 5.0, < 6)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (>= 5.0, < 6)
+
+GIT
+  remote: git://github.com/rspec/rspec-core.git
+  revision: edc7ce29f10d9d7af54ca743d76125ce130e11c4
+  branch: master
+  specs:
+    rspec-core (3.7.0.pre)
+      rspec-support (= 3.7.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-expectations.git
+  revision: 8516bdc7a4ee42d5f3669753a6b31a7fed01c576
+  branch: master
+  specs:
+    rspec-expectations (3.7.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.7.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-mocks.git
+  revision: cd7adc9fe1c418c2fe04d32f0961c615333af7aa
+  branch: master
+  specs:
+    rspec-mocks (3.7.0.pre)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (= 3.7.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-rails.git
+  revision: 1dfde725560a0d5a177b85042837bb1138d0cead
+  branch: master
+  specs:
+    rspec-rails (3.7.0.pre)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (= 3.7.0.pre)
+      rspec-expectations (= 3.7.0.pre)
+      rspec-mocks (= 3.7.0.pre)
+      rspec-support (= 3.7.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec-support.git
+  revision: a9a4b09e341611107d2c87a5fa7d53c5a6155e71
+  branch: master
+  specs:
+    rspec-support (3.7.0.pre)
+
+GIT
+  remote: git://github.com/rspec/rspec.git
+  revision: dcb407aa8b072c8c1cb612e1eeb99b9b754fa115
+  branch: master
+  specs:
+    rspec (3.7.0.pre)
+      rspec-core (= 3.7.0.pre)
+      rspec-expectations (= 3.7.0.pre)
+      rspec-mocks (= 3.7.0.pre)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actioncable (5.0.3)
+      actionpack (= 5.0.3)
+      nio4r (>= 1.2, < 3.0)
+      websocket-driver (~> 0.6.1)
+    actionmailer (5.0.3)
+      actionpack (= 5.0.3)
+      actionview (= 5.0.3)
+      activejob (= 5.0.3)
+      mail (~> 2.5, >= 2.5.4)
+      rails-dom-testing (~> 2.0)
+    actionpack (5.0.3)
+      actionview (= 5.0.3)
+      activesupport (= 5.0.3)
+      rack (~> 2.0)
+      rack-test (~> 0.6.3)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview (5.0.3)
+      activesupport (= 5.0.3)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.10.6)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.2)
+    activejob (5.0.3)
+      activesupport (= 5.0.3)
+      globalid (>= 0.3.6)
+    activemodel (5.0.3)
+      activesupport (= 5.0.3)
+    activemodel-serializers-xml (1.0.1)
+      activemodel (> 5.x)
+      activerecord (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
+    activerecord (5.0.3)
+      activemodel (= 5.0.3)
+      activesupport (= 5.0.3)
+      arel (~> 7.0)
+    activesupport (5.0.3)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    addressable (2.5.1)
+      public_suffix (~> 2.0, >= 2.0.2)
+    arel (7.1.4)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    bcrypt (3.1.11)
+    builder (3.2.3)
+    byebug (9.0.6)
+    callsite (0.0.11)
+    case_transform (0.2)
+      activesupport
+    coderay (1.1.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    concurrent-ruby (1.0.5)
+    connection_pool (2.2.1)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    diff-lcs (1.3)
+    docile (1.1.5)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
+    equalizer (0.0.11)
+    erubis (2.7.0)
+    factory_girl (4.8.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
+      railties (>= 3.0.0)
+    faker (1.7.3)
+      i18n (~> 0.5)
+    ffi (1.9.18)
+    foreman (0.84.0)
+      thor (~> 0.19.1)
+    globalid (0.4.0)
+      activesupport (>= 4.2.0)
+    grape (0.19.2)
+      activesupport
+      builder
+      hashie (>= 2.1.0)
+      multi_json (>= 1.3.2)
+      multi_xml (>= 0.5.2)
+      mustermann-grape (~> 1.0.0)
+      rack (>= 1.3.0)
+      rack-accept
+      virtus (>= 1.0.0)
+    hashie (3.5.5)
+    hashie-forbidden_attributes (0.1.1)
+      hashie (>= 3.0)
+    honeybadger (2.7.2)
+    http (2.2.2)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (1.0.3)
+    http_parser.rb (0.6.0)
+    httparty (0.15.5)
+      multi_xml (>= 0.5.2)
+    i18n (0.8.1)
+    ice_nine (0.11.2)
+    its-it (1.3.0)
+    json (2.1.0)
+    jsonapi-renderer (0.1.2)
+    jwt (1.5.6)
+    key_struct (0.4.2)
+    listen (3.0.8)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+    loofah (2.0.3)
+      nokogiri (>= 1.5.9)
+    mail (2.6.5)
+      mime-types (>= 1.16, < 4)
+    meta_request (0.4.3)
+      callsite (~> 0.0, >= 0.0.11)
+      rack-contrib (>= 1.1, < 3)
+      railties (>= 3.0.0, < 5.2.0)
+    method_source (0.8.2)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
+    mini_portile2 (2.1.0)
+    minitest (5.10.2)
+    modware (0.1.3)
+      key_struct (~> 0.4)
+    multi_json (1.12.1)
+    multi_xml (0.6.0)
+    mustermann (1.0.0)
+    mustermann-grape (1.0.0)
+      mustermann (~> 1.0.0)
+    nio4r (2.0.0)
+    nokogiri (1.7.2)
+      mini_portile2 (~> 2.1.0)
+    omniauth (1.6.1)
+      hashie (>= 3.4.6, < 3.6.0)
+      rack (>= 1.6.2, < 3)
+    pg (0.20.0)
+    postmark (1.10.0)
+      json
+      rake
+    postmark-rails (0.15.0)
+      actionmailer (>= 3.0.0)
+      postmark (~> 1.10.0)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
+    public_suffix (2.0.5)
+    puma (3.8.2)
+    rack (2.0.3)
+    rack-accept (0.4.5)
+      rack (>= 0.4)
+    rack-contrib (1.2.0)
+      rack (>= 0.9.1)
+    rack-cors (0.4.1)
+    rack-jwt (0.3.0)
+      jwt (~> 1.5.2)
+      rack (>= 1.6.0)
+    rack-protection (2.0.0)
+      rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rails (5.0.3)
+      actioncable (= 5.0.3)
+      actionmailer (= 5.0.3)
+      actionpack (= 5.0.3)
+      actionview (= 5.0.3)
+      activejob (= 5.0.3)
+      activemodel (= 5.0.3)
+      activerecord (= 5.0.3)
+      activesupport (= 5.0.3)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 5.0.3)
+      sprockets-rails (>= 2.0.0)
+    rails-dom-testing (2.0.3)
+      activesupport (>= 4.2.0)
+      nokogiri (>= 1.6)
+    rails-html-sanitizer (1.0.3)
+      loofah (~> 2.0)
+    railties (5.0.3)
+      actionpack (= 5.0.3)
+      activesupport (= 5.0.3)
+      method_source
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
+    rake (12.0.0)
+    rb-fsevent (0.9.8)
+    rb-inotify (0.9.8)
+      ffi (>= 0.5.0)
+    redis (3.3.3)
+    rollbar (2.14.1)
+      multi_json
+    schema_auto_foreign_keys (0.1.3)
+      its-it (~> 1.2)
+      schema_plus_foreign_keys (~> 0.1)
+      schema_plus_indexes (~> 0.2)
+    schema_monkey (2.1.5)
+      activerecord (>= 4.2)
+      modware (~> 0.1)
+    schema_plus_compatibility (0.2.0)
+      activerecord (>= 4.2, < 5.1)
+      schema_monkey (~> 2.1)
+    schema_plus_core (2.0.1)
+      activerecord (~> 5.0)
+      its-it (~> 1.2)
+      schema_monkey (~> 2.1)
+    schema_plus_foreign_keys (0.1.7)
+      activerecord (>= 4.2, < 5.1)
+      its-it (~> 1.2)
+      schema_plus_compatibility (~> 0.2)
+      schema_plus_core
+      valuable
+    schema_plus_indexes (0.2.4)
+      activerecord (>= 4.2, < 5.1)
+      its-it (~> 1.2)
+      schema_plus_core
+    scout_apm (2.1.24)
+    shopify_api (4.8.0)
+      activeresource (>= 3.0.0)
+      rack
+    sidekiq (5.0.0)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (~> 3.3, >= 3.3.3)
+    sidekiq-status (0.6.0)
+      sidekiq (>= 2.7)
+    simplecov (0.14.1)
+      docile (~> 1.1.0)
+      json (>= 1.8, < 3)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.1)
+    slop (3.6.0)
+    spring (2.0.2)
+      activesupport (>= 4.2)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
+    spring-watcher-listen (2.0.1)
+      listen (>= 2.7, < 4.0)
+      spring (>= 1.2, < 3.0)
+    sprockets (3.7.1)
+      concurrent-ruby (~> 1.0)
+      rack (> 1, < 3)
+    sprockets-rails (3.2.0)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
+    table_print (1.5.6)
+    thor (0.19.4)
+    thread_safe (0.3.6)
+    tzinfo (1.2.3)
+      thread_safe (~> 0.1)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
+    valuable (0.9.13)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
+    websocket-driver (0.6.5)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
+    yaml_db (0.6.0)
+      rails (>= 3.0, < 5.2)
+      rake (>= 0.8.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  active_model_serializers (~> 0.10.0.rc2)
+  activeresource!
+  bcrypt
+  byebug
+  dotenv-rails
+  factory_girl_rails
+  faker
+  foreman
+  grape
+  hashie-forbidden_attributes
+  honeybadger (~> 2.0)
+  http
+  httparty
+  jwt
+  listen (~> 3.0.5)
+  meta_request
+  omniauth
+  pg
+  postmark-rails
+  pry-rails
+  puma (~> 3.0)
+  rack-cors
+  rack-jwt
+  rails (~> 5.0.0, >= 5.0.0.1)
+  redis
+  rollbar
+  rspec!
+  rspec-core!
+  rspec-expectations!
+  rspec-mocks!
+  rspec-rails!
+  rspec-support!
+  schema_auto_foreign_keys
+  scout_apm
+  shopify_api
+  sidekiq
+  sidekiq-status
+  simplecov
+  spring
+  spring-commands-rspec
+  spring-watcher-listen (~> 2.0.0)
+  table_print
+  tzinfo-data
+  yaml_db
+
+BUNDLED WITH
+   1.14.3
