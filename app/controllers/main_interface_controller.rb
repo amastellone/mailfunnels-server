@@ -30,6 +30,27 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
 
+  # Page Render Function
+  # --------------------
+  # Renders the List Subscribers Page which
+  # contains a table of all the subscribers on the
+  # list provided by id in params
+  #
+  # PARAMETERS
+  # ----------
+  # list_id: ID of the list we want to display subscribers for
+  #
+  def list_subscribers
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the current list
+    @list = EmailList.find(params[:list_id])
+
+  end
+
+
   # USED WITH AJAX
   # --------------
   # Creates a new subscriber for the app
