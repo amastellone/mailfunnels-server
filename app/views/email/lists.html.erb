@@ -11,25 +11,37 @@
 
 		<%= javascript_include_tag 'pages/emailList.js' %>
 
+
+    <div class="hidden">
+      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+    </div>
+
 <div class="col-xs-12">
 
-	<div class="page-title">
-		<div class="title_left">
-			<h3>Email Lists</h3>
-		</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="page-title">
+				<div class="title_left">
+          <h3>MailFunnels <small>Email Lists</small></h3>
+				</div>
 
-		<div class="title_right">
-			<button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newEmailTemplateModal"><i class="fa fa-plus"></i> New List</button>
-		</div>
+				<div class="title_right">
+					<button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#new_email_list_modal"><i class="fa fa-plus"></i> New List</button>
+				</div>
 
-		<hr/>
-		<div class="clearfix"></div>
+				<hr/>
+				<div class="clearfix"></div>
+			</div>
+		</div>
 	</div>
+
+	<hr class="fade-2"/>
+
 
 	<!-- Email Lists -->
 	<div class="row">
 
-		<!-- START FUNNEL PANEL -->
+		<!-- START DEFAULT EMAIL LIST PANEL -->
 		<!-- ~~~~~~~~~~~~~~~~~~ -->
 		<div class="col-md-3 col-xs-12 widget widget_tally_box">
 			<div class="x_panel fixed_height_300">
@@ -43,7 +55,7 @@
 
 							</li>
 							<li>
-								<h3>1</h3>
+								<h3><%= @app.subscribers.size %></h3>
 								<span>Subscribers</span>
 							</li>
 							<li>
@@ -52,27 +64,61 @@
 					</div>
 					<br/>
 					<div class="flex">
-						<div class="col-xs-6">
-							<a href="<%= root_url %>all_subscribers" class="btn btn-block btn-primary">View</a>
+						<div class="col-xs-12">
+							<a href="<%= root_url %>all_subscribers" class="btn btn-block btn-border btn-primary">View</a>
 						</div>
 
-						<div class="col-xs-6">
-							<button class="btn btn-block btn-primary">Edit</button>
-						</div>
 					</div>
 
 				</div>
 			</div>
-
-
 		</div>
 		<!-- ~~~~~~~~~~~~~~~~ -->
-		<!-- END FUNNEL PANEL -->
+		<!-- END DEFAULT EMAIL LIST PANEL -->
+
+    <% if @lists.any? %>
+        <% @lists.each do |list| %>
+
+            <!-- START DEFAULT EMAIL LIST PANEL -->
+            <!-- ~~~~~~~~~~~~~~~~~~ -->
+            <div class="col-md-3 col-xs-12 widget widget_tally_box">
+              <div class="x_panel fixed_height_300">
+                <div class="x_content trunc">
+
+                  <h3 class="name"><%= list.name %></h3>
+
+                  <div class="flex">
+                    <ul class="list-inline count2">
+                      <li>
+
+                      </li>
+                      <li>
+                        <h3><%= list.email_list_subscribers.size %></h3>
+                        <span>Subscribers</span>
+                      </li>
+                      <li>
+                      </li>
+                    </ul>
+                  </div>
+                  <br/>
+                  <div class="flex">
+                    <div class="col-xs-12">
+                      <a href="<%= root_url %>all_subscribers" class="btn btn-block btn-border btn-primary">View</a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- ~~~~~~~~~~~~~~~~ -->
+            <!-- END DEFAULT EMAIL LIST PANEL -->
+        <% end %>
+    <% end %>
 
 
 	</div>
 
-	<div id="newEmailTemplateModal" class="modal fade bs-example-modal-sm">
+	<div id="new_email_list_modal" class="modal fade bs-example-modal-sm">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 

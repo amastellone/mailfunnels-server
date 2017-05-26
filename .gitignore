@@ -25,5 +25,3 @@ config/database.yml
 .idea/
 idea*
 idea/*
-
-

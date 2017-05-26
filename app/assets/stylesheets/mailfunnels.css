@@ -15,3 +15,12 @@ hr {
     border-image: linear-gradient(90deg, rgba(135, 206, 235, 0), skyblue 50%, rgba(135, 206, 235, 0) 100%) 0 0 100%;
     border-style: solid;
 }
+
+
+/* --- Text Overflow --- */
+
+.trunc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

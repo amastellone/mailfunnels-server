@@ -8,27 +8,29 @@ $(function(){
     /* --- AUTHENTICATION --- */
     var csrf_token = $('meta[name=csrf-token]').attr('content');
 
+    /* --- MODALS --- */
+    var new_email_list_modal = $('#new_email_list_modal');
+
 
     /* --- INPUT FIELDS --- */
     var listNameInput = $('#email_list_name_input');
-    var listDiscriptionInput = $('#email_list_description_input');
+    var listDescriptionInput = $('#email_list_description_input');
 
     /* --- BUTTONS --- */
     var emailListSubmit = $('#new_email_list_submit_button');
 
 
-    emailListSubmit.on("click", function(e){
+    emailListSubmit.on("click", function(e) {
 
         e.preventDefault();
 
         var listName = listNameInput.val();
-        var description = listDiscriptionInput.val();
-
+        var description = listDescriptionInput.val();
 
 
         $.ajax({
             type:'POST',
-            url: '/ajax_update_email_template',
+            url: '/ajax_create_email_list',
             dataType: "json",
             data: {
                 app_id: app_id,
@@ -41,14 +43,9 @@ $(function(){
             },
             success: function(response) {
                 console.log(response);
+                new_email_list_modal.modal('toggle');
             }
         });
-
-
-
-
-
-
 
     });
 
