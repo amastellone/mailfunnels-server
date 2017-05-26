@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   # Subscribers Routes
   get '/all_subscribers', to: 'main_interface#all_subscribers'
+  post '/ajax_create_subscriber' => 'main_interface#ajax_create_subscriber'
 
   # Email Template Routes
   get '/email_templates', to: 'email#email_templates'

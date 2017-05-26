@@ -2,6 +2,8 @@
 
 $(function() {
 
+    /* --- AUTHENTICATION --- */
+    var csrf_token = $('meta[name=csrf-token]').attr('content');
 
     /* --- APP VALUES --- */
     var app_id = $('#current_app_id').val();
@@ -27,7 +29,27 @@ $(function() {
 
         console.log(first_name + " " + last_name + " " + email);
 
-        new_subscriber_modal.modal('toggle');
+        $.ajax({
+            type:'POST',
+            url: '/ajax_create_subscriber',
+            dataType: "json",
+            data: {
+                app_id: app_id,
+                first_name: first_name,
+                last_name: last_name,
+                email: email,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                new_subscriber_modal.modal('toggle');
+            }
+        });
+
+
 
 
     });

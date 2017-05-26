@@ -27,6 +27,45 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get all subscriber instances for the app
     @subscribers = Subscriber.where(app_id: @app.id)
 
+  end
+
+
+  # USED WITH AJAX
+  # --------------
+  # Creates a new subscriber for the app
+  #
+  # PARAMETERS
+  # ----------
+  # app_id: ID of the current app
+  # first_name: First Name of the Subscriber
+  # last_name: Last Name of the Subscriber
+  # email: Email address of the Subscriber
+  #
+  def ajax_create_subscriber
+
+    # Create new Subscriber instance
+    subscriber = Subscriber.new
+
+    # Update the Attributes for the Subscriber
+    subscriber.app_id = params[:app_id]
+    subscriber.first_name = params[:first_name]
+    subscriber.last_name = params[:last_name]
+    subscriber.email = params[:email]
+
+
+    # Save and verify Subscriber and return correct JSON response
+    if subscriber.save!
+      final_json = JSON.pretty_generate(result = {
+          :success => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          :success => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
 
   end
 
