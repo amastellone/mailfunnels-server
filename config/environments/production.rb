@@ -9,7 +9,12 @@ Rails.application.configure do
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
-  config.web_console.whitelisted_ips = '173.167.129.37'
+
+
+
+  #config.web_console.whitelisted_ips = '173.167.129.37'
+
+
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
