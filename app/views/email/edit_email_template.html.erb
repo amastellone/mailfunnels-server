@@ -30,18 +30,19 @@
               <textarea id="emailContentInput" name="field2" placeholder="Email Content"></textarea>
 
 
-              <select id ="addButtonDropDown">
-                <option value='0'>No</option>
-                <option value='1'>Yes</option>
+              <select id="button_select">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
 
               </select>
 
+              <div id="emailViewButtonFields" class="hidden">
               <input id="buttonTextInput" type="text" name="field3" placeholder="Button Text">
               <input id="buttonUrlInput" type="text" name="field4" placeholder="Button Url">
-
+              </div>
             </fieldset>
 
-            <input id="template_submit_button" type="submit" value="Save" />
+            <input id="email_list_submit_button" type="submit" value="Save" />
           </form>
         </div>
 
@@ -66,22 +67,22 @@
                   <tr>
                     <td class="content">
 
-                      <h2>Hi {{ customer.first_name + customer.last_name }},</h2>
+                      <h2>Hi Customer,</h2>
 
                       <p id="printEmailContent"></p>
 
 
-                      <div id="emailViewButtonFields" class="hidden">
+
                       <table>
                         <tr>
                           <td align="center">
                             <p>
-                              <a href="#" class="button" id="printButtonText"></a>
+                              <a href="#" class="button " id="printButtonText"></a>
                             </p>
                           </td>
                         </tr>
                       </table>
-                      </div>
+
 
                     </td>
                   </tr>

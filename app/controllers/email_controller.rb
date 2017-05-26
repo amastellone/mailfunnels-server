@@ -104,7 +104,7 @@ class EmailController < ShopifyApp::AuthenticatedController
 
 
 
-    # Save and verify Funnel and return correct JSON response
+    # Save and verify Template and return correct JSON response
     if template.save!
       final_json = JSON.pretty_generate(result = {
           :success => true
@@ -117,6 +117,41 @@ class EmailController < ShopifyApp::AuthenticatedController
 
     # Return JSON response
     render json: final_json
+
+
+  end
+
+  # USED WITH AJAX
+  # Creates new EmailList
+  #
+  # PARAMETERS
+  # -----------
+  # app_id: ID of the current app being used
+  # name: Name of the new EmailList
+  # description: Description of the new EmailList
+  #
+  def ajax_create_email_list
+
+    list = EmailList.new
+
+    list.app_id = params[:app_id]
+    list.name = params[:name]
+    list.description = params[:description]
+
+    # Save and verify Template and return correct JSON response
+    if list.save!
+      final_json = JSON.pretty_generate(result = {
+          :success => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          :success => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+
 
 
   end

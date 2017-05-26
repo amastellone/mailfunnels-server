@@ -17,7 +17,7 @@ $(function(){
     var emailContentInput = $('#emailContentInput');
     var buttonTextInput = $('#buttonTextInput');
     var buttonLink = $('#buttonUrlInput');
-    var addButtonDropDown = $('#addButtonDropDown');
+    var button_select = $('#button_select');
 
 
     /* --- DIV Fields --- */
@@ -25,7 +25,7 @@ $(function(){
 
 
     /* --- BUTTONS --- */
-    var template_submit = $('template_submit_button');
+    var email_submit = $('email_list_submit_button');
 
 
     /* --- Functions to live update EmailView --- */
@@ -42,14 +42,17 @@ $(function(){
         $('#printButtonText').html(buttonTextInput.val());
     });
 
-    addButtonDropDown.on("change", function(){
-        // $('emailViewButtonFields').show();
+    button_select.on("change", function(){
 
-
+        if ($(this).val() === '0') {
+            $('#emailViewButtonFields').attr('class', 'hidden');
+        } else {
+            $('#emailViewButtonFields').attr('class', ' ');
+        }
     });
 
 
-    template_submit.on("click", function(e){
+    email_submit.on("click", function(e){
 
         e.preventDefault();
 
@@ -57,11 +60,11 @@ $(function(){
         var email_content = emailContentInput.val();
         var button_text = buttonTextInput.val();
         var button_url =  buttonLink.val();
-        var button = addButtonDropDown.val();
+        var button = button_select.val();
 
         $.ajax({
             type:'POST',
-            url: '/ajax_update_email_template',
+            url: '/ajax_create_email_list',
             dataType: "json",
             data: {
                 app_id: app_id,
