@@ -25,5 +25,6 @@ module ShopifyApp
     def webhook_type
       params[:type]
     end
+
   end
 end
