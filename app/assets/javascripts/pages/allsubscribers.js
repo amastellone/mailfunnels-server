@@ -19,7 +19,18 @@ $(function() {
 
 
 
-    new_subscriber_submit_button.on('click')
+    new_subscriber_submit_button.on('click', function() {
+
+        var first_name = first_name_input.val();
+        var last_name = last_name_input.val();
+        var email = email_input.val();
+
+        console.log(first_name + " " + last_name + " " + email);
+
+        new_subscriber_modal.modal('toggle');
+
+
+    });
 
 
 });
