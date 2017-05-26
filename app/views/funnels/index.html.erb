@@ -16,18 +16,23 @@
       <input id="current_app_id" type="number" value="<%= @app.id %>"/>
     </div>
 
-    <div class="page-title">
-      <div class="title_left">
-        <h3>MailFunnels <small>Funnels</small></h3>
-      </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>MailFunnels <small>Funnels</small></h3>
+          </div>
 
-      <div class="title_right">
-        <button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newFunnelModal"><i class="fa fa-plus"></i> New Funnel</button>
-      </div>
+          <div class="title_right">
+            <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#newFunnelModal"><i class="fa fa-plus"></i> New Funnel</button>
+          </div>
 
-      <hr/>
-      <div class="clearfix"></div>
+          <div class="clearfix"></div>
+        </div>
+        <hr class="fade-2"/>
+      </div>
     </div>
+
 
 
     <div class="row">
@@ -62,11 +67,11 @@
 
                     <div class="flex">
                       <div class="col-xs-6">
-                        <a href="<% root_url %>edit_funnel/<%= funnel.id %>" class="btn btn-block btn-primary">Edit</a>
+                        <a href="<% root_url %>edit_funnel/<%= funnel.id %>" class="btn btn-block btn-border btn-primary">Edit</a>
                       </div>
 
                       <div class="col-xs-6">
-                        <button class="btn btn-block btn-danger">Delete</button>
+                        <button class="btn btn-block btn-border btn-danger">Delete</button>
                       </div>
                     </div>
                   </div>

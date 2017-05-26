@@ -26,14 +26,21 @@
     </div>
 
 
-    <div class="page-title">
-      <div class="title_left">
-        <h3>Funnel Editor <small><%= @funnel.name %></small></h3>
-      </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>Funnel Editor <small><%= @funnel.name %></small></h3>
+          </div>
 
-      <hr/>
-      <div class="clearfix"></div>
+          <hr/>
+          <div class="clearfix"></div>
+        </div>
+      </div>
     </div>
+
+    <hr class="fade-2"/>
+
 
 
     <div class="row">
@@ -50,6 +57,9 @@
                 <h2>Funnel Info</h2>
                 <div class="clearfix"></div>
               </div>
+              <hr class="fade-2"/>
+
+
               <div class="x_content">
                 <h5><b>Funnel Name: </b> <%= @funnel.name %></h5>
                 <h5><b>Description: </b> <%= @funnel.description %></h5>
@@ -66,10 +76,12 @@
                 <h2>Funnel Actions</h2>
                 <div class="clearfix"></div>
               </div>
+              <hr class="fade-2"/>
+
               <div class="x_content">
-                <button class="btn btn-block btn-primary" id="create_button">Add Node</button>
-                <button class="btn btn-block btn-success" style="" id="view_selected_button" data-node="2">View Node Info</button>
-                <button class="btn btn-block btn-danger" style="" id="delete_selected_button">Delete Node</button>
+                <button class="btn btn-block btn-border btn-primary" id="create_button">Add Node</button>
+                <button class="btn btn-block btn-border btn-success" style="" id="view_selected_button" data-node="2">View Node Info</button>
+                <button class="btn btn-block btn-border btn-danger" style="" id="delete_selected_button">Delete Node</button>
               </div>
             </div>
 
@@ -84,10 +96,7 @@
 
 
             <div class="x_panel tile">
-              <div class="x_title">
-                <h2>Funnel Editor</h2>
-                <div class="clearfix"></div>
-              </div>
+
               <div class="x_content text-center" id="funnel_builder">
 
               </div>

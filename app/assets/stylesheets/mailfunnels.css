@@ -1,0 +1,17 @@
+
+
+/* --- Horizontal Rules --- */
+hr {
+    border: 0;
+    margin: 1.35em auto;
+    max-width: 100%;
+    background-position: 50%;
+    box-sizing: border-box;
+}
+
+.fade-2 {
+    border-width: 0 0 1px;
+    color: skyblue;
+    border-image: linear-gradient(90deg, rgba(135, 206, 235, 0), skyblue 50%, rgba(135, 206, 235, 0) 100%) 0 0 100%;
+    border-style: solid;
+}
