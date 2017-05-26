@@ -1,7 +1,8 @@
 
 html , body{
-	
- height:100%;
+
+    font-family: 'Raleway';
+    height:100%;
  
 }
  
@@ -2339,10 +2340,11 @@ select.parsley-error {
     font-weight: bolder
 }
 .btn {
+    font-family: 'Raleway';
     text-transform: uppercase;
     font-weight: bold;
     font-size: 12px;
-    letter-spacing:1px;
+    letter-spacing:2px;
     padding: 13px 17px;
     border: none;
     -webkit-border-radius: 2px;

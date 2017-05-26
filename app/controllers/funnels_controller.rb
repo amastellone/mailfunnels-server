@@ -147,7 +147,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
     # Update the fields of Link Instance
     link.funnel_id = params[:funnel_id]
-    link.from_node_id = params[:to_operator_id].to_i
+    link.to_node_id = params[:to_operator_id].to_i
 
     if params[:from_operator_id].to_i === 0
       # If the link starts at the start node, set slink to 1
