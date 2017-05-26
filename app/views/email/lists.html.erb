@@ -1,3 +1,15 @@
+<% content_for :javascript do %>
+		<script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+        });
+		</script>
+
+		<%= javascript_include_tag 'pages/emailList.js' %>
 
 <div class="col-xs-12">
 
@@ -7,7 +19,7 @@
 		</div>
 
 		<div class="title_right">
-			<button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newEmailTemplateModal"><i class="fa fa-plus"></i> New Funnel</button>
+			<button class="btn btn-primary pull-right" type="button" data-toggle="modal" data-target="#newEmailTemplateModal"><i class="fa fa-plus"></i> New List</button>
 		</div>
 
 		<hr/>
@@ -75,43 +87,25 @@
 					<div class="modal-body">
 
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12">Template Name</label>
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">List Name</label>
 							<div class="col-md-9 col-sm-9 col-xs-12">
-								<input id="template_name_input" type="text" class="form-control" placeholder="Template Name">
+								<input id="email_list_name_input" type="text" class="form-control" placeholder="List Name">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12">Template Description
+							<label class="control-label col-md-3 col-sm-3 col-xs-12">List Description
 							</label>
 							<div class="col-md-9 col-sm-9 col-xs-12">
-								<textarea id="template_description_input" class="form-control" rows="3" placeholder="Template Description"></textarea>
+								<textarea id="email_list_description_input" class="form-control" rows="3" placeholder="List Description"></textarea>
 							</div>
 						</div>
-
-
-						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12">Template Email Subject
-							</label>
-							<div class="col-md-9 col-sm-9 col-xs-12">
-								<textarea id="template_email_subject_input" class="form-control" rows="3" placeholder="Template Email Subject"></textarea>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="control-label col-md-3 col-sm-3 col-xs-12">Template Email Content
-							</label>
-							<div class="col-md-9 col-sm-9 col-xs-12">
-								<textarea id="template_email_content_input" class="form-control" rows="3" placeholder="Template Email Content"></textarea>
-							</div>
-						</div>
-
 
 
 					</div>
 
 					<div class="modal-footer">
-						<button id="new_trigger_submit_button" type="button" class="btn btn-success">Submit</button>
+						<button id="new_email_list_submit_button" type="button" class="btn btn-success">Submit</button>
 					</div>
 
 				</form>
@@ -128,3 +122,6 @@
 
 
 </div>
+
+
+<% end %>
