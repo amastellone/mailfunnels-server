@@ -39,8 +39,6 @@ Rails.application.routes.draw do
 
   # Email Controller
   get '/lists', to: 'email#lists'
-  get '/emails/:list_id', to: 'email#emails'
-  get '/new_list', to: 'email#new_list'
   match '/create_list' => 'email#create_list', via: [:post]
   post '/ajax_create_email_list' => 'email#ajax_create_email_list'
 

@@ -12,7 +12,7 @@ class EmailController < ShopifyApp::AuthenticatedController
   def lists
 
     @app  = MailfunnelsUtil.get_app
-    @list = EmailList.where(app_id: @app.id)
+    @lists = EmailList.where(app_id: @app.id)
 
   end
 
