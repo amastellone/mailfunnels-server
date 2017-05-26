@@ -55,10 +55,6 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.name = params[:name]
     template.description = params[:description]
     template.email_subject = params[:email_subject]
-    template.email_content = params[:email_content]
-
-
-
 
 
     # Save and verify Funnel and return correct JSON response

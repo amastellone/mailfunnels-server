@@ -17,7 +17,6 @@ $(function(){
     var template_name_input = $('#template_name_input');
     var template_description_input = $('#template_description_input');
     var template_email_subject_input = $('#template_email_subject_input');
-    var template_email_content_input = $('#template_email_content_input');
 
     /* --- BUTTONS --- */
     var new_template_submit = $('#new_template_submit_button');
@@ -39,7 +38,6 @@ $(function(){
         var template_name = template_name_input.val();
         var template_description = template_description_input.val();
         var template_email_subject = template_email_subject_input.val();
-        var template_email_content = template_email_content_input.val();
 
 
 
@@ -53,7 +51,6 @@ $(function(){
                 name: template_name,
                 description: template_description,
                 email_subject: template_email_subject,
-                email_content: template_email_content,
                 authenticity_token: csrf_token
             },
             error: function(e) {
