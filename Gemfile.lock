@@ -402,5 +402,8 @@ DEPENDENCIES
   web-console
   yaml_db
 
+RUBY VERSION
+   ruby 2.2.3p173
+
 BUNDLED WITH
    1.14.6

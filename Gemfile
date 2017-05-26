@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.2.3'
+
 # CLIENT
 
 
@@ -60,7 +62,7 @@ gem 'sass-rails', '>= 3.2'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 # DATABASE
-gem 'pg'
+
 gem 'schema_auto_foreign_keys'
 gem 'yaml_db'
 
@@ -101,6 +103,7 @@ end
 
 group :production do
 	gem 'rollbar'
+	gem 'pg'
 end
 
 group :development, :test do
