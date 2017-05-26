@@ -93,37 +93,5 @@ if seed_data
 	end
 
 
-# TEST DATA
-	puts 'GENERATING EXTRA SEED DATA:'
-	$x = 0
-	while $x < 20 do
-		app = App.create(name: "App-Name " + $x.to_s)
-		puts "Created App Name: " + app.name + " ID: - " + app.id.to_s
-
-		$y = 0
-		while $y < 5 do
-			list = EmailList.create(name:        "Main List " + $y.to_s,
-			                        description: Faker::Lorem.sentence,
-			                        app_id:      app.id)
-
-			puts "Created List " + list.name.to_s
-
-			$z = 0
-			while $z > Random.rand(3...10) do
-				email = Email.create(email_address: Faker::Internet.email,
-				                     name:          Faker::Name.name,
-				                     app_id:        app.id,
-				                     email_list_id: list.id)
-				puts list.name.to_s + ": Email Created " + email.email.to_s
-				$z += 1
-			end
-
-			$y +=1
-		end
-
-
-		$x +=1
-	end
-
 
 end
