@@ -1,13 +1,53 @@
 class SendEmailJob < ApplicationJob
   @queue = :default
 
-  def perform(app_id, email_subject, email_content, job_id)
+  def perform(job_id)
 
 		puts "----EMAIL SENDING----"
 		job = EmailJob.where(id: job_id).first
-		job.executed = true;
-		job.save!
-		puts "----EMAIL SENT----"
+		funnel = Funnel.find(job.funnel_id)
+		trigger = Trigger.find(funnel.trigger_id)
+		node = Node.find(job.node_id)
+		template = EmailTemplate.find(node.email_template_id)
+		if job.sent == 1
+			puts "email already sent"
+		else
+			client = Postmark::ApiClient.new('d8fcd810-8122-48d9-aada-e93064291543', http_open_timeout: 60)
+
+			# response = client.deliver( # TODO: Enable + Test Postmark API
+			# 		:subject     => template.email_subject,
+			# 		:to          => 'matt@greekrow.online',
+			# 		:from        => 'matt@greekrow.online',
+			# 		:html_body   => template.email_content,
+			# 		:track_opens => 'true')
+
+
+			funnel.num_emails_sent = funnel.num_emails_sent+1
+			funnel.save!
+
+			trigger.num_emails_sent = trigger.num_emails_sent+1
+			trigger.save!
+
+			node.num_emails_sent = node.num_emails_sent+1
+			node.save!
+
+			job.executed = true
+			job.postmark_id = 123 #response[:message_id]
+			job.sent = 1
+			job.save!
+			puts "----EMAIL SENT----"
+		end
+
+		puts "----checking for next node in funnel----"
+		link = Link.where(from_node: node.id).first
+		if link.nil? == false
+			nextNode = Node.where(id: link.to_node_id).first
+			job = EmailJob.create(app_id: job.app_id, funnel_id: funnel.id, subscriber_id: job.subscriber_id, executed:  false,
+												 node_id: link.to_node_id, email_template_id: nextNode.email_template_id, sent: 0)
+			SendEmailJob.set(wait: nextNode.delay_time.minutes).perform_later(job.id)
+				puts "next job queued"
+		end
+		puts "====JOB COMPLETED===="
     # # client = Postmark::ApiClient.new(ENV["POSTMARK"])
     # client = Postmark::ApiClient.new('e0ab21a2-3d3b-432b-8a77-132f25b58aa3', http_open_timeout: 60)
     #
