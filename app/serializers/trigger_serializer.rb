@@ -1,3 +1,3 @@
 class TriggerSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :esubject, :econtent, :ntriggered, :nesent, :delayt, :email_list_id, :hook_id, :app_id
+  attributes :id, :name, :description, :num_triggered, :num_emails_sent, :hook_id, :app_id
 end

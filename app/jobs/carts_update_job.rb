@@ -1,4 +1,6 @@
-class CartsUpdateJob < ActiveJob::Base
+class CartsUpdateJob < ApplicationJob
+  queue_as :default
+
   def perform(shop_domain:, webhook:)
     shop = Shop.find_by(shopify_domain: shop_domain)
 
@@ -11,34 +13,36 @@ class CartsUpdateJob < ActiveJob::Base
 
       puts "----looking for subscriber----"
       subscriber = Subscriber.where(app_id: app.id, email: "FoofeeNigga@worldstarthiphop.com")
-      puts "----checking for subscriber----"
 
       if subscriber.any? == false
         puts "----CREATED SUBSCRIBER----"
         Subscriber.create(app_id: app.id, email: "FoofeeNigga@worldstarthiphop.com")
       end
-
+      puts "----Subscriber Found----"
 
       puts "----looking for trigger----"
       trigger = Trigger.where(app_id: app.id, hook_id: '2').first
-      puts "----looking for trigger----"
       if trigger.nil? == false
         puts "----Trigger Found----"
-
+        puts "----incrementing num_triggered----"
+        trigger.put('',:num_triggered => trigger.num_triggered+1)
+        puts "----trigger saved----"
         puts "----looking for funnel----"
         funnel = Funnel.where(app_id: app.id, trigger_id: trigger.id).first
-        puts "----checking for funnel----"
         if funnel.nil? == false
           puts "----Funnel Found----"
-          puts funnel.id.to_s
+          puts "----looking for link----"
           link = Link.where(funnel_id: funnel.id, start_link: 1).first
           if link.nil? == false
             puts "----Link Found----"
-            node = link.to_node_id
-
-            puts "----WE ARE READY TO QUEUE SIDEKIQ JOB----"
+            puts "----looking for node----"
+            node = Node.where(id: link.to_node_id).first
+            if node.nil? == false
+              puts "----Node Found----"
+              puts "----CREATING NEW EMAIL JOB----"
+              puts "----MOVING SUBSCRIBER TO NEXT NODE----"
+            end
           end
-
         end
       end
     end

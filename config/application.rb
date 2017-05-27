@@ -19,7 +19,7 @@ module MailFunnelClient
 
 		config.logger = Logger.new(STDOUT)
 		config.logger.level = Logger::ERROR
-
+		#config.active_job.queue_adapter = :default
 
 		config.autoload_paths << "#{Rails.root}/lib"
 		config.autoload_paths << "#{Rails.root}/app/middleware"
