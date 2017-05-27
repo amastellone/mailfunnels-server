@@ -255,6 +255,12 @@ class ResourceApi < Grape::API
       end
     end
 
+    route_param :id do
+      get do
+        EmailList.find(params[:id])
+      end
+    end
+
     # Post/Put Routes
     # ----------------
     post do
@@ -354,6 +360,13 @@ class ResourceApi < Grape::API
         Subscriber.where(email_list_id: params[:email_list_id])
       else
         error!('Resource not found', 404)
+      end
+    end
+
+
+    route_param :id do
+      get do
+        Subscriber.find(params[:id])
       end
     end
 
