@@ -319,7 +319,7 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-      Subsriber.where(params)
+      Subscriber.where(params)
     end
 
     route_param :id do
