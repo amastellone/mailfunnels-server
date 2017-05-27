@@ -4,5 +4,6 @@ class Subscriber < RestModel
 
   has_many :email_list_subscribers
   has_many :captured_hooks
+  has_many :email_jobs
 
 end

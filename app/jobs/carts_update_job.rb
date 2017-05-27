@@ -12,7 +12,7 @@ class CartsUpdateJob < ApplicationJob
 
 
       puts "----looking for subscriber----"
-      subscriber = Subscriber.where(app_id: app.id, email: "FoofeeNigga@worldstarthiphop.com")
+      subscriber = Subscriber.where(app_id: app.id, email: "FoofeeNigga@worldstarthiphop.com").first
 
       if subscriber.any? == false
         puts "----CREATED SUBSCRIBER----"
@@ -40,7 +40,10 @@ class CartsUpdateJob < ApplicationJob
             if node.nil? == false
               puts "----Node Found----"
               puts "----CREATING NEW EMAIL JOB----"
+              EmailJob.post('',{:app_id => app.id, :funnel_id => funnel.id, :subscriber_id => subscriber.id, :executed => false})
+              puts "----Created EmailJob----"
               puts "----MOVING SUBSCRIBER TO NEXT NODE----"
+
             end
           end
         end

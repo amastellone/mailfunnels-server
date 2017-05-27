@@ -7,6 +7,7 @@ class App < RestModel
 	has_many :nodes
 	has_many :triggers
 	has_many :captured_hooks
+	has_many :email_jobs
 
 	def myId()
 		# TODO: Verify this works / get it working
