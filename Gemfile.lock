@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/rspec/rspec-core.git
-  revision: 8a6544a734ec5cdb769089feb318f19fbf6100a2
+  revision: edc7ce29f10d9d7af54ca743d76125ce130e11c4
   branch: master
   specs:
     rspec-core (3.7.0.pre)
@@ -49,7 +49,7 @@ GIT
 
 GIT
   remote: git://github.com/rspec/rspec-support.git
-  revision: f0af3fd74a94ff7bb700f6ba06dbdc67bba17fbf
+  revision: a9a4b09e341611107d2c87a5fa7d53c5a6155e71
   branch: master
   specs:
     rspec-support (3.7.0.pre)
@@ -195,9 +195,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.5)
       mime-types (>= 1.16, < 4)
-    meta_request (0.4.2)
+    meta_request (0.4.3)
       callsite (~> 0.0, >= 0.0.11)
-      rack-contrib (~> 1.1)
+      rack-contrib (>= 1.1, < 3)
       railties (>= 3.0.0, < 5.2.0)
     method_source (0.8.2)
     mime-types (3.1)
@@ -402,4 +402,4 @@ DEPENDENCIES
   yaml_db
 
 BUNDLED WITH
-   1.13.6
+   1.14.3
