@@ -22,6 +22,7 @@ $(function(){
 
     /* --- DIV Fields --- */
     var emailViewButtonFields = $('#emailViewButtonFields');
+    var showEmailButton = $('#showEmailButton');
 
 
     /* --- BUTTONS --- */
@@ -46,8 +47,10 @@ $(function(){
 
         if ($(this).val() === '0') {
             $('#emailViewButtonFields').attr('class', 'hidden');
+            $('#showEmailButton').attr('class', 'hidden');
         } else {
             $('#emailViewButtonFields').attr('class', ' ');
+            $('#showEmailButton').attr('class', ' ');
         }
     });
 
