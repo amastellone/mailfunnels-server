@@ -379,7 +379,7 @@ class ResourceApi < Grape::API
     end
   end
 
-  # EmailListSubscriber Resource API
+  # EmailJobResource API
   # ------------------------
   resource :email_jobs do
     # Get Routes
@@ -400,7 +400,10 @@ class ResourceApi < Grape::API
       puts "----creating new email job----"
       emailJob = EmailJob.create! params
       puts "----created new email job----"
-      SendEmailJob.set(wait: 1.minutes).perform_later(emailJob.app_id, "@job.subject", "@job.content", emailJob.id)
+      node = Node.find(emailJob.node_id)
+      puts "NEW JOB ID"
+      puts emailJob.id
+      SendEmailJob.set(wait: node.delay_time.minutes).perform_later(emailJob.id)
       puts "----email job queued----"
     end
 
