@@ -103,10 +103,10 @@ ActiveRecord::Schema.define(version: 20170527000507) do
     t.string   "email_subject"
     t.text     "email_content"
     t.integer  "app_id",        :foreign_key=>{:references=>"apps", :name=>"fk_email_templates_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_templates_app_id", :using=>:btree}
-    t.boolean  "button"
+    t.boolean  "has_button"
     t.string   "button_text"
     t.string   "button_url"
-    t.string   "unsubscribe"
+    t.string   "email_title"
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
   end

@@ -1,5 +1,5 @@
 class EmailTemplatesController < ApplicationController
-  before_action :set_email_template, only: [:show, :update, :destroy]
+  before_action :set_email_template, only: [:show, :update, :save, :destroy]
 
   # GET /email_templates
   def index
@@ -33,6 +33,7 @@ class EmailTemplatesController < ApplicationController
     end
   end
 
+
   # DELETE /email_templates/1
   def destroy
     @email_template.destroy
@@ -46,6 +47,6 @@ class EmailTemplatesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def email_template_params
-      params.require(:email_template).permit(:name, :description, :email_subject, :email_content, :app_id)
+      params.require(:email_template).permit(:name, :description, :email_subject, :email_content, :email_title, :has_button, :button_text, :button_url, :app_id)
     end
 end

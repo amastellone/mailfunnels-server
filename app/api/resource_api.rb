@@ -262,16 +262,15 @@ class ResourceApi < Grape::API
       get do
         EmailTemplate.find(params[:id])
       end
+      put do
+        EmailTemplate.find(params[:id]).update(params)
+      end
     end
 
     # Post/Put Routes
     # ----------------
     post do
       EmailTemplate.create! params
-    end
-
-    put ':id' do
-      EmailTemplate.find(params[:id]).save params
     end
 
     put do
