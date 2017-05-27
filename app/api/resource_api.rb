@@ -12,12 +12,12 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-      if params[:name]
-        App.where(name: params[:name])
-      elsif
+        App.where(params)
+    end
+
+    route_param :id do
+      get do
         App.find(params[:id])
-      else
-        error!('Resource not found', 404)
       end
     end
 
@@ -46,20 +46,14 @@ class ResourceApi < Grape::API
     # ----------------
 
     get do
-      if params[:identifier]
-        puts "Looking for hook with identifier"
-        Hook.where(identifier: params[:identifier])
-      elsif params[:id]
-        puts "Looking for hook with id"
-        Hook.find(params[:id])
-      elsif params[:app_id]
-        puts "Looking for hook with app_id"
-        Hook.where(app_id: params[:app_id])
-      else
-        Hook.all
-      end
+        Hook.where(params)
     end
 
+    route_param :id do
+      get do
+        Hook.find(params[:id])
+      end
+    end
 
     # Post/Put Routes
     # ----------------
@@ -86,15 +80,6 @@ class ResourceApi < Grape::API
     # ----------------
     get do
       Funnel.where(params)
-
-
-      # if params[:id]
-      #   Funnel.find(params[:id])
-      # elsif params[:app_id]
-      #   Funnel.where(app_id: params[:app_id])
-      # else
-      #   error!('Resource not found', 404)
-      # end
     end
 
 
@@ -132,14 +117,12 @@ class ResourceApi < Grape::API
 
     get do
       Trigger.where(params)
+    end
 
-      # if params[:id]
-      #   Trigger.find(params[:id])
-      # elsif params[:app_id]
-      #   Trigger.where(app_id: params[:app_id])
-      # else
-      #   error!('Resource not found', 404)
-      # end
+    route_param :id do
+      get do
+        Trigger.find(params[:id])
+      end
     end
 
 
@@ -153,7 +136,7 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      Trigger.find(params[:id]).save params
+      Trigger.find(params[:id]).update(params)
     end
 
     put do
@@ -170,16 +153,14 @@ class ResourceApi < Grape::API
 
     get do
       Link.where(params)
-      # if params[:id]
-      #   Link.find(params[:id])
-      # elsif params[:app_id]
-      #   Link.where(app_id: params[:app_id])
-      # elsif params[:funnel_id]
-      #   Link.where(funnel_id: params[:funnel_id])
-      # else
-      #   error!('Resource not found', 404)
-      # end
     end
+
+    route_param :id do
+      get do
+        Link.find(params[:id])
+      end
+    end
+
 
     # Post/Put Routes
     # ----------------
@@ -205,17 +186,8 @@ class ResourceApi < Grape::API
     # ----------------
 
     get do
-      if params[:id]
-        Node.find(params[:id])
-      elsif params[:app_id]
-        Node.where(app_id: params[:app_id])
-      elsif params[:funnel_id]
-        Node.where(funnel_id: params[:funnel_id])
-      else
-        error!('Resource not found', 404)
-      end
+      Node.where(params)
     end
-
 
     route_param :id do
       get do
@@ -240,18 +212,25 @@ class ResourceApi < Grape::API
 
   end
 
+
   # EmailList Resource API
   # ----------------------
   resource :email_lists do
     # Get Routes
     # ----------------
     get do
-      if params[:id]
+        EmailList.where(params)
+    end
+
+    route_param :id do
+      get do
         EmailList.find(params[:id])
-      elsif params[:app_id]
-        EmailList.where(app_id: params[:app_id])
-      else
-        error!('Resource not found', 404)
+      end
+    end
+
+    route_param :id do
+      get do
+        EmailList.find(params[:id])
       end
     end
 
@@ -276,18 +255,12 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-      if params[:id]
-        EmailTemplate.find(params[:id])
-      elsif params[:app_id]
-        EmailTemplate.where(app_id: params[:app_id])
-      else
-        error!('Resource not found', 404)
-      end
+      EmailTemplate.where(params)
     end
 
-    route_param :template_id do
+    route_param :id do
       get do
-        EmailTemplate.find(params[:template_id])
+        EmailTemplate.find(params[:id])
       end
     end
 
@@ -314,12 +287,12 @@ class ResourceApi < Grape::API
     # ----------------
 
     get do
-      if params[:id]
-        CapturedHook.find(params[:id])
-      elsif params[:app_id]
-        CapturedHook.where(app_id: params[:app_id])
-      else
-        error!('Resource not found', 404)
+        CapturedHook.where(params)
+    end
+
+    route_param :id do
+      get do
+        CapurtedHook.find(params[:id])
       end
     end
 
@@ -346,14 +319,19 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-      if params[:id]
+      Subsriber.where(params)
+    end
+
+    route_param :id do
+      get do
         Subscriber.find(params[:id])
-      elsif params[:app_id]
-        Subscriber.where(app_id: params[:app_id])
-      elsif params[:email_list_id]
-        Subscriber.where(email_list_id: params[:email_list_id])
-      else
-        error!('Resource not found', 404)
+      end
+    end
+
+    
+    route_param :id do
+      get do
+        Subscriber.find(params[:id])
       end
     end
 
@@ -378,16 +356,12 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-      if params[:id]
+      EmailListSubscriber.where(params)
+    end
+
+    route_param :id do
+      get do
         EmailListSubscriber.find(params[:id])
-      elsif params[:app_id]
-        EmailListSubscriber.where(app_id: params[:app_id])
-      elsif params[:email_list_id]
-        EmailListSubscriber.where(email_list_id: params[:email_list_id])
-      elsif params[:subscriber_id]
-        EmailListSubscriber.where(subscriber_id: params[:subscriber_id])
-      else
-        error!('Resource not found', 404)
       end
     end
 
@@ -405,5 +379,36 @@ class ResourceApi < Grape::API
       EmailListSubscriber.save params
     end
   end
+
+  # EmailListSubscriber Resource API
+  # ------------------------
+  resource :job do
+    # Get Routes
+    # ----------------
+    get do
+      Job.where(params)
+    end
+
+    route_param :id do
+      get do
+        Job.find(params[:id])
+      end
+    end
+
+    # Post/Put Routes
+    # ----------------
+    post do
+      Job.create! params
+    end
+
+    put ':id' do
+      Job.find(params[:id]).save params
+    end
+
+    put do
+      Job.save params
+    end
+  end
+
 
 end
