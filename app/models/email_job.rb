@@ -1,0 +1,2 @@
+class EmailJob < ApplicationRecord
+end
