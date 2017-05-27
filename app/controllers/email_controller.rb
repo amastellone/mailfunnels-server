@@ -194,6 +194,17 @@ class EmailController < ShopifyApp::AuthenticatedController
   end
 
 
+  # EMAIL TEMPLATE RENDER FUNCTION
+  # ------------------------------
+  # Renders the Email Template for the customer
+  #
+  def template
+
+    @template = EmailTemplate.find(params[:id])
+
+    render :template => "email/template"
+  end
+
 
 
 
