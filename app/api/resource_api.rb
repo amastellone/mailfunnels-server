@@ -386,27 +386,45 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-      Job.where(params)
+      EmailJob.where(params)
     end
 
     route_param :id do
       get do
-        Job.find(params[:id])
+        EmailJob.find(params[:id])
       end
     end
 
     # Post/Put Routes
     # ----------------
     post do
-      Job.create! params
+      EmailJob.create! params
+      # thisjob = SendEmailJob
+      # 				      .set(
+      #     					       wait: @job.execute_time.minutes)
+      # 				      .perform_later(
+      #     								 @job.app_id,
+      #     								 @job.subject,
+      #     								 @job.content,
+      #     					       @job.id
+      # 							)
+      # 			@job.queue_identifier = thisjob.provider_job_id
+      # 			@job.save
+      #
+      # 			# provider_job_id
+      #
+      # 			render json: @job, status: :created, location: @job
+      # 		else
+      # 			render json: @job.errors, status: :unprocessable_entity
+      #		end
     end
 
     put ':id' do
-      Job.find(params[:id]).save params
+      EmailJob.find(params[:id]).save params
     end
 
     put do
-      Job.save params
+      EmailJob.save params
     end
   end
 
