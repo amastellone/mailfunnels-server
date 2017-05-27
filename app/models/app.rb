@@ -7,6 +7,7 @@ class App < ApplicationRecord
 	has_many :funnels
 	has_many :nodes
 	has_many :triggers
+	has_many :email_jobs
 	has_many :captured_hooks
 
 

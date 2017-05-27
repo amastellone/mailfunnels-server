@@ -8,5 +8,6 @@ class Funnel < ApplicationRecord
 
   has_many :nodes
   has_many :links
+  has_many :email_jobs
 
 end

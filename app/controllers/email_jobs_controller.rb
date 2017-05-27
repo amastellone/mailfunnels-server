@@ -46,6 +46,6 @@ class EmailJobsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def email_job_params
-      params.require(:email_job).permit(:subscriber_id, :funnel_id, :app_id, :executed)
+      params.require(:email_job).permit(:executed, :sent, :opened, :clicked, :postmark_id, :subscriber_id, :funnel_id, :app_id, :node_id, :email_template_id)
     end
 end
