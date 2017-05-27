@@ -1,13 +1,11 @@
-class CartsUpdateJob < ApplicationJob
-  queue_as :default
-
+class OrdersPaidJob < ActiveJob::Base
   def perform(shop_domain:, webhook:)
     shop = Shop.find_by(shopify_domain: shop_domain)
 
     shop.with_shopify_session do
-      puts "-----Doing job------"
-      #puts webhook[:id] --- how to get params from webhook response
-
+      puts "-----Doing job order job------"
+      puts webhook[:email]
+      puts ""
       app = MailfunnelsUtil.get_app
 
 
@@ -36,7 +34,7 @@ class CartsUpdateJob < ApplicationJob
           else
             puts "----NOT ADDING SUBSCRIBER TO EMAIL LIST----"
           end
-            puts ""
+          puts ""
           link = Link.where(funnel_id: funnel.id, start_link: 1).first
           if link.nil? == false
 
@@ -48,7 +46,7 @@ class CartsUpdateJob < ApplicationJob
                 puts "----CREATING NEW EMAIL JOB----"
                 EmailJob.post('', {:app_id => app.id, :funnel_id => funnel.id, :subscriber_id => subscriber.id, :executed => false, :node_id => node.id, :email_template_id => node.email_template_id, :sent => 0})
               else
-                  puts "----NOT CREATING NEW EMAIL JOB----"
+                puts "----NOT CREATING NEW EMAIL JOB----"
               end
               puts "----MOVING SUBSCRIBER TO NEXT NODE----"
 
