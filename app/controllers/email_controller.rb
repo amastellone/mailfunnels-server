@@ -34,6 +34,50 @@ class EmailController < ShopifyApp::AuthenticatedController
   end
 
 
+
+  # Page Render Function
+  # --------------------
+  # Renders the view template page
+  #
+  #
+  # PARAMETERS
+  # ----------
+  # template_id: ID of the EmailTemplate we are viewing
+  #
+  def view_email_template
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the EmailTemplate We want to View
+    @template = EmailTemplate.find(params[:template_id])
+
+  end
+
+
+
+  # Page Render Function
+  # --------------------
+  # Renders the edit template page
+  #
+  #
+  # Parameters
+  # ----------
+  # template_id : ID of the EmailTemplate we are editing
+  #
+
+  def edit_email_template
+
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the EmailTemplate We want to View
+    @template = EmailTemplate.find(params[:template_id])
+
+  end
+
+
   # USED WITH AJAX
   # Creates a new EmailTemplate Instance
   #
@@ -78,7 +122,6 @@ class EmailController < ShopifyApp::AuthenticatedController
   #
   # PARAMETERS
   # ------------
-  # app_id: ID of the current app being used
   # email_subject: Subject/Title of email
   # email_content: Content/Body text of email
   # button: Button boolean to add button to email
@@ -88,28 +131,26 @@ class EmailController < ShopifyApp::AuthenticatedController
   def ajax_update_email_template
 
     # Access current template being edited
-    template = EmailTemplate.find(params[:template_id])
+    template = EmailTemplate.find(params[:id])
 
-
-    template.app_id = params[:app_id]
+    template.name = template.name
+    template.description = template.description
+    template.app_id = template.app_id
     template.email_subject = params[:email_subject]
+    template.email_title = params[:email_title]
     template.email_content = params[:email_content]
-    template.button = params[:button]
+    template.has_button = params[:has_button]
+
     template.button_text = params[:button_text]
     template.button_url = params[:button_url]
 
+    template.put('', {:email_subject => template.email_subject, :email_title => template.email_title, :email_content => template.email_content, :has_button => template.has_button,
+                       :button_text => template.button_text, :button_url => template.button_url})
 
 
-    # Save and verify Template and return correct JSON response
-    if template.save!
-      final_json = JSON.pretty_generate(result = {
-          :success => true
-      })
-    else
-      final_json = JSON.pretty_generate(result = {
-          :success => false
-      })
-    end
+    final_json = JSON.pretty_generate(result = {
+        :success => true
+    })
 
     # Return JSON response
     render json: final_json
@@ -152,53 +193,6 @@ class EmailController < ShopifyApp::AuthenticatedController
 
   end
 
-
-
-  # Page Render Function
-  # --------------------
-  # Renders the view template page
-  #
-  #
-  # PARAMETERS
-  # ----------
-  # template_id: ID of the EmailTemplate we are viewing
-  #
-  def view_email_template
-
-    # Get the Current App
-    @app = MailfunnelsUtil.get_app
-
-    # Get the EmailTemplate We want to View
-    @template = EmailTemplate.find(params[:template_id])
-
-
-
-  end
-
-
-
-  # Page Render Function
-  # --------------------
-  # Renders the edit template page
-  #
-  #
-  # Parameters
-  # ----------
-  # template_id : ID of the EmailTemplate we are editing
-  #
-
-  def edit_email_template
-
-
-    # Get the Current App
-    @app = MailfunnelsUtil.get_app
-
-    # Get the EmailTemplate We want to View
-    @template = EmailTemplate.find(params[:template_id])
-
-
-
-  end
 
 
 
