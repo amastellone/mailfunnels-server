@@ -91,8 +91,10 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'listen', '~> 3.0.5'
 
 group :development do
+
 	gem "better_errors"
 end
 
