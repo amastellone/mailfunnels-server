@@ -4,7 +4,7 @@ class SendEmailJob < ApplicationJob
   def perform(app_id, email_subject, email_content, job_id)
 
 		puts "----EMAIL SENDING----"
-		job = EmailJob.where(id: job_id)
+		job = EmailJob.where(id: job_id).first
 		job.executed = true;
 		job.save!
 		puts "----EMAIL SENT----"

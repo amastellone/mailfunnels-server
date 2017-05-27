@@ -382,7 +382,7 @@ class ResourceApi < Grape::API
 
   # EmailListSubscriber Resource API
   # ------------------------
-  resource :job do
+  resource :email_jobs do
     # Get Routes
     # ----------------
     get do
@@ -398,25 +398,11 @@ class ResourceApi < Grape::API
     # Post/Put Routes
     # ----------------
     post do
-      EmailJob.create! params
-      # thisjob = SendEmailJob
-      # 				      .set(
-      #     					       wait: @job.execute_time.minutes)
-      # 				      .perform_later(
-      #     								 @job.app_id,
-      #     								 @job.subject,
-      #     								 @job.content,
-      #     					       @job.id
-      # 							)
-      # 			@job.queue_identifier = thisjob.provider_job_id
-      # 			@job.save
-      #
-      # 			# provider_job_id
-      #
-      # 			render json: @job, status: :created, location: @job
-      # 		else
-      # 			render json: @job.errors, status: :unprocessable_entity
-      #		end
+      puts "----creating new email job----"
+      emailJob = EmailJob.create! params
+      puts "----created new email job----"
+      SendEmailJob.set(wait: 1.minutes).perform_later(emailJob.app_id, "@job.subject", "@job.content", emailJob.id)
+      puts "----email job queued----"
     end
 
     put ':id' do
