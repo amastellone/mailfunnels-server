@@ -6,6 +6,19 @@ class ResourceApi < Grape::API
     super
   end
 
+
+  get 'email_opened' do
+    messageID = params[:messageID]
+
+    emailJob = EmailJob.find(params[:postmark_id])
+
+    node = emailJob.node
+
+    node.clicked = 1
+    node.save
+
+  end
+
   # Apps Resource API
   # -----------------
   resource :apps do
