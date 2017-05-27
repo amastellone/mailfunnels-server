@@ -267,6 +267,9 @@ class API < Grape::API
   end
 
   get '/checkout_create' do
+
+
+
   end
 
   get '/checkout_delete' do

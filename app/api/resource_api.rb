@@ -292,7 +292,7 @@ class ResourceApi < Grape::API
 
     route_param :id do
       get do
-        CapurtedHook.find(params[:id])
+        CapturedHook.find(params[:id])
       end
     end
 
