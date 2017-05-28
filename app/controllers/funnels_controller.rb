@@ -357,6 +357,42 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
 
 
+  # USED WITH AJAX
+  # --------------
+  # Returns a JSON array of template info
+  # for specific node
+  #
+  # PARAMETERS
+  # ----------
+  # node_id: ID of the node we are getting info for
+  #
+
+
+  def ajax_load_email_template_info
+
+    # Get the Node from the DB
+    node = Node.find(params[:node_id])
+
+    # Get the Template related to node
+    template = EmailTemplate.find(node.email_template_id)
+
+
+    data = {
+        :template_id => template.id,
+        :email_title => template.email_title,
+        :email_content => template.email_content,
+        :has_button => template.has_button,
+        :button_text => template.button_text,
+    }
+
+    # Return data as JSON
+    render json: data
+
+
+  end
+
+
+
 
 
   private
