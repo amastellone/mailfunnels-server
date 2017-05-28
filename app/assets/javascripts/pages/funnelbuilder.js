@@ -50,6 +50,10 @@ $(function() {
     var node_view_email_settings_template = $('#view_node_email_settings_template');
     var node_view_email_description = $('#view_node_email_description');
 
+    var email_title = $('#printEmailTitle');
+    var email_content = $('#printEmailContent');
+    var button_text = $('#printButtonText');
+
 
     /* --- DYNAMIC VALUES --- */
     var isLoading = false;
@@ -173,6 +177,7 @@ $(function() {
 
         var node_id = funnel_builder.flowchart('getSelectedOperatorId');
 
+
         $.ajax({
             type:'POST',
             url: '/ajax_load_email_template_info',
@@ -185,13 +190,15 @@ $(function() {
                 console.log(e);
             },
             success: function(response) {
-                //Set The Email Title
-                //Set The Email Content
-                //Set the Button Text
-                //Show or hide the Email Buttons
-                //if /* response.has_button === 'true' */
-                $('#preview_buttons_div').show();
+                email_title.html(response.email_title);
+                email_content.html(response.email_content);
+                button_text.html(response.button_text);
 
+                if (response.has_button === true) {
+                    $('#preview_buttons_div').show();
+                } else {
+                    $('#preview_buttons_div').hide();
+                }
 
                 view_template_modal.modal('toggle');
                 console.log(response);
