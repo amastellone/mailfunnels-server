@@ -147,7 +147,11 @@
               <table>
                 <tr>
                   <td align="center">
-
+                    <% if template.has_button %>
+                        <p>
+                          <a href="<%= @template.button_url %>" class="button"> <%= @template.button_text %> </a>
+                        </p>
+                    <% end %>
                   </td>
                 </tr>
               </table>

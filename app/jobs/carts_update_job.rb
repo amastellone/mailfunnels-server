@@ -4,10 +4,11 @@ class CartsUpdateJob < ApplicationJob
   def get_binding
     binding
   end
-  # def perform(shop_domain:, webhook:)
-  #   shop = Shop.find_by(shopify_domain: shop_domain)
-  #
-  #   shop.with_shopify_session do
+
+  def perform(shop_domain:, webhook:)
+    shop = Shop.find_by(shopify_domain: shop_domain)
+
+    shop.with_shopify_session do
   #     puts "-----Doing job------"
   #     #puts webhook[:id] --- how to get params from webhook response
   #
@@ -59,6 +60,7 @@ class CartsUpdateJob < ApplicationJob
   #         end
   #       end
   #     end
-  #   end
-  # end
+    end
+  end
+
 end
