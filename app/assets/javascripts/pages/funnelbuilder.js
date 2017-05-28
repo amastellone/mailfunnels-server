@@ -23,6 +23,8 @@ $(function() {
     var delete_selected_button = $('#delete_selected_button'); //Campaign Job Delete Button
     var view_selected_node_button = $('#view_selected_button'); //Campaign Job Edit Button
     var submit_new_node_button = $('#new_node_submit_button'); //Add Node Form Submit Button
+    var preview_email_button = $('#preview_email_button'); //Preview Email Button
+
 
     /* --- FORM INPUTS --- */
     var new_node_label = $('#new_node_label_input');
@@ -157,6 +159,11 @@ $(function() {
 
     });
 
+
+
+
+    /* ---- FUNNEL BUILDER FUNCTIONS --- */
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
     function init() {
 
@@ -303,18 +310,21 @@ $(function() {
         if (operatorID === '0') {
             delete_selected_button.hide();
             view_selected_node_button.hide();
+            preview_email_button.hide();
             return;
         }
 
         //Otherwise, show the delete and edit button and change edit button data-node
         delete_selected_button.show();
         view_selected_node_button.show();
+        preview_email_button.show();
 
     }
 
     function hideButtons() {
         delete_selected_button.hide();
         view_selected_node_button.hide();
+        preview_email_button.hide();
     }
 
 

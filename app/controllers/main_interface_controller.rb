@@ -10,7 +10,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
-    @numEmailsSent = EmailJob.where(app_id: @app.id, sent: 1).size
+    @num_emails_sent = EmailJob.where(app_id: @app.id, sent: 1).size
 
   end
 
@@ -26,7 +26,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
-    # Get all subscriber instances for the app
+    # Get all subscribers instances for the app
     @subscribers = Subscriber.where(app_id: @app.id)
 
   end
@@ -55,7 +55,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   # USED WITH AJAX
   # --------------
-  # Creates a new subscriber for the app
+  # Creates a new subscribers for the app
   #
   # PARAMETERS
   # ----------

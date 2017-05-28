@@ -28,7 +28,7 @@ class CartsUpdateJob < ApplicationJob
         funnel = Funnel.where(app_id: app.id, trigger_id: trigger.id).first
         if funnel.nil? == false
 
-          puts "----checking if subscriber is in email list----"
+          puts "----checking if subscribers is in email list----"
           emailsub = EmailListSubscriber.where(app_id: app.id, email_list_id: funnel.email_list_id, subscriber_id: subscriber.id).first
           if emailsub.nil? == true
             puts "----ADDED SUBSCRIBER TO EMAIL LIST----"
