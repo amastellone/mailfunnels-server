@@ -411,17 +411,9 @@ class ResourceApi < Grape::API
     # ----------------
     post do
 
-      emailJob = EmailJob.create({:app_id => params[:app_id],
-                                 :funnel_id => params[:funnel_id],
-                                 :subscriber_id => params[:subscriber_id],
-                                 :executed => params[:executed],
-                                 :node_id => params[:node_id],
-                                 :email_template_id => params[:email_template_id],
-                                 :sent => params[:sent]
-                                 })
+      emailJob = EmailJob.create params
       node = Node.find(emailJob.node_id)
-
-      SendEmailJob.set(wait: node.delay_time.seconds).perform_later(emailJob.id,params[:renderedEmail])
+      SendEmailJob.set(wait: node.delay_time.seconds).perform_later(emailJob.id)
       puts "---Email Job Created---"
     end
 

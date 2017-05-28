@@ -12,12 +12,6 @@
       line-height: 1.65;
     }
 
-    img {
-      max-width: 100%;
-      margin: 0 auto;
-      display: block;
-    }
-
     body,
     .body-wrap {
       width: 100% !important;
@@ -49,7 +43,7 @@
       border-radius: 4px;
     }
 
-    .email_template h1,
+    h1,
     h2,
     h3,
     h4,
@@ -59,7 +53,7 @@
       line-height: 1.25;
     }
 
-    .email_template h1 {
+    h1 {
       font-size: 32px;
     }
 
@@ -134,7 +128,7 @@
         <table>
           <tr>
             <td align="center" class="email_title">
-              <h1 class="email_template"><%= @template.email_title %></h1>
+              <h1><%= @template.email_title %></h1>
             </td>
           </tr>
           <tr>
