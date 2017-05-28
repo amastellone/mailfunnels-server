@@ -14,7 +14,7 @@ class EmailJobsController < ApplicationController
   def email_opened_hook
 
     # Get the MessageID from the postmark request
-    message_id = params[:messageID]
+    message_id = params[:MessageID]
 
     # Find EmailJob with postmark_id
     email_job = EmailJob.where(postmark_id: message_id).first
