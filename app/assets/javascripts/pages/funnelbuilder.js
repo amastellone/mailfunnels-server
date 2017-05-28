@@ -35,7 +35,8 @@ $(function() {
 
     /* --- MODALS --- */
     var create_new_node_modal = $('#modal_node_create'); //New Job Modal
-    var view_node_modal = $('#view_node_modal');
+    var view_node_modal = $('#view_node_modal'); //View Node Info Modal
+    var view_template_modal = $('#view_template_modal'); //Preview Email Modal
 
     /* --- VIEW INFO MODAL COMPONENTS --- */
     var node_view_name = $('#view_node_name');
@@ -163,6 +164,39 @@ $(function() {
 
 
         view_node_modal.modal('toggle');
+
+    });
+
+
+    //On Preview Button Click
+    preview_email_button.on('click', function() {
+
+        var node_id = funnel_builder.flowchart('getSelectedOperatorId');
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_load_email_template_info',
+            dataType: "json",
+            data: {
+                node_id: node_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                //Set The Email Title
+                //Set The Email Content
+                //Set the Button Text
+                //Show or hide the Email Buttons
+                //if /* response.has_button === 'true' */
+                $('#preview_buttons_div').show();
+
+
+                view_template_modal.modal('toggle');
+                console.log(response);
+            }
+        });
 
     });
 

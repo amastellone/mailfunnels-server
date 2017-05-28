@@ -19,18 +19,12 @@ $(function(){
     var button_select = $('#button_select');
     var button_form_div = $('#button_forms_div');
 
-<<<<<<< HEAD
 
-    /* --- DIV Fields --- */
-    var emailViewButtonFields = $('#emailViewButtonFields');
-    var showEmailButton = $('#showEmailButton');
-=======
     /* --- EMAIL PREVIEW FIELDS --- */
     var preview_email_title = $('#printEmailTitle');
     var preview_email_content = $('#printEmailContent');
     var preview_email_button_text = $('#printButtonText');
     var preview_email_buttons_div = $('#preview_buttons_div');
->>>>>>> 91ec93ef6e2e50650b75fd73eb4138a6785193b4
 
 
     /* --- BUTTONS --- */
@@ -39,7 +33,7 @@ $(function(){
 
     /* --- INITIAL EDIT EMAIL SETUP --- */
     emailContentInput.val(old_content);
-    preview_email_title.html(email_subject_input.val());
+    preview_email_title.html(emailTitleInput.val());
     preview_email_content.html(emailContentInput.val());
     preview_email_button_text.html(buttonTextInput.val());
 
@@ -75,21 +69,12 @@ $(function(){
 
     button_select.on("change", function(){
 
-<<<<<<< HEAD
-        if ($(this).val() === '0') {
-            $('#emailViewButtonFields').attr('class', 'hidden');
-            $('#showEmailButton').attr('class', 'hidden');
-        } else {
-            $('#emailViewButtonFields').attr('class', ' ');
-            $('#showEmailButton').attr('class', ' ');
-=======
         if ($(this).val() === "true") {
             preview_email_buttons_div.show();
             button_form_div.show();
         } else {
             preview_email_buttons_div.hide();
             button_form_div.hide();
->>>>>>> 91ec93ef6e2e50650b75fd73eb4138a6785193b4
         }
     });
 
