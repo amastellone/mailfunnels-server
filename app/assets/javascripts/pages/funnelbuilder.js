@@ -25,6 +25,8 @@ $(function() {
     var submit_new_node_button = $('#new_node_submit_button'); //Add Node Form Submit Button
     var preview_email_button = $('#preview_email_button'); //Preview Email Button
 
+    var view_template_button = $('#viewButton'); // View Template from node
+    var edit_template_button = $('#editButton'); // Edit Template from node
 
     /* --- FORM INPUTS --- */
     var new_node_label = $('#new_node_label_input');
@@ -45,6 +47,7 @@ $(function() {
     var node_view_emails_clicked = $('#view_node_emails_clicked');
     var node_view_total_revenue = $('#view_node_total_revenue');
     var node_view_email_settings_template = $('#view_node_email_settings_template');
+    var node_view_email_description = $('#view_node_email_description');
 
 
     /* --- DYNAMIC VALUES --- */
@@ -108,6 +111,9 @@ $(function() {
             }
         });
 
+
+
+        edit_template_button.attr('href', 'edit_email_template/' + email_template_id);
         create_new_node_modal.modal('toggle');
     });
 
@@ -150,6 +156,7 @@ $(function() {
                 node_view_emails_clicked.html(response.node_emails_clicked);
                 node_view_total_revenue.html(response.node_total_revenue);
                 node_view_email_settings_template.html(response.email_template_name);
+                node_view_email_description.html(response.email_template_description);
                 console.log(response);
             }
         });
@@ -326,6 +333,7 @@ $(function() {
         view_selected_node_button.hide();
         preview_email_button.hide();
     }
+
 
 
 
