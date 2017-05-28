@@ -11,10 +11,10 @@ class OrdersCreateJob < ActiveJob::Base
       app = MailfunnelsUtil.get_app
 
       logger.info("Checking if subscriber exists")
-      subscriber = Subscriber.where(app_id: app.id, email: "ayylmao@worldstarthiphop.com").first
+      subscriber = Subscriber.where(app_id: app.id, email: webhook[:email]).first
       if subscriber.nil? == true
         logger.info("Subscriber does not exist, creating now!")
-        subscriber = Subscriber.create(app_id: app.id, email: "ayylmao@worldstarthiphop.com")
+        subscriber = Subscriber.create(app_id: app.id, email: webhook[:email])
       else
         logger.info("Subscriber exists!")
       end
@@ -56,18 +56,13 @@ class OrdersCreateJob < ActiveJob::Base
               if job.nil? == true
                 logger.info("Job does not exist creating now")
                 logger.info("rendering email template for job")
-                @template = EmailTemplate.find(node.email_template_id)
-                html = File.open("app/views/email/template.html.erb").read
-                @renderedhtml = "1"
-                ERB.new(html, 0, "", "@renderedhtml").result(binding)
                 EmailJob.post('', {:app_id => app.id,
                                    :funnel_id => funnel.id,
                                    :subscriber_id => subscriber.id,
                                    :executed => false,
                                    :node_id => node.id,
                                    :email_template_id => node.email_template_id,
-                                   :sent => 0,
-                                   :renderedEmail => @renderedhtml})
+                                   :sent => 0})
                 logger.info("Sent Job to database!")
               else
                 logger.info("Email job already exists with these parameters")
