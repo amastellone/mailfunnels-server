@@ -336,11 +336,22 @@ class FunnelsController < ShopifyApp::AuthenticatedController
         :node_total_revenue => node.num_revenue,
         :email_template_id => node.email_template_id,
         :email_template_name => node.email_template.name,
+        :email_template_description => node.email_template.description,
     }
 
 
     # Return data as JSON
     render json: data
+
+  end
+
+
+  def view_template
+    # Get the current app loaded
+    @app = MailfunnelsUtil.get_app
+
+    # Get all Funnel models
+    @template = EmailTemplate.find(params[:template_id])
 
   end
 
