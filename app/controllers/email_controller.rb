@@ -189,8 +189,6 @@ class EmailController < ShopifyApp::AuthenticatedController
     # Return JSON response
     render json: final_json
 
-
-
   end
 
 

@@ -10,6 +10,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
+    @numEmailsSent = EmailJob.where(app_id: @app.id, sent: 1).size
+
   end
 
 
