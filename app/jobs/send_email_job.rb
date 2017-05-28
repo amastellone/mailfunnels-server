@@ -1,7 +1,9 @@
+require "erb"
+
 class SendEmailJob < ApplicationJob
   @queue = :default
 
-  def perform(job_id, renderedEmail)
+  def perform(job_id)
 
 		puts"Gathering Email Job Info"
 		job = EmailJob.where(id: job_id).first
@@ -12,6 +14,12 @@ class SendEmailJob < ApplicationJob
 		if job.sent == 1
 			puts"Email Already Sent to Subscriber"
 		else
+			puts "Rendering email template"
+			@template = template
+			html = File.open("app/views/email/template.html.erb").read
+			@renderedhtml = "1"
+			ERB.new(html, 0, "", "@renderedhtml").result(binding)
+			puts "Template rendered!"
 			puts"Creating Postmark Client"
 			client = Postmark::ApiClient.new('d8fcd810-8122-48d9-aada-e93064291543', http_open_timeout: 60)
 			puts"Sending Email..."
@@ -19,8 +27,9 @@ class SendEmailJob < ApplicationJob
 					:subject     => template.email_subject,
 					:to          => 'matt@greekrow.online',
 					:from        => 'matt@greekrow.online',
-					:html_body   => renderedEmail,
-					:track_opens => 'true')
+					:html_body   => @renderedhtml,
+					:track_opens => 'true',
+					:track_links => 'HtmlAndText')
 			puts"Email Sent!"
 
 			funnel.num_emails_sent = funnel.num_emails_sent+1
@@ -51,8 +60,8 @@ class SendEmailJob < ApplicationJob
 														node_id: link.to_node_id,
 														email_template_id: nextNode.email_template_id,
 														sent: 0)
-			#-----SET TO HOURS IN PROD-----
-			#SendEmailJob.set(wait: nextNode.delay_time.seconds).perform_later(job.id,)
+			# set to hours
+			SendEmailJob.set(wait: nextNode.delay_time.seconds).perform_later(job.id)
 			puts"Next Email Job Queued"
 		else
 			puts"No Node found!"
