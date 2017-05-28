@@ -63,7 +63,9 @@ $(function() {
             },
             success: function(response) {
                 console.log(response);
+                window.location.reload(true);
                 new_funnel_modal.modal('toggle');
+
             }
         });
 

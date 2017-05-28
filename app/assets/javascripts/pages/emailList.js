@@ -43,6 +43,7 @@ $(function(){
             },
             success: function(response) {
                 console.log(response);
+                window.location.reload(true);
                 new_email_list_modal.modal('toggle');
             }
         });
