@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
 
 
+
   # Shopify Routes
   get 'modal' => "home#modal", :as => :modal
   get 'modal_buttons' => "home#modal_buttons", :as => :modal_buttons

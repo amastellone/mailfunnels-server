@@ -52,7 +52,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     @app = MailfunnelsUtil.get_app
 
     # Get the current list
-    @list = EmailList.find(params[:list_id])
+    @subscribers = EmailListSubscriber.where(email_list_id: params[:list_id])
 
   end
 

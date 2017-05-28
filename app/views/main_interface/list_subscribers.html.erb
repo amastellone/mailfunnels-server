@@ -23,7 +23,7 @@
       <div class="col-xs-12">
         <div class="page-title">
           <div class="title_left">
-            <h3>MailFunnels <small>Subscribers in <%= @list.name %></small></h3>
+            <h3>MailFunnels <small>Subscribers for List</small></h3>
           </div>
           <hr/>
           <div class="clearfix"></div>
@@ -62,12 +62,12 @@
               <!-- Hooks Table BODY -->
               <tbody>
 
-              <% if @list.email_list_subscribers.any? %>
-                  <% @list.email_list_subscribers.each do |list_subscriber| %>
+              <% if @subscribers.any? %>
+                  <% @subscribers.subscribers.each do |subscriber| %>
                       <tr>
-                        <td><h5><%= list_subscriber.subscriber.first_name %></h5></td>
-                        <td><h5><%= list_subscriber.subscriber.last_name %></h5></td>
-                        <td><h5><%= list_subscriber.subscriber.email %></h5></td>
+                        <td><h5><%= subscriber.first_name %></h5></td>
+                        <td><h5><%= subscriber.last_name %></h5></td>
+                        <td><h5><%= subscriber.email %></h5></td>
                         <td><h5>$0.00</h5></td>
                         <td style="width: 50px;">
                           <button type="button" class="btn btn-primary btn-block"><i class="fa fa-trash-o"></i></button>
