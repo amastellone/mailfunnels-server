@@ -1,6 +1,9 @@
 class CartsUpdateJob < ApplicationJob
   queue_as :default
 
+  def get_binding
+    binding
+  end
   def perform(shop_domain:, webhook:)
     shop = Shop.find_by(shopify_domain: shop_domain)
 
@@ -36,7 +39,7 @@ class CartsUpdateJob < ApplicationJob
           else
             puts "----NOT ADDING SUBSCRIBER TO EMAIL LIST----"
           end
-            puts ""
+          puts ""
           link = Link.where(funnel_id: funnel.id, start_link: 1).first
           if link.nil? == false
 
@@ -48,7 +51,7 @@ class CartsUpdateJob < ApplicationJob
                 puts "----CREATING NEW EMAIL JOB----"
                 EmailJob.post('', {:app_id => app.id, :funnel_id => funnel.id, :subscriber_id => subscriber.id, :executed => false, :node_id => node.id, :email_template_id => node.email_template_id, :sent => 0})
               else
-                  puts "----NOT CREATING NEW EMAIL JOB----"
+                puts "----NOT CREATING NEW EMAIL JOB----"
               end
               puts "----MOVING SUBSCRIBER TO NEXT NODE----"
 
@@ -56,6 +59,7 @@ class CartsUpdateJob < ApplicationJob
           end
         end
       end
+
     end
   end
 end

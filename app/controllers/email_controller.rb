@@ -197,13 +197,15 @@ class EmailController < ShopifyApp::AuthenticatedController
   # Renders the Email Template for the customer
   #
   def template
-
+    puts "hit template route"
     @template = EmailTemplate.find(params[:id])
 
     render :template => "email/template"
   end
 
-
+  def get_binding
+    binding
+  end
 
 
   private
