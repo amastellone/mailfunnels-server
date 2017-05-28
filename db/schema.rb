@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20170527000507) do
 
   create_table "email_list_subscribers", force: :cascade do |t|
     t.integer  "app_id",        :foreign_key=>{:references=>"apps", :name=>"fk_email_list_subscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_list_subscribers_app_id", :using=>:btree}
-    t.integer  "subscriber_id", :foreign_key=>{:references=>"subscribers", :name=>"fk_email_list_subscribers_subscriber_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_list_subscribers_subscriber_id", :using=>:btree}
+    t.integer  "subscriber_id", :foreign_key=>{:references=>"subscribers", :name=>"fk_email_list_subscribers_subscriber_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__email_list_subscribers_subscriber_id", :using=>:btree}
     t.integer  "email_list_id", :foreign_key=>{:references=>"email_lists", :name=>"fk_email_list_subscribers_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_list_subscribers_email_list_id", :using=>:btree}
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 20170527000507) do
   end
 
   create_table "email_jobs", force: :cascade do |t|
-    t.integer  "subscriber_id", :foreign_key=>{:references=>"subscribers", :name=>"fk_email_jobs_subscriber_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_jobs_subscriber_id", :using=>:btree}
+    t.integer  "subscriber_id", :foreign_key=>{:references=>"subscribers", :name=>"fk_email_jobs_subscriber_id", :on_update=>:no_action, :on_delete=>:nullify}, :index=>{:name=>"fk__email_jobs_subscriber_id", :using=>:btree}
     t.integer  "funnel_id",     :foreign_key=>{:references=>"funnels", :name=>"fk_email_jobs_funnel_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_jobs_funnel_id", :using=>:btree}
     t.integer  "app_id",        :foreign_key=>{:references=>"apps", :name=>"fk_email_jobs_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_jobs_app_id", :using=>:btree}
     t.integer  "node_id",        :foreign_key=>{:references=>"nodes", :name=>"fk_email_jobs_node_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_jobs_node_id", :using=>:btree}
