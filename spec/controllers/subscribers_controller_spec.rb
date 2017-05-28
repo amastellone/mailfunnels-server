@@ -61,13 +61,13 @@ RSpec.describe SubscribersController, type: :controller do
     context "with valid params" do
       it "creates a new Subscriber" do
         expect {
-          post :create, params: {subscriber: valid_attributes}, session: valid_session
+          post :create, params: {subscribers: valid_attributes}, session: valid_session
         }.to change(Subscriber, :count).by(1)
       end
 
-      it "renders a JSON response with the new subscriber" do
+      it "renders a JSON response with the new subscribers" do
 
-        post :create, params: {subscriber: valid_attributes}, session: valid_session
+        post :create, params: {subscribers: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(subscriber_url(Subscriber.last))
@@ -75,9 +75,9 @@ RSpec.describe SubscribersController, type: :controller do
     end
 
     context "with invalid params" do
-      it "renders a JSON response with errors for the new subscriber" do
+      it "renders a JSON response with errors for the new subscribers" do
 
-        post :create, params: {subscriber: invalid_attributes}, session: valid_session
+        post :create, params: {subscribers: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -90,27 +90,27 @@ RSpec.describe SubscribersController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested subscriber" do
+      it "updates the requested subscribers" do
         subscriber = Subscriber.create! valid_attributes
-        put :update, params: {id: subscriber.to_param, subscriber: new_attributes}, session: valid_session
+        put :update, params: {id: subscriber.to_param, subscribers: new_attributes}, session: valid_session
         subscriber.reload
         skip("Add assertions for updated state")
       end
 
-      it "renders a JSON response with the subscriber" do
+      it "renders a JSON response with the subscribers" do
         subscriber = Subscriber.create! valid_attributes
 
-        put :update, params: {id: subscriber.to_param, subscriber: valid_attributes}, session: valid_session
+        put :update, params: {id: subscriber.to_param, subscribers: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
     context "with invalid params" do
-      it "renders a JSON response with errors for the subscriber" do
+      it "renders a JSON response with errors for the subscribers" do
         subscriber = Subscriber.create! valid_attributes
 
-        put :update, params: {id: subscriber.to_param, subscriber: invalid_attributes}, session: valid_session
+        put :update, params: {id: subscriber.to_param, subscribers: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -118,7 +118,7 @@ RSpec.describe SubscribersController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested subscriber" do
+    it "destroys the requested subscribers" do
       subscriber = Subscriber.create! valid_attributes
       expect {
         delete :destroy, params: {id: subscriber.to_param}, session: valid_session

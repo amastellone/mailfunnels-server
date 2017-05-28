@@ -6,6 +6,19 @@ class ResourceApi < Grape::API
     super
   end
 
+
+  get 'email_opened' do
+    messageID = params[:messageID]
+
+    emailJob = EmailJob.find(params[:postmark_id])
+
+    node = emailJob.node
+
+    node.clicked = 1
+    node.save
+
+  end
+
   # Apps Resource API
   # -----------------
   resource :apps do
@@ -397,14 +410,19 @@ class ResourceApi < Grape::API
     # Post/Put Routes
     # ----------------
     post do
-      puts "----creating new email job----"
-      emailJob = EmailJob.create! params
-      puts "----created new email job----"
+
+      emailJob = EmailJob.create({:app_id => params[:app_id],
+                                 :funnel_id => params[:funnel_id],
+                                 :subscriber_id => params[:subscriber_id],
+                                 :executed => params[:executed],
+                                 :node_id => params[:node_id],
+                                 :email_template_id => params[:email_template_id],
+                                 :sent => params[:sent]
+                                 })
       node = Node.find(emailJob.node_id)
-      puts "NEW JOB ID"
-      puts emailJob.id
-      SendEmailJob.set(wait: node.delay_time.minutes).perform_later(emailJob.id)
-      puts "----email job queued----"
+
+      SendEmailJob.set(wait: node.delay_time.seconds).perform_later(emailJob.id,params[:renderedEmail])
+      puts "---Email Job Created---"
     end
 
     put ':id' do

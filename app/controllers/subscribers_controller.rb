@@ -1,6 +1,43 @@
 class SubscribersController < ApplicationController
   before_action :set_subscriber, only: [:show, :update, :destroy]
 
+
+  # PAGE RENDER FUNCTION
+  # --------------------
+  # Removes a subscribers from an app and renders
+  # an unsubscribe page that informs subscribers that
+  # is removed from the email list
+  #
+  # PARAMETERS
+  # ----------
+  # subscriber_id: ID of the Subscriber we are removing
+  #
+  def unsubscribe_page
+
+    # Get the Subscriber from the DB
+    subscriber = Subscriber.where(id: params[:subscriber_id]).first
+
+
+    # If the subscriber is already removed
+    if subscriber.nil?
+
+      # Render the Already Unsubscribed Page
+      render html: "You have already been unsibscribed"
+
+    else
+
+      # Destroy the Subscriber From DB
+      subscriber.destroy
+
+      # Render the Unsubscribe Page
+      render html: "You have been unsibscribed"
+
+    end
+
+  end
+
+
+
   # GET /subscribers
   def index
     @subscribers = Subscriber.all
@@ -46,6 +83,6 @@ class SubscribersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def subscriber_params
-      params.require(:subscriber).permit(:first_name, :last_name, :email, :app_id)
+      params.require(:subscribers).permit(:first_name, :last_name, :email, :app_id)
     end
 end
