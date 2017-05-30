@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # MailFunnels Webhook Routes
   post '/order_create_webhook' => 'application#order_create_webhook'
 
+
+
   # Funnel Page Render Routes
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   get '/all_subscribers', to: 'main_interface#all_subscribers'
   get '/list_subscribers/:list_id', to: 'main_interface#list_subscribers'
   post '/ajax_create_subscriber' => 'main_interface#ajax_create_subscriber'
+  post '/ajax_load_time_data' => 'main_interface#ajax_load_time_data'
 
   # Email Template Routes
   get '/email_templates', to: 'email#email_templates'
