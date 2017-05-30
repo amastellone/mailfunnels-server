@@ -11,7 +11,7 @@ class SendEmailJob < ApplicationJob
 		trigger = Trigger.find(funnel.trigger_id)
 		node = Node.find(job.node_id)
 		template = EmailTemplate.find(node.email_template_id)
-		subsriber = Subscriber.find(job.subscriber_id)
+		subscriber = Subscriber.find(job.subscriber_id)
 		if job.sent == 1
 			puts"Email Already Sent to Subscriber"
 		else
