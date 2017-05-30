@@ -63,11 +63,11 @@
               <tbody>
 
               <% if @subscribers.any? %>
-                  <% @subscribers.subscribers.each do |subscriber| %>
+                  <% @subscribers.each do |elsubscriber| %>
                       <tr>
-                        <td><h5><%= subscriber.first_name %></h5></td>
-                        <td><h5><%= subscriber.last_name %></h5></td>
-                        <td><h5><%= subscriber.email %></h5></td>
+                        <td><h5><%= elsubscriber.subscriber.first_name %></h5></td>
+                        <td><h5><%= elsubscriber.subscriber.last_name %></h5></td>
+                        <td><h5><%= elsubscriber.subscriber.email %></h5></td>
                         <td><h5>$0.00</h5></td>
                         <td style="width: 50px;">
                           <button type="button" class="btn btn-primary btn-block"><i class="fa fa-trash-o"></i></button>
