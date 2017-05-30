@@ -326,16 +326,20 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # Get the Node from the DB
     node = Node.find(params[:node_id])
 
+    # Get statistics for node
+    total_emails_sent = EmailJob.where(node_id: params[:node_id], sent: 1).size
+    total_emails_opened = EmailJob.where(node_id: params[:node_id], opened: 1).size
+    total_emails_clicked = EmailJob.where(node_id: params[:node_id], clicked: 1).size
+
     # Populate data Hash with node info
     data = {
         :node_id => node.id,
         :node_name => node.name,
         :node_delay_time => node.delay_time,
-        :node_total_emails => node.num_emails,
-        :node_emails_sent => node.num_emails_sent,
-        :node_emails_opened => node.num_emails_clicked,
-        :node_emails_clicked => node.num_emails_opened,
-        :node_total_revenue => node.num_revenue,
+        :node_total_emails => node.email_jobs.size,
+        :node_emails_sent => total_emails_sent,
+        :node_emails_opened => total_emails_opened,
+        :node_emails_clicked => total_emails_clicked,
         :email_template_id => node.email_template_id,
         :email_template_name => node.email_template.name,
         :email_template_description => node.email_template.description,

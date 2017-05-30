@@ -69,9 +69,9 @@ $(function(){
         preview_email_button_text.html(buttonTextInput.val());
     });
 
-    button_select.on("change", function(){
+    button_select.on('change', function(){
 
-        if ($(this).val() === "true") {
+        if ($(this).val() === 'true') {
             preview_email_buttons_div.show();
             button_form_div.show();
         } else {

@@ -47,7 +47,6 @@ $(function() {
     var node_view_emails_sent = $('#view_node_emails_sent');
     var node_view_emails_opened = $('#view_node_emails_opened');
     var node_view_emails_clicked = $('#view_node_emails_clicked');
-    var node_view_total_revenue = $('#view_node_total_revenue');
     var node_view_email_settings_template = $('#view_node_email_settings_template');
     var node_view_email_description = $('#view_node_email_description');
 
@@ -162,7 +161,6 @@ $(function() {
                 node_view_emails_sent.html(response.node_emails_sent);
                 node_view_emails_opened.html(response.node_emails_opened);
                 node_view_emails_clicked.html(response.node_emails_clicked);
-                node_view_total_revenue.html(response.node_total_revenue);
                 node_view_email_settings_template.html(response.email_template_name);
                 node_view_email_description.html(response.email_template_description);
                 console.log(response);
