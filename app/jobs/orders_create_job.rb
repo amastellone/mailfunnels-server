@@ -15,10 +15,18 @@ class OrdersCreateJob < ActiveJob::Base
       subscriber = Subscriber.where(app_id: app.id, email: webhook[:email]).first
       if subscriber.nil? == true
         logger.info("Subscriber does not exist, creating now!")
-        subscriber = Subscriber.create(app_id: app.id, email: webhook[:email], first_name: webhook[:billing_address]['first_name'], last_name: webhook[:billing_address]['last_name'])
+        subscriber = Subscriber.create(app_id: app.id,
+                                       email: webhook[:email],
+                                       first_name: webhook[:billing_address]['first_name'],
+                                       last_name: webhook[:billing_address]['last_name'],
+                                        revenue: webhook[:subtotal_price].to_f)
       else
         logger.info("Subscriber exists!")
+        logger.info("Incrementing Subscriber revenue...")
+        subscriber.put('',:revenue => subscriber.revenue.to_f+webhook[:subtotal_price].to_f)
+        logger.info("Subscriber updated!")
       end
+
       logger.info("Looking for corresponding hook...")
       hook = Hook.where(identifier: 'order_create').first
       if hook.nil? == false
