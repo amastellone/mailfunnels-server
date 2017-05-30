@@ -111,11 +111,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      Funnel.find(params[:id]).save params
+      Funnel.find(params[:id]).update(params)
     end
 
     put do
-      Funnel.save params
+      Funnel.update(params)
     end
 
 
