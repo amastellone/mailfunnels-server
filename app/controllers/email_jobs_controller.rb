@@ -58,9 +58,19 @@ class EmailJobsController < ApplicationController
       email_job.clicked = 1
       email_job.save!
 
+      # Now we want to redirect the user to the URL of the button
+      # So we need to get the email template that the node used
+      template = email_job.email_template
+
+      # If template does not exist redirect to error page
+      if template.nil?
+        render html: "Sorry but the page does not exist anymore"
+      else
+        redirect_to template.button_url
+      end
+
     end
 
-    redirect_to 'http://www.google.com'
 
   end
 
