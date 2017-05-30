@@ -123,6 +123,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Funnel Trigger</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <select class="form-control" id="funnel_trigger_select">
+                    <option value="0">Select Trigger for funnel</option>
                     <% @app.triggers.each do |trigger| %>
                         <option value="<%=trigger.id %>"><%= trigger.name %></option>
                     <% end %>
@@ -134,6 +135,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <select class="form-control" id="funnel_email_list_select">
+                    <option value="0">Select Email List for funnel</option>
                     <% @app.email_lists.each do |list| %>
                         <option value="<%= list.id %>"><%= list.name %></option>
                     <% end %>

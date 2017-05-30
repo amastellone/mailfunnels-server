@@ -27,6 +27,35 @@ $(function() {
     var new_funnel_submit = $('#new_funnel_submit_button');
 
 
+    //Disable Submit Button on Form until a list and trigger is selected
+    new_funnel_submit.prop("disabled",true);
+
+
+    funnel_trigger_select.on('change', function() {
+
+        var currentValue = $(this).val();
+        if (funnel_email_list_select.val() != '0' && currentValue != '0') {
+            new_funnel_submit.prop('disabled', false);
+        } else {
+            new_funnel_submit.prop('disabled', true);
+        }
+
+    });
+
+    funnel_email_list_select.on('change', function() {
+
+        var currentValue = $(this).val();
+        if (funnel_trigger_select.val() != '0' && currentValue != '0') {
+            new_funnel_submit.prop('disabled', false);
+        } else {
+            new_funnel_submit.prop('disabled', true);
+        }
+
+
+    });
+
+
+
     /**
      * Button On Click Function
      * ------------------------
