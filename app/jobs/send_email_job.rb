@@ -23,13 +23,13 @@ class SendEmailJob < ApplicationJob
 			puts"Creating Postmark Client"
 			client = Postmark::ApiClient.new('b650bfe2-d2c6-4714-aa2d-e148e1313e37', http_open_timeout: 60)
 			puts"Sending Email..."
-			response = client.deliver(
-					:subject     => template.email_subject,
-					:to          => 'matt@greekrow.online',
-					:from        => 'matt@greekrow.online',
-					:html_body   => @renderedhtml,
-					:track_opens => 'true',
-					:track_links => 'HtmlAndText')
+			# response = client.deliver(
+			# 		:subject     => template.email_subject,
+			# 		:to          => 'matt@greekrow.online',
+			# 		:from        => 'matt@greekrow.online',
+			# 		:html_body   => @renderedhtml,
+			# 		:track_opens => 'true',
+			# 		:track_links => 'HtmlAndText')
 			puts"Email Sent!"
 
 			funnel.num_emails_sent = funnel.num_emails_sent+1
@@ -42,7 +42,7 @@ class SendEmailJob < ApplicationJob
 			node.save!
 			puts"Incrementing Node num_emails_sent"
 			job.executed = true
-			job.postmark_id = response[:message_id]
+			job.postmark_id = 1 #response[:message_id]
 			job.sent = 1
 			job.save!
 			puts"Email Job updated to executed and message id set"
