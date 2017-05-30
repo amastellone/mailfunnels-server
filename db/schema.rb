@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20170527000507) do
     t.integer  "num_emails_clicked"
     t.decimal  "num_revenue"
     t.integer  "delay_time"
+    t.integer  "delay_unit"
     t.datetime "created_at",         :null=>false
     t.datetime "updated_at",         :null=>false
     t.integer  "app_id",             :foreign_key=>{:references=>"apps", :name=>"fk_nodes_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__nodes_app_id", :using=>:btree}
