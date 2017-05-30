@@ -9,6 +9,7 @@ ShopifyApp.configure do |config|
   config.embedded_app = true
 
   config.webhooks = [
+    {topic: 'refunds/create', address: 'https://5a4f004d.ngrok.io/webhooks/refunds_create', format: 'json'},
     {topic: 'orders/create', address: 'https://5a4f004d.ngrok.io/webhooks/orders_create', format: 'json'},
     {topic: 'carts/update', address: 'https://5a4f004d.ngrok.io/webhooks/carts_update', format: 'json'},
   ]
