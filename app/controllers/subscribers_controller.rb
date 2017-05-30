@@ -83,6 +83,6 @@ class SubscribersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def subscriber_params
-      params.require(:subscribers).permit(:first_name, :last_name, :revenue, :email, :app_id)
+      params.require(:subscribers).permit(:first_name, :last_name, :revenue, :email, :app_id, :created_at)
     end
 end
