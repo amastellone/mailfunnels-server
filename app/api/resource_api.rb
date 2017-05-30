@@ -42,11 +42,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      App.find(params[:id]).save params
+      App.find(params[:id]).update(params)
     end
 
     put do
-      App.save params
+      App.update(params)
     end
 
 
@@ -75,11 +75,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      Hook.find(params[:id]).save params
+      Hook.find(params[:id]).update(params)
     end
 
     put do
-      Hook.save params
+      Hook.update(params)
     end
 
 
@@ -153,7 +153,7 @@ class ResourceApi < Grape::API
     end
 
     put do
-      Trigger.save params
+      Trigger.update(params)
     end
 
   end
@@ -182,11 +182,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      Link.find(params[:id]).save params
+      Link.find(params[:id]).update(params)
     end
 
     put do
-      Link.save params
+      Link.update(params)
     end
 
   end
@@ -216,11 +216,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      Node.find(params[:id]).update params
+      Node.find(params[:id]).update(params)
     end
 
     put do
-      Node.save! params
+      Node.update(params)
     end
 
   end
@@ -254,11 +254,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      EmailList.find(params[:id]).save params
+      EmailList.find(params[:id]).update(params)
     end
 
     put do
-      EmailList.save params
+      EmailList.update(params)
     end
   end
 
@@ -286,8 +286,12 @@ class ResourceApi < Grape::API
       EmailTemplate.create! params
     end
 
+    put ':id' do
+      EmailTemplate.find(params[:id]).update(params)
+    end
+
     put do
-      EmailTemplate.save params
+      EmailTemplate.update(params)
     end
 
   end
@@ -315,11 +319,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      CapturedHook.find(params[:id]).save params
+      CapturedHook.find(params[:id]).update(params)
     end
 
     put do
-      CapturedHook.save params
+      CapturedHook.update(params)
     end
 
 
@@ -354,11 +358,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      Subscriber.find(params[:id]).save params
+      Subscriber.find(params[:id]).update(params)
     end
 
     put do
-      Subscriber.save params
+      Subscriber.update(params)
     end
   end
 
@@ -384,11 +388,11 @@ class ResourceApi < Grape::API
     end
 
     put ':id' do
-      EmailListSubscriber.find(params[:id]).save params
+      EmailListSubscriber.find(params[:id]).update(params)
     end
 
     put do
-      EmailListSubscriber.save params
+      EmailListSubscriber.update(params)
     end
   end
 
@@ -410,19 +414,23 @@ class ResourceApi < Grape::API
     # Post/Put Routes
     # ----------------
     post do
-
       emailJob = EmailJob.create params
       node = Node.find(emailJob.node_id)
-      SendEmailJob.set(wait: node.delay_time.seconds).perform_later(emailJob.id)
+      if node.delay_unit == 1
+        SendEmailJob.set(wait: node.delay_time.minutes).perform_later(emailJob.id)
+      elsif node.delay_unit == 2
+        SendEmailJob.set(wait: node.delay_time.hours).perform_later(emailJob.id)
+      end
+
       puts "---Email Job Created---"
     end
 
     put ':id' do
-      EmailJob.find(params[:id]).save params
+      EmailJob.find(params[:id]).update(params)
     end
 
     put do
-      EmailJob.save params
+      EmailJob.update(params)
     end
   end
 
