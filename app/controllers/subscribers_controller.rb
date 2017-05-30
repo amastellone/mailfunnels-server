@@ -27,7 +27,7 @@ class SubscribersController < ApplicationController
     else
 
       # Destroy the Subscriber From DB
-      subscriber.destroy
+      subscriber.delete
 
       # Render the Unsubscribe Page
       render html: "You have been unsibscribed"
