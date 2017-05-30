@@ -26,9 +26,11 @@ $(function(){
     var preview_email_button_text = $('#printButtonText');
     var preview_email_buttons_div = $('#preview_buttons_div');
 
-
     /* --- BUTTONS --- */
     var email_submit = $('#email_list_submit_button');
+
+    /* --- MODALS --- */
+    var email_template_saved_modal = $('#email_template_saved_modal');
 
 
     /* --- INITIAL EDIT EMAIL SETUP --- */
@@ -113,6 +115,7 @@ $(function(){
             },
             success: function(response) {
                 console.log(response);
+                email_template_saved_modal.modal('toggle');
             }
         });
 
