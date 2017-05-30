@@ -28,8 +28,8 @@ class SendEmailJob < ApplicationJob
 			puts"Sending Email..."
 			 response = client.deliver(
 			 		:subject     => template.email_subject,
-			 		:to          => 'matt@greekrow.online',
-			 		:from        => 'noreply@mailfunnels.com',
+			 		:to          => 'mailfunnelsemail@gmail.com',
+			 		:from        => 'matt@greekrow.online',
 			 		:html_body   => @renderedhtml,
 			 		:track_opens => 'true',
 			 		:track_links => 'HtmlAndText')
