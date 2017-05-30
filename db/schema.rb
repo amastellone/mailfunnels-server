@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170527000507) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
+    t.decimal  "revenue"
     t.integer  "app_id",     :foreign_key=>{:references=>"apps", :name=>"fk_subscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__subscribers_app_id", :using=>:btree}
     t.datetime "created_at", :null=>false
     t.datetime "updated_at", :null=>false

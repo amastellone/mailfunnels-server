@@ -33,6 +33,37 @@ class EmailJobsController < ApplicationController
 
   end
 
+  # MAILFUNNELS WEBHOOK FUNCTION
+  # ----------------------------
+  # When a button is clicked on the email sent to customers
+  # it will set the email job to clicked and redirect them
+  # to the URL of the button
+  #
+  # PARAMETERS
+  # ----------
+  # email_job_id: ID of the email job that corresponds to the email
+  #
+  def email_button_clicked
+
+    # Get the EmailJob from the DB
+    email_job = EmailJob.where(id: params[:email_job_id]).first
+
+    if email_job.nil?
+
+      # Don't to anything since no job was found
+
+    else
+
+      # Otherwise, set email job to clicked and save
+      email_job.clicked = 1
+      email_job.save!
+
+    end
+
+    redirect_to 'http://www.google.com'
+
+  end
+
   # GET /email_jobs
   def index
     @email_jobs = EmailJob.all
