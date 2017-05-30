@@ -68,7 +68,7 @@
                         <td><h5><%= elsubscriber.subscriber.first_name %></h5></td>
                         <td><h5><%= elsubscriber.subscriber.last_name %></h5></td>
                         <td><h5><%= elsubscriber.subscriber.email %></h5></td>
-                        <td><h5>$0.00</h5></td>
+                        <td><h5><%= number_to_currency(elsubscriber.subscriber.revenue) %>0</h5></td>
                         <td style="width: 50px;">
                           <button type="button" class="btn btn-primary btn-block"><i class="fa fa-trash-o"></i></button>
                         </td>

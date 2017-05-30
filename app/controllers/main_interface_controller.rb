@@ -16,6 +16,16 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     @num_email_clicked = EmailJob.where(app_id: @app.id, clicked: 1).size
 
+
+    # Calculate the the total revenue for the user
+    @total_revenue = 0.0
+
+    # Loop through all funnels and sum up the total revenue
+    funnels = Funnel.where(app_id: @app.id)
+    funnels.each do |funnel|
+      @total_revenue += funnel.num_revenue.to_f
+    end
+
   end
 
 
