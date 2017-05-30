@@ -118,18 +118,18 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     week = Time.now - 7.days
     month = Time.now - 30.days
 
-    todaysSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", oneDay]).count
-    weeksSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", week]).count
-    monthSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", month]).count
-    emailJob = EmailJob.where(app_id: @app.id)
+    #todaysSubscribers = Subscriber.where(app_id: @app.id, created_at: 1.day.ago..Time.now).size
+    #weeksSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", week]).count
+    #monthSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", month]).count
+    #emailJob = EmailJob.where(app_id: @app.id)
     emails_sent = EmailJob.where(app_id: @app.id, sent: 1)
     emails_opened = EmailJob.where(app_id: @app.id, opened: 1)
     emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1)
 
     data = {
-        :todaysSubscribers => todaysSubscribers,
-        :weeksSubscribers => weeksSubscribers,
-        :monthsSubsribers => monthSubscribers,
+        #:todaysSubscribers => todaysSubscribers,
+        #:weeksSubscribers => weeksSubscribers,
+        #:monthsSubsribers => monthSubscribers,
         # :subscribers => subscribers.all,
         # :subscribers_created_date => subscribers.created_at,
         # :emailJob_created_date => emailJob.created_at,

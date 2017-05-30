@@ -50,19 +50,9 @@ $(function(){
 
 
 
-
-
-
             console.log(response);
 
         }
-
-
-
-
-
-
-
 
 
     });

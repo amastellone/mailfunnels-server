@@ -19,6 +19,8 @@ Rails.application.config.assets.precompile += %w( funnel_builder_manifest.js )
 Rails.application.config.assets.precompile += %w( pages/editemailtemplate.js )
 Rails.application.config.assets.precompile += %w( pages/emailList.js )
 Rails.application.config.assets.precompile += %w( pages/allsubscribers.js )
+Rails.application.config.assets.precompile += %w( pages/home.js )
+
 
 # CSS Files
 Rails.application.config.assets.precompile += %w( dashboard.css )
