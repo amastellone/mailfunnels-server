@@ -3,7 +3,7 @@ class RefundsCreateJob < ActiveJob::Base
   def perform(shop_domain:, webhook:)
     logger.info("Doing Refund Job")
     shop = Shop.find_by(shopify_domain: shop_domain)
-    
+
     shop.with_shopify_session do
       app = MailfunnelsUtil.get_app
       logger.info("Finding order #{webhook[:order_id]}")
@@ -22,7 +22,7 @@ class RefundsCreateJob < ActiveJob::Base
                                            revenue: 0)
           else
             logger.info("Subscriber exists!")
-            logger.info("Incrementing Subscriber revenue...")
+            logger.info("Decrementing Subscriber revenue...")
             subscriber.put('',:revenue => subscriber.revenue.to_f-order.subtotal_price.to_f)
             logger.info("Subscriber updated!")
           end
@@ -40,7 +40,7 @@ class RefundsCreateJob < ActiveJob::Base
               funnel = Funnel.where(app_id: app.id, trigger_id: trigger.id).first
               if funnel.nil? == false
                 logger.info("Funnel found!")
-                logger.info("Incrementing Funnel revenue...")
+                logger.info("Decrementing Funnel revenue...")
                 funnel.put('', :num_revenue => funnel.num_revenue.to_f-order.subtotal_price.to_f)
                 logger.info("Funnel Updated!")
                 logger.info("Checking if subscriber is in email list")
