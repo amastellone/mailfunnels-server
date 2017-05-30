@@ -32,6 +32,7 @@ $(function() {
     var new_node_label = $('#new_node_label_input');
     var new_node_email_template_select = $('#new_node_email_template_select');
     var new_node_delay_time_input = $('#new_node_delay_time_input');
+    var time_unit_select = $('#time_unit_select');
 
     /* --- MODALS --- */
     var create_new_node_modal = $('#modal_node_create'); //New Job Modal
@@ -75,6 +76,7 @@ $(function() {
         var label = new_node_label.val();
         var email_template_id = new_node_email_template_select.val();
         var delay_time = new_node_delay_time_input.val();
+        var delay_unit = time_unit_select.val();
 
         $.ajax({
             type:'POST',
@@ -85,6 +87,7 @@ $(function() {
                 funnel_id: funnel_id,
                 email_template_id: email_template_id,
                 delay_time: delay_time,
+                delay_unit: delay_unit,
                 name: label,
                 authenticity_token: csrf_token
             },

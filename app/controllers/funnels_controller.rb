@@ -91,6 +91,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   # name: Name of the Node
   # email_template_id: ID of the trigger the node is related to
   # delay_time: The delay time for sending the email
+  # delay_unit: The delay unit for sending the email
   #
   def ajax_add_node
 
@@ -103,6 +104,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     node.email_template_id = params[:email_template_id]
     node.name = params[:name]
     node.delay_time = params[:delay_time]
+    node.delay_unit = params[:delay_unit]
     node.top = 60
     node.left = 500
     node.num_emails = 0
