@@ -446,5 +446,50 @@ class ResourceApi < Grape::API
     end
   end
 
+  # BatchEmailJobResource API
+  # ------------------------
+  resource :batch_email_jobs do
+    # Get Routes
+    # ----------------
+    get do
+      BatchEmailJob.where(params)
+    end
+
+    route_param :id do
+      get do
+        BatchEmailJob.find(params[:id])
+      end
+    end
+
+    # Post/Put Routes
+    # ----------------
+    post do
+      batchEmailJob = BatchEmailJob.create params
+      emailList = EmailList.where(id: batchEmailJob.email_list_id)
+      emailList.email_list_subscribers.each do |listSubscriber|
+        emailJob = EmailJob.create(subscriber_id: listSubscriber.subscriber.id,
+                        email_template_id: batchEmailJob.email_template_id,
+                        app_id: batchEmailJob.app_id,
+                        batch_email_job_id: batchEmailJob.id,
+                        sent:0,
+                        executed:false,
+                        clicked:0)
+
+        BatchEmailJob.perform_later(emailJob)
+        puts "---created batch email job---"
+      end
+
+      puts "---All batch jobs created---"
+    end
+
+    put ':id' do
+      BatchEmailJob.find(params[:id]).update(params)
+    end
+
+    put do
+      BatchEmailJob.update(params)
+    end
+  end
+
 
 end
