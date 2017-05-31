@@ -9,6 +9,8 @@ class App < ApplicationRecord
 	has_many :triggers
 	has_many :email_jobs
 	has_many :captured_hooks
+	has_many :batch_email_jobs
+	has_many :unsubscribers
 
 
 end
