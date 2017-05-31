@@ -3,7 +3,7 @@ class BatchEmailJobsController < ApplicationController
 
   # GET /batch_email_jobs
   def index
-    @batch_email_jobs = BatchEmailJob.all
+    @batch_email_jobs = SendBatchEmailJob.all
 
     render json: @batch_email_jobs
   end
@@ -15,7 +15,7 @@ class BatchEmailJobsController < ApplicationController
 
   # POST /batch_email_jobs
   def create
-    @batch_email_job = BatchEmailJob.new(batch_email_job_params)
+    @batch_email_job = SendBatchEmailJob.new(batch_email_job_params)
 
     if @batch_email_job.save
       render json: @batch_email_job, status: :created, location: @batch_email_job
@@ -41,7 +41,7 @@ class BatchEmailJobsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_batch_email_job
-      @batch_email_job = BatchEmailJob.find(params[:id])
+      @batch_email_job = SendBatchEmailJob.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -1,11 +1,11 @@
 require "erb"
 
-class BatchEmailJobJob < ApplicationJob
+class SendBatchEmailJob < ApplicationJob
   queue_as :default
 
   def perform(job)
     puts"Gathering Email Job Info"
-    job = EmailJob.where(id: job_id).first
+    job = EmailJob.where(id: job.id).first
     template = EmailTemplate.find(job.email_template_id)
     subscriber = Subscriber.find(job.subscriber_id)
     if job.sent == 1
