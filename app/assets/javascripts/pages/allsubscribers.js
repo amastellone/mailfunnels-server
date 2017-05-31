@@ -85,10 +85,10 @@ $(function() {
             success: function(response) {
                 console.log(response);
                 window.location.reload(true);
-                new_batch_email_modal.modal('toggle');
             }
-
         });
+
+        new_batch_email_modal.modal('toggle');
 
 
     });
