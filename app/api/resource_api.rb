@@ -118,6 +118,11 @@ class ResourceApi < Grape::API
       Funnel.update(params)
     end
 
+    delete ':id' do
+      puts 'HERE'
+      Funnel.find(params[:id]).destroy
+    end
+
 
   end
 
