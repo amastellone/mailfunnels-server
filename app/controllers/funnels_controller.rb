@@ -398,6 +398,28 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Removes a Funnel from the DB
+  #
+  # PARAMETERS
+  # ----------
+  # funnel_id: ID of the funnel we are removing
+  #
+  #
+  def ajax_delete_funnel
+
+    # Get the funnel from the DB
+    funnel = Funnel.find(params[:funnel_id])
+
+    # If funnel exists, then remove the funnel
+    if !funnel.nil?
+      funnel.destroy
+    end
+
+  end
+
+
 
 
 

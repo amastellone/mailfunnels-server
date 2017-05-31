@@ -25,6 +25,7 @@ $(function() {
 
     /* --- BUTTONS --- */
     var new_funnel_submit = $('#new_funnel_submit_button');
+    var delete_funnel_button = $('#delete_funnel_button');
 
 
     //Disable Submit Button on Form until a list and trigger is selected
@@ -101,8 +102,47 @@ $(function() {
     });
 
 
+    /**
+     *  Deletes a Funnel from the DB
+     *
+     * @param id
+     */
+    delete_funnel_button.on('click', function() {
 
+        var id = $(this).data('id');
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_delete_funnel',
+            dataType: "json",
+            data: {
+                funnel_id: id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload(true);
+            }
+        });
+
+    });
 
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+

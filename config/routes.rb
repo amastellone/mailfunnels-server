@@ -11,9 +11,10 @@ Rails.application.routes.draw do
 
 
 
-  # Funnel Page Render Routes
+  # Funnel Page Routes
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'
+  post '/ajax_delete_funnel' => 'funnels#ajax_delete_funnel'
 
   # Funnel Editor POST Routes
   post '/create_funnel' => 'funnels#ajax_create_funnel'

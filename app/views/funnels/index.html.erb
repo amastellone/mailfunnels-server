@@ -65,8 +65,11 @@
                     </p>
 
                     <div class="flex">
-                      <div class="col-xs-10 col-xs-offset-1">
+                      <div class="col-xs-6">
                         <a href="<% root_url %>edit_funnel/<%= funnel.id %>" class="btn btn-block btn-border btn-primary">Edit</a>
+                      </div>
+                      <div class="col-xs-6">
+                        <button id="delete_funnel_button" data-id="<%= funnel.id %>" class="btn btn-block btn-border btn-danger">Delete</button>
                       </div>
 
                     </div>
