@@ -118,8 +118,9 @@ class ResourceApi < Grape::API
       Funnel.update(params)
     end
 
+    # DELETE Route
+    # ------------
     delete ':id' do
-      puts 'HERE'
       Funnel.find(params[:id]).destroy
     end
 
@@ -226,6 +227,12 @@ class ResourceApi < Grape::API
 
     put do
       Node.update(params)
+    end
+
+    # DELETE Route
+    # ------------
+    delete ':id' do
+      Node.find(params[:id]).destroy
     end
 
   end
