@@ -7,7 +7,7 @@ $(function() {
 
     /* --- APP VALUES --- */
     var app_id = $('#current_app_id').val();
-    var email_list_id = $('current_email_list_id');
+    var email_list_id = $('#current_email_list_id').val();
 
     /* --- MODALS --- */
     var new_subscriber_modal = $('#new_subscriber_modal');
@@ -67,7 +67,6 @@ $(function() {
     batch_email_send_button.on('click', function(){
 
         var template = template_list_select.val();
-        var list_id = email_list_id.val();
 
 
         $.ajax({
@@ -77,7 +76,7 @@ $(function() {
             data: {
                 app_id: app_id,
                 email_template_id: template,
-                email_list_id: list_id,
+                email_list_id: email_list_id,
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -85,6 +84,7 @@ $(function() {
             },
             success: function(response) {
                 console.log(response);
+                window.location.reload(true);
                 new_batch_email_modal.modal('toggle');
             }
 

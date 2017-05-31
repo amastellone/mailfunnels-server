@@ -71,8 +71,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     @templates = EmailTemplate.where(app_id: @app.id)
 
 
-
-
   end
 
 
