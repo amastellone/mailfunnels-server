@@ -16,6 +16,7 @@
 
     <div class="hidden">
       <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+      <input id="current_email_list_id" type="number" value="<%= @list.id %>"/>
     </div>
 
 
@@ -25,6 +26,11 @@
           <div class="title_left">
             <h3>MailFunnels <small>Subscribers for List</small></h3>
           </div>
+
+          <div class="title_right">
+            <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#new_batch_email_modal"><i class="fa fa-plus"></i> New Batch Email</button>
+          </div>
+
           <hr/>
           <div class="clearfix"></div>
         </div>
@@ -137,6 +143,60 @@
         </div>
       </div>
     </div>
+
+
+
+
+    <!--Start New Batch Email Modal-->
+
+    <div id="new_batch_email_modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">New Batch Email</h4>
+          </div>
+
+          <form class="form-horizontal form-label-left">
+
+            <div class="modal-body">
+
+              <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
+              <div class="col-md-9 col-sm-9 col-xs-12">
+                <h4 id="email_list_name"><%= @list.name %></h4>
+              </div>
+            </div>
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Template</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <select class="form-control" id="template_list_select">
+                    <% @templates.each do |t| %>
+                        <option value="<%= t.id %>"><%= t.name %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="modal-footer">
+              <button id="batch_email_send_button" type="button" class="btn btn-success">Send</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!--End New Batch Email Modal-->
+
 
 <% end %>
 

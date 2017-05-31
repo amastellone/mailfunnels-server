@@ -64,6 +64,15 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the current list
     @subscribers = EmailListSubscriber.where(email_list_id: params[:list_id])
 
+    # Get all Email List
+    @list = EmailList.find(params[:list_id])
+
+    # Get all Email Templates
+    @templates = EmailTemplate.where(app_id: @app.id)
+
+
+
+
   end
 
 
@@ -103,6 +112,33 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Return JSON response
     render json: final_json
+
+  end
+
+
+  def ajax_create_batch_email
+
+    # Create new Batch Email
+    batch = BatchEmailJob.new
+
+    # Update the Attributes for the Batch Email Jon
+    batch.app_id = params[:app_id]
+    batch.email_template_id = params[:email_template_id]
+    batch.email_list_id = params[:email_list_id]
+
+    if batch.save!
+      final_json = JSON.pretty_generate(result = {
+          :success => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          :success => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+
 
   end
 
