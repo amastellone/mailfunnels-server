@@ -8,7 +8,7 @@ class SendEmailJob < ApplicationJob
 		puts"Gathering Email Job Info"
 		job = EmailJob.where(id: job_id).first
 		if job.nil? == false
-			
+
 		funnel = Funnel.find(job.funnel_id)
 		if funnel.nil? == false
 			trigger = Trigger.find(funnel.trigger_id)
