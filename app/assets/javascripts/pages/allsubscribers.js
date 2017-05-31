@@ -55,14 +55,8 @@ $(function() {
                 new_subscriber_modal.modal('toggle');
             }
         });
-
-
-
-
+        
     });
-
-
-
 
     batch_email_send_button.on('click', function(){
 
