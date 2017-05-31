@@ -134,7 +134,7 @@
           <tr>
             <td class="content">
 
-              <h2>Hi Customer,</h2>
+              <h2>Hi <%= @subscriber.first_name%></h2>
 
               <p> <%= @template.email_content %></p>
 
@@ -143,7 +143,7 @@
                   <td align="center">
                     <% if template.has_button %>
                         <p>
-                          <a href="<%= @template.button_url %>" class="button"> <%= @template.button_text %> </a>
+                          <a href="http://mailfunnels-server.herokuapp.com/email_clicked/<%= @email_job.id %>" class="button"> <%= @template.button_text %> </a>
                         </p>
                     <% end %>
                   </td>
@@ -160,7 +160,7 @@
         <table>
           <tr>
             <td class="content email_footer" align="center">
-              <p><a href= "#">Unsubscribe</a></p>
+              <p><a href="http://mailfunnels-server.herokuapp.com/unsubscribe/<%= @subscriber.id %>">Unsubscribe</a></p>
             </td>
           </tr>
         </table>

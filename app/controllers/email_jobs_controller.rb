@@ -33,6 +33,47 @@ class EmailJobsController < ApplicationController
 
   end
 
+  # MAILFUNNELS WEBHOOK FUNCTION
+  # ----------------------------
+  # When a button is clicked on the email sent to customers
+  # it will set the email job to clicked and redirect them
+  # to the URL of the button
+  #
+  # PARAMETERS
+  # ----------
+  # email_job_id: ID of the email job that corresponds to the email
+  #
+  def email_button_clicked
+
+    # Get the EmailJob from the DB
+    email_job = EmailJob.where(id: params[:email_job_id]).first
+
+    if email_job.nil?
+
+      # Don't to anything since no job was found
+
+    else
+
+      # Otherwise, set email job to clicked and save
+      email_job.clicked = 1
+      email_job.save!
+
+      # Now we want to redirect the user to the URL of the button
+      # So we need to get the email template that the node used
+      template = email_job.email_template
+
+      # If template does not exist redirect to error page
+      if template.nil?
+        render html: "Sorry but the page does not exist anymore"
+      else
+        redirect_to template.button_url
+      end
+
+    end
+
+
+  end
+
   # GET /email_jobs
   def index
     @email_jobs = EmailJob.all

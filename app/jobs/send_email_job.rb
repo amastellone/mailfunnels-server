@@ -11,11 +11,14 @@ class SendEmailJob < ApplicationJob
 		trigger = Trigger.find(funnel.trigger_id)
 		node = Node.find(job.node_id)
 		template = EmailTemplate.find(node.email_template_id)
+		subscriber = Subscriber.find(job.subscriber_id)
 		if job.sent == 1
 			puts"Email Already Sent to Subscriber"
 		else
 			puts "Rendering email template"
 			@template = template
+			@email_job = job
+			@subscriber = subscriber
 			html = File.open("app/views/email/template.html.erb").read
 			@renderedhtml = "1"
 			ERB.new(html, 0, "", "@renderedhtml").result(binding)
@@ -23,13 +26,13 @@ class SendEmailJob < ApplicationJob
 			puts"Creating Postmark Client"
 			client = Postmark::ApiClient.new('b650bfe2-d2c6-4714-aa2d-e148e1313e37', http_open_timeout: 60)
 			puts"Sending Email..."
-			response = client.deliver(
-					:subject     => template.email_subject,
-					:to          => 'matt@greekrow.online',
-					:from        => 'matt@greekrow.online',
-					:html_body   => @renderedhtml,
-					:track_opens => 'true',
-					:track_links => 'HtmlAndText')
+			 response = client.deliver(
+			 		:subject     => template.email_subject,
+			 		:to          => 'mailfunnelsemail@gmail.com',
+			 		:from        => 'matt@greekrow.online',
+			 		:html_body   => @renderedhtml,
+			 		:track_opens => 'true',
+			 		:track_links => 'HtmlAndText')
 			puts"Email Sent!"
 
 			funnel.num_emails_sent = funnel.num_emails_sent+1
