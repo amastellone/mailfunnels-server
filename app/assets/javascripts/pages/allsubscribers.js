@@ -7,17 +7,23 @@ $(function() {
 
     /* --- APP VALUES --- */
     var app_id = $('#current_app_id').val();
+    var email_list_id = $('current_email_list_id');
 
     /* --- MODALS --- */
     var new_subscriber_modal = $('#new_subscriber_modal');
+    var new_batch_email_modal = $('#new_batch_email_modal');
 
     /* --- INPUT FIELDS --- */
     var first_name_input = $('#first_name_input');
     var last_name_input = $('#last_name_input');
     var email_input = $('#email_input');
+    var template_list_select = $('#template_list_select');
+    var email_list_name = $('#email_list_name');
+
 
     /* --- BUTTONS --- */
     var new_subscriber_submit_button = $('#new_subscriber_submit_button');
+    var batch_email_send_button = $('#batch_email_send_button');
 
 
 
@@ -54,6 +60,39 @@ $(function() {
 
 
     });
+
+
+
+
+    batch_email_send_button.on('click', function(){
+
+        var template = template_list_select.val();
+        var list_id = email_list_id.val();
+
+
+        $.ajax({
+            type:'POST',
+            url:'/ajax_create_batch_email',
+            dataType: "json",
+            data: {
+                app_id: app_id,
+                email_template_id: template,
+                email_list_id: list_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                new_batch_email_modal.modal('toggle');
+            }
+
+        });
+
+
+    });
+
 
 
 });

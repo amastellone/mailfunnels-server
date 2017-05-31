@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get '/list_subscribers/:list_id', to: 'main_interface#list_subscribers'
   post '/ajax_create_subscriber' => 'main_interface#ajax_create_subscriber'
   post '/ajax_load_time_data' => 'main_interface#ajax_load_time_data'
+  post '/ajax_create_batch_email' => 'main_interface#ajax_create_batch_email'
 
   # Email Template Routes
   get '/email_templates', to: 'email#email_templates'
