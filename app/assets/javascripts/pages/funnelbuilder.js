@@ -133,8 +133,23 @@ $(function() {
             return;
         }
 
+        $.ajax({
+            type:'POST',
+            url: '/ajax_delete_node',
+            dataType: "json",
+            data: {
+                node_id: node_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                funnel_builder.flowchart('deleteSelected');
+            }
+        });
 
-        funnel_builder.flowchart('deleteSelected');
     });
 
 

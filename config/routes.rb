@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   post '/ajax_add_link' => 'funnels#ajax_add_link'
   post '/ajax_load_node_info' => 'funnels#ajax_load_node_info'
   post '/ajax_load_email_template_info' => 'funnels#ajax_load_email_template_info'
+  post '/ajax_delete_node' => 'funnels#ajax_delete_node'
 
   # Trigger Routes
   get '/triggers', to: 'triggers#index'

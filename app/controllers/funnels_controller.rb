@@ -420,6 +420,27 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Removes a node from the DB
+  #
+  # PARAMETERS
+  # ----------
+  # node_id: ID of the node we are removing
+  #
+  def ajax_delete_node
+
+    # Get the Node from the DB
+    node = Node.find(params[:node_id])
+
+    # If node exits, then remove the node
+    if !node.nil?
+      node.destroy
+    end
+
+  end
+
+
 
 
 
