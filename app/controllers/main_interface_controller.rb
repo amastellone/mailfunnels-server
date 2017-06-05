@@ -267,8 +267,41 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Shows Info Pertaining to subscriber
+  #
+  # PARAMETERS
+  # ----------
+  # ID: ID of the subscriber
+  # first_name: First name of the subscriber
+  # last_name: Last name of the subscriber
+  # email: Email of the subscriber
+  # revenue: Revenue from the subscriber
+  #
+
+  def ajax_load_subscriber_info
+
+    # Get the Subscriber from list
+    subscriber = Subscriber.find(params[:subscriber_id])
+
+    data = {
+
+        :id => subscriber.id,
+        :first_name => subscriber.first_name,
+        :last_name => subscriber.last_name,
+        :email => subscriber.email,
+        :revenue => subscriber.revenue,
 
 
+    }
+
+    # Return data as JSON
+    render json: data
+
+
+
+  end
 
 
 
