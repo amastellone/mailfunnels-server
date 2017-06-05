@@ -1,7 +1,10 @@
 #SERVER - Seeds.rb
 
-# Order
-order_create_hook    = Hook.create(name: 'Customer purchased product', identifier: 'order_create')
+# Order Hook
+Hook.create(name: 'Customer Purchased Product', identifier: 'order_create')
 
-# Refund
-refund_create_hook    = Hook.create(name: 'Customer refunded product', identifier: 'refund_create')
+# Refund Hook
+Hook.create(name: 'Customer Refunded Product', identifier: 'refund_create')
+
+# Abandoned Checkout "Hook"
+Hook.create(name: 'Customer Abandoned Checkout', identifier: 'abandoned_checkout')
