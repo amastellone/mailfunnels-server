@@ -36,6 +36,7 @@ class SendEmailJob < ApplicationJob
 			 		:html_body   => @renderedhtml,
 			 		:track_opens => 'true',
 			 		:track_links => 'HtmlAndText')
+			
 			puts"Email Sent!"
 
 			if trigger.nil? == false
