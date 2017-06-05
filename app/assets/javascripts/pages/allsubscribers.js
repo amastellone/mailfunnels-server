@@ -27,8 +27,6 @@ $(function() {
     var email_list_name = $('#email_list_name');
 
 
-
-
     /* --- BUTTONS --- */
     var new_subscriber_submit_button = $('#new_subscriber_submit_button');
     var batch_email_send_button = $('#batch_email_send_button');
