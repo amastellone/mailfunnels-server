@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20170531210545) do
     t.string   "description"
     t.integer  "num_triggered"
     t.integer  "num_emails_sent"
+    t.string   "last_abondoned_id"
     t.datetime "created_at",      :null=>false
     t.datetime "updated_at",      :null=>false
     t.integer  "hook_id",         :foreign_key=>{:references=>"hooks", :name=>"fk_triggers_hook_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__triggers_hook_id", :using=>:btree}
