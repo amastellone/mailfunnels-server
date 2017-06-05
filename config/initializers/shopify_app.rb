@@ -5,7 +5,7 @@ ShopifyApp.configure do |config|
   config.secret = ENV['APP_SECRET']
 
   # TODO: Verify app_scope works in shipify_app.rb and in .env
-  config.scope = "read_orders, read_products"
+  config.scope = "read_orders, read_products, read_checkouts"
   config.embedded_app = true
 
   config.webhooks = [
