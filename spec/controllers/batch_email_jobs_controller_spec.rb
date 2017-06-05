@@ -26,7 +26,7 @@ require 'rails_helper'
 RSpec.describe BatchEmailJobsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # BatchEmailJob. As you add validations to BatchEmailJob, be sure to
+  # SendBatchEmailJob. As you add validations to SendBatchEmailJob, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -43,7 +43,7 @@ RSpec.describe BatchEmailJobsController, type: :controller do
 
   describe "GET #index" do
     it "returns a success response" do
-      batch_email_job = BatchEmailJob.create! valid_attributes
+      batch_email_job = SendBatchEmailJob.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -51,7 +51,7 @@ RSpec.describe BatchEmailJobsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      batch_email_job = BatchEmailJob.create! valid_attributes
+      batch_email_job = SendBatchEmailJob.create! valid_attributes
       get :show, params: {id: batch_email_job.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -59,10 +59,10 @@ RSpec.describe BatchEmailJobsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new BatchEmailJob" do
+      it "creates a new SendBatchEmailJob" do
         expect {
           post :create, params: {batch_email_job: valid_attributes}, session: valid_session
-        }.to change(BatchEmailJob, :count).by(1)
+        }.to change(SendBatchEmailJob, :count).by(1)
       end
 
       it "renders a JSON response with the new batch_email_job" do
@@ -70,7 +70,7 @@ RSpec.describe BatchEmailJobsController, type: :controller do
         post :create, params: {batch_email_job: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(batch_email_job_url(BatchEmailJob.last))
+        expect(response.location).to eq(batch_email_job_url(SendBatchEmailJob.last))
       end
     end
 
@@ -91,14 +91,14 @@ RSpec.describe BatchEmailJobsController, type: :controller do
       }
 
       it "updates the requested batch_email_job" do
-        batch_email_job = BatchEmailJob.create! valid_attributes
+        batch_email_job = SendBatchEmailJob.create! valid_attributes
         put :update, params: {id: batch_email_job.to_param, batch_email_job: new_attributes}, session: valid_session
         batch_email_job.reload
         skip("Add assertions for updated state")
       end
 
       it "renders a JSON response with the batch_email_job" do
-        batch_email_job = BatchEmailJob.create! valid_attributes
+        batch_email_job = SendBatchEmailJob.create! valid_attributes
 
         put :update, params: {id: batch_email_job.to_param, batch_email_job: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:ok)
@@ -108,7 +108,7 @@ RSpec.describe BatchEmailJobsController, type: :controller do
 
     context "with invalid params" do
       it "renders a JSON response with errors for the batch_email_job" do
-        batch_email_job = BatchEmailJob.create! valid_attributes
+        batch_email_job = SendBatchEmailJob.create! valid_attributes
 
         put :update, params: {id: batch_email_job.to_param, batch_email_job: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
@@ -119,10 +119,10 @@ RSpec.describe BatchEmailJobsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested batch_email_job" do
-      batch_email_job = BatchEmailJob.create! valid_attributes
+      batch_email_job = SendBatchEmailJob.create! valid_attributes
       expect {
         delete :destroy, params: {id: batch_email_job.to_param}, session: valid_session
-      }.to change(BatchEmailJob, :count).by(-1)
+      }.to change(SendBatchEmailJob, :count).by(-1)
     end
   end
 

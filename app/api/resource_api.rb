@@ -465,8 +465,9 @@ class ResourceApi < Grape::API
     # ----------------
     post do
       batchEmailJob = BatchEmailJob.create params
-      emailList = EmailList.where(id: batchEmailJob.email_list_id)
-      emailList.email_list_subscribers.each do |listSubscriber|
+      subscribers = EmailListSubscriber.where(email_list_id: batchEmailJob.email_list_id)
+      subscribers.each do |listSubscriber|
+        puts "creating email job in db"
         emailJob = EmailJob.create(subscriber_id: listSubscriber.subscriber.id,
                         email_template_id: batchEmailJob.email_template_id,
                         app_id: batchEmailJob.app_id,
@@ -474,9 +475,10 @@ class ResourceApi < Grape::API
                         sent:0,
                         executed:false,
                         clicked:0)
-
-        BatchEmailJob.perform_later(emailJob)
+        puts "queueing up new job"
+        SendBatchEmailJob.perform_later(emailJob)
         puts "---created batch email job---"
+        sleep 1
       end
 
       puts "---All batch jobs created---"
