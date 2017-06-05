@@ -57,6 +57,7 @@
                 <th class="text-center">Name</th>
                 <th class="text-center">Description</th>
                 <th class="text-center">Hits</th>
+                <th class="text-center">Refresh</th>
               </tr>
               </thead>
               <!-- END Hooks Table Header -->
@@ -70,6 +71,9 @@
                         <td><%= trigger.name %></td>
                         <td style="width:50%;"><%= trigger.description %></td>
                         <td style="width: 100px;"><%= trigger.num_triggered %></td>
+                        <td style="width: 50px;">
+                          <a href="#"><i class="fa fa-refresh"></i></a>
+                        </td>
                       </tr>
                   <% end %>
               <% end %>

@@ -1,13 +1,17 @@
-
+/* --- APP VALUES DECLARATIONS --- */
+var csrf_token;
+var app_id;
+var email_list_id;
 
 $(function() {
 
-    /* --- AUTHENTICATION --- */
-    var csrf_token = $('meta[name=csrf-token]').attr('content');
 
-    /* --- APP VALUES --- */
-    var app_id = $('#current_app_id').val();
-    var email_list_id = $('#current_email_list_id').val();
+    /* --- AUTHENTICATION --- */
+    csrf_token = $('meta[name=csrf-token]').attr('content');
+
+    /* --- APP VALUES INITIALIZATION --- */
+    app_id = $('#current_app_id').val();
+    email_list_id = $('#current_email_list_id').val();
 
     /* --- MODALS --- */
     var new_subscriber_modal = $('#new_subscriber_modal');
@@ -24,7 +28,6 @@ $(function() {
     /* --- BUTTONS --- */
     var new_subscriber_submit_button = $('#new_subscriber_submit_button');
     var batch_email_send_button = $('#batch_email_send_button');
-
 
 
     new_subscriber_submit_button.on('click', function() {
@@ -84,9 +87,38 @@ $(function() {
 
         new_batch_email_modal.modal('toggle');
 
-
     });
 
 
-
 });
+
+/**
+ * DeleteSubscriber Function
+ * -------------------------
+ * Calls API call to delete a subscriber from DB
+ * and add them to the unsubscriber list
+ *
+ * @param id
+ */
+function deleteSubscriber(id) {
+
+    $.ajax({
+        type: 'POST',
+        url: '/ajax_delete_subscriber',
+        dataType: "json",
+        data: {
+            app_id: app_id,
+            subscriber_id: id,
+            authenticity_token: csrf_token
+        },
+        error: function(e) {
+            console.log(e);
+        },
+        success: function(response) {
+            console.log(response);
+            window.location.reload(true);
+
+        }
+    });
+
+}

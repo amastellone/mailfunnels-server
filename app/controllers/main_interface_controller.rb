@@ -95,6 +95,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     subscriber.first_name = params[:first_name]
     subscriber.last_name = params[:last_name]
     subscriber.email = params[:email]
+    subscriber.revenue = 0.0
 
 
     # Save and verify Subscriber and return correct JSON response
@@ -114,6 +115,72 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Removes the Subscriber and adds them to the
+  # Unsubscriber list in the DB
+  #
+  #
+  # PARAMETERS
+  # ----------
+  # app_id: ID of the current app we are using
+  # subscriber_id: ID of the subscriber we are removing
+  #
+  def ajax_delete_subscriber
+
+    # Get the Subscriber from the DB
+    subscriber = Subscriber.find(params[:subscriber_id])
+
+    # If subscriber does not exist, return error response
+    if subscriber.nil?
+      response = {
+          success: false,
+          message: 'Subscriber Does not exist in DB!'
+      }
+      render json: response
+    end
+
+    # Otherwise, create new Unsubscriber and Delete Subscriber
+    unsubscriber = Unsubscriber.new
+    unsubscriber.app_id = subscriber.app_id
+    unsubscriber.first_name = subscriber.first_name
+    unsubscriber.last_name = subscriber.last_name
+    unsubscriber.email = subscriber.email
+
+    # If error saving unsubscriber, then return error response
+    if !unsubscriber.save!
+      response = {
+          success: false,
+          message: 'Could not save unsubscriber!'
+      }
+      render json: response
+    end
+
+    # Now remove the Subscriber from DB
+    subscriber.destroy
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Subscriber Deleted!'
+    }
+    render json: response
+
+  end
+
+
+
+
+  # USED WITH AJAX
+  # --------------
+  # Sends a batch email to all subscribers on that list
+  #
+  # PARAMETERS
+  # ----------
+  # app_id: ID of the current App
+  # email_template_id: ID of the Email Template to send to subscribers
+  # email_list_id: ID of the email list to send batch email to
+  #
   def ajax_create_batch_email
 
     # Create new Batch Email
