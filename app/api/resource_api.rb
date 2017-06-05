@@ -12,7 +12,7 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-        App.where(params)
+      App.where(params)
     end
 
     route_param :id do
@@ -46,7 +46,7 @@ class ResourceApi < Grape::API
     # ----------------
 
     get do
-        Hook.where(params)
+      Hook.where(params)
     end
 
     route_param :id do
@@ -231,7 +231,7 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-        EmailList.where(params)
+      EmailList.where(params)
     end
 
     route_param :id do
@@ -302,7 +302,7 @@ class ResourceApi < Grape::API
     # ----------------
 
     get do
-        CapturedHook.where(params)
+      CapturedHook.where(params)
     end
 
     route_param :id do
@@ -331,10 +331,19 @@ class ResourceApi < Grape::API
   # Subscriber Resource API
   # ------------------------
   resource :subscribers do
+
     # Get Routes
     # ----------------
     get do
-      Subscriber.where(params)
+      if params[:day]
+        Subscriber.where(app_id: params[:app_id], created_at: 24.hours.ago..Time.current)
+      elsif params[:week]
+        Subscriber.where(app_id: params[:app_id], created_at: 7.days.ago..Time.current)
+      elsif params[:month]
+        Subscriber.where(app_id: params[:app_id], created_at: 30.days.ago..Time.current)
+      else
+        Subscriber.where(params)
+      end
     end
 
     route_param :id do
@@ -343,7 +352,7 @@ class ResourceApi < Grape::API
       end
     end
 
-    
+
     route_param :id do
       get do
         Subscriber.find(params[:id])
@@ -380,7 +389,15 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-      Unsubscriber.where(params)
+      if params[:day]
+        Unsubscriber.where(app_id: params[:app_id], created_at: 24.hours.ago..Time.current)
+      elsif params[:week]
+        Unsubscriber.where(app_id: params[:app_id], created_at: 7.days.ago..Time.current)
+      elsif params[:month]
+        Unsubscriber.where(app_id: params[:app_id], created_at: 30.days.ago..Time.current)
+      else
+        Unsubscriber.where(params)
+      end
     end
 
     route_param :id do
@@ -450,7 +467,39 @@ class ResourceApi < Grape::API
     # Get Routes
     # ----------------
     get do
-      EmailJob.where(params)
+      if params[:day]
+
+        if params[:sent]
+          EmailJob.where(app_id: params[:app_id], sent: 1, created_at: 24.hours.ago..Time.current)
+        elsif params[:opened]
+          EmailJob.where(app_id: params[:app_id], opened: 1, created_at: 24.hours.ago..Time.current)
+        elsif params[:clicked]
+          EmailJob.where(app_id: params[:app_id], clicked: 1, created_at: 24.hours.ago..Time.current)
+        end
+
+      elsif params[:week]
+
+        if params[:sent]
+          EmailJob.where(app_id: params[:app_id], sent: 1, created_at: 7.days.ago..Time.current)
+        elsif params[:opened]
+          EmailJob.where(app_id: params[:app_id], opened: 1, created_at: 7.days.ago..Time.current)
+        elsif params[:clicked]
+          EmailJob.where(app_id: params[:app_id], clicked: 1, created_at: 7.days.ago..Time.current)
+        end
+
+      elsif params[:month]
+
+        if params[:sent]
+          EmailJob.where(app_id: params[:app_id], sent: 1, created_at: 30.days.ago..Time.current)
+        elsif params[:opened]
+          EmailJob.where(app_id: params[:app_id], opened: 1, created_at: 30.days.ago..Time.current)
+        elsif params[:clicked]
+          EmailJob.where(app_id: params[:app_id], clicked: 1, created_at: 30.days.ago..Time.current)
+        end
+
+      else
+        EmailJob.where(params)
+      end
     end
 
     route_param :id do
@@ -505,12 +554,12 @@ class ResourceApi < Grape::API
       subscribers.each do |listSubscriber|
         puts "creating email job in db"
         emailJob = EmailJob.create(subscriber_id: listSubscriber.subscriber.id,
-                        email_template_id: batchEmailJob.email_template_id,
-                        app_id: batchEmailJob.app_id,
-                        batch_email_job_id: batchEmailJob.id,
-                        sent:0,
-                        executed:false,
-                        clicked:0)
+                                   email_template_id: batchEmailJob.email_template_id,
+                                   app_id: batchEmailJob.app_id,
+                                   batch_email_job_id: batchEmailJob.id,
+                                   sent:0,
+                                   executed:false,
+                                   clicked:0)
         puts "queueing up new job"
         SendBatchEmailJob.perform_later(emailJob)
         puts "---created batch email job---"
