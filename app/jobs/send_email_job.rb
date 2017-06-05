@@ -37,22 +37,6 @@ class SendEmailJob < ApplicationJob
 			 		:html_body   => @renderedhtml,
 			 		:track_opens => 'true',
 			 		:track_links => 'HtmlAndText')
-			puts"Email Sent!"
-			if funnel.nil? == false
-			funnel.num_emails_sent = funnel.num_emails_sent+1
-			funnel.save!
-			puts"Incrementing Funnel num_emails_sent"
-			end
-			if trigger.nil? == false
-			trigger.num_emails_sent = trigger.num_emails_sent+1
-			trigger.save!
-			puts"Incrementing Trigger num_emails_sent"
-			end
-			if node.nil? == false
-			node.num_emails_sent = node.num_emails_sent+1
-			node.save!
-			puts"Incrementing Node num_emails_sent"
-			end
 			job.executed = true
 			job.postmark_id = response[:message_id]
 			job.sent = 1
