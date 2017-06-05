@@ -1,10 +1,21 @@
 /**
  * Created by lukehelminiak on 5/17/17.
  */
+
+
+/* --- GLOABL VARIABLES DECLARATION --- */
+var csrf_token;
+var app_id;
+
+
 $(function(){
 
+    /* --- AUTHENTICATION --- */
+    csrf_token = $('meta[name=csrf-token]').attr('content');
+
+
     /* --- APP VALUES --- */
-    var app_id = $('#current_app_id').val();
+    app_id = $('#current_app_id').val();
 
 
     $('#triggers_table').dataTable({
@@ -15,8 +26,6 @@ $(function(){
     });
 
 
-    /* --- AUTHENTICATION --- */
-    var csrf_token = $('meta[name=csrf-token]').attr('content');
 
     /* --- MODALS --- */
     var new_trigger_modal = $('#newTriggerModal');
@@ -74,3 +83,28 @@ $(function(){
 
 
 });
+
+
+function refreshTriggers(trigger_id) {
+
+    alert('Trigger ID:' + trigger_id);
+
+    $.ajax({
+        type:'POST',
+        url: '/ajax_process_abandoned_carts',
+        dataType: "json",
+        data: {
+            trigger_id: trigger_id,
+            authenticity_token: csrf_token
+        },
+        error: function(e) {
+            console.log(e);
+        },
+        success: function(response) {
+            console.log(response);
+            window.location.reload(true);
+        }
+    });
+
+
+}

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   # Trigger Routes
   get '/triggers', to: 'triggers#index'
   post '/create_trigger', to: 'triggers#ajax_create_trigger'
+  post '/ajax_process_abandoned_carts' => 'triggers#ajax_process_abandoned_carts'
 
   # Subscribers Routes
   get '/all_subscribers', to: 'main_interface#all_subscribers'

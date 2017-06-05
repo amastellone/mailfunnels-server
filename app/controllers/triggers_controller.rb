@@ -135,17 +135,17 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
   end
 
-  private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_trigger
-    @trigger = Trigger.find(params[:id])
-  end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def trigger_params
-    params.require(:trigger).permit(:name, :description, :num_triggered, :num_emails_sent, :hook_id, :app_id)
-  end
 
+  # USED WITH AJAX
+  # --------------
+  # Gets all the new abandoned carts and adds them to the funnel
+  #
+  #
+  # PARAMETERS
+  # ----------
+  # trigger_id: ID of the trigger
+  #
   def ajax_process_abandoned_carts
     trigger = Trigger.find(params[:trigger_id])
     if trigger.last_abondoned_id == -1
@@ -229,4 +229,18 @@ class TriggersController < ShopifyApp::AuthenticatedController
       end
     end
   end
+
+
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trigger
+    @trigger = Trigger.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def trigger_params
+    params.require(:trigger).permit(:name, :description, :num_triggered, :num_emails_sent, :hook_id, :app_id)
+  end
+
 end
