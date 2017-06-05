@@ -108,7 +108,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
           logger.info ("updated latest abandoned cart")
         else
           trigger.last_abondoned_id = -1
-          logger.info ("updated latest abandoned cart")
+          logger.info ("no abandoned carts yet")
         end
 
       end
@@ -136,7 +136,6 @@ class TriggersController < ShopifyApp::AuthenticatedController
   end
 
 
-
   # USED WITH AJAX
   # --------------
   # Gets all the new abandoned carts and adds them to the funnel
@@ -148,88 +147,37 @@ class TriggersController < ShopifyApp::AuthenticatedController
   #
   def ajax_process_abandoned_carts
     trigger = Trigger.find(params[:trigger_id])
+    last_id = trigger.last_abondoned_id
     if trigger.last_abondoned_id == -1
+      logger.info("NO Previous Abandoned Carts exist")
       abandonedCarts = ShopifyAPI::Checkout.where(created_at_min: 2.weeks.ago, limit: 250)
     else
+      logger.info("Previous Abandoned Carts exist")
       abandonedCarts = ShopifyAPI::Checkout.where(since_id: trigger.last_abondoned_id, limit: 250)
     end
+    last_id = trigger.last_abondoned_id
+    shop = Shop.find_by(shopify_domain: MailfunnelsUtil.get_app.name)
+    if abandonedCarts.first.nil? == false
+      logger.info("New abandoned Carts Found")
+      saveResponse = trigger.put('', :last_abondoned_id => abandonedCarts.last.id)
+      final_json = JSON.pretty_generate(result = {
+          'abandoned_cart_count' => abandonedCarts.count
+      })
+      if saveResponse
+        logger.info("Trigger last abandoned cart id updated")
+        AbandonedCartJob.perform_later(params[:trigger_id],last_id,shop)
+        logger.info("Abandoned cart job queued")
 
-    if abandonedCarts.nil? == false
-      logger.info("Looking for funnel found!")
-      funnel = Funnel.where(app_id: trigger.app_id, trigger_id: trigger.id).first
-      if funnel.nil? == false
-        logger.info("Funnel found!")
-        logger.info("looking for link")
-        link = Link.where(funnel_id: funnel.id, start_link: 1).first
-        if link.nil? == false
-          logger.info("Link found!")
-          logger.info("looking for Node")
-          node = Node.where(id: link.to_node_id).first
-          if node.nil? == false
-            logger.info("Node Found")
-
-            abandonedCarts.each do |abandonedCart|
-              if abandonedCart.email.nil? == false
-
-                logger.info("Checking if Subscriber exists")
-                subscriber = Subscriber.where(app_id: app.id, email: abandonedCart.email).first
-                if subscriber.nil? == true
-                  logger.info("Subscriber does not exist, creating now!")
-                  subscriber = Subscriber.create(app_id: trigger.app_id,
-                                                 email: abandonedCart.email,
-                                                 first_name: abandonedCart.billing_address.first_name,
-                                                 last_name: abandonedCart.billing_address.last_name,
-                                                 revenue: 0)
-                else
-                  logger.info("Subscriber exists!")
-                end
-
-                logger.info("Checking if subscriber is in email list")
-                emailsub = EmailListSubscriber.where(app_id: trigger.app_id,
-                                                     email_list_id: funnel.email_list_id,
-                                                     subscriber_id: subscriber.id).first
-                if emailsub.nil? == true
-                  logger.info("Subscriber not in list, adding now!")
-                  EmailListSubscriber.post('', {:app_id => trigger.app_id,
-                                                :subscriber_id => subscriber.id,
-                                                :email_list_id => funnel.email_list_id})
-                else
-                  logger.info("Subscriber is already in list!")
-                end
-
-
-                logger.info "Checking if job already exists"
-                job = EmailJob.where(app_id: trigger.app_id,
-                                     funnel_id: funnel.id,
-                                     node_id: node.id,
-                                     subscriber_id: subscriber.id).first
-                if job.nil? == true
-                  logger.info("Job does not exist creating now")
-                  logger.info("rendering email template for job")
-                  EmailJob.post('', {:app_id => trigger.app_id,
-                                     :funnel_id => funnel.id,
-                                     :subscriber_id => subscriber.id,
-                                     :executed => false,
-                                     :node_id => node.id,
-                                     :email_template_id => node.email_template_id,
-                                     :sent => 0})
-                  logger.info("Sent Job to database!")
-                else
-                  logger.info("Email job already exists with these parameters")
-                end
-
-                puts "---created email job---"
-                sleep 1
-              end
-
-            end
-            logger.info("All Abandoned Carts Processed!")
-          end
-        end
       end
+    else
+      logger.info("No New abandoned Carts Found")
+      final_json = JSON.pretty_generate(result = {
+          'abandoned_cart_count' => 0
+      })
     end
-  end
 
+    render json: final_json
+  end
 
 
   private
