@@ -213,30 +213,50 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
-    # Date Values
-    today = Time.now
-    oneDay = Time.now - 1.day
-    week = Time.now - 7.days
-    month = Time.now - 30.days
+    # Subscriber Values
+    today_subscribers = Subscriber.where(app_id: @app.id, day: 1 ).size
+    week_subscribers = Subscriber.where(app_id: @app.id, week: 1 ).size
+    month_subscribers = Subscriber.where(app_id: @app.id, month: 1 ).size
 
-    #today_subscribers = Subscriber.where(app_id: @app.id, created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).size
-    #weeksSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", week]).count
-    #monthSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", month]).count
-    #emailJob = EmailJob.where(app_id: @app.id)
-    emails_sent = EmailJob.where(app_id: @app.id, sent: 1)
-    emails_opened = EmailJob.where(app_id: @app.id, opened: 1)
-    emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1)
+    # Unsubscriber Values
+    today_unsubscribers = Unsubscriber.where(app_id: @app.id, day: 1 ).size
+    week_unsubscribers = Unsubscriber.where(app_id: @app.id, week: 1 ).size
+    month_unsubscribers = Unsubscriber.where(app_id: @app.id, month: 1 ).size
+
+    # Emails Sent Values
+    today_emails_sent = EmailJob.where(app_id: @app.id, sent: 1, day: 1).size
+    week_emails_sent = EmailJob.where(app_id: @app.id, sent: 1, week: 1).size
+    month_emails_sent = EmailJob.where(app_id: @app.id, sent: 1, month: 1).size
+
+    # Emails Opened Values
+    today_emails_opened = EmailJob.where(app_id: @app.id, opened: 1, day: 1).size
+    week_emails_opened = EmailJob.where(app_id: @app.id, opened: 1, week: 1).size
+    month_emails_opened = EmailJob.where(app_id: @app.id, opened: 1, month: 1).size
+
+    # Emails Clicked Values
+    today_emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1, day: 1).size
+    week_emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1, week: 1).size
+    month_emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1, month: 1).size
+
+
 
     data = {
-        #todays_subscribers: today_subscribers,
-        #:weeksSubscribers => weeksSubscribers,
-        #:monthsSubsribers => monthSubscribers,
-        # :subscribers => subscribers.all,
-        # :subscribers_created_date => subscribers.created_at,
-        # :emailJob_created_date => emailJob.created_at,
-        # :emails_sent => emails_sent.all,
-        # :emails_opened => emails_opened.all,
-        # :emails_clicked => emails_clicked.all,
+        today_subscribers: today_subscribers,
+        week_subscribers: week_subscribers,
+        month_subscribers: month_subscribers,
+        today_unsubscribers: today_unsubscribers,
+        week_unsubscribers: week_unsubscribers,
+        month_unsubscribers: month_unsubscribers,
+        today_emails_sent: today_emails_sent,
+        week_emails_sent: week_emails_sent,
+        month_emails_sent: month_emails_sent,
+        today_emails_opened: today_emails_opened,
+        week_emails_opened: week_emails_opened,
+        month_emails_opened: month_emails_opened,
+        today_emails_clicked: today_emails_clicked,
+        week_emails_clicked: week_emails_clicked,
+        month_emails_clicked: month_emails_clicked,
+
     }
 
 
