@@ -6,19 +6,6 @@ class ResourceApi < Grape::API
     super
   end
 
-
-  get 'email_opened' do
-    messageID = params[:messageID]
-
-    emailJob = EmailJob.find(params[:postmark_id])
-
-    node = emailJob.node
-
-    node.clicked = 1
-    node.save
-
-  end
-
   # Apps Resource API
   # -----------------
   resource :apps do
@@ -376,7 +363,56 @@ class ResourceApi < Grape::API
     put do
       Subscriber.update(params)
     end
+
+    # DELETE Route
+    # ------------
+    delete ':id' do
+      Subscriber.find(params[:id]).destroy
+    end
+
   end
+
+
+
+  # Unsubscriber Resource API
+  # ------------------------
+  resource :unsubscribers do
+    # Get Routes
+    # ----------------
+    get do
+      Unsubscriber.where(params)
+    end
+
+    route_param :id do
+      get do
+        Unsubscriber.find(params[:id])
+      end
+    end
+
+
+    route_param :id do
+      get do
+        Unsubscriber.find(params[:id])
+      end
+    end
+
+    # Post/Put Routes
+    # ----------------
+    post do
+      Unsubscriber.create! params
+    end
+
+    put ':id' do
+      Unsubscriber.find(params[:id]).update(params)
+    end
+
+    put do
+      Unsubscriber.update(params)
+    end
+  end
+
+
+
 
   # EmailListSubscriber Resource API
   # ------------------------
