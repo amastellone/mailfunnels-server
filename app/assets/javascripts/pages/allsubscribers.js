@@ -154,6 +154,7 @@ function viewSubscriberInfo(id) {
             console.log(e);
         },
         success: function(response) {
+            $('#delete_subscriber_button').attr('onclick', 'deleteSubscriber(' + response.id + ')');
             subscriber_view_id.html(response.id);
             subscriber_view_first_name.html(response.first_name);
             subscriber_view_last_name.html(response.last_name);
