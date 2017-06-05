@@ -156,20 +156,20 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     #weeksSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", week]).count
     #monthSubscribers = Subscriber.where(app_id: @app.id,["created_at >= ?", month]).count
     #emailJob = EmailJob.where(app_id: @app.id)
-    emails_sent = EmailJob.where(app_id: @app.id, sent: 1)
-    emails_opened = EmailJob.where(app_id: @app.id, opened: 1)
-    emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1)
+    #emails_sent = EmailJob.where(app_id: @app.id, sent: 1)
+    #emails_opened = EmailJob.where(app_id: @app.id, opened: 1)
+    #emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1)
 
     data = {
         #:todaysSubscribers => todaysSubscribers,
         #:weeksSubscribers => weeksSubscribers,
         #:monthsSubsribers => monthSubscribers,
-        # :subscribers => subscribers.all,
-        # :subscribers_created_date => subscribers.created_at,
-        # :emailJob_created_date => emailJob.created_at,
-        # :emails_sent => emails_sent.all,
-        # :emails_opened => emails_opened.all,
-        # :emails_clicked => emails_clicked.all,
+        #:subscribers => subscribers.all,
+        #:subscribers_created_date => subscribers.created_at,
+        #:emailJob_created_date => emailJob.created_at,
+        #:emails_sent => emails_sent.all,
+        #:emails_opened => emails_opened.all,
+        #:emails_clicked => emails_clicked.all,
     }
 
 
@@ -179,6 +179,42 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   end
 
+
+  # USED WITH AJAX
+  # --------------
+  # Shows Info Pertaining to subscriber
+  #
+  # PARAMETERS
+  # ----------
+  # ID: ID of the subscriber
+  # first_name: First name of the subscriber
+  # last_name: Last name of the subscriber
+  # email: Email of the subscriber
+  # revenue: Revenue from the subscriber
+  #
+
+  def ajax_load_subscriber_info
+
+    # Get the Subscriber from list
+    subscriber = Subscriber.find(params[:subscriber_id])
+
+    data = {
+
+        :id => subscriber.id,
+        :first_name => subscriber.first_name,
+        :last_name => subscriber.last_name,
+        :email => subscriber.email,
+        :revenue => subscriber.revenue,
+
+
+    }
+
+    # Return data as JSON
+    render json: data
+
+
+
+  end
 
 
 

@@ -75,10 +75,10 @@
                         <td><h5><%= subscriber.email %></h5></td>
                         <td><h5><%= number_to_currency(subscriber.revenue) %></h5></td>
                         <td style="width: 50px;">
-                            <button type="button" class="btn btn-primary btn-block"><i class="fa fa-trash-o"></i></button>
+                            <button onclick="viewSubscriberInfo(<%= subscriber.id %>)" type="button" data-toggle="modal" data-target="#subscriber_info_modal" class="btn btn-primary btn-block"><i class="fa fa-plus"></i></button>
                         </td>
-
                       </tr>
+
                   <% end %>
               <% end %>
               </tbody>
@@ -142,6 +142,59 @@
         </div>
       </div>
     </div>
+
+    <!--View Subscriber Info Modal Start-->
+    <div id="subscriber_info_modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Subscriber Info</h4>
+          </div>
+
+            <div class="modal-body">
+
+              <div class="panel-body">
+                <table class="table table-striped">
+                  <tbody>
+                  <tr>
+                    <th scope="row">Subscriber ID:</th>
+                    <td id="view_subscriber_id">Loading...</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">First Name:</th>
+                    <td id="view_subscriber_first_name">Loading...</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Last Name:</th>
+                    <td id="view_subscriber_last_name">Loading...</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email:</th>
+                    <td id="view_subscriber_email">Loading...</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Revenue:</th>
+                    <td id="view_subscriber_revenue">Loading...</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger">Delete</button>
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+    <!--View Subscriber Info Modal End -->
 
 <% end %>
 

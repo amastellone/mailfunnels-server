@@ -1,17 +1,21 @@
 
 
+var csrf_token;
+var app_id;
+
 $(function() {
 
     /* --- AUTHENTICATION --- */
-    var csrf_token = $('meta[name=csrf-token]').attr('content');
+    csrf_token = $('meta[name=csrf-token]').attr('content');
 
     /* --- APP VALUES --- */
-    var app_id = $('#current_app_id').val();
+    app_id = $('#current_app_id').val();
     var email_list_id = $('#current_email_list_id').val();
 
     /* --- MODALS --- */
     var new_subscriber_modal = $('#new_subscriber_modal');
     var new_batch_email_modal = $('#new_batch_email_modal');
+    var subscriber_info_modal = $('#subscriber_info_modal');
 
     /* --- INPUT FIELDS --- */
     var first_name_input = $('#first_name_input');
@@ -21,9 +25,12 @@ $(function() {
     var email_list_name = $('#email_list_name');
 
 
+
+
     /* --- BUTTONS --- */
     var new_subscriber_submit_button = $('#new_subscriber_submit_button');
     var batch_email_send_button = $('#batch_email_send_button');
+    var view_subscriber_info_button = $('#view_subscriber_info_button');
 
 
 
@@ -89,4 +96,48 @@ $(function() {
 
 
 
+
+
 });
+
+
+function viewSubscriberInfo(id) {
+
+
+    /* --- View Info Fields --- */
+    var subscriber_view_id = $('#view_subscriber_id');
+    var subscriber_view_first_name = $('#view_subscriber_first_name');
+    var subscriber_view_last_name = $('#view_subscriber_last_name');
+    var subscriber_view_email = $('#view_subscriber_email');
+    var subscriber_view_revenue = $('#view_subscriber_revenue');
+
+
+    $.ajax({
+        type:'POST',
+        url:'/ajax_load_subscriber_info',
+        dataType: "json",
+        data: {
+            app_id: app_id,
+            subscriber_id: id,
+            authenticity_token: csrf_token,
+
+        },
+        error: function(e) {
+            console.log(e);
+        },
+        success: function(response) {
+            subscriber_view_id.html(response.id);
+            subscriber_view_first_name.html(response.first_name);
+            subscriber_view_last_name.html(response.last_name);
+            subscriber_view_email.html(response.email);
+            subscriber_view_revenue.html("$" + response.revenue);
+            console.log(response);
+        }
+
+    });
+
+
+}
+
+
+
