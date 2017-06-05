@@ -44,9 +44,9 @@ $(function(){
             console.log(e);
         },
         success: function(response) {
-            new_subscribers_day.html(response.todaysSubscribers);
-            new_subscribers_week.html(response.weeksSubscribers);
-            new_subscribers_month.html(response.monthSubscribers);
+            new_subscribers_day.html(response.todays_subscribers);
+            //new_subscribers_week.html(response.weeksSubscribers);
+            //new_subscribers_month.html(response.monthSubscribers);
 
 
 
