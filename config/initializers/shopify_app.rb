@@ -12,8 +12,8 @@ ShopifyApp.configure do |config|
     #{topic: 'refunds/create', address: 'https://www.mailfunnels.com/webhooks/refunds_create', format: 'json'},
     #{topic: 'orders/create', address: 'https://www.mailfunnels.com/webhooks/orders_create', format: 'json'},
     #{topic: 'carts/update', address: 'https://www.mailfunnels.com/webhooks/carts_update', format: 'json'},
-    {topic: 'refunds/create', address: 'https://477e1a47.ngrok.io/webhooks/refunds_create', format: 'json'},
-    {topic: 'orders/create', address: 'https://477e1a47.ngrok.io/webhooks/orders_create', format: 'json'},
-    {topic: 'carts/update', address: 'https://477e1a47.ngrok.io/webhooks/carts_update', format: 'json'},
+    {topic: 'refunds/create', address: 'https://9f9746f7.ngrok.io/webhooks/refunds_create', format: 'json'},
+    {topic: 'orders/create', address: 'https://9f9746f7.ngrok.io/webhooks/orders_create', format: 'json'},
+    {topic: 'carts/update', address: 'https://9f9746f7.ngrok.io/webhooks/carts_update', format: 'json'},
   ]
 end
