@@ -102,6 +102,15 @@ class EmailUtil
     end
   end
 
+  def self.get_trigger_product(app_id, hook_id, product_id)
+    trigger = Trigger.where(app_id: app_id, hook_id: hook_id, product_id: product_id).first
+    if trigger.nil? == false
+      return trigger
+    else
+      return false
+    end
+  end
+
   def self.increment_trigger_hit_count(trigger)
     trigger = trigger.put('', :num_triggered => trigger.num_triggered+1)
     if trigger.nil? == false
