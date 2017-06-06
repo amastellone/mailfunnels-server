@@ -36,7 +36,8 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # Find the funnel from the DB
     @funnel = Funnel.find(params[:funnel_id])
 
-    @triggers = Trigger.where(app_id: @app.id)
+    # Get the Trigger from the Funnel
+    @trigger = Trigger.find(@funnel.trigger_id)
 
   end
 

@@ -70,7 +70,13 @@
                   <% @triggers.each do |trigger| %>
                       <tr>
                         <td><%= trigger.name %></td>
-                        <td><%= ShopifyAPI::Product.find(trigger.product_id).title %></td>
+                        <td>
+                          <% if trigger.product_id %>
+                              <%= ShopifyAPI::Product.find(trigger.product_id).title %>
+                          <% else %>
+                              No Product
+                          <% end %>
+                        </td>
                         <td style="width:50%;"><%= trigger.description %></td>
                         <td style="width: 100px;"><%= trigger.num_triggered %></td>
                         <td style="width: 50px;">

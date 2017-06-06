@@ -1902,7 +1902,7 @@ h4.graph_title {
 }
 .tile-stats .icon i {
     margin: 0;
-    font-size: 60px;
+    font-size: 55px;
     line-height: 0;
     vertical-align: bottom;
     padding: 0
@@ -1922,7 +1922,8 @@ h4.graph_title {
     padding: 0
 }
 .tile-stats h3 {
-    color: #BAB8B8
+    color: #BAB8B8;
+    font-size: 20px;
 }
 .tile-stats p {
     margin-top: 5px;

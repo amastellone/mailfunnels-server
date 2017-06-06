@@ -63,7 +63,10 @@
               <div class="x_content">
                 <h5><b>Funnel Name: </b> <%= @funnel.name %></h5>
                 <h5><b>Description: </b> <%= @funnel.description %></h5>
-
+                <h5><b>Trigger: </b> <%= @trigger.name %></h5>
+                <% if @trigger.product_id %>
+                    <h5><b>Product: </b> <%= ShopifyAPI::Product.find(@trigger.product_id).title %></h5>
+                <% end %>
               </div>
             </div>
 
@@ -184,7 +187,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
+              <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="myModalLabel">Email Preview</h4>
           </div>
 
