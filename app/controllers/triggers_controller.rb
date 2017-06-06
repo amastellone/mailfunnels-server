@@ -49,6 +49,6 @@ class TriggersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def trigger_params
-      params.require(:trigger).permit(:name, :description, :num_triggered, :num_emails_sent, :hook_id, :app_id)
+      params.require(:trigger).permit(:name, :description, :num_triggered, :num_emails_sent, :product_id, :hook_id, :app_id)
     end
 end
