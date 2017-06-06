@@ -17,9 +17,16 @@ ActiveRecord::Schema.define(version: 20170531210545) do
 
   create_table "apps", force: :cascade do |t|
     t.string   "name",       :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
+    t.string   "auth_token", :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "street_address"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "state"
     t.datetime "created_at", :null=>false
     t.datetime "updated_at", :null=>false
-    t.string   "auth_token", :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
   end
 
   create_table "email_lists", force: :cascade do |t|
@@ -96,6 +103,7 @@ ActiveRecord::Schema.define(version: 20170531210545) do
     t.integer  "num_triggered"
     t.integer  "num_emails_sent"
     t.string   "last_abondoned_id"
+    t.integer  "product_id"
     t.datetime "created_at",      :null=>false
     t.datetime "updated_at",      :null=>false
     t.integer  "hook_id",         :foreign_key=>{:references=>"hooks", :name=>"fk_triggers_hook_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__triggers_hook_id", :using=>:btree}
