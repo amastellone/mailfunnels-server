@@ -39,7 +39,7 @@ class RefundsCreateJob < ActiveJob::Base
         end
 
         logger.info("Looking for corresponding hook...")
-        hook = EmailUtil.get_hook('order_create')
+        hook = EmailUtil.get_hook('refund_create')
 
         if hook
           logger.info("Hook found!")
@@ -49,7 +49,7 @@ class RefundsCreateJob < ActiveJob::Base
         end
 
         logger.info("Looking for trigger")
-        trigger = EmailUtil.getTrigger(app.id, hook.id)
+        trigger = EmailUtil.get_trigger(app.id, hook.id)
 
         if trigger
           logger.info("Trigger found!")

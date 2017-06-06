@@ -50,6 +50,26 @@ class AbandonedCartJob < ApplicationJob
           end
         end
 
+
+        logger.info("Looking for trigger")
+        trigger = EmailUtil.get_trigger(app_id, 3)
+
+        if trigger
+          logger.info("Trigger found!")
+          trigger_test = EmailUtil.increment_trigger_hit_count_abandon(trigger, subscribers.size)
+          if trigger
+            logger.info("Trigger updated!")
+          else
+            logger.debug("Error incrementing trigger hit count")
+            return
+          end
+
+        else
+          logger.debug("Trigger not found!")
+          return
+        end
+
+
         logger.info("Looking for funnel")
         funnel = EmailUtil.get_funnel(app_id, trigger.id)
         if funnel

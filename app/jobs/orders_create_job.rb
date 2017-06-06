@@ -1,6 +1,6 @@
 require "erb"
 
-class OrdersCreateJob < ActiveJob::Base
+class OrdersCreateJob < ApplicationJob
   queue_as :default
 
   def perform(shop_domain:, webhook:)
@@ -57,7 +57,7 @@ class OrdersCreateJob < ActiveJob::Base
       end
 
       logger.info("Looking for trigger with product first")
-      trigger = EmailUtil.get_trigger_product(app.id, hook.id, webhook[:line_items][1]['product_id'])
+      trigger = EmailUtil.get_trigger_product(app.id, hook.id, webhook[:line_items].first[:product_id])
 
       if trigger
         logger.info("Trigger found!")
@@ -74,8 +74,8 @@ class OrdersCreateJob < ActiveJob::Base
         trigger = EmailUtil.get_trigger(app.id, hook.id)
         if trigger
           logger.info("Trigger found!")
-          trigger = EmailUtil.increment_trigger_hit_count(trigger)
-          if trigger
+          trigger_test = EmailUtil.increment_trigger_hit_count(trigger)
+          if trigger_test
             logger.info("Trigger updated!")
           else
             logger.debug("Error updating trigger!")
