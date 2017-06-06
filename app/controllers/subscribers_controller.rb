@@ -26,6 +26,19 @@ class SubscribersController < ApplicationController
 
     else
 
+      # Create New Unsubscriber
+      unsubscriber = Unsubscriber.new
+      unsubscriber.app_id = subscriber.app_id
+      unsubscriber.first_name = subscriber.first_name
+      unsubscriber.last_name = subscriber.last_name
+      unsubscriber.email = subscriber.email
+
+      # If error saving unsubscriber, then return error response
+      if !unsubscriber.save!
+        # Render the Already Unsubscribed Page
+        render html: "There was a problem adding you to unsubscribers list!"
+      end
+
       # Destroy the Subscriber From DB
       subscriber.delete
 
