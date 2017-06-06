@@ -165,7 +165,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
       })
       if saveResponse
         logger.info("Trigger last abandoned cart id updated")
-        AbandonedCartJob.perform_later(params[:trigger_id],last_id,shop)
+        AbandonedCartJob.perform_later(params[:trigger_id],last_id,shop,MailfunnelsUtil.get_app_id)
         logger.info("Abandoned cart job queued")
 
       end
