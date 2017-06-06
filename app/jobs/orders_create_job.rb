@@ -56,8 +56,8 @@ class OrdersCreateJob < ActiveJob::Base
         return
       end
 
-      logger.info("Looking for trigger")
-      trigger = EmailUtil.getTrigger(app.id, hook.id)
+      logger.info("Looking for trigger with product first")
+      trigger = EmailUtil.get_trigger_product(app.id, hook.id, webhook[:line_items][1]['product_id'])
 
       if trigger
         logger.info("Trigger found!")
@@ -70,8 +70,21 @@ class OrdersCreateJob < ActiveJob::Base
         end
 
       else
-        logger.debug("Trigger not found!")
-        return
+        logger.debug("Trigger not found - Looking for trigger without product")
+        trigger = EmailUtil.get_trigger(app.id, hook.id)
+        if trigger
+          logger.info("Trigger found!")
+          trigger = EmailUtil.increment_trigger_hit_count(trigger)
+          if trigger
+            logger.info("Trigger updated!")
+          else
+            logger.debug("Error updating trigger!")
+            return
+          end
+        else
+          logger.info("Trigger not found")
+          return
+        end
       end
 
       logger.info("Looking for funnel")
