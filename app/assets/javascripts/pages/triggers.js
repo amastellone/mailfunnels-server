@@ -33,7 +33,10 @@ $(function(){
     /* --- INPUT FIELDS --- */
     var trigger_name_input = $('#trigger_name_input');
     var trigger_description_input = $('#trigger_description_input');
+
+    /* --- SELECT INPUT FIELDS --- */
     var hook_list_select = $('#hook_list_select');
+    var product_select = $('#product_list_select');
 
     /* --- BUTTONS --- */
     var new_trigger_submit = $('#new_trigger_submit_button');
@@ -55,6 +58,7 @@ $(function(){
         var trigger_name = trigger_name_input.val();
         var trigger_description = trigger_description_input.val();
         var hook_id = hook_list_select.val();
+        var product_id = product_select.val();
 
 
 
@@ -66,6 +70,7 @@ $(function(){
                 app_id: app_id,
                 hook_id: hook_id,
                 name: trigger_name,
+                product_id: product_id,
                 description: trigger_description,
                 authenticity_token: csrf_token
             },

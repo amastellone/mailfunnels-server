@@ -16,60 +16,10 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
     # Get All Hooks
     @hookslist = Hook.all
-  end
 
-  # GET /triggers/1
-  # GET /triggers/1.json
-  def show
-  end
+    # Get All Products on the Current Store
+    @products = ShopifyAPI::Product.all
 
-  # GET /triggers/new
-  def new
-    @trigger = Trigger.new
-  end
-
-  # GET /triggers/1/edit
-  def edit
-  end
-
-  # POST /triggers
-  # POST /triggers.json
-  def create
-    @trigger = Trigger.new(trigger_params)
-
-    respond_to do |format|
-      if @trigger.save
-        format.html {redirect_to @trigger, notice: 'Trigger was successfully created.'}
-        format.json {render :show, status: :created, location: @trigger}
-      else
-        format.html {render :new}
-        format.json {render json: @trigger.errors, status: :unprocessable_entity}
-      end
-    end
-  end
-
-  # PATCH/PUT /triggers/1
-  # PATCH/PUT /triggers/1.json
-  def update
-    respond_to do |format|
-      if @trigger.update(trigger_params)
-        format.html {redirect_to @trigger, notice: 'Trigger was successfully updated.'}
-        format.json {render :show, status: :ok, location: @trigger}
-      else
-        format.html {render :edit}
-        format.json {render json: @trigger.errors, status: :unprocessable_entity}
-      end
-    end
-  end
-
-  # DELETE /triggers/1
-  # DELETE /triggers/1.json
-  def destroy
-    @trigger.destroy
-    respond_to do |format|
-      format.html {redirect_to triggers_url, notice: 'Trigger was successfully destroyed.'}
-      format.json {head :no_content}
-    end
   end
 
 
@@ -94,9 +44,11 @@ class TriggersController < ShopifyApp::AuthenticatedController
     trigger.hook_id = params[:hook_id]
     trigger.name = params[:name]
     trigger.description = params[:description]
+    trigger.product_id = params[:product_id]
     trigger.num_triggered = 0
     trigger.num_emails_sent = 0
-    logger.info("checking hook type")
+
+
     hook = Hook.where(id: params[:hook_id]).first
     if hook.nil? == false
       logger.info("hook found!")

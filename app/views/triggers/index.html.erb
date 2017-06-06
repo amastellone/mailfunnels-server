@@ -55,6 +55,7 @@
               <thead>
               <tr>
                 <th class="text-center">Name</th>
+                <th class="text-center">Product</th>
                 <th class="text-center">Description</th>
                 <th class="text-center">Hits</th>
                 <th class="text-center">Refresh</th>
@@ -69,6 +70,7 @@
                   <% @triggers.each do |trigger| %>
                       <tr>
                         <td><%= trigger.name %></td>
+                        <td><%= ShopifyAPI::Product.find(trigger.product_id).title %></td>
                         <td style="width:50%;"><%= trigger.description %></td>
                         <td style="width: 100px;"><%= trigger.num_triggered %></td>
                         <td style="width: 50px;">
@@ -129,6 +131,20 @@
                   </select>
                 </div>
               </div>
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Product</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <select class="form-control" id="product_list_select">
+                    <% @products.each do |product| %>
+                        <option value="<%= product.id %>"><%= product.title %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+
+
 
 
             </div>
