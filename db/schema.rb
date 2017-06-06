@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20170531210545) do
     t.string   "city"
     t.string   "zip"
     t.string   "state"
+    t.integer  "is_admin"
+    t.integer  "is_disabled"
     t.datetime "created_at", :null=>false
     t.datetime "updated_at", :null=>false
   end
