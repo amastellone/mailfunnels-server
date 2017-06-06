@@ -1,0 +1,26 @@
+<% content_for :error do %>
+    <script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+        });
+    </script>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="text-center">
+          <h1 class="error-number">Sorry!</h1>
+          <h2>You do not have access to this page.</h2>
+          <p>Your account has been disabled, please contact support if your account should not have been disabled</p>
+        </div>
+      </div>
+    </div>
+
+
+<% end %>
+
+
+

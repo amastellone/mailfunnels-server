@@ -1,0 +1,43 @@
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+        });
+    </script>
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>MailFunnels <small>Access Denied</small></h3>
+          </div>
+
+          <hr/>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="fade-2"/>
+
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="text-center">
+          <h1 class="error-number">Sorry!</h1>
+          <h2>You do not have access to this page.</h2>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+<% end %>
+
+
+

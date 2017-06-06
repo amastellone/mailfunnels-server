@@ -1,0 +1,102 @@
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+        });
+    </script>
+
+
+
+    <%= javascript_include_tag 'triggers_manifest.js' %>
+    <%= javascript_include_tag 'pages/admin_panel.js' %>
+    <%= stylesheet_link_tag 'dashboard.css' %>
+
+    <div class="hidden">
+      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>MailFunnels <small>Admin Panel</small></h3>
+          </div>
+
+          <hr/>
+          <div class="clearfix"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <hr class="fade-2"/>
+
+    <div class="row">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Users</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <!-- Triggers Table -->
+            <table id="users_table" class="table table-bordered text-center">
+
+              <!-- Triggers Table Header -->
+              <thead>
+              <tr>
+                <th class="text-center">First Name</th>
+                <th class="text-center">Last Name</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Shopify Domain</th>
+                <th class="text-center">Action</th>
+              </tr>
+              </thead>
+              <!-- END Hooks Table Header -->
+
+              <!-- Hooks Table BODY -->
+              <tbody>
+              <% if @apps.any? %>
+                  <% @apps.each do |user| %>
+
+                      <tr>
+                        <td><%= user.first_name %></td>
+                        <td><%= user.last_name %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.name %></td>
+                        <td style="width: 50px;">
+                          <% if !user.is_disabled %>
+                              <button onclick="disableApp(<%= user.id %>)" class="btn btn-sm btn-danger btn-border"><i class="fa fa-ban"></i></button>
+                          <% elsif user.is_disabled === 0 %>
+                              <button onclick="disableApp(<%= user.id %>)" class="btn btn-sm btn-danger btn-border"><i class="fa fa-ban"></i></button>
+                          <% elsif user.is_disabled === 1 %>
+                              <button onclick="enableApp(<%= user.id %>)" class="btn btn-sm btn-primary btn-border"><i class="fa fa-unlock-alt"></i></button>
+                          <% end %>
+
+                        </td>
+                      </tr>
+                  <% end %>
+              <% end %>
+
+              </tbody>
+              <!-- END Hooks Table BODY -->
+
+            </table>
+            <!-- END Hooks Table -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+<% end %>
+
+
+

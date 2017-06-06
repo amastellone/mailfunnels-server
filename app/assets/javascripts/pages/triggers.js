@@ -92,7 +92,6 @@ $(function(){
 
 function refreshTriggers(trigger_id) {
 
-    alert('Trigger ID:' + trigger_id);
 
     $.ajax({
         type:'POST',

@@ -53,6 +53,16 @@ Rails.application.routes.draw do
   post '/ajax_create_email_list' => 'email#ajax_create_email_list'
 
 
+  # Admin Routes
+  get '/admin_panel', to: 'main_interface#admin_panel'
+  post '/ajax_enable_app' => 'main_interface#ajax_enable_app'
+  post '/ajax_disable_app' => 'main_interface#ajax_disable_app'
+
+
+  # Error Routes
+  get '/error_page', to: 'main_interface#error_page'
+  get '/account_disabled', to: 'main_interface#account_disabled'
+
 
 
   # Shopify Routes

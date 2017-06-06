@@ -10,6 +10,11 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
+    # If the User is not an admin redirect to error page
+    if @app.is_disabled and @app.is_disabled === 1
+      redirect_to '/account_disabled'
+    end
+
     @num_email_sent = EmailJob.where(app_id: @app.id, sent: 1).size
 
     @num_email_opened = EmailJob.where(app_id: @app.id, opened: 1).size
@@ -70,6 +75,54 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get all Email Templates
     @templates = EmailTemplate.where(app_id: @app.id)
 
+
+  end
+
+
+  # Page Render Function
+  # --------------------
+  # Renders the Admin Panel for MailFunnels App
+  # If user is an Admin, they can disable users from
+  # using the app on this page
+  #
+  #
+  def admin_panel
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # If the User is not an admin redirect to error page
+    if !@app.is_admin or @app.is_admin === 0
+      redirect_to '/error_page'
+    end
+
+    # Otherwise get list of all Apps
+    @apps = App.all
+
+
+  end
+
+
+
+  # Page Render Function
+  # --------------------
+  # Renders the Error Page for when user tries to
+  # access the admin panel and is not an admin
+  #
+  #
+  def error_page
+
+    #Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+  end
+
+  # Page Render Function
+  # --------------------
+  # Renders the Account Disabled Page
+  #
+  #
+  def account_disabled
 
   end
 
@@ -299,10 +352,95 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Return data as JSON
     render json: data
 
+  end
+
+
+  # USED WITH AJAX
+  # --------------
+  # Enables the app if the user is an admin
+  #
+  # PARAMETERS
+  # ----------
+  # app_id: ID of the app that we are enabling
+  #
+  def ajax_enable_app
+
+    # Get the Current App
+    current_app = MailfunnelsUtil.get_app
+
+    # If the User is not an admin return error response
+    if !current_app.is_admin or current_app.is_admin === 0
+      response = {
+          success: false,
+          message: 'You do not have admin privileges!'
+      }
+      render json: response
+    end
+
+    # Get the App we are disabling
+    app = App.find(params[:app_id])
+
+    # Set disables status to 0
+    app.is_disabled = 0
+
+    app.put('', {
+        :is_disabled => app.is_disabled,
+    })
+
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'App Enabled!'
+    }
+    render json: response
 
 
   end
 
+
+  # USED WITH AJAX
+  # --------------
+  # Disables the app if the user is an admin
+  #
+  # PARAMETERS
+  # ----------
+  # app_id: ID of the app that we are disabling
+  #
+  def ajax_disable_app
+
+    # Get the Current App
+    current_app = MailfunnelsUtil.get_app
+
+    # If the User is not an admin return error response
+    if !current_app.is_admin or current_app.is_admin === 0
+      response = {
+          success: false,
+          message: 'You do not have admin privileges!'
+      }
+      render json: response
+    end
+
+    # Get the App we are disabling
+    app = App.find(params[:app_id])
+
+    # Set disables status to 1
+    app.is_disabled = 1
+
+    app.put('', {
+        :is_disabled => app.is_disabled,
+    })
+
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'App Disabled!'
+    }
+    render json: response
+
+
+  end
 
 
   def form_page

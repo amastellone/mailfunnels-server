@@ -34,6 +34,12 @@
 <div class="container body">
 	<div class="main_container">
 
+		<% if content_for?(:error) %>
+				<%= yield :error %>
+		<% else %>
+
+
+
 		<!-- START SIDE NAV BAR -->
 		<!-- ~~~~~~~~~~~~~~~~~~ -->
 		<div class="col-md-3 left_col">
@@ -93,7 +99,7 @@
 
 		<div class="clearfix"></div>
 
-
+		<% end %>
 
 
 	</div>
