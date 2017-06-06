@@ -1,0 +1,122 @@
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+        });
+    </script>
+
+
+
+    <%= javascript_include_tag 'pages/account.js' %>
+    <%= stylesheet_link_tag 'dashboard.css' %>
+
+    <div class="hidden">
+      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+    </div>
+
+
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>MailFunnels <small>My Account</small></h3>
+          </div>
+
+          <hr/>
+          <div class="clearfix"></div>
+
+        </div>
+      </div>
+    </div>
+
+    <hr class="fade-2"/>
+
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+
+
+        <form class="form-horizontal form-label-left">
+
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input id="first_name_input" type="text" value="<%= @app.first_name %>" class="form-control" placeholder="First Name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input id="last_name_input" type="text" value="<%= @app.last_name %>" class="form-control" placeholder="Last Name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input id="email_input" type="text" value="<%= @app.email %>" class="form-control" placeholder="Email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Street Address</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input id="street_address_input" type="text" value="<%= @app.street_address %>" class="form-control" placeholder="Street Address">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">City</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input id="city_input" type="text" value="<%= @app.city %>" class="form-control" placeholder="City">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input id="zip_code_input" type="number" value="<%= @app.zip %>" class="form-control" placeholder="Zip Code">
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">State</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input id="state_input" type="text" value="<%= @app.state %>" class="form-control" placeholder="State">
+            </div>
+          </div>
+
+
+
+
+          <hr class="fade-2"/>
+
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+              <button id="save_account_info_button" type="button" class="btn btn-success btn-border pull-right">Save</button>
+            </div>
+          </div>
+
+        </form>
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+
+<% end %>
+
+
