@@ -32,7 +32,7 @@ class SendEmailJob < ApplicationJob
 			puts"Sending Email..."
 			 response = client.deliver(
 			 		:subject     => template.email_subject,
-			 		:to          => 'mailfunnelsemail@gmail.com',
+			 		:to          => subscriber.email,
 			 		:from        => 'matt@greekrow.online',
 			 		:html_body   => @renderedhtml,
 			 		:track_opens => 'true',
