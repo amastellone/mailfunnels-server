@@ -36,6 +36,48 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   # Page Render Function
   # --------------------
+  # Renders the Account page of the MailFunnels App
+  #
+  #
+  #
+  def account
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+  end
+
+
+  def ajax_update_account_info
+
+    # Access current app
+    app = App.find(params[:id])
+
+    app.first_name = params[:first_name]
+    app.last_name = params[:last_name]
+    app.email = params[:email]
+    app.street_address = params[:street_address]
+    app.city = params[:city]
+    app.zip = params[:zip]
+    app.state = params[:state]
+
+    # Save The App Info
+    app.save!
+
+    final_json = JSON.pretty_generate(result = {
+        :success => true
+    })
+
+    # Return JSON response
+    render json: final_json
+
+
+
+  end
+
+
+  # Page Render Function
+  # --------------------
   # Renders the All Subscribers Page which
   # contains a table of all subscribers on for the
   # current app

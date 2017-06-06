@@ -46,6 +46,10 @@ Rails.application.routes.draw do
   post '/ajax_create_email_template' => 'email#ajax_create_email_template'
   post '/ajax_update_email_template' => 'email#ajax_update_email_template'
 
+  # Account Routes
+  get '/account', to: 'main_interface#account'
+  post 'ajax_update_account_info' => 'main_interface#ajax_update_account_info'
+
 
   # Email Controller
   get '/lists', to: 'email#lists'
