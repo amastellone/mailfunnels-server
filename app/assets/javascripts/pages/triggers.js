@@ -103,6 +103,8 @@ function refreshTriggers(trigger_id) {
         },
         error: function(e) {
             console.log(e);
+            window.location.reload(true);
+
         },
         success: function(response) {
             console.log(response);

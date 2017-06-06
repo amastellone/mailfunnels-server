@@ -80,7 +80,7 @@
                         <td style="width:50%;"><%= trigger.description %></td>
                         <td style="width: 100px;"><%= trigger.num_triggered %></td>
                         <td style="width: 50px;">
-                          <button onclick="refreshTriggers(<%= trigger.id %>)" class="btn btn-primary btn-border"><i class="fa fa-refresh"></i></button>
+                          <button onclick="refreshTriggers(<%= trigger.id %>)" class="btn btn-primary btn-sm btn-border"><i class="fa fa-refresh"></i></button>
                         </td>
                       </tr>
                   <% end %>
@@ -143,6 +143,7 @@
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Product</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <select class="form-control" id="product_list_select">
+                    <option value="">Select Product For Trigger</option>
                     <% @products.each do |product| %>
                         <option value="<%= product.id %>"><%= product.title %></option>
                     <% end %>

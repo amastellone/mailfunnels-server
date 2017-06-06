@@ -44,6 +44,7 @@ $(function() {
             },
             error: function(e) {
                 console.log(e);
+
             },
             success: function(response) {
                 console.log(response);
@@ -72,6 +73,7 @@ $(function() {
                 emails_clicked_day.html(response.today_emails_clicked);
                 emails_clicked_week.html(response.week_emails_clicked);
                 emails_clicked_month.html(response.month_emails_clicked);
+
 
             }
 

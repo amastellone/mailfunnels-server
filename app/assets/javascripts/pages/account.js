@@ -49,10 +49,14 @@ $(function(){
             },
             error: function(e) {
                 console.log(e);
+                window.location.reload(true);
+
+
             },
             success: function(response) {
                 console.log(response);
-                alert("SAVED!");
+                window.location.reload(true);
+
             }
 
         });
