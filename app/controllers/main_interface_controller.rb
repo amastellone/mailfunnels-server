@@ -52,17 +52,19 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Access current app
     app = App.find(params[:id])
-
-    app.first_name = params[:first_name]
-    app.last_name = params[:last_name]
-    app.email = params[:email]
-    app.street_address = params[:street_address]
-    app.city = params[:city]
-    app.zip = params[:zip]
-    app.state = params[:state]
-
     # Save The App Info
-    app.save!
+    app.put('',{
+                 :first_name => params[:first_name],
+                 :last_name => params[:last_name],
+                 :email => params[:email],
+                 :street_address => params[:street_address],
+                 :city => params[:city],
+                 :zip => params[:zip],
+                 :state => params[:state],
+                 :from_email => params[:from_email],
+                 :from_name => params[:from_name],
+                 :company_name => params[:company_name]
+    })
 
     final_json = JSON.pretty_generate(result = {
         :success => true

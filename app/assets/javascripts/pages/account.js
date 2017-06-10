@@ -15,6 +15,9 @@ $(function(){
     var city_input = $('#city_input');
     var zip_code_input = $('#zip_code_input');
     var state_input = $('#state_input');
+    var from_email_input = $('#from_email_input');
+    var from_name_input = $('#from_name_input');
+    var company_name_input = $('#company_name_input');
 
 
 
@@ -31,6 +34,9 @@ $(function(){
         var city = city_input.val();
         var zip = zip_code_input.val();
         var state = state_input.val();
+        var from_email = from_email_input.val();
+        var from_name = from_name_input.val();
+        var company_name = company_name_input.val();
 
         $.ajax({
             type:'POST',
@@ -45,6 +51,9 @@ $(function(){
                 city: city,
                 zip: zip,
                 state: state,
+                from_email: from_email,
+                from_name: from_name,
+                company_name: company_name,
                 authenticity_token: csrf_token
             },
             error: function(e) {
