@@ -15,6 +15,7 @@ class SendEmailJob < ApplicationJob
 		end
 		template = EmailTemplate.find(job.email_template_id)
 		subscriber = Subscriber.find(job.subscriber_id)
+		node = Node.find(job.node_id)
 		if job.sent == 1
 			puts"Email Already Sent to Subscriber"
 		else
@@ -31,7 +32,7 @@ class SendEmailJob < ApplicationJob
 			puts"Sending Email..."
 			 response = client.deliver(
 			 		:subject     => template.email_subject,
-			 		:to          => 'mailfunnelsemail@gmail.com',
+			 		:to          => subscriber.email,
 			 		:from        => 'matt@greekrow.online',
 			 		:html_body   => @renderedhtml,
 			 		:track_opens => 'true',
