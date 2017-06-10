@@ -85,6 +85,7 @@
                 <button class="btn btn-block btn-border btn-primary" id="create_button">Add Node</button>
                 <button class="btn btn-block btn-border btn-success" id="preview_email_button">Preview Email</button>
                 <button class="btn btn-block btn-border btn-success" id="view_selected_button" data-node="2">View Node Info</button>
+                <button class="btn btn-block btn-border btn-success" id="edit_selected_button">Edit Node</button>
                 <button class="btn btn-block btn-border btn-danger" id="delete_selected_button">Delete Node</button>
               </div>
             </div>
@@ -315,6 +316,70 @@
       </div>
     </div>
     <!-- END VIEW NODE MODAL -->
+
+
+    <!-- START EDIT NODE MODAL -->
+    <div class="modal fade" id="modal_node_edit" aria-labelledby="#modal_node_edit">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Edit Node</h4>
+          </div>
+
+          <form class="form-horizontal form-label-left">
+
+            <div class="modal-body">
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Node Label</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="edit_node_label_input" type="text" class="form-control"  placeholder="Enter a label for the node"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Template
+                </label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <select class="form-control" id="edit_node_email_template_select">
+                    <option value="">Select An Email Template To Add...</option>
+                    <% @app.email_templates.each do |template| %>
+                        <option value="<%= template.id %>"><%= template.name %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Delay Time</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="edit_node_delay_time_input" type="number" class="form-control"  placeholder="Delay Time"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Delay Unit</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <select class="form-control" id="edit_node_time_unit_select">
+                    <option value="1">Minutes</option>
+                    <option value="2">Hours</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button id="edit_node_submit_button" type="button" class="btn btn-success">Save</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- END EDIT NODE MODAL -->
 
 
 

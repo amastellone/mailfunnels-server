@@ -25,6 +25,9 @@ $(function() {
     var submit_new_node_button = $('#new_node_submit_button'); //Add Node Form Submit Button
     var preview_email_button = $('#preview_email_button'); //Preview Email Button
 
+    var edit_node_button = $('#edit_selected_button'); // Edit Node Button
+    var save_edit_node_button = $('#edit_node_submit_button'); // Saved Edited Node Button
+
     var view_template_button = $('#viewButton'); // View Template from node
     var edit_template_button = $('#editButton'); // Edit Template from node
 
@@ -38,6 +41,7 @@ $(function() {
     var create_new_node_modal = $('#modal_node_create'); //New Job Modal
     var view_node_modal = $('#view_node_modal'); //View Node Info Modal
     var view_template_modal = $('#view_template_modal'); //Preview Email Modal
+    var edit_node_modal = $('#modal_node_edit');
 
     /* --- VIEW INFO MODAL COMPONENTS --- */
     var node_view_name = $('#view_node_name');
@@ -50,9 +54,20 @@ $(function() {
     var node_view_email_settings_template = $('#view_node_email_settings_template');
     var node_view_email_description = $('#view_node_email_description');
 
+    /* --- EDIT NODE MODAL COMPONENTS ---*/
+    var edit_node_label = $('#edit_node_label_input');
+    var edit_node_email_template_select = $('#edit_node_email_template_select');
+    var edit_node_delay_time_input = $('#edit_node_delay_time_input');
+    var edit_node_time_unit_select = $('#edit_node_time_unit_select');
+
+
+
+
     var email_title = $('#printEmailTitle');
     var email_content = $('#printEmailContent');
     var button_text = $('#printButtonText');
+
+
 
 
     /* --- DYNAMIC VALUES --- */
@@ -226,6 +241,83 @@ $(function() {
 
 
 
+    edit_node_button.on('click', function(){
+
+        edit_node_modal.modal('toggle');
+
+        var node_id = funnel_builder.flowchart('getSelectedOperatorId');
+
+
+        $.ajax({
+
+            type:'POST',
+            url: '/ajax_load_node_edit_info',
+            dataType: "json",
+            data: {
+                node_id: node_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                edit_node_label.val(response.node_name);
+                edit_node_email_template_select.val(response.node_email_template_name);
+                edit_node_delay_time_input.val(response.node_delay_time);
+                edit_node_time_unit_select.val(response.node_delay_unit);
+                console.log(response);
+            }
+
+
+        });
+
+
+    });
+
+    save_edit_node_button.on('click', function(){
+
+        var node_id = funnel_builder.flowchart('getSelectedOperatorId');
+        var node_name = edit_node_label.val();
+        var email_template_id = edit_node_time_unit_select.val();
+        var delay_time = edit_node_delay_time_input.val();
+        var time_unit = edit_node_time_unit_select.val();
+
+
+        $.ajax({
+
+            type:'POST',
+            url: '/ajax_save_edit_node',
+            dataType: "json",
+            data: {
+                id: node_id,
+                name: node_name,
+                email_template_id: email_template_id,
+                delay_time: delay_time,
+                delay_unit: time_unit,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response){
+                edit_node_modal.modal('toggle');
+                window.location.reload(true);
+                console.log(response);
+
+            }
+
+
+
+        });
+
+
+
+
+    });
+
+
+
+
 
 
 
@@ -380,6 +472,7 @@ $(function() {
             delete_selected_button.hide();
             view_selected_node_button.hide();
             preview_email_button.hide();
+            edit_node_button.hide();
             return;
         }
 
@@ -387,6 +480,7 @@ $(function() {
         delete_selected_button.show();
         view_selected_node_button.show();
         preview_email_button.show();
+        edit_node_button.show();
 
     }
 
@@ -394,6 +488,7 @@ $(function() {
         delete_selected_button.hide();
         view_selected_node_button.hide();
         preview_email_button.hide();
+        edit_node_button.hide()
     }
 
 
