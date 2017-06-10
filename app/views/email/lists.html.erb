@@ -38,85 +38,159 @@
 	<hr class="fade-2"/>
 
 
-	<!-- Email Lists -->
+	<!-- Start Email Lists Table -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<div class="row">
 
-		<!-- START DEFAULT EMAIL LIST PANEL -->
-		<!-- ~~~~~~~~~~~~~~~~~~ -->
-		<div class="col-md-3 col-xs-12 widget widget_tally_box">
-			<div class="x_panel fixed_height_300">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Email Lists</h2>
+					<div class="clearfix"></div>
+				</div>
 				<div class="x_content">
+					<!-- Triggers Table -->
+					<table id="triggers_table" class="table table-striped text-center">
 
-					<h3 class="name">All Subscribers</h3>
+						<!-- Triggers Table Header -->
+						<thead>
+						<tr>
+							<th class="text-center">Name</th>
+							<th class="text-center">Subscribers</th>
+							<th class="text-center">Unsubscribers</th>
+							<th class="text-center">Emails Opened</th>
+							<th class="text-center">Emails Clicked</th>
+							<th class="text-center"><i class="fa fa-wrench"></i></th>
+						</tr>
+						</thead>
+						<!-- END Hooks Table Header -->
 
-					<div class="flex">
-						<ul class="list-inline count2">
-							<li>
+						<!-- Hooks Table BODY -->
+						<tbody>
 
-							</li>
-							<li>
-								<h3><%= @app.subscribers.size %></h3>
-								<span>Subscribers</span>
-							</li>
-							<li>
-							</li>
-						</ul>
-					</div>
-					<br/>
-					<div class="flex">
-						<div class="col-xs-12">
-							<a href="<%= root_url %>all_subscribers" class="btn btn-block btn-border btn-primary">View</a>
-						</div>
+						<tr>
+              <td class="text-left" style="width:30%;">
+                <h5>All Subscribers &nbsp;<span class="label label-primary label-sm">Default</span></h5></a>
+                <p>Created at: <%= DateTime.parse(@app.created_at).strftime("%D %I:%M %p")  %></p>
+              </td>
+							<td><h5><%= @app.subscribers.size %></h5></td>
+							<td><h5>0</h5></td>
+							<td><h5>0</h5></td>
+              <td><h5>0</h5></td>
+							<td style="width: 50px;">
+                <a href="<%= root_url %>all_subscribers" class="btn btn-sm btn-border btn-primary">View</a>
+							</td>
+						</tr>
 
-					</div>
+						<% if @lists.any? %>
+								<% @lists.each do |list| %>
+										<tr>
+											<td class="text-left" style="width:30%;">
+                        <h5><%= list.name %></h5>
+                        <p>Created at: <%= DateTime.parse(@app.created_at).strftime("%D %I:%M %p")  %></p>
+                      </td>
+											<td><%= list.email_list_subscribers.size %></td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+											<td style="width: 50px;">
+												<a href="<%= root_url %>list_subscribers/<%= list.id %>" class="btn btn-sm btn-border btn-primary">View</a>
+											</td>
+										</tr>
+								<% end %>
+						<% end %>
+						</tbody>
+						<!-- END Hooks Table BODY -->
 
+					</table>
+					<!-- END Hooks Table -->
 				</div>
 			</div>
 		</div>
-		<!-- ~~~~~~~~~~~~~~~~ -->
-		<!-- END DEFAULT EMAIL LIST PANEL -->
-
-    <% if @lists.any? %>
-        <% @lists.each do |list| %>
-
-            <!-- START DEFAULT EMAIL LIST PANEL -->
-            <!-- ~~~~~~~~~~~~~~~~~~ -->
-            <div class="col-md-3 col-xs-12 widget widget_tally_box">
-              <div class="x_panel fixed_height_300">
-                <div class="x_content trunc">
-
-                  <h3 class="name"><%= list.name %></h3>
-
-                  <div class="flex">
-                    <ul class="list-inline count2">
-                      <li>
-
-                      </li>
-                      <li>
-                        <h3><%= list.email_list_subscribers.size %></h3>
-                        <span>Subscribers</span>
-                      </li>
-                      <li>
-                      </li>
-                    </ul>
-                  </div>
-                  <br/>
-                  <div class="flex">
-                    <div class="col-xs-12">
-                      <a href="<%= root_url %>list_subscribers/<%= list.id %>" class="btn btn-block btn-border btn-primary">View</a>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <!-- ~~~~~~~~~~~~~~~~ -->
-            <!-- END DEFAULT EMAIL LIST PANEL -->
-        <% end %>
-    <% end %>
-
 
 	</div>
+	<!--
+
+
+	<!--&lt;!&ndash; Email Lists &ndash;&gt;-->
+	<!--<div class="row">-->
+
+		<!--&lt;!&ndash; START DEFAULT EMAIL LIST PANEL &ndash;&gt;-->
+		<!--&lt;!&ndash; ~~~~~~~~~~~~~~~~~~ &ndash;&gt;-->
+		<!--<div class="col-md-3 col-xs-12 widget widget_tally_box">-->
+			<!--<div class="x_panel fixed_height_300">-->
+				<!--<div class="x_content">-->
+
+					<!--<h3 class="name">All Subscribers</h3>-->
+
+					<!--<div class="flex">-->
+						<!--<ul class="list-inline count2">-->
+							<!--<li>-->
+
+							<!--</li>-->
+							<!--<li>-->
+								<!--<h3><%= @app.subscribers.size %></h3>-->
+								<!--<span>Subscribers</span>-->
+							<!--</li>-->
+							<!--<li>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+					<!--<br/>-->
+					<!--<div class="flex">-->
+						<!--<div class="col-xs-12">-->
+							<!--<a href="<%= root_url %>all_subscribers" class="btn btn-block btn-border btn-primary">View</a>-->
+						<!--</div>-->
+
+					<!--</div>-->
+
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--&lt;!&ndash; ~~~~~~~~~~~~~~~~ &ndash;&gt;-->
+		<!--&lt;!&ndash; END DEFAULT EMAIL LIST PANEL &ndash;&gt;-->
+
+    <!--<% if @lists.any? %>-->
+        <!--<% @lists.each do |list| %>-->
+
+            <!--&lt;!&ndash; START DEFAULT EMAIL LIST PANEL &ndash;&gt;-->
+            <!--&lt;!&ndash; ~~~~~~~~~~~~~~~~~~ &ndash;&gt;-->
+            <!--<div class="col-md-3 col-xs-12 widget widget_tally_box">-->
+              <!--<div class="x_panel fixed_height_300">-->
+                <!--<div class="x_content trunc">-->
+
+                  <!--<h3 class="name"><%= list.name %></h3>-->
+
+                  <!--<div class="flex">-->
+                    <!--<ul class="list-inline count2">-->
+                      <!--<li>-->
+
+                      <!--</li>-->
+                      <!--<li>-->
+                        <!--<h3><%= list.email_list_subscribers.size %></h3>-->
+                        <!--<span>Subscribers</span>-->
+                      <!--</li>-->
+                      <!--<li>-->
+                      <!--</li>-->
+                    <!--</ul>-->
+                  <!--</div>-->
+                  <!--<br/>-->
+                  <!--<div class="flex">-->
+                    <!--<div class="col-xs-12">-->
+                      <!--<a href="<%= root_url %>list_subscribers/<%= list.id %>" class="btn btn-block btn-border btn-primary">View</a>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; ~~~~~~~~~~~~~~~~ &ndash;&gt;-->
+            <!--&lt;!&ndash; END DEFAULT EMAIL LIST PANEL &ndash;&gt;-->
+        <!--<% end %>-->
+    <!--<% end %>-->
+
+
+	<!--</div>-->
 
 	<div id="new_email_list_modal" class="modal fade bs-example-modal-sm">
 		<div class="modal-dialog modal-md">

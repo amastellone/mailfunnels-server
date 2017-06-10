@@ -144,14 +144,16 @@ html , body{
     padding: 0 0 4px 0
 }
 .left_col {
-    background: #3d3e3e;
+    background: #e0e3e5;
+    color: #3d3e3e !important;
+
 }
 .nav-sm .container.body .col-md-3.left_col {
     min-height: 100%;
     width: 70px;
     padding: 0;
     z-index: 9999;
-    position: absolute
+    position: absolute;
 }
 .nav-sm .container.body .col-md-3.left_col.menu_fixed {
     position: fixed;
@@ -170,17 +172,18 @@ html , body{
     z-index: 2
 }
 .nav-sm .navbar.nav_title {
-    width: 70px
+    width: 70px;
 }
 .nav-sm .navbar.nav_title a span {
     display: none
 }
 .nav-sm .navbar.nav_title a i {
     font-size: 27px;
-    margin: 13px 0 0 3px
+    margin: 13px 0 0 3px;
+    color: #3d3e3e;
 }
 .site_title i {
-    border: 1px solid #EAEAEA;
+    border: 1px solid #3d3e3e;
     padding: 5px 6px;
     border-radius: 50%
 }
@@ -193,7 +196,8 @@ html , body{
     text-align: center !important;
     font-weight: 400;
     font-size: 10px;
-    padding: 10px 5px
+    padding: 10px 5px;
+    color: #3d3e3e !important;
 }
 .nav-sm .nav.child_menu li.active,
 .nav-sm .nav.side-menu li.active-sm {
@@ -304,8 +308,17 @@ html , body{
     margin-top: 5px;
     font-size: 10px;
     min-width: inherit;
-    color: #C4CFDA
+    color: #3d3e3e;
 }
+.main_menu span.fa:hover {
+    float: right;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 10px;
+    min-width: inherit;
+    color: #3498db;
+}
+
 .active a span.fa {
     text-align: right !important;
     margin-right: 4px
@@ -356,8 +369,7 @@ body .container.body .right_col {
 .nav_title {
     width: 230px;
     float: left;
-    background: #3d3e3e;
-    border-radius: 0;
+    background: #e0e3e5;
     height: 57px;
 
 }
@@ -481,7 +493,7 @@ body .container.body .right_col {
 .navbar-nav>li>a,
 .navbar-brand,
 .navbar-nav>li>a {
-    color: #fff !important
+    color: #3d3e3e !important
 }
 .top_nav .nav>li>a:focus,
 .top_nav .nav>li>a:hover,
@@ -728,10 +740,11 @@ a:focus {
     cursor: pointer
 }
 .nav.side-menu>li>a {
-    margin-bottom: 6px
+    margin-bottom: 6px;
+    color: #3d3e3e !important;
 }
 .nav.side-menu>li>a:hover {
-    color: #F2F5F7 !important
+    color: #3498db !important
 }
 .nav.side-menu>li>a:hover,
 .nav>li>a:focus {
@@ -743,7 +756,7 @@ a:focus {
 }
 .nav.child_menu li:hover,
 .nav.child_menu li.active {
-    background-color: rgba(255, 255, 255, 0.06)
+    background-color: #3498db;
 }
 .nav.child_menu li {
     padding-left: 36px
@@ -811,7 +824,7 @@ a:focus {
 .navbar-brand,
 .navbar-nav>li>a {
     font-weight: 500;
-    color: #ECF0F1 !important;
+    color: #3d3e3e !important;
     margin-left: 0 !important;
     line-height: 32px
 }
@@ -834,7 +847,7 @@ a:focus {
     text-decoration: none
 }
 .nav.navbar-nav>li>a {
-    color: #515356 !important
+    color: #3d3e3e !important
 }
 .nav.top_menu>li>a {
     position: relative;
@@ -883,7 +896,7 @@ a:focus {
     font-size: 26px
 }
 .nav.child_menu>li>a {
-    color: rgba(255, 255, 255, 0.75);
+    color: #3d3e3e;
     font-size: 12px;
     padding: 9px
 }
@@ -1855,7 +1868,8 @@ h4.graph_title {
     font-weight: normal;
     font-size: 18px;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale
+    -moz-osx-font-smoothing: grayscale;
+    color: #3d3e3e ;
 }
 .tile-stats {
     position: relative;

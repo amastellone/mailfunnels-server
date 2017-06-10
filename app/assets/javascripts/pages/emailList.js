@@ -1,5 +1,7 @@
 $(function(){
 
+    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
 
     /* --- APP VALUES --- */
     var app_id = $('#current_app_id').val();
