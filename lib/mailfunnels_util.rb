@@ -2,7 +2,7 @@ class MailfunnelsUtil < ShopifyApp::AuthenticatedController
 
   def self.get_app_name
 
-      domain = ShopifyAPI::Shop.current.domain
+      domain = ShopifyAPI::Shop.current.myshopify_domain
 
     return domain
   end
