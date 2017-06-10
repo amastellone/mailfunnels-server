@@ -18,7 +18,7 @@ class SendBatchEmailJob < ApplicationJob
       ERB.new(html, 0, "", "@renderedhtml").result(binding)
       puts "Template rendered!"
       puts"Creating Postmark Client"
-      client = Postmark::ApiClient.new(ENV['POSTMARK'], http_open_timeout: 60)
+      client = Postmark::ApiClient.new('b650bfe2-d2c6-4714-aa2d-e148e1313e37', http_open_timeout: 60)
       response = client.deliver(
           :subject     => template.email_subject,
           :to          => subscriber.email,
