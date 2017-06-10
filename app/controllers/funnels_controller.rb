@@ -274,6 +274,15 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
   end
 
+  def view_template
+    # Get the current app loaded
+    @app = MailfunnelsUtil.get_app
+
+    # Get all Funnel models
+    @template = EmailTemplate.find(params[:template_id])
+
+  end
+
 
   # USED WITH AJAX
   # --------------
@@ -352,15 +361,73 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
   end
 
+  # USED WITH AJAX
+  # ---------------
+  # Returns a JSON array of node configuration info
+  # used for the edit node modal
+  #
+  # PARAMETERS
+  # ---------
+  # node_id: ID of the node we are getting info for
+  #
+  def ajax_load_node_edit_info
 
-  def view_template
-    # Get the current app loaded
-    @app = MailfunnelsUtil.get_app
+    # Get the Node from the DB
+    node = Node.find(params[:node_id])
 
-    # Get all Funnel models
-    @template = EmailTemplate.find(params[:template_id])
+    data = {
+        :node_id => node.id,
+        :node_name => node.name,
+        :node_email_template_name => node.email_template_id,
+        :node_delay_time => node.delay_time,
+        :node_delay_unit => node.delay_unit,
+    }
+
+    # Return data as JSON
+    render json: data
 
   end
+
+
+
+  # USED WITH AJAX
+  # ---------------
+  # Saves edited node info
+  #
+  # PARAMETERS
+  # ---------
+  # node_id: ID of the node we are getting info for
+  #
+  def ajax_save_edit_node
+
+    # Get the Node from the DB
+    node = Node.find(params[:id])
+
+    node.name = params[:name]
+    node.email_template_id = params[:email_template_id]
+    node.delay_unit = params[:delay_unit]
+    node.delay_time = params[:delay_time]
+
+    # Save and verify Node and return correct JSON response
+    node.put('', {
+        :name => node.name,
+        :email_template_id => node.email_template_id,
+        :delay_unit => node.delay_unit,
+        :delay_time => node.delay_time,
+    })
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Node Updated!'
+    }
+    render json: response
+
+
+
+  end
+
+
 
 
 
