@@ -107,7 +107,7 @@ $(function() {
 
         emails_opened_day.html(percent);
 
-        }, function() {
+    }, function() {
 
         emails_opened_day.html(num_emails_opened_day.val());
 
@@ -209,7 +209,7 @@ $(function() {
      * @Function init()
      *
      * Initializes the dashboard statistics page
-     * 
+     *
      */
     function init() {
         $.ajax({
