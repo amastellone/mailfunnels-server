@@ -25,14 +25,17 @@ class SubscribersController < ApplicationController
       render html: "You have already been unsibscribed"
 
     else
-      email_list_subscriber = EmailListSubscriber.where(subsriber_id: subscriber.id).first
+      email_list_subscriber = EmailListSubscriber.where(subscriber_id: subscriber.id).first
       # Create New Unsubscriber
       unsubscriber = Unsubscriber.new
       unsubscriber.app_id = subscriber.app_id
       unsubscriber.first_name = subscriber.first_name
       unsubscriber.last_name = subscriber.last_name
       unsubscriber.email = subscriber.email
-      unsubscriber.email_list_id = email_list_subscriber.email_list_id
+      if !email_list_subscriber.nil?
+        unsubscriber.email_list_id = email_list_subscriber.email_list_id
+      end
+
 
       # If error saving unsubscriber, then return error response
       if !unsubscriber.save!
