@@ -381,6 +381,25 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Get the Subscriber from list
     subscriber = Subscriber.find(params[:subscriber_id])
+    subscriber_emails = EmailJob.where(subscriber_id: params[:subscriber_id])
+
+
+
+    email_array = Hash.new
+    index = 0
+
+    subscriber_emails.each do |se|
+      email = {
+          :email_id => se.id,
+          :name => se.email_template.name,
+          :clicked => se.clicked,
+          :opened => se.opened,
+      }
+
+      email_array[index] = email
+      index = index + 1
+
+    end
 
     data = {
 
@@ -389,7 +408,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
         :last_name => subscriber.last_name,
         :email => subscriber.email,
         :revenue => subscriber.revenue,
-
+        :total_emails => subscriber_emails.size,
+        :emails => email_array
 
     }
 
