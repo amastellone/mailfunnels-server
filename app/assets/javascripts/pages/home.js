@@ -7,6 +7,10 @@ $(function() {
     /* --- APP VALUES --- */
     var app_id = $('#current_app_id').val();
 
+    /* --- Dashboard Hidden Inputs --- */
+    var num_emails_sent_day = $('#num_emails_sent_day');
+    var num_emails_opened_day = $('#num_emails_opened_day');
+
     /* --- View Dashboard Info Components --- */
     var new_subscribers_day = $('#new_subscribers_day');
     var unsubscribers_day = $('#unsubscribers_day');
@@ -27,9 +31,21 @@ $(function() {
     var emails_clicked_month = $('#emails_clicked_month');
 
 
-
     //Initialize the Home Page
     init();
+
+
+
+    emails_opened_day.hover(function() {
+
+        var percent = (num_emails_sent_day.val() / num_emails_opened_day.val()) * 100;
+
+        emails_opened_day.html(percent + '%');
+
+        }, function() {
+
+
+    });
 
 
     function init() {
@@ -61,11 +77,13 @@ $(function() {
 
                 //Change Emails Sent Stats
                 emails_sent_day.html(response.today_emails_sent);
+                num_emails_sent_day.val(response.today_emails_sent);
                 emails_sent_week.html(response.week_emails_sent);
                 emails_sent_month.html(response.month_emails_sent);
 
                 //Change Emails Opened Stats
                 emails_opened_day.html(response.today_emails_opened);
+                num_emails_opened_day.val(response.today_emails_opened);
                 emails_opened_week.html(response.week_emails_opened);
                 emails_opened_month.html(response.month_emails_opened);
 
@@ -76,7 +94,6 @@ $(function() {
 
 
             }
-
 
         });
 

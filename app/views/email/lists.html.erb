@@ -74,7 +74,7 @@
                 <p>Created at: <%= DateTime.parse(@app.created_at).strftime("%D %I:%M %p")  %></p>
               </td>
 							<td><h5><%= @app.subscribers.size %></h5></td>
-							<td><h5>0</h5></td>
+							<td><h5><%= @app.unsubscribers.size %></h5></td>
 							<td><h5>0</h5></td>
               <td><h5>0</h5></td>
 							<td style="width: 50px;">
@@ -90,7 +90,7 @@
                         <p>Created at: <%= DateTime.parse(@app.created_at).strftime("%D %I:%M %p")  %></p>
                       </td>
 											<td><%= list.email_list_subscribers.size %></td>
-                      <td>0</td>
+                      <td><%= list.unsubscribers.size %></td>
                       <td>0</td>
                       <td>0</td>
 											<td style="width: 50px;">
