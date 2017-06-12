@@ -25,7 +25,7 @@ $(function() {
 
     /* --- BUTTONS --- */
     var new_funnel_submit = $('#new_funnel_submit_button');
-    var delete_funnel_button = $('#delete_funnel_button');
+    var delete_funnel_button = $('.delete_funnel_button');
 
 
     //Disable Submit Button on Form until a list and trigger is selected

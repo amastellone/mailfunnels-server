@@ -33,6 +33,10 @@ $(function() {
     var view_subscriber_info_button = $('#view_subscriber_info_button');
 
 
+    //Initialize the Page
+    init();
+
+
     new_subscriber_submit_button.on('click', function() {
 
         var first_name = first_name_input.val();
@@ -91,6 +95,25 @@ $(function() {
         new_batch_email_modal.modal('toggle');
 
     });
+
+    $('#subscribers_table_length').on('change', function() {
+
+        $('.left_col').height($('.right_col').height());
+    });
+
+
+    function init() {
+
+        $('#subscribers_table').dataTable({
+            "pageLength": 5,
+            "lengthMenu": [[5, 10, 25], [5, 10, 25]],
+            "columnDefs": [ {
+                "targets": 'no-sort',
+                "orderable": false
+            } ]
+        });
+
+    }
 
 
 });
