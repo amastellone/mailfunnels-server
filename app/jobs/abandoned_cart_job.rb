@@ -132,7 +132,9 @@ class AbandonedCartJob < ApplicationJob
                                                    funnel.id,
                                                    subscriber.id,
                                                    node.id,
-                                                   node.email_template_id)
+                                                   node.email_template_id,
+                                                   funnel.email_list_id
+              )
               if job
                 logger.info("New Email Job Created!")
               else
