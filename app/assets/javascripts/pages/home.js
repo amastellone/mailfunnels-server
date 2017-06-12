@@ -56,6 +56,7 @@ $(function() {
     //Initialize the Home Page
     init();
 
+    /* ----- ON HOVER FUNCTIONS ----- */
 
     /**
      * On Total Emails Opened Hover
@@ -204,10 +205,12 @@ $(function() {
     });
 
 
-
-
-
-
+    /**
+     * @Function init()
+     *
+     * Initializes the dashboard statistics page
+     * 
+     */
     function init() {
         $.ajax({
 
