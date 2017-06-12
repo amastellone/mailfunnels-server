@@ -236,7 +236,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
       }
       render json: response
     end
-    email_list_subscriber = EmailListSubscriber.where(subsriber_id: subscriber.id).first
+    email_list_subscriber = EmailListSubscriber.where(subscriber_id: subscriber.id).first
 
     # Otherwise, create new Unsubscriber and Delete Subscriber
     unsubscriber = Unsubscriber.new
@@ -244,7 +244,10 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     unsubscriber.first_name = subscriber.first_name
     unsubscriber.last_name = subscriber.last_name
     unsubscriber.email = subscriber.email
-    unsubscriber.email_list_id = email_list_subscriber.email_list_id
+    if !email_list_subscriber.nil?
+      unsubscriber.email_list_id = email_list_subscriber.email_list_id
+    end
+
 
     # If error saving unsubscriber, then return error response
     if !unsubscriber.save!
