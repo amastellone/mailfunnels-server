@@ -170,19 +170,23 @@ class EmailUtil
     end
   end
 
-  def self.create_new_email_job(app_id, funnel_id, subscriber_id, node_id, email_template_id)
+  def self.create_new_email_job(app_id, funnel_id, subscriber_id, node_id, email_template_id, email_list_id)
     job = EmailJob.post('', {:app_id => app_id,
                        :funnel_id => funnel_id,
                        :subscriber_id => subscriber_id,
                        :executed => false,
                        :node_id => node_id,
                        :email_template_id => email_template_id,
+                       :email_list_id => email_list_id,
                        :sent => 0})
     if job.nil? == false
       return job
     else
       return false
     end
+  end
+
+  def self.scanProductTrigger(product)
   end
 
 

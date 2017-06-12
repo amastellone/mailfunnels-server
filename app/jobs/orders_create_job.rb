@@ -57,7 +57,13 @@ class OrdersCreateJob < ApplicationJob
       end
 
       logger.info("Looking for trigger with product first")
-      trigger = EmailUtil.get_trigger_product(app.id, hook.id, webhook[:line_items].first[:product_id])
+      trigger = nil
+      webhook[:line_items].each do |product|
+        trigger = EmailUtil.get_trigger_product(app.id, hook.id, product[:product_id])
+        if trigger
+          break
+        end
+      end
 
       if trigger
         logger.info("Trigger found!")
@@ -155,7 +161,9 @@ class OrdersCreateJob < ApplicationJob
                                              funnel.id,
                                              subscriber.id,
                                              node.id,
-                                             node.email_template_id)
+                                             node.email_template_id,
+                                             funnel.email_list_id
+        )
         if job
           logger.info("New Email Job Created!")
         else
