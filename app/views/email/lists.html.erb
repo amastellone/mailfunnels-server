@@ -61,6 +61,7 @@
                   <th class="text-center">Name</th>
                   <th class="text-center">Subscribers</th>
                   <th class="text-center">Unsubscribers</th>
+                  <th class="text-center">Emails Sent</th>
                   <th class="text-center">Emails Opened</th>
                   <th class="text-center">Emails Clicked</th>
                   <th class="text-center"><i class="fa fa-wrench"></i></th>
@@ -78,6 +79,7 @@
                   </td>
                   <td><h5><%= @app.subscribers.size %></h5></td>
                   <td><h5><%= @app.unsubscribers.size %></h5></td>
+                  <td><h5 id="default_emails_sent_view">Loading...</h5></td>
                   <td><h5 id="default_emails_opened_view">Loading...</h5></td>
                   <td><h5 id="default_emails_clicked_view">Loading...</h5></td>
                   <td style="width: 50px;">
@@ -97,6 +99,7 @@
                           </td>
                           <td><h5><%= list.email_list_subscribers.size %></h5></td>
                           <td><h5><%= list.unsubscribers.size %></h5></td>
+                          <td><h5><%= EmailJob.where(email_list_id: list.id, sent: 1).size %></h5></td>
                           <td><h5 class="opened_hover" data-id="<%= list.id %>" data-opened="<%= EmailJob.where(email_list_id: list.id, opened: 1).size %>"><%= EmailJob.where(email_list_id: list.id, opened: 1).size %></h5></td>
                           <td><h5 class="clicked_hover" data-id="<%= list.id %>" data-clicked="<%= EmailJob.where(email_list_id: list.id, clicked: 1).size %>"><%= EmailJob.where(email_list_id: list.id, clicked: 1).size %></h5></td>
                           <td style="width: 50px;">

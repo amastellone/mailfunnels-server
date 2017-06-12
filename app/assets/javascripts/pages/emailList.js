@@ -26,6 +26,7 @@ $(function(){
     var default_emails_clicked = $('#default_emails_clicked').val();
 
     /* --- EMAIL STATS --- */
+    var default_emails_sent_view = $('#default_emails_sent_view');
     var default_emails_opened_view = $('#default_emails_opened_view');
     var default_emails_clicked_view = $('#default_emails_clicked_view');
 
@@ -140,6 +141,7 @@ $(function(){
         //Set the initial default list stats
         default_emails_opened_view.html(default_emails_opened);
         default_emails_clicked_view.html(default_emails_clicked);
+        default_emails_sent_view.html(default_emails_sent);
 
     }
 
