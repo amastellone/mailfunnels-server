@@ -7,11 +7,33 @@ $(function() {
     /* --- APP VALUES --- */
     var app_id = $('#current_app_id').val();
 
-    /* --- Dashboard Hidden Inputs --- */
+    /* --- Dashboard Hidden Total Values --- */
+    var total_emails_sent = $('#total_emails_sent');
+    var total_emails_opened = $('#total_emails_opened');
+    var total_emails_clicked = $('#total_emails_clicked');
+
+    /* --- Dashboard Hidden Day Values --- */
     var num_emails_sent_day = $('#num_emails_sent_day');
     var num_emails_opened_day = $('#num_emails_opened_day');
+    var num_emails_clicked_day = $('#num_emails_clicked_day');
 
-    /* --- View Dashboard Info Components --- */
+    /* --- Dashboard Hidden Week Values --- */
+    var num_emails_sent_week = $('#num_emails_sent_week');
+    var num_emails_opened_week = $('#num_emails_opened_week');
+    var num_emails_clicked_week = $('#num_emails_clicked_week');
+
+    /* --- Dashboard Hidden Month Values --- */
+    var num_emails_sent_month = $('#num_emails_sent_month');
+    var num_emails_opened_month = $('#num_emails_opened_month');
+    var num_emails_clicked_month = $('#num_emails_clicked_month');
+
+    /* --- Dashboard Total Stats Components --- */
+    var total_emails_opened_div = $('#emails_opened_div');
+    var total_emails_clicked_div = $('#emails_clicked_div');
+    var total_emails_opened_view = $('#emails_opened_view');
+    var total_emails_clicked_view = $('#emails_clicked_view');
+
+    /* --- Dashboard Time Stats Components --- */
     var new_subscribers_day = $('#new_subscribers_day');
     var unsubscribers_day = $('#unsubscribers_day');
     var emails_sent_day = $('#emails_sent_day');
@@ -35,17 +57,155 @@ $(function() {
     init();
 
 
+    /**
+     * On Total Emails Opened Hover
+     * ------------------------------
+     *
+     * Changes value to percentage when hovered over
+     */
+    total_emails_opened_div.hover(function() {
 
+        var percent = ((total_emails_opened.val() / total_emails_sent.val()) * 100).toFixed(2) + '%';
+
+        total_emails_opened_view.html(percent);
+
+    }, function() {
+
+        total_emails_opened_view.html(total_emails_opened.val());
+
+    });
+
+    /**
+     * On Total Emails Opened Hover
+     * ------------------------------
+     *
+     * Changes value to percentage when hovered over
+     */
+    total_emails_clicked_div.hover(function() {
+
+        var percent = ((total_emails_clicked.val() / total_emails_sent.val()) * 100).toFixed(2) + '%';
+
+        total_emails_clicked_view.html(percent);
+
+    }, function() {
+
+        total_emails_clicked_view.html(total_emails_clicked.val());
+
+    });
+
+
+    /**
+     * On Emails Opened For Day Hover
+     * ------------------------------
+     *
+     * Changes value to percentage when hovered over
+     */
     emails_opened_day.hover(function() {
 
-        var percent = (num_emails_sent_day.val() / num_emails_opened_day.val()) * 100;
+        var percent = ((num_emails_opened_day.val() / num_emails_sent_day.val()) * 100).toFixed(2) + '%';
 
-        emails_opened_day.html(percent + '%');
+        emails_opened_day.html(percent);
 
         }, function() {
 
+        emails_opened_day.html(num_emails_opened_day.val());
 
     });
+
+    /**
+     * On Emails Clicked For Day Hover
+     * ------------------------------
+     *
+     * Changes value to percentage when hovered over
+     */
+    emails_clicked_day.hover(function() {
+
+        var percent = ((num_emails_clicked_day.val() / num_emails_sent_day.val()) * 100).toFixed(2) + '%';
+
+        emails_clicked_day.html(percent);
+
+    }, function() {
+
+        emails_clicked_day.html(num_emails_clicked_day.val());
+
+    });
+
+
+    /**
+     * On Emails Opened For Week Hover
+     * ------------------------------
+     *
+     * Changes value to percentage when hovered over
+     */
+    emails_opened_week.hover(function() {
+
+        var percent = ((num_emails_opened_week.val() / num_emails_sent_week.val()) * 100).toFixed(2) + '%';
+
+        emails_opened_week.html(percent);
+
+    }, function() {
+
+        emails_opened_week.html(num_emails_opened_week.val());
+
+    });
+
+    /**
+     * On Emails Clicked For Week Hover
+     * ------------------------------
+     *
+     * Changes value to percentage when hovered over
+     */
+    emails_clicked_week.hover(function() {
+
+        var percent = ((num_emails_clicked_week.val() / num_emails_sent_week.val()) * 100).toFixed(2) + '%';
+
+        emails_clicked_week.html(percent);
+
+    }, function() {
+
+        emails_clicked_week.html(num_emails_clicked_week.val());
+
+    });
+
+    /**
+     * On Emails Opened For Month Hover
+     * ------------------------------
+     *
+     * Changes value to percentage when hovered over
+     */
+    emails_opened_month.hover(function() {
+
+        var percent = ((num_emails_opened_month.val() / num_emails_sent_month.val()) * 100).toFixed(2) + '%';
+
+        emails_opened_month.html(percent);
+
+    }, function() {
+
+        emails_opened_month.html(num_emails_opened_month.val());
+
+    });
+
+    /**
+     * On Emails Clicked For Day Hover
+     * ------------------------------
+     *
+     * Changes value to percentage when hovered over
+     */
+    emails_clicked_month.hover(function() {
+
+        var percent = ((num_emails_clicked_month.val() / num_emails_sent_month.val()) * 100).toFixed(2) + '%';
+
+        emails_clicked_month.html(percent);
+
+    }, function() {
+
+        emails_clicked_month.html(num_emails_clicked_month.val());
+
+    });
+
+
+
+
 
 
     function init() {
@@ -79,19 +239,27 @@ $(function() {
                 emails_sent_day.html(response.today_emails_sent);
                 num_emails_sent_day.val(response.today_emails_sent);
                 emails_sent_week.html(response.week_emails_sent);
+                num_emails_sent_week.val(response.week_emails_sent);
                 emails_sent_month.html(response.month_emails_sent);
+                num_emails_sent_month.val(response.month_emails_sent);
+
 
                 //Change Emails Opened Stats
                 emails_opened_day.html(response.today_emails_opened);
                 num_emails_opened_day.val(response.today_emails_opened);
                 emails_opened_week.html(response.week_emails_opened);
+                num_emails_opened_week.val(response.week_emails_opened);
                 emails_opened_month.html(response.month_emails_opened);
+                num_emails_opened_month.val(response.month_emails_opened);
+
 
                 // Change Emails Clicked Stats
                 emails_clicked_day.html(response.today_emails_clicked);
+                num_emails_clicked_day.val(response.today_emails_clicked);
                 emails_clicked_week.html(response.week_emails_clicked);
+                num_emails_clicked_week.val(response.week_emails_clicked);
                 emails_clicked_month.html(response.month_emails_clicked);
-
+                num_emails_clicked_month.val(response.month_emails_clicked);
 
             }
 

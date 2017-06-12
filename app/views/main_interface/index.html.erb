@@ -14,6 +14,12 @@
     <%= javascript_include_tag 'pages/home.js' %>
     <%= stylesheet_link_tag 'dashboard.css' %>
 
+    <div class="hidden">
+      <input id="total_emails_sent" type="number" value="<%= @num_email_sent %>" />
+      <input id="total_emails_opened" type="number" value="<%= @num_email_opened %>" />
+      <input id="total_emails_clicked" type="number" value="<%= @num_email_clicked %>" />
+    </div>
+
     <div class="row">
       <div class="col-xs-12">
         <div class="page-title">
@@ -97,20 +103,20 @@
                   <h3>Emails Sent</h3>
                 </div>
               </div>
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div id="emails_opened_div" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-envelope-open-o text-primary"></i>
                   </div>
-                  <div class="count"><%= @num_email_opened %></div>
+                  <div id="emails_opened_view" class="count"><%= @num_email_opened %></div>
 
                   <h3>Emails Opened</h3>
                 </div>
               </div>
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+              <div id="emails_clicked_div" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-envelope-open text-primary"></i>
                   </div>
-                  <div class="count"><%= @num_email_clicked %></div>
+                  <div id="emails_clicked_view" class="count"><%= @num_email_clicked %></div>
 
                   <h3>Emails Clicked</h3>
                 </div>
@@ -138,8 +144,21 @@
     <div class="row">
 
       <div class="hidden">
+        <!-- Day Number Values -->
         <input id="num_emails_sent_day" type="number" />
         <input id="num_emails_opened_day" type="number"/>
+        <input id="num_emails_clicked_day" type="number"/>
+
+        <!-- Week Number Values -->
+        <input id="num_emails_sent_week" type="number" />
+        <input id="num_emails_opened_week" type="number"/>
+        <input id="num_emails_clicked_week" type="number"/>
+
+        <!-- Month Number Values -->
+        <input id="num_emails_sent_month" type="number" />
+        <input id="num_emails_opened_month" type="number"/>
+        <input id="num_emails_clicked_month" type="number"/>
+
       </div>
 
       <div class="col-md-4 col-sm-6 col-xs-12">
@@ -152,25 +171,25 @@
           <div class="x_content">
             <table class="table table-striped">
               <tbody>
-              <tr>
-                <th scope="row">New Subscribers:</th>
-                <td id="new_subscribers_day">Loading...</td>
+              <tr style="border: none;">
+                <th style="border: none;">New Subscribers:</th>
+                <td id="new_subscribers_day" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Unsubscribers</th>
-                <td id="unsubscribers_day">Loading...</td>
+                <th style="border: none;">Unsubscribers</th>
+                <td id="unsubscribers_day" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Sent:</th>
-                <td id="emails_sent_day">Loading...</td>
+                <th style="border: none;">Emails Sent:</th>
+                <td id="emails_sent_day" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Opened:</th>
-                <td id="emails_opened_day">Loading...</td>
+                <th style="border: none;">Emails Opened:</th>
+                <td id="emails_opened_day" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Clicked</th>
-                <td id="emails_clicked_day">Loading...</td>
+                <th style="border: none;">Emails Clicked</th>
+                <td id="emails_clicked_day" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               </tbody>
             </table>
@@ -190,24 +209,24 @@
             <table class="table table-striped">
               <tbody>
               <tr>
-                <th scope="row">New Subscribers:</th>
-                <td id="new_subscribers_week">Loading...</td>
+                <th style="border: none;">New Subscribers:</th>
+                <td id="new_subscribers_week" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Unsubscribers</th>
-                <td id="unsubscribers_week">Loading...</td>
+                <th style="border: none;">Unsubscribers</th>
+                <td id="unsubscribers_week" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Sent:</th>
-                <td id="emails_sent_week">Loading...</td>
+                <th style="border: none;">Emails Sent:</th>
+                <td id="emails_sent_week" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Opened:</th>
-                <td id="emails_opened_week">Loading...</td>
+                <th style="border: none;">Emails Opened:</th>
+                <td id="emails_opened_week" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Clicked</th>
-                <td id="emails_clicked_week">Loading...</td>
+                <th style="border: none;">Emails Clicked</th>
+                <td id="emails_clicked_week" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               </tbody>
             </table>
@@ -227,24 +246,24 @@
             <table class="table table-striped">
               <tbody>
               <tr>
-                <th scope="row">New Subscribers:</th>
-                <td id="new_subscribers_month">Loading...</td>
+                <th style="border: none;">New Subscribers:</th>
+                <td id="new_subscribers_month" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Unsubscribers</th>
-                <td id="unsubscribers_month">Loading...</td>
+                <th style="border: none;">Unsubscribers</th>
+                <td id="unsubscribers_month" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Sent:</th>
-                <td id="emails_sent_month">Loading...</td>
+                <th style="border: none;">Emails Sent:</th>
+                <td id="emails_sent_month" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Opened:</th>
-                <td id="emails_opened_month">Loading...</td>
+                <th style="border: none;">Emails Opened:</th>
+                <td id="emails_opened_month" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               <tr>
-                <th scope="row">Emails Clicked</th>
-                <td id="emails_clicked_month">Loading...</td>
+                <th style="border: none;">Emails Clicked</th>
+                <td id="emails_clicked_month" class="pull-right" style="border: none;">Loading...</td>
               </tr>
               </tbody>
             </table>
