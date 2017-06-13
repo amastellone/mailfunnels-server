@@ -9,11 +9,11 @@ ShopifyApp.configure do |config|
   config.embedded_app = true
 
   config.webhooks = [
-    # {topic: 'refunds/create', address: 'https://www.mailfunnels.com/webhooks/refunds_create', format: 'json'},
-    # {topic: 'orders/create', address: 'https://www.mailfunnels.com/webhooks/orders_create', format: 'json'},
-    # {topic: 'carts/update', address: 'https://www.mailfunnels.com/webhooks/carts_update', format: 'json'},
-    {topic: 'refunds/create', address: 'https://ba6174c3.ngrok.io/webhooks/refunds_create', format: 'json'},
-    {topic: 'orders/create', address: 'https://ba6174c3.ngrok.io/webhooks/orders_create', format: 'json'},
-    {topic: 'carts/update', address: 'https://ba6174c3.ngrok.io/webhooks/carts_update', format: 'json'},
+    {topic: 'refunds/create', address: 'https://www.mailfunnels.com/webhooks/refunds_create', format: 'json'},
+    {topic: 'orders/create', address: 'https://www.mailfunnels.com/webhooks/orders_create', format: 'json'},
+    {topic: 'carts/update', address: 'https://www.mailfunnels.com/webhooks/carts_update', format: 'json'},
+    # {topic: 'refunds/create', address: 'https://007d9deb.ngrok.io/webhooks/refunds_create', format: 'json'},
+    # {topic: 'orders/create', address: 'https://007d9deb.ngrok.io/webhooks/orders_create', format: 'json'},
+    # {topic: 'carts/update', address: 'https://007d9deb.ngrok.io/webhooks/carts_update', format: 'json'},
   ]
 end
