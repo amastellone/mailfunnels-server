@@ -93,6 +93,9 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'listen', '~> 3.0.5'
 
+#Postmark
+gem 'postmark-rails'
+
 group :development do
 
 	gem "better_errors"
@@ -144,5 +147,3 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Gems appended using BASH '>' feature
 gem 'rack-jwt'
 
-#Postmark
-gem 'postmark-rails'
