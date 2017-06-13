@@ -142,4 +142,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Gems appended using BASH '>' feature
-gem 'rack-jwt' 
+gem 'rack-jwt'
+
+#Postmark
+gem 'postmark-rails'

@@ -7,7 +7,7 @@ $(function(){
     app_id = $('#current_app_id').val();
 
 
-    /* --- FORM INPUT FIELDS --- */
+    /* --- ACCOUNT FORM INPUT FIELDS --- */
     var first_name_input = $('#first_name_input');
     var last_name_input = $('#last_name_input');
     var email_input = $('#email_input');
@@ -15,14 +15,15 @@ $(function(){
     var city_input = $('#city_input');
     var zip_code_input = $('#zip_code_input');
     var state_input = $('#state_input');
+    /* --- EMAIL FORM INPUT FIELDS --- */
     var from_email_input = $('#from_email_input');
     var from_name_input = $('#from_name_input');
-    var company_name_input = $('#company_name_input');
 
 
 
     /* ---- BUTTONS --- */
     var save_account_info_button = $('#save_account_info_button');
+    var save_email_info_button = $('#save_email_info_button');
 
 
     save_account_info_button.on('click', function(e) {
@@ -34,9 +35,6 @@ $(function(){
         var city = city_input.val();
         var zip = zip_code_input.val();
         var state = state_input.val();
-        var from_email = from_email_input.val();
-        var from_name = from_name_input.val();
-        var company_name = company_name_input.val();
 
         $.ajax({
             type:'POST',
@@ -51,9 +49,6 @@ $(function(){
                 city: city,
                 zip: zip,
                 state: state,
-                from_email: from_email,
-                from_name: from_name,
-                company_name: company_name,
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -70,11 +65,37 @@ $(function(){
 
         });
 
+    });
 
 
+    save_email_info_button.on('click', function(e){
+
+        var from_email = from_email_input.val();
+        var from_name = from_name_input.val();
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_update_email_info',
+            dataType: "json",
+            data: {
+                id: app_id,
+                from_email: from_email,
+                from_name: from_name,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+                window.location.reload(true);
 
 
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload(true);
 
+            }
+
+        });
     });
 
 

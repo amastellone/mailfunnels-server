@@ -44,6 +44,14 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Get the Current App
     @app = MailfunnelsUtil.get_app
+    if @app.postmark_signature_id.nil?
+      @confirmed = false
+    else
+      client = Postmark::AccountApiClient.new('ac673fb9-9e7a-491f-bc43-77f29de16bfd')
+      signature = client.get_sender(@app.postmark_signature_id)
+      @confirmed = signature[:confirmed]
+    end
+
 
   end
 
@@ -53,17 +61,14 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Access current app
     app = App.find(params[:id])
     # Save The App Info
-    app.put('',{
-                 :first_name => params[:first_name],
-                 :last_name => params[:last_name],
-                 :email => params[:email],
-                 :street_address => params[:street_address],
-                 :city => params[:city],
-                 :zip => params[:zip],
-                 :state => params[:state],
-                 :from_email => params[:from_email],
-                 :from_name => params[:from_name],
-                 :company_name => params[:company_name]
+    app.put('', {
+        :first_name => params[:first_name],
+        :last_name => params[:last_name],
+        :email => params[:email],
+        :street_address => params[:street_address],
+        :city => params[:city],
+        :zip => params[:zip],
+        :state => params[:state],
     })
 
     final_json = JSON.pretty_generate(result = {
@@ -73,8 +78,47 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Return JSON response
     render json: final_json
 
+  end
+
+  def ajax_update_email_info
+    # Access current app
+    app = App.find(params[:id])
+    client = Postmark::AccountApiClient.new('ac673fb9-9e7a-491f-bc43-77f29de16bfd')
+    # Save The App Info
+    if app.postmark_signature_id == nil
+      response = client.create_sender(name: params[:from_name], from_email: params[:from_email])
+      app.put('', {
+          :from_email => params[:from_email],
+          :from_name => params[:from_name],
+          :postmark_signature_id => response[:id]
+      })
+    else
+      client.get_sender(app.postmark_signature_id)
+      signature = client.get_sender(app.postmark_signature_id)
+
+      if signature[:email_address] == params[:from_email]
+        client.update_sender(app.postmark_signature_id, name: params[:from_name], from_email: params[:from_email])
+        app.put('', {:from_name => params[:from_name]})
+      else
+        client.delete_signature(app.postmark_signature_id)
+        response = client.create_sender(name: params[:from_name], from_email: params[:from_email])
+        app.put('', {
+            :from_email => params[:from_email],
+            :from_name => params[:from_name],
+            :postmark_signature_id => response[:id]
+        })
+      end
 
 
+    end
+
+
+    final_json = JSON.pretty_generate(result = {
+        :success => true
+    })
+    logger.info("---DONE!---")
+    # Return JSON response
+    render json: final_json
   end
 
 
@@ -145,7 +189,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
 
   end
-
 
 
   # Page Render Function
@@ -271,8 +314,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
 
-
-
   # USED WITH AJAX
   # --------------
   # Sends a batch email to all subscribers on that list
@@ -316,14 +357,14 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     @app = MailfunnelsUtil.get_app
 
     # Subscriber Values
-    today_subscribers = Subscriber.where(app_id: @app.id, day: 1 ).size
-    week_subscribers = Subscriber.where(app_id: @app.id, week: 1 ).size
-    month_subscribers = Subscriber.where(app_id: @app.id, month: 1 ).size
+    today_subscribers = Subscriber.where(app_id: @app.id, day: 1).size
+    week_subscribers = Subscriber.where(app_id: @app.id, week: 1).size
+    month_subscribers = Subscriber.where(app_id: @app.id, month: 1).size
 
     # Unsubscriber Values
-    today_unsubscribers = Unsubscriber.where(app_id: @app.id, day: 1 ).size
-    week_unsubscribers = Unsubscriber.where(app_id: @app.id, week: 1 ).size
-    month_unsubscribers = Unsubscriber.where(app_id: @app.id, month: 1 ).size
+    today_unsubscribers = Unsubscriber.where(app_id: @app.id, day: 1).size
+    week_unsubscribers = Unsubscriber.where(app_id: @app.id, week: 1).size
+    month_unsubscribers = Unsubscriber.where(app_id: @app.id, month: 1).size
 
     # Emails Sent Values
     today_emails_sent = EmailJob.where(app_id: @app.id, sent: 1, day: 1).size
@@ -339,7 +380,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     today_emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1, day: 1).size
     week_emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1, week: 1).size
     month_emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1, month: 1).size
-
 
 
     data = {
@@ -387,7 +427,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Subscriber from list
     subscriber = Subscriber.find(params[:subscriber_id])
     subscriber_emails = EmailJob.where(subscriber_id: params[:subscriber_id])
-
 
 
     email_array = Hash.new
