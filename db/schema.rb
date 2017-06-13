@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170613190148) do
     t.datetime "updated_at",     :null=>false
     t.string   "from_email"
     t.string   "from_name"
-    t.string   "company_name"
+    t.integer  "postmark_signature_id"
   end
 
   create_table "email_lists", force: :cascade do |t|
