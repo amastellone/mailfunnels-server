@@ -31,8 +31,7 @@ class SendEmailJob < ApplicationJob
 			 		:to          => subscriber.email,
 			 		:from        => app.from_email,
 			 		:html_body   => @renderedhtml,
-			 		:track_opens => 'true',
-			 		:track_links => 'HtmlAndText')
+			 		:track_opens => 'true')
 
 
 			if trigger.nil? == false
@@ -55,6 +54,7 @@ class SendEmailJob < ApplicationJob
 														executed:  false,
 														node_id: link.to_node_id,
 														email_template_id: nextNode.email_template_id,
+														email_list_id: job.email_list_id,
 														sent: 0)
 
 			if nextNode.delay_unit == 1

@@ -25,8 +25,7 @@ class SendBatchEmailJob < ApplicationJob
           :to          => subscriber.email,
           :from        => app.from_email,
           :html_body   => @renderedhtml,
-          :track_opens => 'true',
-          :track_links => 'HtmlAndText')
+          :track_opens => 'true')
 
       job.executed = true
       job.postmark_id = response[:message_id]
