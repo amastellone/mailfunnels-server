@@ -15,6 +15,7 @@ class SendEmailJob < ApplicationJob
 		template = EmailTemplate.find(job.email_template_id)
 		subscriber = Subscriber.find(job.subscriber_id)
 		node = Node.find(job.node_id)
+		app = App.find(job.app_id);
 		if job.sent == 1
 			puts"Email Already Sent to Subscriber"
 		else
@@ -28,10 +29,9 @@ class SendEmailJob < ApplicationJob
 			 response = client.deliver(
 			 		:subject     => template.email_subject,
 			 		:to          => subscriber.email,
-			 		:from        => 'matt@greekrow.online',
+			 		:from        => app.from_email,
 			 		:html_body   => @renderedhtml,
-			 		:track_opens => 'true',
-			 		:track_links => 'HtmlAndText')
+			 		:track_opens => 'true')
 
 
 			if trigger.nil? == false
@@ -54,6 +54,7 @@ class SendEmailJob < ApplicationJob
 														executed:  false,
 														node_id: link.to_node_id,
 														email_template_id: nextNode.email_template_id,
+														email_list_id: job.email_list_id,
 														sent: 0)
 
 			if nextNode.delay_unit == 1

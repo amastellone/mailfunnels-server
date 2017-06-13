@@ -7,6 +7,7 @@ class SendBatchEmailJob < ApplicationJob
     job = EmailJob.where(id: job.id).first
     template = EmailTemplate.find(job.email_template_id)
     subscriber = Subscriber.find(job.subscriber_id)
+    app = App.find(job.app_id);
     if job.sent == 1
       puts"Email Already Sent to Subscriber"
     else
@@ -22,10 +23,9 @@ class SendBatchEmailJob < ApplicationJob
       response = client.deliver(
           :subject     => template.email_subject,
           :to          => subscriber.email,
-          :from        => 'matt@greekrow.online',
+          :from        => app.from_email,
           :html_body   => @renderedhtml,
-          :track_opens => 'true',
-          :track_links => 'HtmlAndText')
+          :track_opens => 'true')
 
       job.executed = true
       job.postmark_id = response[:message_id]

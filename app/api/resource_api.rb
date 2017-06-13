@@ -555,6 +555,7 @@ class ResourceApi < Grape::API
       subscribers.each do |listSubscriber|
         emailJob = EmailJob.create(subscriber_id: listSubscriber.subscriber.id,
                                    email_template_id: batchEmailJob.email_template_id,
+                                   email_list_id: batchEmailJob.email_list_id,
                                    app_id: batchEmailJob.app_id,
                                    batch_email_job_id: batchEmailJob.id,
                                    sent:0,
