@@ -129,7 +129,7 @@
         <td class="container">
           <table>
             <tr>
-              <td align="center" class="email_title">
+              <td align="center" style="background: <%= @template.color %>;" class="email_title">
                 <h1><%= @template.email_title %></h1>
               </td>
             </tr>
@@ -145,7 +145,7 @@
                     <td align="center">
                       <% if template.has_button %>
                           <p>
-                            <a href="http://mailfunnels-server.herokuapp.com/email_clicked/<%= @email_job.id %>" class="button"> <%= @template.button_text %> </a>
+                            <a href="http://mailfunnels-server.herokuapp.com/email_clicked/<%= @email_job.id %>" style="background: <%= @template.color %>;" class="button"> <%= @template.button_text %> </a>
                           </p>
                       <% end %>
                     </td>
