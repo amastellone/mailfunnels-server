@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   # Account Routes
   get '/account', to: 'main_interface#account'
   post 'ajax_update_account_info' => 'main_interface#ajax_update_account_info'
+  post 'ajax_update_email_info' => 'main_interface#ajax_update_email_info'
 
 
   # Email Controller

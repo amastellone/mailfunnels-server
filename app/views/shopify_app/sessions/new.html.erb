@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'  type='text/css'>
   <title>Shopify App — Installation</title>
 
   <style>
@@ -49,16 +57,22 @@
       font-size: 18px;
       cursor: pointer;
       border-radius: 0 4px 4px 0;
-      float: right;
     }
 
     button:hover {
       background-color: #479CCf;
     }
 
-    form {
-      display: block;
+    .form-control {
+      border-radius:0;
     }
+    .form-group > label {
+      padding-top: 10px !important;
+      margin-left: -15px;
+      font: 15px Helvetica, sans-serif;
+      color: rgba(150,154,156,0.87);
+    }
+
 
     .container {
       text-align: center;
@@ -84,12 +98,50 @@
     </header>
 
     <div class="container__form">
-      <form method="GET" action="login">
-        <input type="text" name="shop" id="shop" placeholder="example.myshopify.com"/>
-        <button type="submit">Install</button>
+
+      <form class="form-horizontal form-label-right">
+
+
+          <div class="form-group">
+
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              <input id="form_field" type="text"  class="form-control" placeholder="shopify store">
+            </div>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">.myshopify.com</label>
+          </div>
+
+
+        <hr class="fade-2"/>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <button id="submit_button" type="button" class="btn btn-border">Submit</button>
+          </div>
+        </div>
+
       </form>
+
+
+      <!--<form id="login_form" method="GET" action="login">-->
+        <!--<input id="form_field" type="text" name="shop" id="shop" placeholder="example.myshopify.com"/>-->
+        <!--<span>.myshopify.com</span>-->
+        <!--<button  type="submit">Install</button>-->
+      <!--</form>-->
     </div>
   </main>
+  <script type="text/javascript">
+
+      $(function(){
+          $('#login_form').submit(function(e){
+              return false;
+          })
+          $('#submit_button').click(function(){
+              var url = $('#form_field').val();
+              window.location.href = "http://localhost:3000/login/?shop="+url+".myshopify.com";
+          });
+      });
+
+  </script>
 
 </body>
 </html>

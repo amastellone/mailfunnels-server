@@ -35,7 +35,7 @@ $(function() {
     funnel_trigger_select.on('change', function() {
 
         var currentValue = $(this).val();
-        if (funnel_email_list_select.val() != '0' && currentValue != '0') {
+        if (currentValue != '0') {
             new_funnel_submit.prop('disabled', false);
         } else {
             new_funnel_submit.prop('disabled', true);
@@ -43,17 +43,17 @@ $(function() {
 
     });
 
-    funnel_email_list_select.on('change', function() {
-
-        var currentValue = $(this).val();
-        if (funnel_trigger_select.val() != '0' && currentValue != '0') {
-            new_funnel_submit.prop('disabled', false);
-        } else {
-            new_funnel_submit.prop('disabled', true);
-        }
-
-
-    });
+    // funnel_email_list_select.on('change', function() {
+    //
+    //     var currentValue = $(this).val();
+    //     if (funnel_trigger_select.val() != '0' && currentValue != '0') {
+    //         new_funnel_submit.prop('disabled', false);
+    //     } else {
+    //         new_funnel_submit.prop('disabled', true);
+    //     }
+    //
+    //
+    // });
 
 
 

@@ -57,10 +57,22 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # Create new Funnel Model
     funnel = Funnel.new
 
+    if params[:email_list_id] == '0'
+      email_list = EmailList.new
+      email_list.name = params[:name]
+      email_list.description = params[:name]+ " email list"
+      email_list.app_id = params[:app_id]
+      email_list.save!
+
+      email_list_id = email_list.id
+    else
+      email_list_id = params[:email_list_id]
+    end
+
     # Update the Fields of Funnel Model
     funnel.app_id = params[:app_id]
     funnel.trigger_id = params[:trigger_id]
-    funnel.email_list_id = params[:email_list_id]
+    funnel.email_list_id = email_list_id
     funnel.name = params[:name]
     funnel.description = params[:description]
     funnel.num_emails_sent = 0

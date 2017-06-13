@@ -42,96 +42,122 @@
     <div class="row">
       <div class="col-xs-10 col-xs-offset-1">
 
+        <div class="x_content">
 
-        <form class="form-horizontal form-label-left">
-          <fieldset>
-            <legend>Account information</legend>
 
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="first_name_input" type="text" value="<%= @app.first_name %>" class="form-control" placeholder="First Name">
+          <div class="" role="tabpanel" data-example-id="togglable-tabs">
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Account Information</a>
+              </li>
+              <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Email Information</a>
+              </li>
+
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                <form class="form-horizontal form-label-left">
+                  <fieldset>
+                    <legend>Account information</legend>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input id="first_name_input" type="text" value="<%= @app.first_name %>" class="form-control" placeholder="First Name">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input id="last_name_input" type="text" value="<%= @app.last_name %>" class="form-control" placeholder="Last Name">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input id="email_input" type="text" value="<%= @app.email %>" class="form-control" placeholder="Email">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Street Address</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input id="street_address_input" type="text" value="<%= @app.street_address %>" class="form-control" placeholder="Street Address">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">City</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input id="city_input" type="text" value="<%= @app.city %>" class="form-control" placeholder="City">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input id="zip_code_input" type="number" value="<%= @app.zip %>" class="form-control" placeholder="Zip Code">
+                      </div>
+                    </div>
+
+
+                    <div class="form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12">State</label>
+                      <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input id="state_input" type="text" value="<%= @app.state %>" class="form-control" placeholder="State">
+                      </div>
+                    </div>
+                  </fieldset>
+
+
+                  <hr class="fade-2"/>
+
+                  <div class="row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                      <button id="save_account_info_button" type="button" class="btn btn-success btn-border pull-right">Save</button>
+                    </div>
+                  </div>
+
+                </form>
               </div>
-            </div>
+              <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                <form class="form-horizontal form-label-left">
+                <fieldset>
+                  <legend>Email information - Confirmed:<%= @confirmed %></legend>
 
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="last_name_input" type="text" value="<%= @app.last_name %>" class="form-control" placeholder="Last Name">
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">From Email</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="from_email_input" type="text" value="<%= @app.from_email %>" class="form-control" placeholder="Email address to send emails from">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">From Name</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input id="from_name_input" type="text" value="<%= @app.from_name %>" class="form-control" placeholder="Name to sign sent emails">
+                    </div>
+                  </div>
+
+                </fieldset>
+                  <hr class="fade-2"/>
+
+                  <div class="row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                      <button id="save_email_info_button" type="button" class="btn btn-success btn-border pull-right">Save</button>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="email_input" type="text" value="<%= @app.email %>" class="form-control" placeholder="Email">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Street Address</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="street_address_input" type="text" value="<%= @app.street_address %>" class="form-control" placeholder="Street Address">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">City</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="city_input" type="text" value="<%= @app.city %>" class="form-control" placeholder="City">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="zip_code_input" type="number" value="<%= @app.zip %>" class="form-control" placeholder="Zip Code">
-              </div>
-            </div>
-
-
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">State</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="state_input" type="text" value="<%= @app.state %>" class="form-control" placeholder="State">
-              </div>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Email information</legend>
-
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">From Email</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="from_email_input" type="text" value="<%= @app.from_email %>" class="form-control" placeholder="Email address to send emails from">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">From Name</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="from_name_input" type="text" value="<%= @app.from_name %>" class="form-control" placeholder="Name to sign sent emails">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <input id="company_name_input" type="text" value="<%= @app.company_name %>" class="form-control" placeholder="Company Name">
-              </div>
-            </div>
-
-          </fieldset>
-
-          <hr class="fade-2"/>
-
-          <div class="row">
-            <div class="col-xs-8 col-xs-offset-2">
-              <button id="save_account_info_button" type="button" class="btn btn-success btn-border pull-right">Save</button>
             </div>
           </div>
 
-        </form>
+        </div>
+
+
+
 
 
       </div>
