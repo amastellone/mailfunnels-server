@@ -90,7 +90,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
       app.put('', {
           :from_email => params[:from_email],
           :from_name => params[:from_name],
-          :postmark_signature_id => response[:id]
+          :postmark_signature_id => response[:id].to_i
       })
     else
       client.get_sender(app.postmark_signature_id)
@@ -105,7 +105,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
         app.put('', {
             :from_email => params[:from_email],
             :from_name => params[:from_name],
-            :postmark_signature_id => response[:id]
+            :postmark_signature_id => response[:id].to_i
         })
       end
 
