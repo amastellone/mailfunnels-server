@@ -117,7 +117,8 @@ pre {
 
 .container .content.email_footer a {
   color: #888;
-  text-decoration: none;
+  text-decoration: none !important;
   font-weight: bold;
 }
+
 

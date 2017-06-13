@@ -457,6 +457,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
         :email_content => template.email_content,
         :has_button => template.has_button,
         :button_text => template.button_text,
+        :color => template.color
     }
 
     # Return data as JSON

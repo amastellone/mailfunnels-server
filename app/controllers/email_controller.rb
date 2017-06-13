@@ -99,6 +99,7 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.name = params[:name]
     template.description = params[:description]
     template.email_subject = params[:email_subject]
+    template.color = '#3498db'
 
 
     # Save and verify Funnel and return correct JSON response
@@ -140,12 +141,20 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.email_title = params[:email_title]
     template.email_content = params[:email_content]
     template.has_button = params[:has_button]
+    template.color = params[:color]
 
     template.button_text = params[:button_text]
     template.button_url = params[:button_url]
 
-    template.put('', {:email_subject => template.email_subject, :email_title => template.email_title, :email_content => template.email_content, :has_button => template.has_button,
-                       :button_text => template.button_text, :button_url => template.button_url})
+    template.put('', {
+        :email_subject => template.email_subject,
+        :email_title => template.email_title,
+        :email_content => template.email_content,
+        :has_button => template.has_button,
+        :button_text => template.button_text,
+        :button_url => template.button_url,
+        :color => template.color
+    })
 
 
     final_json = JSON.pretty_generate(result = {

@@ -17,12 +17,13 @@ $(function(){
     var buttonLink = $('#buttonUrlInput');
     var button_select = $('#button_select');
     var button_form_div = $('#button_forms_div');
-
+    var color_select = $('#color_select');
 
     /* --- EMAIL PREVIEW FIELDS --- */
     var preview_email_title = $('#printEmailTitle');
     var preview_email_button_text = $('#printButtonText');
     var preview_email_buttons_div = $('#preview_buttons_div');
+    var preview_email_header = $('#preview_header');
 
     /* --- BUTTONS --- */
     var email_submit = $('#email_list_submit_button');
@@ -34,6 +35,7 @@ $(function(){
     /* --- INITIAL EDIT EMAIL SETUP --- */
     preview_email_title.html(emailTitleInput.val());
     preview_email_button_text.html(buttonTextInput.val());
+    color_select.val($('#current_color_value').val());
 
     //Set the Value of the Show Button Select from DB
     if ($('#show_button_value').val() === '1') {
@@ -53,7 +55,7 @@ $(function(){
 
     var summernote = $('#summernote');
     summernote.summernote({
-        height: 300,
+        height: 200,
         toolbar: [
             // [groupName, [list of button]]
             ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -70,8 +72,20 @@ $(function(){
 
     summernote.summernote('code', old_content);
 
+    $('.left_col').height($('.right_col').height());
+
 
     /* --- Functions to live update EmailView --- */
+
+    color_select.on('change', function() {
+
+        var color = $(this).val();
+
+        preview_email_header.css('background', color);
+        preview_email_button_text.css('background', color);
+
+
+    });
 
     emailTitleInput.on("keyup", function(){
         preview_email_title.html(emailTitleInput.val());
@@ -103,6 +117,7 @@ $(function(){
         var email_content =  $('#summernote').summernote('code');
         var button_text = buttonTextInput.val();
         var button_url =  buttonLink.val();
+        var color = color_select.val();
         var has_button = false;
 
         if (button_select.val() === "true") {
@@ -121,6 +136,7 @@ $(function(){
                 has_button: has_button,
                 button_text: button_text,
                 button_url: button_url,
+                color: color,
                 authenticity_token: csrf_token
             },
             error: function(e) {

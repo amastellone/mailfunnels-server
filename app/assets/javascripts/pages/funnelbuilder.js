@@ -224,6 +224,8 @@ $(function() {
                 email_title.html(response.email_title);
                 email_content.html(response.email_content);
                 button_text.html(response.button_text);
+                button_text.css('background', response.color);
+                $('#email_header').css('background', response.color);
 
                 if (response.has_button === true) {
                     $('#preview_buttons_div').show();
