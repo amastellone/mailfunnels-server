@@ -13,7 +13,6 @@ $(function(){
     /* --- INPUT FIELDS --- */
     var email_subject_input = $('#email_subject_input');
     var emailTitleInput = $('#emailTitleInput');
-    var emailContentInput = $('#email_content_input');
     var buttonTextInput = $('#buttonTextInput');
     var buttonLink = $('#buttonUrlInput');
     var button_select = $('#button_select');
@@ -22,7 +21,6 @@ $(function(){
 
     /* --- EMAIL PREVIEW FIELDS --- */
     var preview_email_title = $('#printEmailTitle');
-    var preview_email_content = $('#printEmailContent');
     var preview_email_button_text = $('#printButtonText');
     var preview_email_buttons_div = $('#preview_buttons_div');
 
@@ -34,9 +32,7 @@ $(function(){
 
 
     /* --- INITIAL EDIT EMAIL SETUP --- */
-    emailContentInput.val(old_content);
     preview_email_title.html(emailTitleInput.val());
-    preview_email_content.html(emailContentInput.val());
     preview_email_button_text.html(buttonTextInput.val());
 
     //Set the Value of the Show Button Select from DB
@@ -55,15 +51,32 @@ $(function(){
         button_form_div.hide();
     }
 
+    var summernote = $('#summernote');
+    summernote.summernote({
+        height: 300,
+        toolbar: [
+            // [groupName, [list of button]]
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ],
+        shortcuts: false,
+        dialogsInBody: true
+    });
+
+
+    summernote.summernote('code', old_content);
+
+
     /* --- Functions to live update EmailView --- */
 
     emailTitleInput.on("keyup", function(){
         preview_email_title.html(emailTitleInput.val());
     });
 
-    emailContentInput.on("keyup", function(){
-        preview_email_content.html(emailContentInput.val());
-    });
 
     buttonTextInput.on("keyup", function(){
         preview_email_button_text.html(buttonTextInput.val());
@@ -87,7 +100,7 @@ $(function(){
 
         var email_subject = email_subject_input.val();
         var email_title = emailTitleInput.val();
-        var email_content = emailContentInput.val();
+        var email_content =  $('#summernote').summernote('code');
         var button_text = buttonTextInput.val();
         var button_url =  buttonLink.val();
         var has_button = false;
