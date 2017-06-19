@@ -68,7 +68,11 @@ $(function() {
 
         var percent = ((total_emails_opened.val() / total_emails_sent.val()) * 100).toFixed(2) + '%';
 
-        total_emails_opened_view.html(percent);
+        if (total_emails_sent.val() === '0') {
+            total_emails_opened_view.html('0.00%');
+        } else {
+            total_emails_opened_view.html(percent);
+        }
 
     }, function() {
 
@@ -86,7 +90,11 @@ $(function() {
 
         var percent = ((total_emails_clicked.val() / total_emails_sent.val()) * 100).toFixed(2) + '%';
 
-        total_emails_clicked_view.html(percent);
+        if (total_emails_sent.val() === '0') {
+            total_emails_clicked_view.html('0.00%');
+        } else {
+            total_emails_clicked_view.html(percent);
+        }
 
     }, function() {
 
@@ -105,7 +113,13 @@ $(function() {
 
         var percent = ((num_emails_opened_day.val() / num_emails_sent_day.val()) * 100).toFixed(2) + '%';
 
-        emails_opened_day.html(percent);
+
+        if (num_emails_sent_day.val() === '0') {
+            emails_opened_day.html('0.00%');
+        } else {
+            emails_opened_day.html(percent);
+        }
+
 
     }, function() {
 
@@ -123,7 +137,12 @@ $(function() {
 
         var percent = ((num_emails_clicked_day.val() / num_emails_sent_day.val()) * 100).toFixed(2) + '%';
 
-        emails_clicked_day.html(percent);
+
+        if (num_emails_sent_day.val() === '0') {
+            emails_clicked_day.html('0.00%');
+        } else {
+            emails_clicked_day.html(percent);
+        }
 
     }, function() {
 
@@ -142,7 +161,11 @@ $(function() {
 
         var percent = ((num_emails_opened_week.val() / num_emails_sent_week.val()) * 100).toFixed(2) + '%';
 
-        emails_opened_week.html(percent);
+        if (num_emails_sent_week.val() === '0') {
+            emails_opened_week.html('0.00%');
+        } else {
+            emails_opened_week.html(percent);
+        }
 
     }, function() {
 
@@ -160,7 +183,11 @@ $(function() {
 
         var percent = ((num_emails_clicked_week.val() / num_emails_sent_week.val()) * 100).toFixed(2) + '%';
 
-        emails_clicked_week.html(percent);
+        if (num_emails_sent_week.val() === '0') {
+            emails_clicked_week.html('0.00%');
+        } else {
+            emails_clicked_week.html(percent);
+        }
 
     }, function() {
 
@@ -178,7 +205,11 @@ $(function() {
 
         var percent = ((num_emails_opened_month.val() / num_emails_sent_month.val()) * 100).toFixed(2) + '%';
 
-        emails_opened_month.html(percent);
+        if (num_emails_sent_month.val() === '0') {
+            emails_opened_month.html('0.00%');
+        } else {
+            emails_opened_month.html(percent);
+        }
 
     }, function() {
 
@@ -196,7 +227,11 @@ $(function() {
 
         var percent = ((num_emails_clicked_month.val() / num_emails_sent_month.val()) * 100).toFixed(2) + '%';
 
-        emails_clicked_month.html(percent);
+        if (num_emails_sent_day.val() === '0') {
+            emails_clicked_month.html('0.00%');
+        } else {
+            emails_clicked_month.html(percent);
+        }
 
     }, function() {
 
