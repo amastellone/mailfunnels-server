@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619181022) do
+ActiveRecord::Schema.define(version: 20170619195335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,8 @@ ActiveRecord::Schema.define(version: 20170619181022) do
     t.integer  "app_id",        :foreign_key=>{:references=>"apps", :name=>"fk_captured_hooks_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__captured_hooks_app_id", :using=>:btree}
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
+    t.decimal  "revenue"
+    t.integer  "type"
   end
 
   create_table "triggers", force: :cascade do |t|
