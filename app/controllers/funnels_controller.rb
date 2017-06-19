@@ -51,6 +51,6 @@ class FunnelsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def funnel_params
-      params.require(:funnel).permit(:name, :description, :num_emails_sent, :num_revenue, :app_id, :trigger_id, :email_list_id)
+      params.require(:funnel).permit(:name, :description, :num_emails_sent, :num_revenue, :active, :app_id, :trigger_id, :email_list_id)
     end
 end

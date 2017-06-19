@@ -517,9 +517,10 @@ class ResourceApi < Grape::API
         SendEmailJob.set(wait: node.delay_time.minutes).perform_later(emailJob.id)
       elsif node.delay_unit == 2
         SendEmailJob.set(wait: node.delay_time.hours).perform_later(emailJob.id)
+      elsif node.dela7_unit ==3
+        SendEmailJob.set(wait: node.delay_time.days).perform_later(emailJob.id)
       end
 
-      puts "---Email Job Created---"
     end
 
     put ':id' do
@@ -552,21 +553,17 @@ class ResourceApi < Grape::API
       batchEmailJob = BatchEmailJob.create params
       subscribers = EmailListSubscriber.where(email_list_id: batchEmailJob.email_list_id)
       subscribers.each do |listSubscriber|
-        puts "creating email job in db"
         emailJob = EmailJob.create(subscriber_id: listSubscriber.subscriber.id,
                                    email_template_id: batchEmailJob.email_template_id,
+                                   email_list_id: batchEmailJob.email_list_id,
                                    app_id: batchEmailJob.app_id,
                                    batch_email_job_id: batchEmailJob.id,
                                    sent:0,
                                    executed:false,
                                    clicked:0)
-        puts "queueing up new job"
         SendBatchEmailJob.perform_later(emailJob)
-        puts "---created batch email job---"
         sleep 1
       end
-
-      puts "---All batch jobs created---"
     end
 
     put ':id' do
