@@ -19,12 +19,13 @@ $(function() {
     var funnel_builder = $('#funnel_builder');
 
     /* --- BUTTONS --- */
+    var funnel_activate_button = $('#funnel_activate_button');
+    var funnel_deactivate_button = $('#funnel_deactivate_button');
     var new_node_button = $('#create_button'); //Create New Job Button
     var delete_selected_button = $('#delete_selected_button'); //Campaign Job Delete Button
     var view_selected_node_button = $('#view_selected_button'); //Campaign Job Edit Button
     var submit_new_node_button = $('#new_node_submit_button'); //Add Node Form Submit Button
     var preview_email_button = $('#preview_email_button'); //Preview Email Button
-
     var edit_node_button = $('#edit_selected_button'); // Edit Node Button
     var save_edit_node_button = $('#edit_node_submit_button'); // Saved Edited Node Button
 
@@ -76,6 +77,62 @@ $(function() {
 
     //Setup the initial funnel builder
     init();
+
+
+    /**
+     * On Funnel Activate Button Click
+     *
+     * Sets the funnel status to active
+     *
+     */
+    funnel_activate_button.on('click', function() {
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_activate_funnel',
+            dataType: "json",
+            data: {
+                funnel_id: funnel_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload();
+            }
+        });
+
+    });
+
+
+    /**
+     * On Funnel Deactivate Button Click
+     *
+     * Sets the funnel status to inactive
+     *
+     */
+    funnel_deactivate_button.on('click', function() {
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_deactivate_funnel',
+            dataType: "json",
+            data: {
+                funnel_id: funnel_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload();
+            }
+        });
+
+    });
 
 
     //On New Node Button Click

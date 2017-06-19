@@ -77,6 +77,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     funnel.description = params[:description]
     funnel.num_emails_sent = 0
     funnel.num_revenue = 0.0
+    funnel.active = 0
 
     # Save and verify Funnel and return correct JSON response
     if funnel.save!
@@ -518,6 +519,67 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     if !node.nil?
       node.destroy
     end
+
+  end
+
+
+  # USED WITH AJAX
+  # --------------
+  # Sets Funnel To Active
+  #
+  # PARAMETERS
+  # ----------
+  # funnel_id: ID of the Funnel to set to Active
+  #
+  #
+  def ajax_activate_funnel
+
+    # Get the current funnel
+    funnel = Funnel.find(params[:funnel_id])
+
+    # Set Funnel Status To Active
+    funnel.active = 1
+
+    funnel.put('', {
+        :active => funnel.active,
+    })
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Funnel Updated!'
+    }
+    render json: response
+
+  end
+
+  # USED WITH AJAX
+  # --------------
+  # Sets Funnel To Not Active
+  #
+  # PARAMETERS
+  # ----------
+  # funnel_id: ID of the Funnel to set to Not Active
+  #
+  #
+  def ajax_deactivate_funnel
+
+    # Get the current funnel
+    funnel = Funnel.find(params[:funnel_id])
+
+    # Set Funnel Status To Active
+    funnel.active = 0
+
+    funnel.put('', {
+        :active => funnel.active,
+    })
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Funnel Updated!'
+    }
+    render json: response
 
   end
 
