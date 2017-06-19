@@ -17,18 +17,12 @@ $(function(){
     /* --- APP VALUES --- */
     app_id = $('#current_app_id').val();
 
-
-    $('#triggers_table').dataTable({
-        "columnDefs": [ {
-            "targets": 'no-sort',
-            "orderable": false,
-        } ]
-    });
-
-
+    /* --- TABLES --- */
+    var triggers_table = $('#triggers_table');
 
     /* --- MODALS --- */
     var new_trigger_modal = $('#newTriggerModal');
+    var trigger_info_modal = $('#trigger_info_modal');
 
     /* --- INPUT FIELDS --- */
     var trigger_name_input = $('#trigger_name_input');
@@ -40,6 +34,30 @@ $(function(){
 
     /* --- BUTTONS --- */
     var new_trigger_submit = $('#new_trigger_submit_button');
+    var trigger_refresh_button = $('#trigger_refresh_button');
+
+
+
+    //Initialize the Triggers Page
+    init();
+
+
+    /**
+     * Button On Click Function
+     * ------------------------
+     *
+     * On Click of the view trigger info modal
+     *
+     */
+    $('.view_trigger_info_button').on('click', function() {
+
+        //Get Current Trigger ID
+        var trigger_id = $(this).data('id');
+
+        trigger_refresh_button.data('id', trigger_id);
+        trigger_info_modal.modal('toggle');
+
+    });
 
 
     /**
@@ -87,30 +105,50 @@ $(function(){
     });
 
 
-});
+    /**
+     * On Trigger Refresh Button Click
+     *
+     * Refreshes the trigger to check for new hits
+     */
+    trigger_refresh_button.on('click', function() {
+
+        var trigger_id = $(this).data('id');
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_process_abandoned_carts',
+            dataType: "json",
+            data: {
+                trigger_id: trigger_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+                window.location.reload(true);
+
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload(true);
+            }
+        });
 
 
-function refreshTriggers(trigger_id) {
-
-
-    $.ajax({
-        type:'POST',
-        url: '/ajax_process_abandoned_carts',
-        dataType: "json",
-        data: {
-            trigger_id: trigger_id,
-            authenticity_token: csrf_token
-        },
-        error: function(e) {
-            console.log(e);
-            window.location.reload(true);
-
-        },
-        success: function(response) {
-            console.log(response);
-            window.location.reload(true);
-        }
     });
 
 
-}
+    //Initialize the Triggers Page
+    function init() {
+
+        //Set Triggers Table to Datatable instance
+        triggers_table.dataTable({
+            "columnDefs": [ {
+                "targets": 'no-sort',
+                "orderable": false,
+            } ]
+        });
+
+    }
+
+
+});

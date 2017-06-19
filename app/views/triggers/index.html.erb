@@ -80,7 +80,7 @@
                         <td style="width:50%;"><%= trigger.description %></td>
                         <td style="width: 100px;"><%= trigger.num_triggered %></td>
                         <td style="width: 50px;">
-                          <button onclick="refreshTriggers(<%= trigger.id %>)" class="btn btn-primary btn-sm btn-border"><i class="fa fa-refresh"></i></button>
+                          <button type="button" class="btn btn-primary btn-sm btn-border view_trigger_info_button" data-id="<%= trigger.id %>"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                   <% end %>
@@ -167,6 +167,95 @@
         </div>
       </div>
     </div>
+
+
+
+    <!--View Trigger Info Modal Start-->
+    <div id="trigger_info_modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Trigger Info</h4>
+          </div>
+
+          <div class="modal-body">
+            <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+
+              <div class="hidden">
+                <input id="current_subscriber_id" type="number" value="0" />
+              </div>
+
+              <div class="panel">
+                <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <h4 class="panel-title">Trigger Info</h4>
+                </a>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
+                  <div class="panel-body">
+                    <table class="table table-striped">
+                      <tbody>
+                      <tr>
+                        <th scope="row">Name:</th>
+                        <td id="view_trigger_name">Loading...</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Product:</th>
+                        <td id="view_trigger_product">Loading...</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Hits:</th>
+                        <td id="view_trigger_hits">Loading...</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Description:</th>
+                        <td id="view_trigger_description">Loading...</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!--START EMAILS SENT TO SUBSCRIBER-->
+              <div class="panel">
+                <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <h4 class="panel-title">Trigger Settings</h4>
+                </a>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                  <div class="panel-body">
+
+                    <div class="row text-center">
+
+                      <div class="col-xs-4">
+                        <button id="trigger_refresh_button" type="button" data-id="" class="btn btn-primary btn-block">Refresh</button>
+                      </div>
+                      <div class="col-xs-4">
+                        <button id="trigger_edit_button" type="button" class="btn btn-primary btn-block" data-id="">Edit</button>
+                      </div>
+                      <div class="col-xs-4">
+                        <button id="trigger_delete_button" type="button" class="btn btn-danger btn-block" data-id="">Delete</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--END EMAILS SENT TO SUBSCRIBER-->
+
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button id="delete_subscriber_button" type="button" class="btn btn-danger btn-border">Delete</button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <!--View Subscriber Info Modal End -->
 
 <% end %>
 
