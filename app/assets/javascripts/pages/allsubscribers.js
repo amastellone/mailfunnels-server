@@ -25,6 +25,7 @@ $(function() {
     var email_input = $('#email_input');
     var template_list_select = $('#template_list_select');
     var email_list_name = $('#email_list_name');
+    var subscriber_confirm_checkbox = $('#subscriber_confirm_checkbox');
 
 
     /* --- BUTTONS --- */
@@ -33,8 +34,40 @@ $(function() {
     var view_subscriber_info_button = $('#view_subscriber_info_button');
 
 
+
+
+
     //Initialize the Page
     init();
+
+
+    /**
+     * On Subscriber Checkbox Confirm change check to see
+     * whether the checkbox is checked and enable the submit button
+     * otherwise disable the button
+     *
+     */
+    subscriber_confirm_checkbox.on('change', function() {
+
+        if($(this).is(":checked") && email_input.val() !== '') {
+            new_subscriber_submit_button.prop('disabled', false);
+        } else {
+            new_subscriber_submit_button.prop('disabled', true);
+        }
+
+    });
+
+
+    email_input.on('keyup', function() {
+
+        if ($(this).val() === '') {
+            new_subscriber_submit_button.prop('disabled', true);
+        } else {
+            if (subscriber_confirm_checkbox.is(':checked')) {
+                new_subscriber_submit_button.prop('disabled', false);
+            }
+        }
+    });
 
 
     new_subscriber_submit_button.on('click', function() {
@@ -104,6 +137,10 @@ $(function() {
 
     function init() {
 
+        //Disable new Subscriber Submit Button
+        new_subscriber_submit_button.prop('disabled', true);
+
+        //Make Table jQuery Datatable instance
         $('#subscribers_table').dataTable({
             "pageLength": 5,
             "lengthMenu": [[5, 10, 25], [5, 10, 25]],
