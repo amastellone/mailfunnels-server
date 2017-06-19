@@ -429,8 +429,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     subscriber_emails = EmailJob.where(subscriber_id: params[:subscriber_id])
 
 
-    email_array = Hash.new
-    index = 0
+    temp = Array.new
 
     subscriber_emails.each do |se|
       email = {
@@ -440,8 +439,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
           :opened => se.opened,
       }
 
-      email_array[index] = email
-      index = index + 1
+      temp.push(email)
 
     end
 
@@ -453,7 +451,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
         :email => subscriber.email,
         :revenue => subscriber.revenue,
         :total_emails => subscriber_emails.size,
-        :emails => email_array
+        :emails => temp.to_json
 
     }
 
