@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613190148) do
+ActiveRecord::Schema.define(version: 20170619181022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "apps", force: :cascade do |t|
-    t.string   "name",           :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
-    t.string   "auth_token",     :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
+    t.string   "name",                  :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
+    t.string   "auth_token",            :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20170613190148) do
     t.string   "state"
     t.integer  "is_admin"
     t.integer  "is_disabled"
-    t.datetime "created_at",     :null=>false
-    t.datetime "updated_at",     :null=>false
+    t.datetime "created_at",            :null=>false
+    t.datetime "updated_at",            :null=>false
     t.string   "from_email"
     t.string   "from_name"
     t.integer  "postmark_signature_id"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20170613190148) do
     t.integer  "app_id",          :foreign_key=>{:references=>"apps", :name=>"fk_funnels_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_app_id", :using=>:btree}
     t.integer  "trigger_id",      :foreign_key=>{:references=>"triggers", :name=>"fk_funnels_trigger_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_trigger_id", :using=>:btree}
     t.integer  "email_list_id",   :foreign_key=>{:references=>"email_lists", :name=>"fk_funnels_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_email_list_id", :using=>:btree}
+    t.integer  "active"
   end
 
   create_table "nodes", force: :cascade do |t|
