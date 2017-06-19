@@ -68,6 +68,9 @@ Rails.application.routes.draw do
   post '/ajax_disable_app' => 'main_interface#ajax_disable_app'
 
 
+  # Support Routes
+  get '/support', to: 'main_interface#support'
+
   # Error Routes
   get '/error_page', to: 'main_interface#error_page'
   get '/account_disabled', to: 'main_interface#account_disabled'

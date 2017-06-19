@@ -1,0 +1,46 @@
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        window.mainPageTitle = 'Main Page';
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                title: window.mainPageTitle,
+                icon: '/shopify.png'
+            });
+        });
+    </script>
+
+    <div class="hidden">
+      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-title">
+          <div class="title_left">
+            <h3>MailFunnels <small>Support</small></h3>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="fade-2"/>
+
+
+    <div class="row">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+
+      </div>
+
+    </div>
+
+
+
+
+<% end %>
+
+
+

@@ -39,7 +39,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   # Renders the Account page of the MailFunnels App
   #
   #
-  #
   def account
 
     # Get the Current App
@@ -52,6 +51,20 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
       @confirmed = signature[:confirmed]
     end
 
+
+  end
+
+
+  # Page Render Function
+  # --------------------
+  # Renders the Support Page which contains link
+  # to MailFunnels Support and youtube videos which
+  # show users how to use features
+  #
+  def support
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
 
   end
 
