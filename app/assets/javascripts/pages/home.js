@@ -52,6 +52,11 @@ $(function() {
     var emails_opened_month = $('#emails_opened_month');
     var emails_clicked_month = $('#emails_clicked_month');
 
+    var num_revenue_day = $('#revenue_day');
+    var num_revenue_week = $('#revenue_week');
+    var num_revenue_month = $('#revenue_month');
+
+
 
     //Initialize the Home Page
     init();
@@ -298,6 +303,12 @@ $(function() {
                 num_emails_clicked_week.val(response.week_emails_clicked);
                 emails_clicked_month.html(response.month_emails_clicked);
                 num_emails_clicked_month.val(response.month_emails_clicked);
+
+                // Change Revenue Stats
+                num_revenue_day.html(response.today_revenue);
+                num_revenue_week.html(response.week_revenue);
+                num_revenue_month.html(response.month_revenue);
+
 
             }
 

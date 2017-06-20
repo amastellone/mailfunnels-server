@@ -394,6 +394,20 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     week_emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1, week: 1).size
     month_emails_clicked = EmailJob.where(app_id: @app.id, clicked: 1, month: 1).size
 
+    # Revenue Stats
+    today_revenue = 0
+    week_revenue = 0
+    month_revenue = 0
+    CapturedHook.where(app_id: @app.id, day: 1).each do |hook|
+      today_revenue = today_revenue + hook.revenue.to_f
+    end
+    CapturedHook.where(app_id: @app.id, week: 1).each do |hook|
+      week_revenue = week_revenue + hook.revenue.to_f
+    end
+    CapturedHook.where(app_id: @app.id, month: 1).each do |hook|
+      month_revenue = month_revenue + hook.revenue.to_f
+    end
+
 
     data = {
         today_subscribers: today_subscribers,
@@ -411,6 +425,9 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
         today_emails_clicked: today_emails_clicked,
         week_emails_clicked: week_emails_clicked,
         month_emails_clicked: month_emails_clicked,
+        today_revenue: ActionController::Base.helpers.number_to_currency(today_revenue),
+        week_revenue: ActionController::Base.helpers.number_to_currency(week_revenue),
+        month_revenue: ActionController::Base.helpers.number_to_currency(month_revenue),
 
     }
 
