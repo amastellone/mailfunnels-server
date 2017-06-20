@@ -67,8 +67,7 @@ $(function(){
         //Get Current Trigger ID
         var trigger_id = $(this).data('id');
 
-
-
+        alert(trigger_id);
 
 
         $.ajax({
@@ -90,9 +89,9 @@ $(function(){
                 view_trigger_product.html(response.product_id);
                 view_trigger_description.html(response.description);
 
-                trigger_refresh_button.data('id', trigger_id);
-                trigger_edit_button.data('id', trigger_id);
-                trigger_delete_button.data('id', trigger_id);
+                trigger_refresh_button.attr('data-id', trigger_id);
+                trigger_edit_button.attr('data-id', trigger_id);
+                trigger_delete_button.attr('data-id', trigger_id);
                 trigger_info_modal.modal('toggle');
 
             }
@@ -115,7 +114,7 @@ $(function(){
         var trigger_id = $(this).data('id');
 
         confirm_trigger_delete_button.data('id', trigger_id);
-        cancel_trigger_delete_button.data('id', trigger_id);
+        //cancel_trigger_delete_button.data('id', trigger_id);
         trigger_confirm_delete_modal.modal('toggle');
 
         $.ajax({
