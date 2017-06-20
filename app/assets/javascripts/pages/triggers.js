@@ -23,6 +23,7 @@ $(function(){
     /* --- MODALS --- */
     var new_trigger_modal = $('#newTriggerModal');
     var trigger_info_modal = $('#trigger_info_modal');
+    var trigger_confirm_delete_modal = $('#trigger_confirm_delete_modal');
 
     /* --- INPUT FIELDS --- */
     var trigger_name_input = $('#trigger_name_input');
@@ -35,6 +36,18 @@ $(function(){
     /* --- BUTTONS --- */
     var new_trigger_submit = $('#new_trigger_submit_button');
     var trigger_refresh_button = $('#trigger_refresh_button');
+    var trigger_edit_button = $('#trigger_edit_button');
+    var trigger_delete_button = $('#trigger_delete_button');
+    var confirm_trigger_delete_button = $('#confirm_trigger_delete_button');
+    var cancel_trigger_delete_button = $('#cancel_trigger_delete_button');
+
+    /* --- VIEW TEXT FIELDS --- */
+    var view_trigger_name = $('#view_trigger_name');
+    var view_trigger_product = $('#view_trigger_product');
+    var view_trigger_hits = $('#view_trigger_hits');
+    var view_trigger_description = $('#view_trigger_description');
+    var view_num_funnels = $('#view_num_funnels');
+
 
 
 
@@ -54,10 +67,128 @@ $(function(){
         //Get Current Trigger ID
         var trigger_id = $(this).data('id');
 
-        trigger_refresh_button.data('id', trigger_id);
+
+
+
+
+        $.ajax({
+            type:'POST',
+            url:'/ajax_load_trigger_info',
+            dataType: "json",
+            data: {
+                app_id: app_id,
+                trigger_id: trigger_id,
+                authenticity_token: csrf_token
+
+            },
+            error: function(e){
+                console.log(e);
+            },
+            success: function(response){
+                view_trigger_name.html(response.name);
+                view_trigger_hits.html(response.hits);
+                view_trigger_product.html(response.product_id);
+                view_trigger_description.html(response.description);
+
+                trigger_refresh_button.data('id', trigger_id);
+                trigger_edit_button.data('id', trigger_id);
+                trigger_delete_button.data('id', trigger_id);
+                trigger_info_modal.modal('toggle');
+
+            }
+
+        });
+    });
+
+
+    /**
+     * Button On Click Function
+     * ------------------------
+     *
+     * Function called when delete button on Template Info modal is clicked
+     * Retrieves Funnels that the trigger is related to
+     * and opens the delete confirmation modal
+     */
+
+    trigger_delete_button.on('click', function() {
         trigger_info_modal.modal('toggle');
+        var trigger_id = $(this).data('id');
+
+        confirm_trigger_delete_button.data('id', trigger_id);
+        cancel_trigger_delete_button.data('id', trigger_id);
+        trigger_confirm_delete_modal.modal('toggle');
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_load_trigger_funnels',
+            dataType: "json",
+            data: {
+                app_id: app_id,
+                trigger_id: trigger_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e){
+                console.log(e);
+            },
+            success: function(response){
+                view_num_funnels.html("Number of funnels " + response.name + " will be removed from: " + response.num_funnels);
+
+            }
+        })
+    });
+
+    
+    
+    /**
+     * Button On Click Function
+     * ------------------------
+     * Deletes trigger while in the trigger delete confirmation modal 
+     */
+    
+    confirm_trigger_delete_button.on('click', function() {
+        
+        var trigger_id = $(this).data('id');
+        trigger_confirm_delete_modal.modal('toggle');
+        
+        $.ajax({
+            type: 'POST',
+            url: '/ajax_delete_trigger',
+            dataType: "json",
+            data:{
+                app_id: app_id,
+                trigger_id: trigger_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e){
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload(true);
+
+            }
+
+            
+        })
+
+
+        
+    });
+
+    cancel_trigger_delete_button.on('click', function(){
+        trigger_confirm_delete_modal.modal('toggle');
+
+
 
     });
+
+    
+    
+    
+    
+    
+    
+    
 
 
     /**
@@ -135,6 +266,9 @@ $(function(){
 
 
     });
+
+
+
 
 
     //Initialize the Triggers Page

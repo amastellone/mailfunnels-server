@@ -90,6 +90,92 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
   # USED WITH AJAX
   # --------------
+  # Loads info pertaining to specific trigger
+  #
+  #
+  # PARAMETERS
+  # -----------
+  # trigger_id: ID of the trigger
+
+  def ajax_load_trigger_info
+
+    trigger = Trigger.find(params[:trigger_id])
+
+    if trigger.product_id
+     product_name = ShopifyAPI::Product.find(trigger.product_id).title
+    else
+      product_name = "No Product"
+
+    end
+
+    data = {
+        :name => trigger.name,
+        :hits => trigger.num_triggered,
+        :description => trigger.description,
+        :product_id => product_name,
+    }
+
+    # Return data as JSON
+    render json: data
+
+  end
+
+  # USED WITH AJAX
+  # --------------
+  # Loads funnels that a trigger is used by
+  #
+  #
+  # PARAMETERS
+  # -----------
+  # trigger_id: ID of the trigger
+
+  def ajax_load_trigger_funnels
+
+    trigger = Trigger.find(params[:trigger_id])
+    funnels = Funnel.where(trigger_id: params[:trigger_id]).size
+
+    # if funnels == 0
+    #   funnels = 0
+    # else
+    #   funnels = funnels
+    # end
+
+    data = {
+        :name => trigger.name,
+        :num_funnels => funnels
+    }
+
+    # Return data as JSON
+    render json: data
+
+  end
+
+
+  # USED WITH AJAX
+  # --------------
+  # Deletes trigger from DB
+  #
+  #
+  # PARAMETERS
+  # -----------
+  # trigger_id: ID of the trigger we are deleting
+
+  def ajax_delete_trigger
+    # Get the trigger from the DB
+    trigger = Funnel.find(params[:trigger_id])
+
+    # If trigger exists, then remove the trigger
+    if !trigger.nil?
+      trigger.destroy
+    end
+  end
+
+
+
+
+
+  # USED WITH AJAX
+  # --------------
   # Gets all the new abandoned carts and adds them to the funnel
   #
   #

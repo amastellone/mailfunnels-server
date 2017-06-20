@@ -32,7 +32,9 @@ Rails.application.routes.draw do
   get '/triggers', to: 'triggers#index'
   post '/create_trigger', to: 'triggers#ajax_create_trigger'
   post '/ajax_process_abandoned_carts' => 'triggers#ajax_process_abandoned_carts'
-
+  post '/ajax_load_trigger_info' => 'triggers#ajax_load_trigger_info'
+  post '/ajax_load_trigger_funnels' => 'triggers#ajax_load_trigger_funnels'
+  post '/ajax_delete_trigger' => 'triggers#ajax_delete_trigger'
   # Subscribers Routes
   get '/all_subscribers', to: 'main_interface#all_subscribers'
   get '/list_subscribers/:list_id', to: 'main_interface#list_subscribers'
