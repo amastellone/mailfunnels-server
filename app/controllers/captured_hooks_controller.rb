@@ -46,6 +46,6 @@ class CapturedHooksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def captured_hook_params
-      params.require(:captured_hook).permit(:hook_id, :subscriber_id, :app_id)
+      params.require(:captured_hook).permit(:hook_id, :revenue, :subscriber_id, :app_id)
     end
 end

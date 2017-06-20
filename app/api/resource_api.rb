@@ -302,7 +302,15 @@ class ResourceApi < Grape::API
     # ----------------
 
     get do
-      CapturedHook.where(params)
+      if params[:day]
+        CapturedHook.where(app_id: params[:app_id], created_at: 24.hours.ago..Time.current)
+      elsif params[:week]
+        CapturedHook.where(app_id: params[:app_id], created_at: 7.days.ago..Time.current)
+      elsif params[:month]
+        CapturedHook.where(app_id: params[:app_id], created_at: 30.days.ago..Time.current)
+      else
+        CapturedHook.where(params)
+      end
     end
 
     route_param :id do

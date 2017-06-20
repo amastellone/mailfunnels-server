@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 20170619195335) do
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
     t.decimal  "revenue"
-    t.integer  "type"
   end
 
   create_table "triggers", force: :cascade do |t|
