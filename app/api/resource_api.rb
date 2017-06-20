@@ -149,6 +149,12 @@ class ResourceApi < Grape::API
       Trigger.update(params)
     end
 
+    # DELETE Route
+    # ------------
+    delete ':id' do
+      Trigger.find(params[:id]).destroy
+    end
+
   end
 
   # Links Resource API
