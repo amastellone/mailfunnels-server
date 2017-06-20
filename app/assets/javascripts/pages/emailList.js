@@ -39,7 +39,13 @@ $(function(){
 
         var percent = ((default_emails_opened / default_emails_sent) * 100).toFixed(2) + '%';
 
-        default_emails_opened_view.html(percent);
+
+        if (default_emails_sent === '0') {
+            default_emails_opened_view.html('0.00%');
+        } else {
+            default_emails_opened_view.html(percent);
+        }
+
 
     }, function() {
 
@@ -51,7 +57,12 @@ $(function(){
 
         var percent = ((default_emails_clicked / default_emails_sent) * 100).toFixed(2) + '%';
 
-        default_emails_clicked_view.html(percent);
+
+        if (default_emails_sent === '0') {
+            default_emails_clicked_view.html('0.00%');
+        } else {
+            default_emails_clicked_view.html(percent);
+        }
 
     }, function() {
 

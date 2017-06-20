@@ -18,7 +18,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
     @hookslist = Hook.all
 
     # Get All Products on the Current Store
-    @products = ShopifyAPI::Product.all
+    @products = ShopifyAPI::Product.find(:all, :limit => 250)
 
   end
 

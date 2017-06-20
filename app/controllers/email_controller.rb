@@ -146,6 +146,8 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.button_text = params[:button_text]
     template.button_url = params[:button_url]
 
+    template.button_url = "http://#{params[:button_url]}" unless params[:button_url]=~/^https?:\/\//
+
     template.put('', {
         :email_subject => template.email_subject,
         :email_title => template.email_title,
