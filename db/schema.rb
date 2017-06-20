@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20170619181022) do
   enable_extension "plpgsql"
 
   create_table "apps", force: :cascade do |t|
-    t.string   "name",                  :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
-    t.string   "auth_token",            :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
+    t.string   "name",           :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
+    t.string   "auth_token",     :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -27,11 +27,11 @@ ActiveRecord::Schema.define(version: 20170619181022) do
     t.string   "state"
     t.integer  "is_admin"
     t.integer  "is_disabled"
-    t.datetime "created_at",            :null=>false
-    t.datetime "updated_at",            :null=>false
+    t.datetime "created_at",     :null=>false
+    t.datetime "updated_at",     :null=>false
     t.string   "from_email"
     t.string   "from_name"
-    t.integer  "postmark_signature_id"
+    t.string   "company_name"
   end
 
   create_table "email_lists", force: :cascade do |t|
@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(version: 20170619181022) do
     t.string   "email_title"
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
-    t.string   "color"
   end
 
   create_table "batch_email_jobs", force: :cascade do |t|
