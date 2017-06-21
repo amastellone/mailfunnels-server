@@ -9,7 +9,8 @@
         });
     </script>
 
-    <%= javascript_include_tag 'triggers_manifest.js' %>
+    <%= javascript_include_tag 'dashboard_manifest.js' %>
+    <%= javascript_include_tag 'components/jquery.tabletoCSV.js' %>
     <%= javascript_include_tag 'pages/allsubscribers.js' %>
     <%= stylesheet_link_tag 'dashboard.css' %>
 
@@ -29,6 +30,7 @@
 
           <div class="title_right">
             <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#new_batch_email_modal"><i class="fa fa-plus"></i> New Batch Email</button>
+            <button id="subscribers_export_button" class="btn btn-primary btn-border pull-right" style="margin-right: 5px;" type="button"><i class="fa fa-download"></i> Export CSV </button>
           </div>
 
           <hr/>
@@ -51,7 +53,7 @@
           </div>
           <div class="x_content">
             <!-- Triggers Table -->
-            <table id="triggers_table" class="table table-striped table-bordered text-center">
+            <table id="subscribers_table" class="table table-striped table-bordered text-center">
 
               <!-- Triggers Table Header -->
               <thead>

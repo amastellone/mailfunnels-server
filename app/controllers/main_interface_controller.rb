@@ -1,5 +1,5 @@
 class MainInterfaceController < ShopifyApp::AuthenticatedController
-  
+
 
   # Page Render Function
   # --------------------

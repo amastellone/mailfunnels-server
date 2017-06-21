@@ -13,7 +13,9 @@
 
     <%= javascript_include_tag 'dashboard_manifest.js' %>
     <%= stylesheet_link_tag 'dashboard.css' %>
+    <%= javascript_include_tag 'components/jquery.tabletoCSV.js' %>
     <%= javascript_include_tag 'pages/allsubscribers.js' %>
+
 
 
 
@@ -32,6 +34,7 @@
 
           <div class="title_right">
             <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#new_subscriber_modal"><i class="fa fa-plus"></i> Add Subscriber</button>
+            <button id="subscribers_export_button" class="btn btn-primary btn-border pull-right" style="margin-right: 5px;" type="button"><i class="fa fa-download"></i> Export CSV </button>
           </div>
 
           <hr/>
