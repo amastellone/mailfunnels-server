@@ -168,6 +168,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
     if !trigger.nil?
       trigger.destroy
     end
+
   end
 
 

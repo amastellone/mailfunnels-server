@@ -113,7 +113,7 @@ $(function(){
         trigger_info_modal.modal('toggle');
         var trigger_id = $(this).data('id');
 
-        confirm_trigger_delete_button.data('id', trigger_id);
+        confirm_trigger_delete_button.attr('data-id', trigger_id);
         //cancel_trigger_delete_button.data('id', trigger_id);
         trigger_confirm_delete_modal.modal('toggle');
 
