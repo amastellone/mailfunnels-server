@@ -37,6 +37,51 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   # Page Render Function
   # --------------------
+  # Renders the All Subscribers Page which
+  # contains a table of all subscribers on for the
+  # current app
+  #
+  def all_subscribers
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get all subscribers instances for the app
+    @subscribers = Subscriber.where(app_id: @app.id)
+
+  end
+
+
+  # Page Render Function
+  # --------------------
+  # Renders the List Subscribers Page which
+  # contains a table of all the subscribers on the
+  # list provided by id in params
+  #
+  # PARAMETERS
+  # ----------
+  # list_id: ID of the list we want to display subscribers for
+  #
+  def list_subscribers
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the current list
+    @subscribers = EmailListSubscriber.where(email_list_id: params[:list_id])
+
+    # Get all Email List
+    @list = EmailList.find(params[:list_id])
+
+    # Get all Email Templates
+    @templates = EmailTemplate.where(app_id: @app.id)
+
+
+  end
+
+
+  # Page Render Function
+  # --------------------
   # Renders the Account page of the MailFunnels App
   #
   #
@@ -135,50 +180,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     render json: final_json
   end
 
-
-  # Page Render Function
-  # --------------------
-  # Renders the All Subscribers Page which
-  # contains a table of all subscribers on for the
-  # current app
-  #
-  def all_subscribers
-
-    # Get the Current App
-    @app = MailfunnelsUtil.get_app
-
-    # Get all subscribers instances for the app
-    @subscribers = Subscriber.where(app_id: @app.id)
-
-  end
-
-
-  # Page Render Function
-  # --------------------
-  # Renders the List Subscribers Page which
-  # contains a table of all the subscribers on the
-  # list provided by id in params
-  #
-  # PARAMETERS
-  # ----------
-  # list_id: ID of the list we want to display subscribers for
-  #
-  def list_subscribers
-
-    # Get the Current App
-    @app = MailfunnelsUtil.get_app
-
-    # Get the current list
-    @subscribers = EmailListSubscriber.where(email_list_id: params[:list_id])
-
-    # Get all Email List
-    @list = EmailList.find(params[:list_id])
-
-    # Get all Email Templates
-    @templates = EmailTemplate.where(app_id: @app.id)
-
-
-  end
 
 
   # Page Render Function

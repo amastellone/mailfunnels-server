@@ -229,7 +229,7 @@ function viewSubscriberInfo(id) {
             subscriber_view_first_name.html(response.first_name);
             subscriber_view_last_name.html(response.last_name);
             subscriber_view_email.html(response.email);
-            subscriber_view_revenue.html("$" + response.revenue);
+            subscriber_view_revenue.html("$" + parseFloat(response.revenue).toFixed(2));
             console.log(response);
 
             var obj = JSON.parse(response.emails);
