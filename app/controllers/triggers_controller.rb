@@ -162,12 +162,13 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
   def ajax_delete_trigger
     # Get the trigger from the DB
-    trigger = Funnel.find(params[:trigger_id])
+    trigger = Trigger.find(params[:trigger_id])
 
     # If trigger exists, then remove the trigger
     if !trigger.nil?
       trigger.destroy
     end
+
   end
 
 
