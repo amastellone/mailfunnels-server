@@ -195,6 +195,40 @@ class TriggersController < ShopifyApp::AuthenticatedController
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Saves edited trigger info
+  #
+  #
+  # PARAMETERS
+  # ----------
+  # trigger_id: ID of the trigger
+  #
+  def ajax_save_edit_trigger
+    trigger = Trigger.find(params[:id])
+
+    trigger.name = params[:name]
+    trigger.description = params[:description]
+    trigger.hook_id = params[:trigger_hook]
+    trigger.product_id = params[:trigger_product]
+
+    # Save and verify Node and return correct JSON response
+    trigger.put('', {
+        :name => trigger.name,
+        :description => trigger.description,
+        :hook_id => trigger.hook_id,
+        :product_id => trigger.product_id,
+    })
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Trigger Updated!'
+    }
+    render json: response
+
+  end
+
 
 
 

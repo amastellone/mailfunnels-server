@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   post '/ajax_load_trigger_funnels' => 'triggers#ajax_load_trigger_funnels'
   post '/ajax_delete_trigger' => 'triggers#ajax_delete_trigger'
   post '/ajax_load_trigger_edit_info' => 'triggers#ajax_load_trigger_edit_info'
+  post 'ajax_save_edit_trigger' => 'triggers#ajax_save_edit_trigger'
 
   # Subscribers Routes
   get '/all_subscribers', to: 'main_interface#all_subscribers'

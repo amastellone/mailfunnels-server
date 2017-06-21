@@ -73,8 +73,7 @@ $(function(){
 
         //Get Current Trigger ID
         var trigger_id = $(this).data('id');
-
-        alert(trigger_id);
+        
 
 
         $.ajax({
@@ -106,9 +105,17 @@ $(function(){
         });
     });
 
+
+    /**
+     * Button On Click Function
+     * ------------------------
+     *
+     * On Click of the edit trigger info modal
+     *
+     */
     trigger_edit_button.on('click', function(){
+        var trigger_id = $(this).attr('data-id');
         trigger_info_modal.modal('toggle');
-        var trigger_id = $(this).data('id');
 
         $.ajax({
             type: 'POST',
@@ -134,9 +141,48 @@ $(function(){
             }
         })
 
+    });
 
+    /**
+     * Button On Click Function
+     * ------------------------
+     *
+     * On Click of the save button in the trigger edit modal
+     * Saves updated trigger info
+     */
+    edit_trigger_submit_button.on('click', function(){
+        var trigger_id = $(this).attr('data-id');
+
+        var trigger_name = edit_trigger_name_input.val();
+        var trigger_description = edit_trigger_description_input.val();
+        var trigger_product = edit_product_select.val();
+        var trigger_hook = edit_hook_list_select.val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/ajax_save_edit_trigger',
+            dataType: "json",
+            data:{
+                id: trigger_id,
+                name: trigger_name,
+                description: trigger_description,
+                product_id: trigger_product,
+                hook_id: trigger_hook,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                edit_trigger_modal.modal('toggle');
+                window.location.reload(true);
+                console.log(response);
+            }
+
+        })
 
     });
+
 
 
     /**
