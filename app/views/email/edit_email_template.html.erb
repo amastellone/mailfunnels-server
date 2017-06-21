@@ -1,14 +1,9 @@
 <% content_for :javascript do %>
     <script type="text/javascript">
-        window.mainPageTitle = 'Main Page';
         ShopifyApp.ready(function () {
             ShopifyApp.Bar.initialize({
-                title: window.mainPageTitle,
                 icon: '/shopify.png'
             });
-            function goBack() {
-                window.history.back();
-            }
         });
     </script>
 

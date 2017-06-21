@@ -1,1 +1,0 @@
-json.array! @hooks_constants, partial: 'hooks_constants/hooks_constant', as: :hooks_constant
