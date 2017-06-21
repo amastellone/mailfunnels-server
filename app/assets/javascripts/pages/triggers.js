@@ -24,14 +24,19 @@ $(function(){
     var new_trigger_modal = $('#newTriggerModal');
     var trigger_info_modal = $('#trigger_info_modal');
     var trigger_confirm_delete_modal = $('#trigger_confirm_delete_modal');
+    var edit_trigger_modal = $('#editTriggerModal');
 
     /* --- INPUT FIELDS --- */
     var trigger_name_input = $('#trigger_name_input');
     var trigger_description_input = $('#trigger_description_input');
+    var edit_trigger_name_input = $('#edit_trigger_name_input');
+    var edit_trigger_description_input = $('#edit_trigger_description_input');
 
     /* --- SELECT INPUT FIELDS --- */
     var hook_list_select = $('#hook_list_select');
     var product_select = $('#product_list_select');
+    var edit_hook_list_select = $('#edit_hook_list_select');
+    var edit_product_select = $('#edit_product_list_select');
 
     /* --- BUTTONS --- */
     var new_trigger_submit = $('#new_trigger_submit_button');
@@ -40,6 +45,8 @@ $(function(){
     var trigger_delete_button = $('#trigger_delete_button');
     var confirm_trigger_delete_button = $('#confirm_trigger_delete_button');
     var cancel_trigger_delete_button = $('#cancel_trigger_delete_button');
+    var edit_trigger_submit_button = $('#edit_trigger_submit_button');
+
 
     /* --- VIEW TEXT FIELDS --- */
     var view_trigger_name = $('#view_trigger_name');
@@ -97,6 +104,38 @@ $(function(){
             }
 
         });
+    });
+
+    trigger_edit_button.on('click', function(){
+        trigger_info_modal.modal('toggle');
+        var trigger_id = $(this).data('id');
+
+        $.ajax({
+            type: 'POST',
+            url: '/ajax_load_trigger_edit_info',
+            dataType: "json",
+            data: {
+                app_id: app_id,
+                trigger_id: trigger_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e){
+                console.log(e);
+            },
+            success: function(response){
+                console.log(response);
+                edit_trigger_name_input.val(response.name);
+                edit_trigger_description_input.val(response.description);
+                edit_hook_list_select.val(response.hook_id);
+                edit_product_select.val(response.product_id);
+                edit_trigger_submit_button.attr('data-id', trigger_id);
+                edit_trigger_modal.modal('toggle');
+
+            }
+        })
+
+
+
     });
 
 
@@ -174,12 +213,6 @@ $(function(){
         
     });
 
-    cancel_trigger_delete_button.on('click', function(){
-        trigger_confirm_delete_modal.modal('toggle');
-
-
-
-    });
 
     
     

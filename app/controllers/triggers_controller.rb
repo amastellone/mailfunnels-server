@@ -171,6 +171,29 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
   end
 
+  # USED WITH AJAX
+  # --------------
+  # Loads info pertaining to a specific trigger for edit trigger modal
+  #
+  #
+  # PARAMETERS
+  # ----------
+  # trigger_id: ID of the trigger
+  #
+  def ajax_load_trigger_edit_info
+    trigger = Trigger.find(params[:trigger_id])
+
+    data = {
+        :name => trigger.name,
+        :description => trigger.description,
+        :hook_id => trigger.hook_id,
+        :product_id => trigger.product_id,
+    }
+
+    # Return data as JSON
+    render json: data
+  end
+
 
 
 
