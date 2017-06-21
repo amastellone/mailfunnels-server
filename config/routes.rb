@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post '/ajax_save_edit_node' => 'funnels#ajax_save_edit_node'
   post '/ajax_activate_funnel' => 'funnels#ajax_activate_funnel'
   post '/ajax_deactivate_funnel' => 'funnels#ajax_deactivate_funnel'
+  post '/ajax_update_funnel_info' => 'funnels#ajax_update_funnel_info'
 
   # Trigger Routes
   get '/triggers', to: 'triggers#index'
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
   post '/ajax_load_trigger_info' => 'triggers#ajax_load_trigger_info'
   post '/ajax_load_trigger_funnels' => 'triggers#ajax_load_trigger_funnels'
   post '/ajax_delete_trigger' => 'triggers#ajax_delete_trigger'
+
   # Subscribers Routes
   get '/all_subscribers', to: 'main_interface#all_subscribers'
   get '/list_subscribers/:list_id', to: 'main_interface#list_subscribers'

@@ -23,6 +23,9 @@
     <div class="hidden">
       <input id="current_app_id" type="number" value="<%= @app.id %>"/>
       <input id="current_funnel_id" type="number" value="<%= @funnel.id %>"/>
+      <input id="current_funnel_description" type="text" value="<%= @funnel.description %>"/>
+      <input id="current_trigger_id" type="number" value="<%= @trigger.id %>"/>
+      <input id="current_list_id" type="number" value="<%= @funnel.email_list_id %>"/>
     </div>
 
 
@@ -63,10 +66,9 @@
 
             <div class="x_panel tile">
               <div class="x_title">
-                <h2>Funnel Info</h2>
+                <h2 style="font-size: 20px;">Funnel Info</h2>
                 <div class="clearfix"></div>
               </div>
-              <hr class="fade-2"/>
 
 
               <div class="x_content">
@@ -85,17 +87,18 @@
 
             <div class="x_panel tile">
               <div class="x_title">
-                <h2>Funnel Actions</h2>
+                <h2 style="font-size: 20px;">Funnel Actions</h2>
                 <div class="clearfix"></div>
               </div>
               <hr class="fade-2"/>
 
               <div class="x_content">
-                <button class="btn btn-block btn-border btn-primary" id="create_button">Add Node</button>
-                <button class="btn btn-block btn-border btn-success" id="preview_email_button">Preview Email</button>
-                <button class="btn btn-block btn-border btn-success" id="view_selected_button" data-node="2">View Node Info</button>
-                <button class="btn btn-block btn-border btn-success" id="edit_selected_button">Edit Node</button>
-                <button class="btn btn-block btn-border btn-danger" id="delete_selected_button">Delete Node</button>
+                <button class="btn btn-block btn-sm btn-border btn-primary" data-toggle="modal" data-target="#edit_funnel_modal">Edit Funnel</button>
+                <button class="btn btn-block btn-sm btn-border btn-primary" id="create_button">Add Node</button>
+                <button class="btn btn-block btn-sm btn-border btn-success" id="preview_email_button">Preview Email</button>
+                <button class="btn btn-block btn-sm btn-border btn-success" id="view_selected_button" data-node="2">View Node Info</button>
+                <button class="btn btn-block btn-sm btn-border btn-success" id="edit_selected_button">Edit Node</button>
+                <button class="btn btn-block btn-sm btn-border btn-danger" id="delete_selected_button">Delete Node</button>
               </div>
             </div>
 
@@ -410,6 +413,76 @@
       </div>
     </div>
     <!-- END FUNNEL SAVED MODAL -->
+
+
+    <!-- START EDIT FUNNEL MODAL -->
+    <div id="edit_funnel_modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Edit Funnel</h4>
+          </div>
+
+          <form class="form-horizontal form-label-left">
+
+            <div class="modal-body">
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Funnel Name</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="edit_funnel_name_input" type="text" class="form-control" value="<%= @funnel.name %>" placeholder="Name">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Funnel Description
+                </label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <textarea id="edit_funnel_description_input" class="form-control" rows="3" placeholder="Description for funnel"></textarea>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Funnel Trigger</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <select class="form-control" id="edit_funnel_trigger_select">
+                    <option value="0">Select Trigger for funnel</option>
+                    <% @app.triggers.each do |trigger| %>
+                        <option value="<%=trigger.id %>"><%= trigger.name %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <select class="form-control" id="edit_funnel_email_list_select">
+                    <option value="0">Create New Email List</option>
+                    <% @app.email_lists.each do |list| %>
+                        <option value="<%= list.id %>"><%= list.name %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="edit_funnel_submit_button" type="button" class="btn btn-success">Submit</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <!-- END EDIT FUNNEL MODAL -->
 
 
 

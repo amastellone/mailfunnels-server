@@ -1,5 +1,7 @@
 class MainInterfaceController < ShopifyApp::AuthenticatedController
 
+  require 'csv'
+
   # Page Render Function
   # --------------------
   # Renders the Home Page of the MailFunnels App

@@ -23,6 +23,7 @@ Rails.application.config.assets.precompile += %w( pages/allsubscribers.js )
 Rails.application.config.assets.precompile += %w( pages/home.js )
 Rails.application.config.assets.precompile += %w( pages/admin_panel.js )
 Rails.application.config.assets.precompile += %w( pages/account.js )
+Rails.application.config.assets.precompile += %w( components/jquery.tabletoCSV.js )
 
 
 # CSS Files

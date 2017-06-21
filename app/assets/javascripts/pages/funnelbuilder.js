@@ -14,6 +14,8 @@ $(function() {
     /* --- APP VALUES --- */
     var app_id = $('#current_app_id').val();
     var funnel_id = $('#current_funnel_id').val();
+    var current_trigger_id = $('#current_trigger_id').val();
+    var current_email_list_id = $('#current_list_id').val();
 
     /* --- FUNNEL BUILDER COMPONENTS --- */
     var funnel_builder = $('#funnel_builder');
@@ -28,7 +30,6 @@ $(function() {
     var preview_email_button = $('#preview_email_button'); //Preview Email Button
     var edit_node_button = $('#edit_selected_button'); // Edit Node Button
     var save_edit_node_button = $('#edit_node_submit_button'); // Saved Edited Node Button
-
     var view_template_button = $('#viewButton'); // View Template from node
     var edit_template_button = $('#editButton'); // Edit Template from node
 
@@ -42,7 +43,8 @@ $(function() {
     var create_new_node_modal = $('#modal_node_create'); //New Job Modal
     var view_node_modal = $('#view_node_modal'); //View Node Info Modal
     var view_template_modal = $('#view_template_modal'); //Preview Email Modal
-    var edit_node_modal = $('#modal_node_edit');
+    var edit_node_modal = $('#modal_node_edit'); //Edit Node Modal
+    var edit_funnel_modal = $('#edit_funnel_modal'); //Edit Funnel Modal
 
     /* --- VIEW INFO MODAL COMPONENTS --- */
     var node_view_name = $('#view_node_name');
@@ -55,13 +57,18 @@ $(function() {
     var node_view_email_settings_template = $('#view_node_email_settings_template');
     var node_view_email_description = $('#view_node_email_description');
 
-    /* --- EDIT NODE MODAL COMPONENTS ---*/
+    /* --- EDIT NODE MODAL COMPONENTS --- */
     var edit_node_label = $('#edit_node_label_input');
     var edit_node_email_template_select = $('#edit_node_email_template_select');
     var edit_node_delay_time_input = $('#edit_node_delay_time_input');
     var edit_node_time_unit_select = $('#edit_node_time_unit_select');
 
-
+    /* --- EDIT FUNNEL MODAL COMPONENTS --- */
+    var edit_funnel_name = $('#edit_funnel_name_input');
+    var edit_funnel_description = $('#edit_funnel_description_input');
+    var edit_funnel_trigger = $('#edit_funnel_trigger_select');
+    var edit_funnel_email_list = $('#edit_funnel_email_list_select');
+    var edit_funnel_submit_button = $('#edit_funnel_submit_button');
 
 
     var email_title = $('#printEmailTitle');
@@ -77,6 +84,49 @@ $(function() {
 
     //Setup the initial funnel builder
     init();
+
+
+    edit_funnel_trigger.on('change', function() {
+
+        if ($(this).val() === '0') {
+            edit_funnel_submit_button.prop('disabled', true);
+        } else {
+            edit_funnel_submit_button.prop('disabled', false);
+        }
+
+    });
+
+    /**
+     * On Edit Funnel Form Submit Click
+     *
+     * Updates the info of the current funnel
+     */
+    edit_funnel_submit_button.on('click', function() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/ajax_update_funnel_info',
+            data: {
+                app_id: app_id,
+                funnel_id: funnel_id,
+                funnel_name: edit_funnel_name.val(),
+                funnel_description: edit_funnel_description.val(),
+                funnel_trigger_id: edit_funnel_trigger.val(),
+                funnel_email_list_id: edit_funnel_email_list.val(),
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+                window.location.reload();
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload();
+            }
+        });
+
+
+    });
 
 
     /**
@@ -375,11 +425,7 @@ $(function() {
     });
 
 
-
-
-
-
-
+    
     /* ---- FUNNEL BUILDER FUNCTIONS --- */
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
@@ -389,10 +435,16 @@ $(function() {
         isLoading = true;
 
         // Set the height of the funnel builder panel
-        funnel_builder.css('min-height', $(window).height() - 200);
+        funnel_builder.css('min-height', $(window).height() - 100);
+        $('.left_col').height($('.right_col').height());
 
         //Hide the delete and edit selected buttons
         hideButtons();
+
+        //Set Edit Funnel Values
+        edit_funnel_description.val($('#current_funnel_description').val());
+        edit_funnel_trigger.val(current_trigger_id);
+        edit_funnel_email_list.val(current_email_list_id);
 
         //Fake Data For now, switch to live data later
         var data = {};

@@ -584,6 +584,78 @@ class FunnelsController < ShopifyApp::AuthenticatedController
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Updates the Funnel Info
+  #
+  # PARAMETERS
+  # ----------
+  # funnel_id: ID of the funnel being updated
+  # funnel_name: name of the funnel
+  # funnel_description: description of the funnel
+  # funnel_trigger_id: ID of the trigger for the funnel
+  # funnel_email_list_id: ID of the email list for the funnel
+  #
+  def ajax_update_funnel_info
+
+    # Get the Funnel by ID
+    funnel = Funnel.find(params[:funnel_id])
+
+    # If no funnel found
+    if !funnel
+      # Return Error Response
+      response = {
+          success: false,
+          message: 'Funnel Not Found!'
+      }
+
+      render json: response
+    end
+
+    # If Trigger ID is 0
+    if params[:funnel_trigger_id] == '0'
+      # Return Error Response
+      response = {
+          success: false,
+          message: 'Funnel must have a trigger!'
+      }
+
+      render json: response
+    end
+
+    # If Email List ID is zero, create new email list
+    if params[:funnel_email_list_id] == '0'
+      email_list = EmailList.new
+      email_list.name = params[:funnel_name] + "Email List"
+      email_list.description = "Email list for " + params[:funnel_name]
+      email_list.app_id = params[:app_id]
+      email_list.save!
+
+      email_list_id = email_list.id
+    else
+      email_list_id = params[:funnel_email_list_id]
+    end
+
+    # Update the Funnel Info
+    funnel.put('', {
+        name: params[:funnel_name],
+        description: params[:funnel_description],
+        email_list_id: email_list_id,
+        trigger_id: params[:funnel_trigger_id]
+    })
+
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Funnel Updated!'
+    }
+    render json: response
+
+
+  end
+
+
 
 
 
