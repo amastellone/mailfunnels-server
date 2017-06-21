@@ -1,6 +1,5 @@
 class MainInterfaceController < ShopifyApp::AuthenticatedController
-
-  require 'csv'
+  
 
   # Page Render Function
   # --------------------
