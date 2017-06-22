@@ -96,7 +96,6 @@ $(function(){
                 view_trigger_product.html(response.product_id);
                 view_trigger_description.html(response.description);
 
-                trigger_refresh_button.attr('data-id', trigger_id);
                 trigger_edit_button.attr('data-id', trigger_id);
                 trigger_delete_button.attr('data-id', trigger_id);
                 trigger_info_modal.modal('toggle');
