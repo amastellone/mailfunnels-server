@@ -13,6 +13,8 @@ $(function() {
     app_id = $('#current_app_id').val();
     email_list_id = $('#current_email_list_id').val();
 
+    /* --- TABLES --- */
+    var subscribers_table = $('#subscribers_table');
 
     /* --- MODALS --- */
     var new_subscriber_modal = $('#new_subscriber_modal');
@@ -27,18 +29,26 @@ $(function() {
     var email_list_name = $('#email_list_name');
     var subscriber_confirm_checkbox = $('#subscriber_confirm_checkbox');
 
-
     /* --- BUTTONS --- */
+    var subscribers_export_button = $('#subscribers_export_button');
     var new_subscriber_submit_button = $('#new_subscriber_submit_button');
     var batch_email_send_button = $('#batch_email_send_button');
     var view_subscriber_info_button = $('#view_subscriber_info_button');
 
 
 
-
-
     //Initialize the Page
     init();
+
+
+    /**
+     * On Export Button Click
+     *
+     * Exports the All Subscribers Table to CSV
+     */
+    subscribers_export_button.on('click', function() {
+        subscribers_table.tableToCSV();
+    });
 
 
     /**
@@ -141,7 +151,7 @@ $(function() {
         new_subscriber_submit_button.prop('disabled', true);
 
         //Make Table jQuery Datatable instance
-        $('#subscribers_table').dataTable({
+        subscribers_table.dataTable({
             "pageLength": 5,
             "lengthMenu": [[5, 10, 25], [5, 10, 25]],
             "columnDefs": [ {
@@ -219,7 +229,7 @@ function viewSubscriberInfo(id) {
             subscriber_view_first_name.html(response.first_name);
             subscriber_view_last_name.html(response.last_name);
             subscriber_view_email.html(response.email);
-            subscriber_view_revenue.html("$" + response.revenue);
+            subscriber_view_revenue.html("$" + parseFloat(response.revenue).toFixed(2));
             console.log(response);
 
             var obj = JSON.parse(response.emails);

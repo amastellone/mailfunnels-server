@@ -1,17 +1,8 @@
 <% content_for :javascript do %>
     <script type="text/javascript">
-        window.mainPageTitle = 'Main Page';
         ShopifyApp.ready(function () {
             ShopifyApp.Bar.initialize({
-                title: window.mainPageTitle,
-                icon: '/shopify.png',
-                buttons: {
-                    secondary: {
-                        label: "Mail-Funnel Home",
-                        href: "http://docs.shopify.com/embedded-app-sdk",
-                        target: 'new'
-                    }
-                }
+                icon: '/mailfunnels-logo.jpg'
             });
         });
     </script>

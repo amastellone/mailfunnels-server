@@ -3751,14 +3751,14 @@ header {
     width: 100%
 }
 #nprogress .bar {
-    background: #1ABB9C
+    background: #3498db
 }
 #nprogress .peg {
-    box-shadow: 0 0 10px #1ABB9C, 0 0 5px #1ABB9C
+    box-shadow: 0 0 10px #3498db, 0 0 5px #3498db
 }
 #nprogress .spinner-icon {
-    border-top-color: #1ABB9C;
-    border-left-color: #1ABB9C
+    border-top-color: #3498db;
+    border-left-color: #3498db;
 }
 .editor-wrapper {
     min-height: 250px;
@@ -4124,7 +4124,7 @@ fieldset {
 }
 .wizard_verticle ul.wizard_steps li a.done:before,
 .wizard_verticle ul.wizard_steps li a.done .step_no {
-    background: #1ABB9C;
+    background: #3498db;
     color: #fff
 }
 .wizard_verticle ul.wizard_steps li:first-child a:before {
@@ -4148,7 +4148,7 @@ fieldset {
     background-color: #3498DB
 }
 .progress-bar-success {
-    background-color: #26B99A
+    background-color: #3498db
 }
 .progress_summary .progress {
     margin: 5px 0 12px !important

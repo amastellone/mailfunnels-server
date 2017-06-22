@@ -1,15 +1,14 @@
 <% content_for :javascript do %>
     <script type="text/javascript">
-        window.mainPageTitle = 'Main Page';
         ShopifyApp.ready(function () {
             ShopifyApp.Bar.initialize({
-                title: window.mainPageTitle,
-                icon: '/shopify.png'
+                icon: '/mailfunnels-logo.jpg'
             });
         });
     </script>
 
-    <%= javascript_include_tag 'triggers_manifest.js' %>
+    <%= javascript_include_tag 'dashboard_manifest.js' %>
+    <%= javascript_include_tag 'components/jquery.tabletoCSV.js' %>
     <%= javascript_include_tag 'pages/allsubscribers.js' %>
     <%= stylesheet_link_tag 'dashboard.css' %>
 
@@ -29,6 +28,7 @@
 
           <div class="title_right">
             <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#new_batch_email_modal"><i class="fa fa-plus"></i> New Batch Email</button>
+            <button id="subscribers_export_button" class="btn btn-primary btn-border pull-right" style="margin-right: 5px;" type="button"><i class="fa fa-download"></i> Export CSV </button>
           </div>
 
           <hr/>
@@ -51,7 +51,7 @@
           </div>
           <div class="x_content">
             <!-- Triggers Table -->
-            <table id="triggers_table" class="table table-striped table-bordered text-center">
+            <table id="subscribers_table" class="table table-striped table-bordered text-center">
 
               <!-- Triggers Table Header -->
               <thead>
@@ -60,7 +60,7 @@
                 <th class="text-center">Last Name</th>
                 <th class="text-center">Email</th>
                 <th class="text-center">Revenue</th>
-                <th class="no-sort text-center"><i class="fa fa-trash-o"></i></th>
+                <th class="no-sort text-center"><i class="fa fa-wrench"></i></th>
               </tr>
               </thead>
               <!-- END Hooks Table Header -->
@@ -74,9 +74,9 @@
                         <td><h5><%= elsubscriber.subscriber.first_name %></h5></td>
                         <td><h5><%= elsubscriber.subscriber.last_name %></h5></td>
                         <td><h5><%= elsubscriber.subscriber.email %></h5></td>
-                        <td><h5><%= number_to_currency(elsubscriber.subscriber.revenue) %>0</h5></td>
+                        <td><h5><%= number_to_currency(elsubscriber.subscriber.revenue) %></h5></td>
                         <td style="width: 50px;">
-                          <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i></button>
+                          <button onclick="viewSubscriberInfo(<%= elsubscriber.subscriber.id %>)" type="button" data-toggle="modal" data-target="#subscriber_info_modal" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></button>
                         </td>
 
                       </tr>
@@ -92,58 +92,6 @@
       </div>
 
     </div>
-
-
-    <div id="new_subscriber_modal" class="modal fade bs-example-modal-sm">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content">
-
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Add New Subscriber</h4>
-          </div>
-
-          <form class="form-horizontal form-label-left">
-
-            <div class="modal-body">
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="first_name_input" type="text" class="form-control" placeholder="First Name">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="last_name_input" type="text" class="form-control" placeholder="Last Name">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="email_input" type="email" class="form-control" placeholder="Email Address">
-                </div>
-              </div>
-
-
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="reset" class="btn btn-primary">Reset</button>
-              <button id="new_subscriber_submit_button" type="button" class="btn btn-success">Submit</button>
-            </div>
-
-          </form>
-
-        </div>
-      </div>
-    </div>
-
 
 
 
@@ -196,6 +144,101 @@
     </div>
 
     <!--End New Batch Email Modal-->
+
+    <!-- START View Subscriber Info Modal -->
+    <div id="subscriber_info_modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Subscriber Info</h4>
+          </div>
+
+          <div class="modal-body">
+            <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+
+              <div class="hidden">
+                <input id="current_subscriber_id" type="number" value="0" />
+              </div>
+
+              <div class="panel">
+                <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <h4 class="panel-title">Subscriber Info</h4>
+                </a>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
+                  <div class="panel-body">
+                    <table class="table table-striped">
+                      <tbody>
+                      <tr>
+                        <th scope="row">Subscriber ID:</th>
+                        <td id="view_subscriber_id">Loading...</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">First Name:</th>
+                        <td id="view_subscriber_first_name">Loading...</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Last Name:</th>
+                        <td id="view_subscriber_last_name">Loading...</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Email:</th>
+                        <td id="view_subscriber_email">Loading...</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Revenue:</th>
+                        <td id="view_subscriber_revenue">Loading...</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!--START EMAILS SENT TO SUBSCRIBER-->
+              <div class="panel">
+                <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <h4 class="panel-title">Emails</h4>
+                </a>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                  <div class="panel-body">
+                    <table class="table table-striped table-bordered text-center">
+                      <thead>
+                      <tr>
+                        <th class="text-center" id="templateName">Name</th>
+                        <th class="text-center" id="emailsClicked">Clicked</th>
+                        <th class="text-center" id="emailsOpened">Opened</th>
+                      </tr>
+                      </thead>
+                      <tbody id="sub_table_body">
+
+                      </tbody>
+
+
+
+
+
+
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!--END EMAILS SENT TO SUBSCRIBER-->
+
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button id="delete_subscriber_button" type="button" class="btn btn-danger btn-border">Delete</button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <!-- END View Subscriber Info Modal -->
 
 
 <% end %>
