@@ -135,6 +135,16 @@ class TriggersController < ShopifyApp::AuthenticatedController
     trigger = Trigger.find(params[:trigger_id])
     funnels = Funnel.where(trigger_id: params[:trigger_id]).size
 
+
+    if !trigger
+      # Return Error Response
+      response = {
+          success: false,
+          message: 'Trigger not found!'
+      }
+      render json: response
+    end
+
     # if funnels == 0
     #   funnels = 0
     # else

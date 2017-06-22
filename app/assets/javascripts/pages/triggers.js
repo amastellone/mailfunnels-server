@@ -54,6 +54,7 @@ $(function(){
     var view_trigger_hits = $('#view_trigger_hits');
     var view_trigger_description = $('#view_trigger_description');
     var view_num_funnels = $('#view_num_funnels');
+    var delete_trigger_name = $('#trigger_delete_name');
 
 
 
@@ -211,11 +212,12 @@ $(function(){
                 trigger_id: trigger_id,
                 authenticity_token: csrf_token
             },
-            error: function(e){
+            error: function(e) {
                 console.log(e);
             },
-            success: function(response){
-                view_num_funnels.html("Number of funnels " + response.name + " will be removed from: " + response.num_funnels);
+            success: function(response) {
+                delete_trigger_name.html(response.name);
+                view_num_funnels.html(response.num_funnels);
 
             }
         })
