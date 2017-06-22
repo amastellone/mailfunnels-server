@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622191536) do
+ActiveRecord::Schema.define(version: 20170622200144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20170622191536) do
     t.datetime "created_at",      :null=>false
     t.datetime "updated_at",      :null=>false
     t.integer  "app_id",          :foreign_key=>{:references=>"apps", :name=>"fk_funnels_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_app_id", :using=>:btree}
-    t.integer  "trigger_id",      :foreign_key=>{:references=>"triggers", :name=>"fk_funnels_trigger_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_trigger_id", :using=>:btree}
+    t.integer  "trigger_id",      :foreign_key=>{:references=>"triggers", :name=>"fk_funnels_trigger_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_trigger_id", :using=>:btree}
     t.integer  "email_list_id",   :foreign_key=>{:references=>"email_lists", :name=>"fk_funnels_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_email_list_id", :using=>:btree}
     t.integer  "active"
   end
