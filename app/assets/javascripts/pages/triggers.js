@@ -73,7 +73,7 @@ $(function(){
 
         //Get Current Trigger ID
         var trigger_id = $(this).data('id');
-        
+
 
 
         $.ajax({
@@ -215,7 +215,7 @@ $(function(){
                 console.log(e);
             },
             success: function(response){
-                view_num_funnels.html("Number of funnels " + response.name + " will be removed from: " + response.num_funnels);
+                view_num_funnels.html("Number of funnels \"" + response.name + "\" will be removed from: " + response.num_funnels);
 
             }
         })
