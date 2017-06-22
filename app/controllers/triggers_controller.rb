@@ -47,6 +47,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
     trigger.product_id = params[:product_id]
     trigger.num_triggered = 0
     trigger.num_emails_sent = 0
+    trigger.last_abondoned_id = -1
 
 
     hook = Hook.where(id: params[:hook_id]).first
@@ -95,38 +96,18 @@ class TriggersController < ShopifyApp::AuthenticatedController
   #
   # PARAMETERS
   # ----------
-  # trigger_id: ID of the trigger
+  # none
   #
   def ajax_process_abandoned_carts
-    trigger = Trigger.find(params[:trigger_id])
-    last_id = trigger.last_abondoned_id
-    if trigger.last_abondoned_id == -1
-      logger.info("NO Previous Abandoned Carts exist")
-      abandonedCarts = ShopifyAPI::Checkout.where(created_at_min: 2.weeks.ago, limit: 250)
-    else
-      logger.info("Previous Abandoned Carts exist")
-      abandonedCarts = ShopifyAPI::Checkout.where(since_id: trigger.last_abondoned_id, limit: 250)
-    end
-    last_id = trigger.last_abondoned_id
-    shop = Shop.find_by(shopify_domain: MailfunnelsUtil.get_app.name)
-    if abandonedCarts.first.nil? == false
-      logger.info("New abandoned Carts Found")
-      saveResponse = trigger.put('', :last_abondoned_id => abandonedCarts.last.id)
-      final_json = JSON.pretty_generate(result = {
-          'abandoned_cart_count' => abandonedCarts.count
-      })
-      if saveResponse
-        logger.info("Trigger last abandoned cart id updated")
-        AbandonedCartJob.perform_later(params[:trigger_id],last_id,shop,MailfunnelsUtil.get_app_id)
-        logger.info("Abandoned cart job queued")
 
-      end
-    else
-      logger.info("No New abandoned Carts Found")
-      final_json = JSON.pretty_generate(result = {
-          'abandoned_cart_count' => 0
-      })
-    end
+    app = MailfunnelsUtil.get_app
+    shop = Shop.find_by(shopify_domain: app.name)
+
+    ProcessCheckoutsJob.perform_later(app.id, shop)
+
+    final_json = JSON.pretty_generate(result = {
+        'abandoned_cart_count' => 5
+    })
 
     render json: final_json
   end

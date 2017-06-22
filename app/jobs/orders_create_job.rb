@@ -5,9 +5,12 @@ class OrdersCreateJob < ApplicationJob
 
   def perform(shop_domain:, webhook:)
     logger.info("Starting Order Created Job")
+
     shop = Shop.find_by(shopify_domain: shop_domain)
 
     shop.with_shopify_session do
+
+
 
       app = MailfunnelsUtil.get_app
 
@@ -58,12 +61,17 @@ class OrdersCreateJob < ApplicationJob
 
       logger.info("Looking for trigger with product first")
       trigger = nil
+      price = 0.0
       webhook[:line_items].each do |product|
+        price = price + product['price'].to_f
         trigger = EmailUtil.get_trigger_product(app.id, hook.id, product[:product_id])
         if trigger
           break
         end
       end
+
+      # for calculating daily revenue
+      CapturedHook.create(hook_id:hook.id, subscriber_id:subscriber.id, app_id:app.id,revenue:price)
 
       if trigger
         logger.info("Trigger found!")

@@ -112,14 +112,12 @@ $(function(){
      */
     trigger_refresh_button.on('click', function() {
 
-        var trigger_id = $(this).data('id');
 
         $.ajax({
             type:'POST',
             url: '/ajax_process_abandoned_carts',
             dataType: "json",
             data: {
-                trigger_id: trigger_id,
                 authenticity_token: csrf_token
             },
             error: function(e) {

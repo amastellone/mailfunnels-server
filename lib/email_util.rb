@@ -76,7 +76,7 @@ class EmailUtil
   end
 
   def self.get_funnel(app_id, trigger_id)
-    funnel = Funnel.where(app_id: app_id, trigger_id: trigger_id).first
+    funnel = Funnel.where(app_id: app_id, trigger_id: trigger_id, active: 1).first
     if funnel.nil? == false
       return funnel
     else
