@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619195335) do
+ActiveRecord::Schema.define(version: 20170622191536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,9 +52,9 @@ ActiveRecord::Schema.define(version: 20170619195335) do
     t.string   "button_text"
     t.string   "button_url"
     t.string   "email_title"
-    t.string   "color"
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
+    t.string   "color"
   end
 
   create_table "batch_email_jobs", force: :cascade do |t|
@@ -89,10 +89,11 @@ ActiveRecord::Schema.define(version: 20170619195335) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.integer  "app_id",     :foreign_key=>{:references=>"apps", :name=>"fk_subscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__subscribers_app_id", :using=>:btree}
-    t.datetime "created_at", :null=>false
-    t.datetime "updated_at", :null=>false
+    t.integer  "app_id",           :foreign_key=>{:references=>"apps", :name=>"fk_subscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__subscribers_app_id", :using=>:btree}
+    t.datetime "created_at",       :null=>false
+    t.datetime "updated_at",       :null=>false
     t.decimal  "revenue"
+    t.integer  "initial_ref_type"
   end
 
   create_table "captured_hooks", force: :cascade do |t|
