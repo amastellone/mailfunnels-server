@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170619195335) do
     t.string   "button_text"
     t.string   "button_url"
     t.string   "email_title"
+    t.string   "color"
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
   end
@@ -123,15 +124,9 @@ ActiveRecord::Schema.define(version: 20170619195335) do
     t.decimal  "num_revenue"
     t.datetime "created_at",      :null=>false
     t.datetime "updated_at",      :null=>false
-<<<<<<< HEAD
-    t.integer  "app_id",          :foreign_key=>{:references=>"apps", :name=>"fk_funnels_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_app_id", :using=>:btree}
-    t.integer  "trigger_id",      :foreign_key=>{:references=>"triggers", :name=>"fk_funnels_trigger_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_trigger_id", :using=>:btree}
-    t.integer  "email_list_id",   :foreign_key=>{:references=>"email_lists", :name=>"fk_funnels_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_email_list_id", :using=>:btree}
-=======
     t.integer  "app_id",          :foreign_key=>{:references=>"apps", :name=>"fk_funnels_app_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_app_id", :using=>:btree}
     t.integer  "trigger_id",      :foreign_key=>{:references=>"triggers", :name=>"fk_funnels_trigger_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_trigger_id", :using=>:btree}
     t.integer  "email_list_id",   :foreign_key=>{:references=>"email_lists", :name=>"fk_funnels_email_list_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_email_list_id", :using=>:btree}
->>>>>>> 2ec3f3aa7a01de71dd259bd3070cf283ffcf5546
     t.integer  "active"
   end
 
