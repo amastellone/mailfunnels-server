@@ -3689,11 +3689,11 @@ form:after {
 .login_content form input[type="text"]:focus,
 .login_content form input[type="email"]:focus,
 .login_content form input[type="password"]:focus {
-    -ms-box-shadow: 0 0 2px #ed1c24 inset;
-    -o-box-shadow: 0 0 2px #ed1c24 inset;
-    box-shadow: 0 0 2px #A97AAD inset;
+    -ms-box-shadow: 0 0 2px #3498db inset;
+    -o-box-shadow: 0 0 2px #3498db inset;
+    box-shadow: 0 0 2px #3498db inset;
     background-color: #fff;
-    border: 1px solid #A878AF;
+    border: 1px solid #3498db;
     outline: none
 }
 #username {

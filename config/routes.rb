@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+
   # Main
   root :to => 'main_interface#index'
 
-  # MailFunnels Install Route
-  get '/mailfunnels_install' => 'application#mailfunnels_install'
-  get '/mailfunnels_auth' => 'application#mailfunnels_auth'
+  # Authentication Routes
+  get '/login_page' => 'users#login_page'
+  post '/ajax_mf_user_auth' => 'users#ajax_mf_user_auth'
 
   # MailFunnels Webhook Routes
   post '/order_create_webhook' => 'application#order_create_webhook'
