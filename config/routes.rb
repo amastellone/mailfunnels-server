@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'hooks/new'
+
   # Main
   root :to => 'main_interface#index'
 
@@ -7,7 +9,8 @@ Rails.application.routes.draw do
   get '/mailfunnels_auth' => 'application#mailfunnels_auth'
 
   # MailFunnels Webhook Routes
-  post '/order_create_webhook' => 'application#order_create_webhook'
+  post '/abandoned_cart_process' => 'hooks#process_abandoned_carts'
+
 
   # Funnel Page Routes
   get '/funnels', to: 'funnels#index'
@@ -41,6 +44,8 @@ Rails.application.routes.draw do
 
   # Subscribers Routes
   get '/all_subscribers', to: 'main_interface#all_subscribers'
+  get '/all_refund_subscribers', to: 'main_interface#all_refund_subscribers'
+  get '/all_abandoned_subscribers', to: 'main_interface#all_abandoned_subscribers'
   get '/list_subscribers/:list_id', to: 'main_interface#list_subscribers'
   post '/ajax_create_subscriber' => 'main_interface#ajax_create_subscriber'
   post '/ajax_load_time_data' => 'main_interface#ajax_load_time_data'
@@ -61,7 +66,6 @@ Rails.application.routes.draw do
   post 'ajax_update_account_info' => 'main_interface#ajax_update_account_info'
   post 'ajax_update_email_info' => 'main_interface#ajax_update_email_info'
 
-
   # Email Controller
   get '/lists', to: 'email#lists'
   match '/create_list' => 'email#create_list', via: [:post]
@@ -81,6 +85,8 @@ Rails.application.routes.draw do
   get '/error_page', to: 'main_interface#error_page'
   get '/account_disabled', to: 'main_interface#account_disabled'
 
+  # Import CSV Routes
+  post 'import_csv' => 'main_interface#import_csv'
 
 
   # Shopify Routes

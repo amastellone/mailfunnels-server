@@ -11,12 +11,14 @@ class EmailUtil
     end
   end
 
-  def self.add_new_subscriber(email, app_id, first_name, last_name)
+  def self.add_new_subscriber(email, app_id, first_name, last_name, ref_type)
     subscriber = Subscriber.create(app_id: app_id,
                                    email: email,
                                    first_name: first_name,
                                    last_name: last_name,
-                                   revenue: 0)
+                                   revenue: 0,
+                                   initial_ref_type: ref_type
+    )
     if subscriber.nil? == false
       return subscriber
     else
@@ -178,7 +180,8 @@ class EmailUtil
                        :node_id => node_id,
                        :email_template_id => email_template_id,
                        :email_list_id => email_list_id,
-                       :sent => 0})
+                       :sent => 0
+    })
     if job.nil? == false
       return job
     else

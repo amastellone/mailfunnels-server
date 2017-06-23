@@ -20,6 +20,7 @@ $(function() {
     var new_subscriber_modal = $('#new_subscriber_modal');
     var new_batch_email_modal = $('#new_batch_email_modal');
     var subscriber_info_modal = $('#subscriber_info_modal');
+    var import_csv_modal = $('#import_csv_modal');
 
     /* --- INPUT FIELDS --- */
     var first_name_input = $('#first_name_input');
@@ -30,6 +31,8 @@ $(function() {
     var subscriber_confirm_checkbox = $('#subscriber_confirm_checkbox');
 
     /* --- BUTTONS --- */
+    var import_csv_submit_button = $('#import_csv_submit_button')
+    var import_csv_button = $('#import_csv_button');
     var subscribers_export_button = $('#subscribers_export_button');
     var new_subscriber_submit_button = $('#new_subscriber_submit_button');
     var batch_email_send_button = $('#batch_email_send_button');
@@ -39,6 +42,51 @@ $(function() {
 
     //Initialize the Page
     init();
+
+    /**
+     * Import subscribers modal toggle
+     */
+    import_csv_button.on('click', function(){
+        import_csv_modal.modal('toggle');
+    });
+
+
+
+    import_csv_submit_button.on('click', function(){
+        var file = new FormData($('#file')[0]);
+        $.ajax({
+            // Your server script to process the upload
+            url: '/ajax_import_csv',
+            type: 'POST',
+
+            // Form data
+            data: {
+                csv: file,
+                authenticity_token: csrf_token
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            // Custom XMLHttpRequest
+            xhr: function() {
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) {
+                    // For handling the progress of the upload
+                    myXhr.upload.addEventListener('progress', function(e) {
+                        if (e.lengthComputable) {
+                            $('progress').attr({
+                                value: e.loaded,
+                                max: e.total,
+                            });
+                        }
+                    } , false);
+                }
+                return myXhr;
+            },
+        });
+    });
 
 
     /**

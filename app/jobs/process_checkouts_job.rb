@@ -7,6 +7,9 @@ class ProcessCheckoutsJob < ApplicationJob
 
 
       trigger = Trigger.where(app_id: app_id, hook_id: 3).sort {|a, b| b.last_abondoned_id <=> a.last_abondoned_id}.first
+      if trigger.nil? == true
+        return
+      end
 
       if trigger.last_abondoned_id == -1
         logger.info("NO Previous Abandoned checkout exist")
@@ -52,7 +55,9 @@ class ProcessCheckoutsJob < ApplicationJob
                                            email: email,
                                            first_name: abandoned_cart.shipping_address.first_name,
                                            last_name: abandoned_cart.shipping_address.last_name,
-                                           revenue: 0)
+                                           revenue: 0,
+                                            intial_ref_type: 3,
+            )
           end
           trigger = nil
           if subscriber
