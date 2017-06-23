@@ -82,6 +82,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get all subscribers instances for the app
     @subscribers = Subscriber.where(app_id: @app.id)
 
+
   end
 
 
@@ -679,6 +680,30 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
       end
     end
   end
+
+  def ajax_add_to_list
+    subscriber = EmailListSubscriber.new
+
+    subscriber.app_id = params[:app_id]
+    subscriber.email_list_id = params[:list_id]
+    subscriber.subscriber_id = params[:subscriber_id]
+
+    # Save and verify Subscriber and return correct JSON response
+    if subscriber.save!
+      final_json = JSON.pretty_generate(result = {
+          :success => true
+      })
+    else
+      final_json = JSON.pretty_generate(result = {
+          :success => false
+      })
+    end
+
+    # Return JSON response
+    render json: final_json
+
+  end
+
 
   def form_page
     if request.post?

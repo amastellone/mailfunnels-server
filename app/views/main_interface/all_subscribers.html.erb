@@ -294,11 +294,31 @@
                     </div>
                   </div>
                 </div>
-
-
-
-
                 <!--END EMAIL LISTS SUBSCRIBER BELONGS TO-->
+
+                <div class="panel">
+                  <a class="panel-heading collapsed" role="tab" id="headingFour" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    <h4 class="panel-title">Add to list</h4>
+                  </a>
+                  <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour" aria-expanded="false" style="height: 0px;">
+                    <div class="panel-body">
+
+
+                        <div class="form-group">
+                          <div class="col-xs-8">
+                            <select class="form-control" id="add_subscriber_email_list_select">
+                              <% @app.email_lists.each do |list| %>
+                                  <option value="<%= list.id %>"><%= list.name %></option>
+                              <% end %>
+                            </select>
+                          </div>
+                          <div class="col-xs-4">
+                            <button id="add_subscriber_button" type="button" class="btn btn-success btn-border" data-id="">Add</button>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
 
             </div>
           </div>
