@@ -19,11 +19,13 @@ $(function(){
     var from_email_input = $('#from_email_input');
     var from_name_input = $('#from_name_input');
 
-
-
     /* ---- BUTTONS --- */
     var save_account_info_button = $('#save_account_info_button');
     var save_email_info_button = $('#save_email_info_button');
+
+
+    //Initialize the My Account Page
+    init();
 
 
     save_account_info_button.on('click', function(e) {
@@ -99,17 +101,13 @@ $(function(){
     });
 
 
+    /**
+     * Function that initializes the My Account Page
+     *
+     */
+    function init() {
 
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 });

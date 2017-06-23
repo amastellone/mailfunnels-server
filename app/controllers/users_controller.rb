@@ -37,7 +37,7 @@ class UsersController < ActionController::Base
     app.password = params[:password]
     app.clientid = params[:client_id]
 
-    app.save!
+    app.save
 
     # Return Success Response
     response = {
