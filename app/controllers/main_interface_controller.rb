@@ -89,6 +89,10 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
+    contact = Infusionsoft.data_load('Contact', @app.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State])
+
+    logger.info contact.to_json
+
     if @app.postmark_signature_id.nil?
       @confirmed = false
     else
@@ -331,10 +335,10 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   def ajax_remove_from_list
     subscriber = Subscriber.find(params[:subscriber_id])
     list = EmailList.find(params[:email_list_id])
-    list_subscriber = EmailListSubscriber.where(subscriber_id: subscriber.id, email_list_id: list.id)
+    list_subscriber = EmailListSubscriber.where(subscriber_id: subscriber.id, email_list_id: list.id).first
 
 
-    if !list_subscriber.nil?
+    if list_subscriber
       list_subscriber.destroy
     end
 
