@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   post '/ajax_create_batch_email' => 'main_interface#ajax_create_batch_email'
   post '/ajax_delete_subscriber' => 'main_interface#ajax_delete_subscriber'
   post '/ajax_load_subscriber_info' => 'main_interface#ajax_load_subscriber_info'
+  post '/ajax_remove_from_list' => 'main_interface#ajax_remove_from_list'
 
   # Email Template Routes
   get '/email_templates', to: 'email#email_templates'

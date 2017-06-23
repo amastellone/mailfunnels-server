@@ -2,7 +2,8 @@
 var csrf_token;
 var app_id;
 var email_list_id;
-
+var subscriber_info_modal;
+var clicked_view_info =0;
 $(function() {
 
 
@@ -19,7 +20,7 @@ $(function() {
     /* --- MODALS --- */
     var new_subscriber_modal = $('#new_subscriber_modal');
     var new_batch_email_modal = $('#new_batch_email_modal');
-    var subscriber_info_modal = $('#subscriber_info_modal');
+    subscriber_info_modal = $('#subscriber_info_modal');
 
     /* --- INPUT FIELDS --- */
     var first_name_input = $('#first_name_input');
@@ -199,6 +200,10 @@ function deleteSubscriber(id) {
 
 function viewSubscriberInfo(id) {
 
+    if(clicked_view_info == 1){
+        return;
+    }
+    clicked_view_info = 1;
 
     /* --- View Info Fields --- */
     var subscriber_view_id = $('#view_subscriber_id');
@@ -209,6 +214,9 @@ function viewSubscriberInfo(id) {
     var template_name = $('#templateName');
     var emails_clicked = $('#emailsClicked');
     var emails_opened = $('#emailsOpened');
+
+    var email_table = $('#email_table');
+    var no_emails_view = $('#no_emails_view');
 
     $.ajax({
         type:'POST',
@@ -233,30 +241,77 @@ function viewSubscriberInfo(id) {
             console.log(response);
 
             var obj = JSON.parse(response.emails);
+            var list_obj = JSON.parse(response.lists);
 
-            for(var i = 0; i < response.total_emails; i++) {
+            if(response.total_emails == 0){
+                email_table.hide();
+                no_emails_view.attr('class', '');
+            } else {
+
+                for (var i = 0; i < response.total_emails; i++) {
+                    var html = "<tr>";
+                    html = html + "<td>" + obj[i].name + "</td>";
+
+                    if (obj[i].clicked === 1) {
+                        html = html + "<td>" + "Yes" + "</td>";
+                    } else {
+                        html = html + "<td>" + "No" + "</td>";
+                    }
+
+                    if (obj[i].opened === 1) {
+                        html = html + "<td>" + "Yes" + "</td>";
+                    } else {
+                        html = html + "<td>" + "No" + "</td>";
+                    }
+
+                    html = html + "</tr>";
+                    $('#sub_table_body').append(html);
+                }
+            }
+
+            for(var i = 0; i < response.total_lists; i++) {
                 var html = "<tr>";
-                html = html + "<td>" + obj[i].name + "</td>";
-
-                if( obj[i].clicked === 1 ){
-                    html = html + "<td>" + "Yes" + "</td>";
-                } else {
-                    html = html + "<td>" + "No" + "</td>";
-                }
-
-                if( obj[i].opened === 1 ){
-                    html = html + "<td>" + "Yes" + "</td>";
-                } else {
-                    html = html + "<td>" + "No" + "</td>";
-                }
+                html = html + "<td class='text-left' style='font-size: 28px'>" + list_obj[i].email_list_name + "</td>";
+                html = html + "<td style='width: 100px;'>" + "<button onclick='removeSubscriber(" + response.id +"," + list_obj[i].email_list_id + ")' type='button' class='btn btn-danger btn-block'><i class='fa fa-trash-o'></i></button>" + "</td>";
 
                 html = html + "</tr>";
-                $('#sub_table_body').append(html);
+                $('#list_table_body').append(html);
             }
 
         }
 
     });
 
+
+}
+
+function removeSubscriber(subscriber_id, list_id){
+    var subscriber = subscriber_id;
+    var list = list_id;
+
+    $.ajax({
+        type:'POST',
+        url: '/ajax_remove_from_list',
+        dataType: "json",
+        data: {
+            app_id: app_id,
+            subscriber_id: subscriber,
+            email_list_id: list,
+            authenticity_token: csrf_token
+
+        },
+        error: function(e){
+            console.log(e);
+        },
+        success: function(response){
+            subscriber_info_modal.modal('toggle');
+            console.log(response);
+            window.location.reload(true);
+
+        }
+
+
+
+    });
 
 }
