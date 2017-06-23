@@ -8,6 +8,49 @@ class UsersController < ActionController::Base
 
   end
 
+
+  # POST ROUTE
+  # ----------
+  # Creates a new App Instance
+  # Used with infusionsoft to create new account
+  # upon app order form submit
+  #
+  # PARAMETERS
+  # ----------
+  # client_id: Infusionsoft Client ID
+  # first_name: First Name of the User
+  # last_name: Last Name of the User
+  # email: Email Address of the User
+  # username: Username of the User
+  # password: Password of the User
+  # shop_domain: Shopify Domain of the User
+  #
+  def mf_api_user_create
+
+    app = App.new
+
+    app.first_name = params[:first_name]
+    app.last_name = params[:last_name]
+    app.name = params[:shop_domain]
+    app.email = params[:email]
+    app.username = params[:username]
+    app.password = params[:password]
+    app.clientid = params[:client_id]
+
+    app.save!
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Account Created'
+    }
+
+    render json: response
+
+
+  end
+
+
   # USED WITH AJAX
   # --------------
   # Authenticates the user and redirects to shopify auth
@@ -40,5 +83,6 @@ class UsersController < ActionController::Base
 
     render json: response
   end
+
 
 end

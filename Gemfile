@@ -16,8 +16,6 @@ gem 'faker'
 
 gem 'httparty'
 
-gem 'infusionsoft-api'
-
 # gem 'activerecord-session_store'
 # gem 'request_store_registry', :git => 'git://github.com/mikeantonelli/request_store_registry.git'
 # /vaskaloidis/request_store_registry

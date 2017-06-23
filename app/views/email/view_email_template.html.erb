@@ -57,7 +57,9 @@
 
                       <h2>Hi (Customer Name),</h2>
 
-                      <pre><%= @template.email_content.html_safe %></pre>
+                      <% if @template.email_content %>
+                        <pre><%= @template.email_content.html_safe %></pre>
+                      <% end %>
 
                       <table>
                         <tr>
