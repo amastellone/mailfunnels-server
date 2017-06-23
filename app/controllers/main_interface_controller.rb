@@ -123,7 +123,22 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
-    contact = Infusionsoft.data_load('Contact', @app.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State])
+    # Get User Information from Infusionsoft
+    contact = Infusionsoft.data_load('Contact', @app.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :Groups])
+
+    logger.info contact['FirstName']
+
+    # Update App Information
+    @app.put('', {
+        :first_name => contact['FirstName'],
+        :last_name => contact['LastName'],
+        :email => contact['Email'],
+        :street_address => contact['StreetAddress1']
+    })
+
+
+    @app = MailfunnelsUtil.get_app
+
 
     logger.info contact.to_json
 
