@@ -86,23 +86,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   #
   def account
 
-    api_client = Infusionsoft::Api::Client.new(
-        {
-            :api_key  => "94c11c8a7a198e08f6ba3b58bf5d592a",
-            :app_name => "gv373",
-        })
-
-
-
     # Get the Current App
     @app = MailfunnelsUtil.get_app
-
-    contacts = api_client.contact.all(
-        {
-            :id => @app.clientid
-        })
-
-    logger.info contacts.to_json
 
     if @app.postmark_signature_id.nil?
       @confirmed = false
