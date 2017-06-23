@@ -3,7 +3,10 @@ var csrf_token;
 var app_id;
 var email_list_id;
 var subscriber_info_modal;
-var clicked_view_info =0;
+var clicked_view_info = 0;
+var view_info_id = -1;
+var add_subscriber_email_list_select;
+var add_subscriber_button;
 $(function() {
 
 
@@ -29,12 +32,14 @@ $(function() {
     var template_list_select = $('#template_list_select');
     var email_list_name = $('#email_list_name');
     var subscriber_confirm_checkbox = $('#subscriber_confirm_checkbox');
+    add_subscriber_email_list_select = $('#add_subscriber_email_list_select');
 
     /* --- BUTTONS --- */
     var subscribers_export_button = $('#subscribers_export_button');
     var new_subscriber_submit_button = $('#new_subscriber_submit_button');
     var batch_email_send_button = $('#batch_email_send_button');
     var view_subscriber_info_button = $('#view_subscriber_info_button');
+    add_subscriber_button = $('#add_subscriber_button');
 
 
 
@@ -163,6 +168,35 @@ $(function() {
 
     }
 
+    add_subscriber_button.on('click', function(){
+        var subscriber_id = $(this).data('id');
+        var list_id = add_subscriber_email_list_select.val();
+        // alert(subscriber_id);
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_add_to_list',
+            dataType:"json",
+            data: {
+                app_id: app_id,
+                subscriber_id: subscriber_id,
+                list_id: list_id,
+                authenticity_token: csrf_token,
+            },
+            error: function(e){
+                console.log(e);
+            },
+            success: function(response){
+                console.log(response);
+                window.location.reload(true);
+            }
+
+        });
+
+
+
+    });
+
 
 });
 
@@ -199,11 +233,13 @@ function deleteSubscriber(id) {
 
 
 function viewSubscriberInfo(id) {
-
-    if(clicked_view_info == 1){
+    if(view_info_id != id){
+        clicked_view_info = 1;
+        $('#sub_table_body').html(null);
+        $('#list_table_body').html(null);
+    }else if(clicked_view_info == 1){
         return;
     }
-    clicked_view_info = 1;
 
     /* --- View Info Fields --- */
     var subscriber_view_id = $('#view_subscriber_id');
@@ -233,6 +269,7 @@ function viewSubscriberInfo(id) {
         },
         success: function(response) {
             $('#delete_subscriber_button').attr('onclick', 'deleteSubscriber(' + response.id + ')');
+            add_subscriber_button.attr('data-id', response.id);
             subscriber_view_id.html(response.id);
             subscriber_view_first_name.html(response.first_name);
             subscriber_view_last_name.html(response.last_name);
@@ -315,3 +352,5 @@ function removeSubscriber(subscriber_id, list_id){
     });
 
 }
+
+

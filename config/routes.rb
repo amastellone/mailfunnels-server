@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   post '/ajax_delete_subscriber' => 'main_interface#ajax_delete_subscriber'
   post '/ajax_load_subscriber_info' => 'main_interface#ajax_load_subscriber_info'
   post '/ajax_remove_from_list' => 'main_interface#ajax_remove_from_list'
+  post '/ajax_add_to_list' => 'main_interface#ajax_add_to_list'
 
   # Email Template Routes
   get '/email_templates', to: 'email#email_templates'
