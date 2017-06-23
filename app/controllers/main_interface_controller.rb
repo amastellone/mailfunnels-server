@@ -328,6 +328,19 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   end
 
+  def ajax_remove_from_list
+    subscriber = Subscriber.find(params[:subscriber_id])
+    list = EmailList.find(params[:email_list_id])
+    list_subscriber = EmailListSubscriber.where(subscriber_id: subscriber.id, email_list_id: list.id)
+
+
+    if !list_subscriber.nil?
+      list_subscriber.destroy
+    end
+
+
+  end
+
 
   # USED WITH AJAX
   # --------------
@@ -459,8 +472,9 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Subscriber from list
     subscriber = Subscriber.find(params[:subscriber_id])
     subscriber_emails = EmailJob.where(subscriber_id: params[:subscriber_id])
+    email_lists = EmailListSubscriber.where(subscriber_id: params[:subscriber_id])
 
-
+    email_list = Array.new
     temp = Array.new
 
     subscriber_emails.each do |se|
@@ -475,6 +489,15 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     end
 
+    email_lists.each do |el|
+       list = {
+           :email_list_id => el.email_list_id,
+           :email_list_name => el.email_list.name,
+       }
+
+      email_list.push(list)
+    end
+
     data = {
 
         :id => subscriber.id,
@@ -483,7 +506,9 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
         :email => subscriber.email,
         :revenue => subscriber.revenue,
         :total_emails => subscriber_emails.size,
-        :emails => temp.to_json
+        :emails => temp.to_json,
+        :total_lists => email_lists.size,
+        :lists => email_list.to_json,
 
     }
 

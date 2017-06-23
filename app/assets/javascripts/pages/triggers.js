@@ -74,7 +74,7 @@ $(function(){
 
         //Get Current Trigger ID
         var trigger_id = $(this).data('id');
-        
+
 
 
         $.ajax({
