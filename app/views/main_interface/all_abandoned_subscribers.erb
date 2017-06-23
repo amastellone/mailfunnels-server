@@ -28,7 +28,7 @@
         <div class="page-title">
           <div class="title_left">
             <h3>MailFunnels
-              <small>All Subscribers</small>
+              <small>All Abandoned Checkout Subscribers</small>
             </h3>
           </div>
 
@@ -243,62 +243,32 @@
                 </div>
               </div>
 
-                <!--START EMAILS SENT TO SUBSCRIBER-->
-                <div class="panel">
-                  <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    <h4 class="panel-title">Email History</h4>
-                  </a>
-                  <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-                    <div class="panel-body">
-                      <table id="email_table" class="table table-striped table-bordered text-center">
-                        <thead>
-                        <tr>
-                          <th class="text-center" id="templateName">Name</th>
-                          <th class="text-center" id="emailsClicked">Clicked</th>
-                          <th class="text-center" id="emailsOpened">Opened</th>
-                        </tr>
-                        </thead>
-                        <tbody id="sub_table_body">
+              <!--START EMAILS SENT TO SUBSRIBER-->
+              <div class="panel">
+                <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <h4 class="panel-title">Emails</h4>
+                </a>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                  <div class="panel-body">
+                    <table class="table table-striped table-bordered text-center">
+                      <thead>
+                      <tr>
+                        <th class="text-center" id="templateName">Name</th>
+                        <th class="text-center" id="emailsClicked">Clicked</th>
+                        <th class="text-center" id="emailsOpened">Opened</th>
+                      </tr>
+                      </thead>
+                      <tbody id="sub_table_body">
 
-                        </tbody>
+                      </tbody>
 
-                      </table>
-                      <div class="hidden" id="no_emails_view">
-                        <h5>There is no email history for this subscriber.</h5>
-                      </div>
-                    </div>
 
+                    </table>
                   </div>
                 </div>
               </div>
               <!--END EMAILS SENT TO SUBSCRIBER-->
 
-                <!--START EMAIL LISTS SUBSCRIBER BELONGS TO-->
-                <div class="panel">
-                  <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    <h4 class="panel-title">Email Lists</h4>
-                  </a>
-                  <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
-                    <div class="panel-body">
-                      <table class="table table-striped table bordered text-center">
-                        <thead>
-                        <tr>
-                          <th class="text-left" id="listName">Email List</th>
-                          <th class="no-sort text-center">Remove Subscriber</th>
-                        </tr>
-                        </thead>
-                        <tbody id="list_table_body">
-
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-
-
-
-                <!--END EMAIL LISTS SUBSCRIBER BELONGS TO-->
 
             </div>
           </div>

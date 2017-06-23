@@ -25,10 +25,26 @@ $(function(){
     var default_emails_opened = $('#default_emails_opened').val();
     var default_emails_clicked = $('#default_emails_clicked').val();
 
+    var default_refund_emails_sent = $('#default_refund_emails_sent').val();
+    var default_refund_emails_opened = $('#default_refund_emails_opened').val();
+    var default_refund_emails_clicked = $('#default_refund_emails_clicked').val();
+
+    var default_abandoned_emails_sent = $('#default_abandoned_emails_sent').val();
+    var default_abandoned_emails_opened = $('#default_abandoned_emails_opened').val();
+    var default_abandoned_emails_clicked = $('#default_abandoned_emails_clicked').val();
+
     /* --- EMAIL STATS --- */
     var default_emails_sent_view = $('#default_emails_sent_view');
     var default_emails_opened_view = $('#default_emails_opened_view');
     var default_emails_clicked_view = $('#default_emails_clicked_view');
+
+    var default_refund_emails_sent_view = $('#default_refund_emails_sent_view');
+    var default_refund_emails_opened_view = $('#default_refund_emails_opened_view');
+    var default_refund_emails_clicked_view = $('#default_refund_emails_clicked_view');
+
+    var default_abandoned_emails_sent_view = $('#default_abandoned_emails_sent_view');
+    var default_abandoned_emails_opened_view = $('#default_abandoned_emails_opened_view');
+    var default_abandoned_emails_clicked_view = $('#default_abandoned_emails_clicked_view');
 
 
     //Initialize the page
@@ -67,6 +83,82 @@ $(function(){
     }, function() {
 
         default_emails_clicked_view.html(default_emails_clicked);
+
+    });
+
+
+
+    default_refund_emails_opened_view.hover(function() {
+
+        var percent = ((default_refund_emails_opened / default_refund_emails_sent) * 100).toFixed(2) + '%';
+
+
+        if (default_refund_emails_sent === '0') {
+            default_refund_emails_opened_view.html('0.00%');
+        } else {
+            default_refund_emails_opened_view.html(percent);
+        }
+
+
+    }, function() {
+
+        default_refund_emails_opened_view.html(default_refund_emails_opened);
+
+    });
+
+    default_refund_emails_clicked_view.hover(function() {
+
+        var percent = ((default_refund_emails_clicked / default_refund_emails_sent) * 100).toFixed(2) + '%';
+
+
+        if (default_refund_emails_sent === '0') {
+            default_refund_emails_clicked_view.html('0.00%');
+        } else {
+            default_refund_emails_clicked_view.html(percent);
+        }
+
+    }, function() {
+
+        default_refund_emails_clicked_view.html(default_refund_emails_clicked);
+
+    });
+
+
+
+
+
+    default_abandoned_emails_opened_view.hover(function() {
+
+        var percent = ((default_abandoned_emails_opened / default_abandoned_emails_sent) * 100).toFixed(2) + '%';
+
+
+        if (default_abandoned_emails_sent === '0') {
+            default_abandoned_emails_opened_view.html('0.00%');
+        } else {
+            default_abandoned_emails_opened_view.html(percent);
+        }
+
+
+    }, function() {
+
+        default_abandoned_emails_opened_view.html(default_abandoned_emails_opened);
+
+    });
+
+    default_abandoned_emails_clicked_view.hover(function() {
+
+        var percent = ((default_abandoned_emails_clicked / default_abandoned_emails_sent) * 100).toFixed(2) + '%';
+
+
+        if (default_abandoned_emails_sent === '0') {
+            default_abandoned_emails_clicked_view.html('0.00%');
+        } else {
+            default_abandoned_emails_clicked_view.html(percent);
+        }
+
+    }, function() {
+
+        default_abandoned_emails_clicked_view.html(default_abandoned_emails_clicked);
 
     });
 
@@ -153,6 +245,14 @@ $(function(){
         default_emails_opened_view.html(default_emails_opened);
         default_emails_clicked_view.html(default_emails_clicked);
         default_emails_sent_view.html(default_emails_sent);
+
+        default_refund_emails_opened_view.html(default_refund_emails_opened);
+        default_refund_emails_clicked_view.html(default_refund_emails_clicked);
+        default_refund_emails_sent_view.html(default_refund_emails_sent);
+
+        default_abandoned_emails_opened_view.html(default_abandoned_emails_opened);
+        default_abandoned_emails_clicked_view.html(default_abandoned_emails_clicked);
+        default_abandoned_emails_sent_view.html(default_abandoned_emails_sent);
 
     }
 

@@ -28,7 +28,9 @@ class RefundsCreateJob < ActiveJob::Base
           subscriber = EmailUtil.add_new_subscriber(order.email,
                                                     app.id,
                                                     order.billing_address.first_name,
-                                                    order.billing_address.last_name)
+                                                    order.billing_address.last_name,
+                                                    2
+          )
 
           if subscriber
             logger.info("Subscriber added")

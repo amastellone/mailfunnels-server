@@ -1,3 +1,5 @@
+require 'csv'
+
 class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   # Page Render Function
@@ -33,6 +35,38 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   end
 
+
+  # Page Render Function
+  # --------------------
+  # Renders the All Subscribers Page which
+  # contains a table of all subscribers on for the
+  # current app
+  #
+  def all_refund_subscribers
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get all subscribers instances for the app
+    @subscribers = Subscriber.where(app_id: @app.id, initial_ref_type: 2)
+
+  end
+
+  # Page Render Function
+  # --------------------
+  # Renders the All Subscribers Page which
+  # contains a table of all subscribers on for the
+  # current app
+  #
+  def all_abandoned_subscribers
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get all subscribers instances for the app
+    @subscribers = Subscriber.where(app_id: @app.id, initial_ref_type: 3)
+
+  end
 
   # Page Render Function
   # --------------------
@@ -609,6 +643,27 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   end
 
+  def import_csv
+    puts "=========TRIGGERED========="
+    if request.post?
+      if params[:csv].present?
+        app = MailfunnelsUtil.get_app
+        csv_text = params[:csv].read
+        csv = CSV.parse(csv_text, :headers => true)
+        csv.each do |row|
+          h =  row.to_hash
+          h.merge!(app_id: app.id)
+          h.merge!(revenue: 0)
+          h.merge!(initial_ref_type: 0)
+          Subscriber.create!(h)
+        end
+
+        redirect_to :controller => 'main_interface', :action => 'all_subscribers'
+      else
+        redirect_to :controller => 'main_interface', :action => 'all_subscribers'
+      end
+    end
+  end
 
   def form_page
     if request.post?

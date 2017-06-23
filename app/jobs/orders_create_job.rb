@@ -32,7 +32,9 @@ class OrdersCreateJob < ApplicationJob
         subscriber = EmailUtil.add_new_subscriber(webhook[:email],
                                                   app.id,
                                                   webhook[:billing_address]['first_name'],
-                                                  webhook[:billing_address]['last_name'])
+                                                  webhook[:billing_address]['last_name'],
+                                                    1
+        )
         if subscriber
           logger.info("Subscriber added")
           logger.info("Incrementing Subscriber revenue...")
