@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622220235) do
+ActiveRecord::Schema.define(version: 20170623172603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20170622220235) do
     t.integer  "postmark_signature_id"
     t.string   "username"
     t.string   "password"
+    t.integer  "clientid"
+    t.integer  "client_tag"
   end
 
   create_table "email_lists", force: :cascade do |t|

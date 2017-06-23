@@ -473,6 +473,13 @@ class ResourceApi < Grape::API
     put do
       EmailListSubscriber.update(params)
     end
+
+    # DELETE Route
+    # ------------
+    delete ':id' do
+      EmailListSubscriber.find(params[:id]).destroy
+    end
+
   end
 
   # EmailJobResource API
