@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623172603) do
+ActiveRecord::Schema.define(version: 20170627180308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20170623172603) do
     t.string   "username"
     t.string   "password"
     t.integer  "clientid"
-    t.integer  "client_tag"
+    t.string   "client_tag"
   end
 
   create_table "email_lists", force: :cascade do |t|
@@ -210,6 +210,20 @@ ActiveRecord::Schema.define(version: 20170623172603) do
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
     t.integer  "email_list_id", :foreign_key=>{:references=>"email_lists", :name=>"fk_unsubscribers_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_email_list_id", :using=>:btree}
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.integer  "clientid"
+    t.string   "client_tags"
+    t.string   "email"
+    t.string   "street_address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.datetime "created_at",     :null=>false
+    t.datetime "updated_at",     :null=>false
   end
 
 end
