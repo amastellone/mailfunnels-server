@@ -87,18 +87,22 @@
               </ul>
 
 
-
             </div>
             <div class="col-md-9 col-sm-9 col-xs-12">
 
 
               <div class="" role="tabpanel" data-example-id="togglable-tabs">
                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                  <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Account Information</a>
+                  <li role="presentation" class="active">
+                    <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Account
+                      Information</a>
                   </li>
-                  <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Email Information</a>
+                  <li role="presentation" class="">
+                    <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Email
+                      Information</a>
                   </li>
-                  <li role="presentation" class=""><a href="#tab_pricing" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Plans</a>
+                  <li role="presentation" class="">
+                    <a href="#tab_pricing" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Plans</a>
                   </li>
 
                 </ul>
@@ -164,7 +168,7 @@
                         <br>
 
                         <div class="row">
-                            <button id="save_account_info_button" type="button" class="btn btn-success btn-border pull-right">Save</button>
+                          <button id="save_account_info_button" type="button" class="btn btn-success btn-border pull-right">Save</button>
                         </div>
 
                       </form>
@@ -178,7 +182,6 @@
                           <legend>
                             Email Information
                           </legend>
-
 
 
                           <div class="form-group">
@@ -199,7 +202,7 @@
                         <br>
 
                         <div class="row">
-                            <button id="save_email_info_button" type="button" class="btn btn-success btn-border pull-right">Save</button>
+                          <button id="save_email_info_button" type="button" class="btn btn-success btn-border pull-right">Save</button>
                         </div>
 
                       </form>
@@ -209,68 +212,140 @@
                   <div role="tabpanel" class="tab-pane fade" id="tab_pricing" aria-labelledby="pricing-tab">
                     <div class="col-xs-12">
 
-                        <fieldset>
-                          <legend>
-                            Plans
-                          </legend>
+                      <fieldset>
+                        <legend>
+                          Plans
+                        </legend>
 
 
-                          <table class="table table-striped">
-                            <thead>
-                            <tr>
-                              <th>Plan</th>
-                              <th>Pricing</th>
-                              <th>Duration</th>
-                              <th class="text-center" style="width: 80px;">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                              <td>Up to 1,000 Subscribers</td>
-                              <td>$9.99</td>
-                              <td>1 Month</td>
-                              <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
-                            </tr>
-                            <tr>
-                              <td>Up to 2,000 Subscribers</td>
-                              <td>$29.99</td>
-                              <td>1 Month</td>
-                              <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
-                            </tr>
-                            <tr>
-                              <td>Up to 4,000 Subscribers</td>
-                              <td>$49.99</td>
-                              <td>1 Month</td>
-                              <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
-                            </tr>
-                            <tr>
-                              <td>Up to 8,000 Subscribers</td>
-                              <td>$89.99</td>
-                              <td>1 Month</td>
-                              <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
-                            </tr>
-                            <tr>
-                              <td>Up to 12,000 Subscribers</td>
-                              <td>$139.99</td>
-                              <td>1 Month</td>
-                              <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
-                            </tr>
-                            <tr>
-                              <td>Up to 20,000 Subscribers</td>
-                              <td>$219.99</td>
-                              <td>1 Month</td>
-                              <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
-                            </tr>
-                            <tr>
-                              <td>Up to 35,000 Subscribers</td>
-                              <td>$289.99</td>
-                              <td>1 Month</td>
-                              <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
-                            </tr>
-                            </tbody>
-                          </table>
-                        </fieldset>
-                        <br>
+                        <table class="table table-striped">
+                          <thead>
+                          <tr>
+                            <th>Plan</th>
+                            <th>Pricing</th>
+                            <th>Duration</th>
+                            <th class="text-center" style="width: 80px;">Action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <% if @highestTag < 106 %>
+                              <tr>
+                                <td>Up to 1,000 Subscribers</td>
+                                <td>$9.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                              </tr>
+                          <% else %>
+                              <tr>
+                                <td>Up to 1,000 Subscribers</td>
+                                <td>$9.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                              </tr>
+                          <% end %>
+
+
+                          <% if @highestTag < 108 %>
+                              <tr>
+                                <td>Up to 2,000 Subscribers</td>
+                                <td>$29.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                              </tr>
+                          <% else %>
+                              <tr>
+                                <td>Up to 2,000 Subscribers</td>
+                                <td>$29.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                              </tr>
+                          <% end %>
+
+                          <% if @highestTag < 110 %>
+                              <tr>
+                                <td>Up to 4,000 Subscribers</td>
+                                <td>$49.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                              </tr>
+                          <% else %>
+                              <tr>
+                                <td>Up to 4,000 Subscribers</td>
+                                <td>$49.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                              </tr>
+                          <% end %>
+
+                          <% if @highestTag < 112 %>
+                              <tr>
+                                <td>Up to 8,000 Subscribers</td>
+                                <td>$89.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                              </tr>
+                          <% else %>
+                              <tr>
+                                <td>Up to 8,000 Subscribers</td>
+                                <td>$89.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                              </tr>
+                          <% end %>
+
+                          <% if @highestTag < 114 %>
+                              <tr>
+                                <td>Up to 12,000 Subscribers</td>
+                                <td>$139.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                              </tr>
+                          <% else %>
+                              <tr>
+                                <td>Up to 12,000 Subscribers</td>
+                                <td>$139.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                              </tr>
+                          <% end %>
+
+                          <% if @highestTag < 116 %>
+                              <tr>
+                                <td>Up to 20,000 Subscribers</td>
+                                <td>$219.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                              </tr>
+                          <% else %>
+                              <tr>
+                                <td>Up to 20,000 Subscribers</td>
+                                <td>$219.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                              </tr>
+                          <% end %>
+
+                          <% if @highestTag < 118 %>
+                              <tr>
+                                <td>Up to 20,000 Subscribers</td>
+                                <td>$219.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                              </tr>
+                          <% else %>
+                              <tr>
+                                <td>Up to 35,000 Subscribers</td>
+                                <td>$289.99</td>
+                                <td>1 Month</td>
+                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                              </tr>
+                          <% end %>
+
+
+                          </tbody>
+                        </table>
+                      </fieldset>
+                      <br>
 
                     </div>
                   </div>
