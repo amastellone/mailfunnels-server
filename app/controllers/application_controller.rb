@@ -11,13 +11,15 @@ class ApplicationController < ActionController::Base
 
         app = App.where(name: domain).first
 
+        user = app.user
+
         # If no app was found, redirect to Access Denied Page
         unless app
           redirect_to '/access_denied'
         end
 
         # Load Account Data from Infusionsoft
-        contact = Infusionsoft.data_load('Contact', app.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :Groups])
+        contact = Infusionsoft.data_load('Contact', user.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :Groups])
 
         # Parse through Tags and look for failed payment tag
         tags = contact['Groups'].split(",")
@@ -39,13 +41,13 @@ class ApplicationController < ActionController::Base
         end
 
         # Update Account Info
-        app.put('', {
+        user.put('', {
             :first_name => contact['FirstName'],
             :last_name => contact['LastName'],
             :street_address => contact['StreetAddress1'],
             :city => contact['City'],
             :state => contact['State'],
-            :client_tag => contact['Groups'],
+            :client_tags => contact['Groups'],
         })
 
       end

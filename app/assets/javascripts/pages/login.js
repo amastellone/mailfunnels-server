@@ -1,11 +1,17 @@
 $(function() {
 
+
+    /* --- MODALS --- */
+    var shopify_modal = $('#mf_auth_setup_modal');
+
     /* --- INPUT FIELDS --- */
     var login_username = $('#mf_login_username_input');
     var login_password = $('#mf_login_password_input');
+    var shopify_domain_input = $('#mf_shopify_domain_input');
 
     /* --- BUTTONS --- */
     var login_submit_button = $('#mf_login_submit_button');
+    var shopify_account_submit_button = $('#mf_auth_setup_submit_button');
 
     //Initialize the login page
     init();
@@ -16,7 +22,7 @@ $(function() {
      *
      * If input field is empty, disable the login button
      */
-    login_username.on('change', function() {
+    login_username.on('keyup', function() {
         if ($(this).val() === '' || login_password.val() === '') {
             login_submit_button.prop('disabled', true);
         } else {
@@ -30,11 +36,20 @@ $(function() {
      *
      * If input field is empty, disable the login button
      */
-    login_password.on('change', function() {
+    login_password.on('keyup', function() {
         if ($(this).val() === '' || login_username.val() === '') {
             login_submit_button.prop('disabled', true);
         } else {
             login_submit_button.prop('disabled', false);
+        }
+    });
+
+
+    shopify_domain_input.on('keyup', function() {
+        if ($(this).val() === '') {
+            shopify_account_submit_button.prop('disabled', true);
+        } else {
+            shopify_account_submit_button.prop('disabled', false);
         }
     });
 
@@ -58,10 +73,44 @@ $(function() {
             success: function(response) {
                 console.log(response);
                 if (response.success === true) {
-                    window.location.href = "http://localhost:3000/login/?shop=" + response.url;
+                    if (response.type === 1) {
+                        shopify_account_submit_button.attr('data-id', response.user_id);
+                        window.location.href = '#signup';
+                    } else {
+                        window.location.href = "http://localhost:3000/login/?shop=" + response.url;
+                    }
                 }
             }
 
+        });
+
+    });
+
+    shopify_account_submit_button.on('click', function() {
+
+        if (shopify_domain_input.val() === '') {
+            shopify_account_submit_button.prop('disabled', true);
+        }
+
+        var user_id = $(this).data('id');
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/ajax_mf_app_create',
+            data: {
+                user_id: user_id,
+                domain: shopify_domain_input.val()
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                if (response.success === true) {
+                    window.location.href = "http://localhost:3000/login/?shop=" + response.url;
+                }
+            }
         });
 
     });
@@ -72,6 +121,11 @@ $(function() {
      *
      */
     function init() {
+
+        window.location.href = '#signin';
+
+        //Disable Shopify Account Submit Button
+        shopify_account_submit_button.prop('disabled', true);
 
     }
 

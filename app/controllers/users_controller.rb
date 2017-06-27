@@ -76,9 +76,9 @@ class UsersController < ActionController::Base
 
     if contact.first['Password'] === params[:mf_auth_password]
 
-      app = App.where(clientid: contact.first['ID']).first
+      user = User.where(clientid: contact.first['ID']).first
 
-      if !app
+      unless user
         # Return Error Response
         response = {
             success: false,
@@ -88,14 +88,37 @@ class UsersController < ActionController::Base
         render json: response
       end
 
-      # Return Json Response with shopify domain
-      response = {
-          success: true,
-          url: app.name,
-          message: 'Authentication Failed'
-      }
+      # Look for App for the User
+      app = App.where(user_id: user.id).first
 
-      render json: response
+      logger.info app
+
+
+      if app
+
+        # Return Json Response with shopify domain
+        response = {
+            success: true,
+            type: 2,
+            url: app.name,
+            message: 'Authentication Passed'
+        }
+
+        render json: response
+
+      else
+
+        response = {
+            success: true,
+            type: 1,
+            user_id: user.id,
+            url: 'none',
+            message: 'User has not configured Shopify Domain yet.'
+        }
+        render json: response
+      end
+
+
 
     else
 
@@ -108,7 +131,33 @@ class UsersController < ActionController::Base
       render json: response
 
     end
+  end
 
+
+  # USED WITH AJAX
+  # --------------
+  # Creates a new App for the User
+  #
+  # PARAMETERS
+  # ----------
+  # user_id: ID of the User to create App For
+  # domain: Shopify Domain to install the App with
+  #
+  def ajax_mf_app_create
+
+    domain = params[:domain] + ".myshopify.com"
+
+    digest = OpenSSL::Digest.new('sha256')
+    token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], params[:domain])).strip
+    app = App.create(user_id: params[:user_id], name: domain, auth_token: token)
+
+    response = {
+        success: true,
+        url: app.name,
+        message: 'App Created!'
+    }
+
+    render json: response
 
   end
 

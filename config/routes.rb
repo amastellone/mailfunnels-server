@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/login_page' => 'users#login_page'
   post '/ajax_mf_user_auth' => 'users#ajax_mf_user_auth'
   post '/mf_api_user_create' => 'users#mf_api_user_create'
+  post '/ajax_mf_app_create' => 'users#ajax_mf_app_create'
 
   # MailFunnels Webhook Routes
   post '/abandoned_cart_process' => 'hooks#process_abandoned_carts'

@@ -18,8 +18,12 @@
 <body class="login">
 <div>
 
+  <a class="hiddenanchor" id="signup"></a>
+  <a class="hiddenanchor" id="signin"></a>
+
   <div class="login_wrapper">
-    <div class="form login_form">
+
+    <div  class="animate form login_form">
       <section class="login_content">
         <form>
           <h1>MailFunnels Login</h1>
@@ -48,7 +52,52 @@
       </section>
     </div>
 
+    <div id="register" class="animate form registration_form">
+      <section class="login_content">
+        <form class="form-horizontal form-label-right">
+          <h1>Account Setup</h1>
+
+          <p>In order to login to MailFunnels, please enter your shopify domain below.</p>
+
+          <div class="form-group">
+
+            <div class="col-md-9 col-sm-9 col-xs-9">
+              <input id="mf_shopify_domain_input" type="text"  class="form-control" placeholder="Shopify Domain" required="" />
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+              <label class="control-label ">.myshopify.com</label>
+            </div>
+          </div>
+          <div>
+            <button id="mf_auth_setup_submit_button" type="button" class="btn btn-default" data-id="">Submit</button>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="separator">
+            <div class="clearfix"></div>
+            <br/>
+
+            <div>
+              <h1><i class="fa fa-envelope"></i> MailFunnels</h1>
+              <p>©2017 All Rights Reserved.</p>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+
+
+
   </div>
+
+
 </div>
+
+
+
+
+
+
 </body>
 </html>
