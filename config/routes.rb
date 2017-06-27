@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   # Error Routes
   get '/error_page', to: 'main_interface#error_page'
   get '/account_disabled', to: 'main_interface#account_disabled'
+  get '/access_denied', to: 'users#access_denied', :as => :denied
 
   # Import CSV Routes
   post 'import_csv' => 'main_interface#import_csv'

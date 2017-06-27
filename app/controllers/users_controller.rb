@@ -9,6 +9,15 @@ class UsersController < ActionController::Base
   end
 
 
+  # PAGE RENDER FUNCTION
+  # --------------------
+  # Renders the account disabled page
+  #
+  def access_denied
+
+  end
+
+
   # POST ROUTE
   # ----------
   # Creates a new App Instance
@@ -62,9 +71,34 @@ class UsersController < ActionController::Base
   #
   def ajax_mf_user_auth
 
-    app = App.where(username: params[:mf_auth_username], password: params[:mf_auth_password]).first
+    # Get User Information from Infusionsoft
+    contact = Infusionsoft.contact_find_by_email(params[:mf_auth_username], [:ID, :Password])
 
-    if !app
+    if contact.first['Password'] === params[:mf_auth_password]
+
+      app = App.where(clientid: contact.first['ID']).first
+
+      if !app
+        # Return Error Response
+        response = {
+            success: false,
+            message: 'Authentication Failed'
+        }
+
+        render json: response
+      end
+
+      # Return Json Response with shopify domain
+      response = {
+          success: true,
+          url: app.name,
+          message: 'Authentication Failed'
+      }
+
+      render json: response
+
+    else
+
       # Return Error Response
       response = {
           success: false,
@@ -72,16 +106,10 @@ class UsersController < ActionController::Base
       }
 
       render json: response
+
     end
 
-    # Return Json Response with shopify domain
-    response = {
-        success: true,
-        url: app.name,
-        message: 'Authentication Failed'
-    }
 
-    render json: response
   end
 
 

@@ -16,7 +16,7 @@ $(function() {
      *
      * If input field is empty, disable the login button
      */
-    login_username.on('keyup', function() {
+    login_username.on('change', function() {
         if ($(this).val() === '' || login_password.val() === '') {
             login_submit_button.prop('disabled', true);
         } else {
@@ -30,7 +30,7 @@ $(function() {
      *
      * If input field is empty, disable the login button
      */
-    login_password.on('keyup', function() {
+    login_password.on('change', function() {
         if ($(this).val() === '' || login_username.val() === '') {
             login_submit_button.prop('disabled', true);
         } else {
@@ -40,6 +40,10 @@ $(function() {
 
 
     login_submit_button.on('click', function() {
+
+        if (login_username.val() === '' || login_password.val() === '') {
+            login_submit_button.prop('disabled', true);
+        }
 
         $.ajax({
             type: 'POST',
@@ -69,8 +73,6 @@ $(function() {
      */
     function init() {
 
-        //Disable the login button
-        login_submit_button.prop('disabled', true);
     }
 
 

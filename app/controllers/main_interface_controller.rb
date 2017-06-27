@@ -127,21 +127,31 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get User Information from Infusionsoft
     contact = Infusionsoft.data_load('Contact', @app.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :Groups])
 
-    logger.info contact['FirstName']
-
     # Update App Information
     @app.put('', {
         :first_name => contact['FirstName'],
         :last_name => contact['LastName'],
-        :email => contact['Email'],
-        :street_address => contact['StreetAddress1']
+        :street_address => contact['StreetAddress1'],
+        :city => contact['City'],
+        :state => contact['State'],
+        :client_tag => contact['Groups'],
     })
 
 
+    # Parse through Tags and look for failed payment tag
+    @tags = contact['Groups'].split(",")
+    @tags.each do |tag|
+
+      # If contact has failed payment tag, redirect to access denied page
+      if tag === '120'
+        redirect_to '/access_denied'
+      end
+    end
+
+    logger.info @tags
+
+
     @app = MailfunnelsUtil.get_app
-
-
-    logger.info contact.to_json
 
     if @app.postmark_signature_id.nil?
       @confirmed = false
