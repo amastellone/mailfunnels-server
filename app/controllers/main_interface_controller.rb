@@ -140,15 +140,16 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Parse through Tags and look for failed payment tag
     @tags = contact['Groups'].split(",")
+    @highestTag = -1
     @tags.each do |tag|
-
+      if @highestTag < tag.to_i
+        @highestTag = tag.to_i
+      end
       # If contact has failed payment tag, redirect to access denied page
       if tag === '120'
         redirect_to '/access_denied'
       end
     end
-
-    logger.info @tags
 
 
     @app = MailfunnelsUtil.get_app
@@ -624,6 +625,26 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
 
   end
+
+  def ajax_upgrade_plan
+
+    @app = MailfunnelsUtil.get_app
+
+    creditCardId = Infustionsoft.invoice_locate_existing_card(@app.clientId, params[:last_four])
+
+    if(creditCardId == 0)
+      response = {
+          success: false,
+          message: 'Credit card not found'
+      }
+      render json: response
+    end
+
+    Infusionsoft.invoice_create_invoice_for_recurring(params[:subscription_id])
+
+    Infusionsoft.invoice_charge_invoice(invoice_id, notes, credit_card_id, merchange_id, bypass_commissions)
+  end
+
 
 
   # USED WITH AJAX
