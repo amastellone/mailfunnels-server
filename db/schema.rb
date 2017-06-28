@@ -31,15 +31,11 @@ ActiveRecord::Schema.define(version: 20170623172603) do
     t.datetime "updated_at",     :null=>false
     t.string   "from_email"
     t.string   "from_name"
-<<<<<<< HEAD
     t.string   "company_name"
-=======
-    t.integer  "postmark_signature_id"
     t.string   "username"
     t.string   "password"
     t.integer  "clientid"
     t.integer  "client_tag"
->>>>>>> c503624ece3f0821fd8286e654ef10707811d6f9
   end
 
   create_table "email_lists", force: :cascade do |t|
@@ -111,7 +107,6 @@ ActiveRecord::Schema.define(version: 20170623172603) do
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
     t.decimal  "revenue"
-    t.integer  "type"
   end
 
   create_table "triggers", force: :cascade do |t|
@@ -124,7 +119,7 @@ ActiveRecord::Schema.define(version: 20170623172603) do
     t.datetime "created_at",        :null=>false
     t.datetime "updated_at",        :null=>false
     t.integer  "hook_id",           :foreign_key=>{:references=>"hooks", :name=>"fk_triggers_hook_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__triggers_hook_id", :using=>:btree}
-    t.integer  "app_id",            :foreign_key=>{:references=>"apps", :name=>"fk_triggers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__triggers_app_id", :using=>:btree}
+    t.integer  "app_id",            :foreign_key=>{:references=>"apps", :name=>"fk_triggers_app_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__triggers_app_id", :using=>:btree}
   end
 
   create_table "funnels", force: :cascade do |t|
@@ -134,9 +129,9 @@ ActiveRecord::Schema.define(version: 20170623172603) do
     t.decimal  "num_revenue"
     t.datetime "created_at",      :null=>false
     t.datetime "updated_at",      :null=>false
-    t.integer  "app_id",          :foreign_key=>{:references=>"apps", :name=>"fk_funnels_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_app_id", :using=>:btree}
+    t.integer  "app_id",          :foreign_key=>{:references=>"apps", :name=>"fk_funnels_app_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_app_id", :using=>:btree}
     t.integer  "trigger_id",      :foreign_key=>{:references=>"triggers", :name=>"fk_funnels_trigger_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_trigger_id", :using=>:btree}
-    t.integer  "email_list_id",   :foreign_key=>{:references=>"email_lists", :name=>"fk_funnels_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__funnels_email_list_id", :using=>:btree}
+    t.integer  "email_list_id",   :foreign_key=>{:references=>"email_lists", :name=>"fk_funnels_email_list_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_email_list_id", :using=>:btree}
     t.integer  "active"
   end
 
@@ -153,9 +148,9 @@ ActiveRecord::Schema.define(version: 20170623172603) do
     t.integer  "delay_unit"
     t.datetime "created_at",         :null=>false
     t.datetime "updated_at",         :null=>false
-    t.integer  "app_id",             :foreign_key=>{:references=>"apps", :name=>"fk_nodes_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__nodes_app_id", :using=>:btree}
+    t.integer  "app_id",             :foreign_key=>{:references=>"apps", :name=>"fk_nodes_app_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__nodes_app_id", :using=>:btree}
     t.integer  "funnel_id",          :foreign_key=>{:references=>"funnels", :name=>"fk_nodes_funnel_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__nodes_funnel_id", :using=>:btree}
-    t.integer  "email_template_id",  :foreign_key=>{:references=>"email_templates", :name=>"fk_nodes_email_template_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__nodes_email_template_id", :using=>:btree}
+    t.integer  "email_template_id",  :foreign_key=>{:references=>"email_templates", :name=>"fk_nodes_email_template_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__nodes_email_template_id", :using=>:btree}
   end
 
   create_table "email_jobs", force: :cascade do |t|
