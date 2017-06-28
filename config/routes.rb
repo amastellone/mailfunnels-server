@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   # MailFunnels Webhook Routes
   post '/abandoned_cart_process' => 'hooks#process_abandoned_carts'
 
+  # User Routes
+  post '/ajax_change_password' => 'main_interface#ajax_change_password'
+
   # Funnel Page Routes
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'

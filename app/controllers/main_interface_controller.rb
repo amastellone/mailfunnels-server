@@ -739,6 +739,53 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Changes the users password
+  #
+  # PARAMETERS
+  # ----------
+  # app_id: ID of the Current App
+  # password: New Password
+  #
+  def ajax_change_password
+
+    # Get the current App
+    app = App.find(params[:app_id])
+
+    # If no app
+    unless app
+      response = {
+          success: false,
+          message: 'App not found!'
+      }
+
+      render json: response and return
+    end
+
+    # Get Current User
+    user = app.user
+
+    # Change User Password in DB
+    user.password = params[:password]
+
+    # Update Infusionsoft Contact
+    Infusionsoft.contact_update(user.clientid, {
+        :Password => params[:password]
+    })
+
+    # Save User to DB
+    user.save
+
+    response = {
+        success: true,
+        message: 'Password Updated!'
+    }
+
+    render json: response
+  end
+
+
   def form_page
     if request.post?
       if params[:name].present?

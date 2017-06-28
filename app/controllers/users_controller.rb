@@ -36,7 +36,6 @@ class UsersController < ActionController::Base
   # ----------
   # client_id: Infusionsoft Client ID
   # email: Email Address of the User
-  # password: Password of the User
   # first_name: First Name of the User
   # last_name: Last Name of the User
   #
@@ -54,11 +53,15 @@ class UsersController < ActionController::Base
       render json: response and return
     end
 
+    # Generate a password for user
+    seed = "--#{rand(10000000)}--#{Time.now}--#{rand(10000000)}"
+    secure_password = Digest::SHA1.hexdigest(seed)[0,8]
+
     user = User.new
 
     user.clientid = params[:client_id]
     user.email = params[:email]
-    user.password = params[:password]
+    user.password = secure_password
     user.first_name = params[:first_name]
     user.last_name = params[:last_name]
 
@@ -68,6 +71,7 @@ class UsersController < ActionController::Base
     response = {
         success: true,
         user_id: user.id,
+        password: user.password,
         message: 'User Created'
     }
 

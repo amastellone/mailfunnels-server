@@ -104,6 +104,9 @@
                   <li role="presentation" class="">
                     <a href="#tab_pricing" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Plans</a>
                   </li>
+                  <li role="presentation" class="">
+                    <a href="#tab_password" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Change Password</a>
+                  </li>
 
                 </ul>
                 <div id="myTabContent" class="tab-content">
@@ -350,9 +353,43 @@
                     </div>
                   </div>
 
+                  <!-- START CHANGE PASSWORD TAB -->
+                  <div role="tabpanel" class="tab-pane fade" id="tab_password" aria-labelledby="password-tab">
+                    <div class="col-xs-10">
+                      <form class="form-horizontal form-label-left">
+                        <fieldset>
+                          <legend>
+                            Change Password
+                          </legend>
+
+                          <div class="item form-group">
+                            <label for="password" class="control-label col-md-3">Password</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input id="mf_change_password_input" type="password" class="form-control col-md-7 col-xs-12" placeholder="Password" required="required">
+                            </div>
+                          </div>
+
+                          <div class="item form-group">
+                            <label for="password" class="control-label col-md-3">Confirm Password</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input id="mf_confirm_password_input"  type="password"  class="form-control col-md-7 col-xs-12" placeholder="Confirm Password" required="required">
+                            </div>
+                          </div>
+
+                        </fieldset>
+                        <br>
+
+                        <div class="row">
+                          <button id="mf_change_password_submit" type="button" class="btn btn-success btn-border pull-right">Change Password</button>
+                        </div>
+
+                      </form>
+                    </div>
+                  </div>
+                  <!-- END CHANGE PASSWORD TAB -->
+
                 </div>
               </div>
-
 
             </div>
           </div>

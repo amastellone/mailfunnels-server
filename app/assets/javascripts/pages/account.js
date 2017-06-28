@@ -15,6 +15,9 @@ $(function(){
     var city_input = $('#city_input');
     var zip_code_input = $('#zip_code_input');
     var state_input = $('#state_input');
+    var change_password_input = $('#mf_change_password_input');
+    var change_password_confirm_input = $('#mf_confirm_password_input');
+
     /* --- EMAIL FORM INPUT FIELDS --- */
     var from_email_input = $('#from_email_input');
     var from_name_input = $('#from_name_input');
@@ -22,10 +25,43 @@ $(function(){
     /* ---- BUTTONS --- */
     var save_account_info_button = $('#save_account_info_button');
     var save_email_info_button = $('#save_email_info_button');
+    var change_password_submit = $('#mf_change_password_submit');
 
 
     //Initialize the My Account Page
     init();
+
+
+    change_password_input.on('keyup', function() {
+
+        //If Password and Confirm Password don't match
+        if ($(this).val() !== change_password_confirm_input.val()) {
+            change_password_submit.prop('disabled', true);
+        }
+
+        //Check to see if they aren't empty
+        if ($(this).val() === '' || change_password_confirm_input.val() === '') {
+            change_password_submit.prop('disabled', true);
+        } else {
+            change_password_submit.prop('disabled', false);
+        }
+
+    });
+
+    change_password_confirm_input.on('keyup', function() {
+
+        //If Password and Confirm Password don't match
+        if ($(this).val() !== change_password_input.val()) {
+            change_password_submit.prop('disabled', true);
+        }
+
+        //Check to see if they aren't empty
+        if ($(this).val() === '' || change_password_input.val() === '') {
+            change_password_submit.prop('disabled', true);
+        } else {
+            change_password_submit.prop('disabled', false);
+        }
+    });
 
 
     save_account_info_button.on('click', function(e) {
@@ -100,12 +136,52 @@ $(function(){
         });
     });
 
+    change_password_submit.on('click', function() {
+
+        //If Password and Confirm Password don't match
+        if (change_password_input.val() !== change_password_confirm_input.val()) {
+            change_password_submit.prop('disabled', true);
+            return;
+        }
+
+        //Check to see if they aren't empty
+        if (change_password_input.val() === '' || change_password_confirm_input.val() === '') {
+            change_password_submit.prop('disabled', true);
+            return;
+        }
+
+
+        //AJAX call to update user password
+        $.ajax({
+            type: 'POST',
+            url: '/ajax_change_password',
+            data: {
+                app_id: app_id,
+                password: change_password_input.val(),
+                confirm: change_password_confirm_input.val()
+            },
+            error: function(e) {
+                console.log(e);
+                window.location.reload();
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload();
+            }
+        });
+
+
+    });
+
 
     /**
      * Function that initializes the My Account Page
      *
      */
     function init() {
+
+        //Disable the change Password Button
+        change_password_submit.prop('disabled', true);
 
     }
 
