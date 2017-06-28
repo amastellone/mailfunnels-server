@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170627195521) do
     t.string   "password"
     t.integer  "clientid"
     t.string   "client_tags"
-    t.string   "email"
+    t.string   "email",           :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
     t.string   "street_address"
     t.string   "city"
     t.string   "state"
