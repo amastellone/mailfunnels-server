@@ -10,12 +10,20 @@ hr {
 }
 
 .fade-2 {
-    border-width: 0 0 1px;
+    border-width: 0 0 2px;
     color: skyblue;
     border-image: linear-gradient(90deg, rgba(135, 206, 235, 0), skyblue 50%, rgba(135, 206, 235, 0) 100%) 0 0 100%;
     border-style: solid;
 }
 
+
+.mf_divider {
+    border-width: 0 0 1px;
+    color: #f5f7fa;
+    border-style: solid;
+    margin-top: 0px !important;
+    padding: 0px !important;
+}
 
 /* --- Text Overflow --- */
 

@@ -45,26 +45,24 @@
           <div class="x_content">
             <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
 
-              <h3>
-                <% if @app.first_name %>
-                    <%= @app.first_name %>
-                <% else %>
-                    Name
-                <% end %>
-
-                <% if @app.last_name %>
-                    <%= @app.last_name %>
-                <% end %>
-              </h3>
-              <hr class="fade-2"/>
-
               <ul class="list-unstyled user_data">
 
+                <h4>User Info</h4>
+                <hr class="mf_divider">
+                <li><strong><%= @user.first_name %> <%= @user.last_name %></strong></li>
+                <li><%= @user.email %></li>
+                <li><%= @user.street_address %></li>
+                <li><%= @user.city %>, <%= @user.state %></li>
+
+
+                <br/>
+                <h4>Email Info</h4>
+                <hr class="mf_divider">
 
                 <% if @confirmed %>
-                    <h4 class="text-success">Email Confirmed</h4>
+                    <h5 class="text-success">Email Confirmed</h5>
                 <% else %>
-                    <h4 class="text-danger">Email Not Confirmed</h4>
+                    <h5 class="text-danger">Email Not Confirmed</h5>
                 <% end %>
 
                 <li>
@@ -119,52 +117,31 @@
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input id="first_name_input" type="text" value="<%= @app.first_name %>" class="form-control" placeholder="First Name">
+                              <input id="first_name_input" type="text" value="<%= @user.first_name %>" class="form-control" placeholder="First Name" required="">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Name</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input id="last_name_input" type="text" value="<%= @app.last_name %>" class="form-control" placeholder="Last Name">
+                              <input id="last_name_input" type="text" value="<%= @user.last_name %>" class="form-control" placeholder="Last Name" required="">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input id="email_input" type="text" value="<%= @app.email %>" class="form-control" placeholder="Email">
+                              <input id="email_input" type="text" value="<%= @user.email %>" class="form-control" placeholder="Email" required="">
                             </div>
                           </div>
 
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Street Address</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Confirm Email</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input id="street_address_input" type="text" value="<%= @app.street_address %>" class="form-control" placeholder="Street Address">
+                              <input id="confirm_email_input" type="text" value="<%= @user.email %>" class="form-control" placeholder="Confirm Email" required="">
                             </div>
                           </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">City</label>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input id="city_input" type="text" value="<%= @app.city %>" class="form-control" placeholder="City">
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code</label>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input id="zip_code_input" type="number" value="<%= @app.zip %>" class="form-control" placeholder="Zip Code">
-                            </div>
-                          </div>
-
-
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">State</label>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                              <input id="state_input" type="text" value="<%= @app.state %>" class="form-control" placeholder="State">
-                            </div>
-                          </div>
                         </fieldset>
 
 

@@ -11,10 +11,9 @@ $(function(){
     var first_name_input = $('#first_name_input');
     var last_name_input = $('#last_name_input');
     var email_input = $('#email_input');
-    var street_address_input = $('#street_address_input');
-    var city_input = $('#city_input');
-    var zip_code_input = $('#zip_code_input');
-    var state_input = $('#state_input');
+    var confirm_email_input = $('#confirm_email_input');
+
+    /* --- CHANGE PASSWORD INPUT FIELDS --- */
     var change_password_input = $('#mf_change_password_input');
     var change_password_confirm_input = $('#mf_confirm_password_input');
 
@@ -37,6 +36,7 @@ $(function(){
         //If Password and Confirm Password don't match
         if ($(this).val() !== change_password_confirm_input.val()) {
             change_password_submit.prop('disabled', true);
+            return;
         }
 
         //Check to see if they aren't empty
@@ -53,6 +53,7 @@ $(function(){
         //If Password and Confirm Password don't match
         if ($(this).val() !== change_password_input.val()) {
             change_password_submit.prop('disabled', true);
+            return;
         }
 
         //Check to see if they aren't empty
@@ -63,16 +64,39 @@ $(function(){
         }
     });
 
+    first_name_input.on('keyup', function() {
+
+      validateAccountInput();
+
+    });
+
+    last_name_input.on('keyup', function() {
+
+        validateAccountInput();
+
+    });
+
+    confirm_email_input.on('keyup', function() {
+        validateAccountInput()
+    });
+
+    email_input.on('keyup', function() {
+
+        validateAccountInput();
+
+    });
 
     save_account_info_button.on('click', function(e) {
 
         var first_name = first_name_input.val();
         var last_name = last_name_input.val();
         var email = email_input.val();
-        var street_address = street_address_input.val();
-        var city = city_input.val();
-        var zip = zip_code_input.val();
-        var state = state_input.val();
+        var confirm_email = confirm_email_input.val();
+
+        if (email !== confirm_email) {
+            save_account_info_button.prop('disabled', true);
+            return;
+        }
 
         $.ajax({
             type:'POST',
@@ -83,10 +107,7 @@ $(function(){
                 first_name: first_name,
                 last_name: last_name,
                 email: email,
-                street_address: street_address,
-                city: city,
-                zip: zip,
-                state: state,
+                confirm_email: confirm_email,
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -183,7 +204,37 @@ $(function(){
         //Disable the change Password Button
         change_password_submit.prop('disabled', true);
 
+        //Disable Account Info Button
+        save_account_info_button.prop('disabled', true);
+
     }
+
+    /**
+     * Function that validates email input on account info form
+     *
+     */
+    function validateAccountInput() {
+
+        if (first_name_input.val() === '' || last_name_input.val() === '') {
+            save_account_info_button.prop('disabled', true);
+            return;
+        } else {
+            save_account_info_button.prop('disabled', false);
+        }
+
+        //If Email and Confirm Email don't match
+        if (confirm_email_input.val() !== email_input.val()) {
+            save_account_info_button.prop('disabled', true);
+            return;
+        }
+
+        if (confirm_email_input.val() === '' || email_input.val() === '') {
+            save_account_info_button.prop('disabled', true);
+        } else {
+            save_account_info_button.prop('disabled', false);
+        }
+    }
+
 
 
 });

@@ -185,25 +185,43 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   def ajax_update_account_info
 
-    # Access current app
+    # Get the current App
     app = App.find(params[:id])
-    # Save The App Info
-    app.put('', {
+
+    # If no app
+    unless app
+      response = {
+          success: false,
+          message: 'App not found!'
+      }
+
+      render json: response and return
+    end
+
+    # Get Current User
+    user = app.user
+
+    # Change User Info in DB
+    user.put('', {
         :first_name => params[:first_name],
         :last_name => params[:last_name],
         :email => params[:email],
-        :street_address => params[:street_address],
-        :city => params[:city],
-        :zip => params[:zip],
-        :state => params[:state],
     })
 
-    final_json = JSON.pretty_generate(result = {
-        :success => true
+    # Update Infusionsoft Contact
+    Infusionsoft.contact_update(user.clientid, {
+        :FirstName => params[:first_name],
+        :LastName => params[:last_name],
+        :Email => params[:email]
     })
 
-    # Return JSON response
-    render json: final_json
+    response = {
+        success: true,
+        message: 'User Updated!'
+    }
+
+    render json: response
+
 
   end
 
