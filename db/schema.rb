@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623172603) do
+ActiveRecord::Schema.define(version: 20170627195521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.integer  "clientid"
+    t.string   "client_tags"
+    t.string   "email"
+    t.string   "street_address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.datetime "created_at",     :null=>false
+    t.datetime "updated_at",     :null=>false
+    t.string   "first_name"
+    t.string   "last_name"
+  end
 
   create_table "apps", force: :cascade do |t|
     t.string   "name",           :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
@@ -35,7 +51,8 @@ ActiveRecord::Schema.define(version: 20170623172603) do
     t.string   "username"
     t.string   "password"
     t.integer  "clientid"
-    t.integer  "client_tag"
+    t.string   "client_tag"
+    t.integer  "user_id",               :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
   end
 
   create_table "email_lists", force: :cascade do |t|

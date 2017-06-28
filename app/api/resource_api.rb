@@ -36,6 +36,47 @@ class ResourceApi < Grape::API
       App.update(params)
     end
 
+  end
+
+  # Users Resource API
+  # ---------------------
+  resource :users do
+    # Get Routes
+    # ----------------
+
+    get do
+      User.where(params)
+    end
+
+    route_param :id do
+      get do
+        User.find(params[:id])
+      end
+    end
+
+
+    # Post/Put Routes
+    # ----------------
+
+    # creates new User
+    # POST /user
+    post do
+      User.create! params
+    end
+
+    put ':id' do
+      User.find(params[:id]).update(params)
+    end
+
+    put do
+      User.update(params)
+    end
+
+    # DELETE Route
+    # ------------
+    delete ':id' do
+      User.find(params[:id]).destroy
+    end
 
   end
 
