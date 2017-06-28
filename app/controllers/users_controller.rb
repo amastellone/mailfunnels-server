@@ -43,15 +43,15 @@ class UsersController < ActionController::Base
   def mf_api_user_create
 
     # Look for
-    current_users = User.where(email: params[:email_address])
+    current_users = User.where(email: params[:email])
 
-    if current_users.empty?
+    unless current_users.empty?
       response = {
           success: false,
           message: 'User with email already exists'
       }
 
-      render json: response
+      render json: response and return
     end
 
     user = User.new
@@ -181,16 +181,16 @@ class UsersController < ActionController::Base
 
   # USED WITH AJAX
   # --------------
-  # Updates the Users tags upon a failed payment
+  # Updates the Users tags
   #
   # PARAMETERS
   # ----------
   # client_id: ID of the Infusionsoft contact
   #
-  def mf_api_failed_payment
+  def mf_api_user_update_tags
 
     # Get User From DB with client_id
-    user = User.where(clientid: params[client_id]).first
+    user = User.where(clientid: params[:client_id]).first
 
     # If user not found, return error response
     if user.empty?

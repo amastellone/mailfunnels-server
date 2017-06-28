@@ -10,11 +10,11 @@ Rails.application.routes.draw do
 
   # Infusionsoft API Routes
   post '/mf_api_user_create' => 'users#mf_api_user_create'
-  post '/mf_api_failed_payment' => 'users#mf_api_failed_payment'
+  post '/mf_api_user_update_tags' => 'users#mf_api_user_update_tags'
 
   # MailFunnels Webhook Routes
   post '/abandoned_cart_process' => 'hooks#process_abandoned_carts'
-  
+
   # Funnel Page Routes
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'

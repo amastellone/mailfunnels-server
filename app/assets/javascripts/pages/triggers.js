@@ -261,13 +261,6 @@ $(function(){
     });
 
 
-    
-    
-    
-    
-    
-    
-    
 
 
     /**
@@ -358,6 +351,34 @@ $(function(){
                 "orderable": false,
             } ]
         });
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/mf_api_user_create',
+            data: {
+                client_id: 200,
+                email: 'mttwardowski@gmail.com',
+                password: '[PASSWORD]',
+                first_name: '[FIRST_NAME]',
+                last_name: '[LAST_NAME]'
+            },
+            error: function(e) {
+                console.log(e);
+                //Server error, do something upon error
+            },
+            success: function(response) {
+                console.log(response);
+                if (response.success === true) {
+                    alert("ALL GOOD!");
+                } else {
+                    alert("NOT GOOD!");
+                }
+
+            }
+
+        });
+
 
     }
 
