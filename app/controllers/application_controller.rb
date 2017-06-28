@@ -18,38 +18,44 @@ class ApplicationController < ActionController::Base
           redirect_to '/access_denied'
         end
 
+
         # Load Account Data from Infusionsoft
-        contact = Infusionsoft.data_load('Contact', user.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :Groups])
 
-        # Parse through Tags and look for failed payment tag
-        tags = contact['Groups'].split(",")
-        tags.each do |tag|
+        begin
+          contact = Infusionsoft.data_load('Contact', user.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :Groups])
 
-          # If contact has failed payment tag, redirect to access denied page
-          if tag === '120'
-            redirect_to '/access_denied'
+          # Parse through Tags and look for failed payment tag
+          tags = contact['Groups'].split(",")
+          tags.each do |tag|
+
+            # If contact has failed payment tag, redirect to access denied page
+            if tag === '120'
+              redirect_to '/access_denied'
+            end
           end
-        end
 
-        # If App does not have auth_token set, update the auth token
-        unless app.auth_token
-          digest = OpenSSL::Digest.new('sha256')
-          token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], domain)).strip
-          app.put('', {
-              :auth_token => token
+          # If App does not have auth_token set, update the auth token
+          unless app.auth_token
+            digest = OpenSSL::Digest.new('sha256')
+            token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], domain)).strip
+            app.put('', {
+                :auth_token => token
+            })
+          end
+
+          # Update Account Info
+          user.put('', {
+              :first_name => contact['FirstName'],
+              :last_name => contact['LastName'],
+              :street_address => contact['StreetAddress1'],
+              :city => contact['City'],
+              :state => contact['State'],
+              :client_tags => contact['Groups'],
           })
+
+        rescue Infusionsoft::RecordNotFoundError => e
+          redirect_to '/server_error'
         end
-
-        # Update Account Info
-        user.put('', {
-            :first_name => contact['FirstName'],
-            :last_name => contact['LastName'],
-            :street_address => contact['StreetAddress1'],
-            :city => contact['City'],
-            :state => contact['State'],
-            :client_tags => contact['Groups'],
-        })
-
       end
     end
 

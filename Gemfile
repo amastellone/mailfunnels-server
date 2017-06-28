@@ -16,7 +16,6 @@ gem 'faker'
 
 gem 'httparty'
 
-gem 'xmlrpc'
 gem 'infusionsoft'
 
 # gem 'activerecord-session_store'

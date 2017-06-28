@@ -17,6 +17,14 @@ class UsersController < ActionController::Base
 
   end
 
+  # PAGE RENDER FUNCTION
+  # --------------------
+  # Renders the server error page
+  #
+  def server_error
+
+  end
+
 
   # POST ROUTE
   # ----------
@@ -27,31 +35,40 @@ class UsersController < ActionController::Base
   # PARAMETERS
   # ----------
   # client_id: Infusionsoft Client ID
+  # email: Email Address of the User
+  # password: Password of the User
   # first_name: First Name of the User
   # last_name: Last Name of the User
-  # email: Email Address of the User
-  # username: Username of the User
-  # password: Password of the User
-  # shop_domain: Shopify Domain of the User
   #
   def mf_api_user_create
 
-    app = App.new
+    # Look for
+    current_users = User.where(email: params[:email_address])
 
-    app.first_name = params[:first_name]
-    app.last_name = params[:last_name]
-    app.name = params[:shop_domain]
-    app.email = params[:email]
-    app.username = params[:username]
-    app.password = params[:password]
-    app.clientid = params[:client_id]
+    if current_users.empty?
+      response = {
+          success: false,
+          message: 'User with email already exists'
+      }
 
-    app.save
+      render json: response
+    end
+
+    user = User.new
+
+    user.clientid = params[:client_id]
+    user.email = params[:email]
+    user.password = params[:password]
+    user.first_name = params[:first_name]
+    user.last_name = params[:last_name]
+
+    user.save
 
     # Return Success Response
     response = {
         success: true,
-        message: 'Account Created'
+        user_id: user.id,
+        message: 'User Created'
     }
 
     render json: response
@@ -158,6 +175,49 @@ class UsersController < ActionController::Base
     }
 
     render json: response
+
+  end
+
+
+  # USED WITH AJAX
+  # --------------
+  # Updates the Users tags upon a failed payment
+  #
+  # PARAMETERS
+  # ----------
+  # client_id: ID of the Infusionsoft contact
+  #
+  def mf_api_failed_payment
+
+    # Get User From DB with client_id
+    user = User.where(clientid: params[client_id]).first
+
+    # If user not found, return error response
+    if user.empty?
+      response = {
+          success: false,
+          message: 'User with ClientID not found'
+      }
+
+      render json: response
+    end
+
+    # Get the Infusionsoft contact info
+    contact = Infusionsoft.data_load('Contact', user.clientid, [:Groups])
+
+    # Update User Tags
+    user.put('', {
+        :client_tags => contact['Groups']
+    })
+
+
+    response = {
+        success: true,
+        message: 'User Tags Updated'
+    }
+
+    render json: response
+
 
   end
 

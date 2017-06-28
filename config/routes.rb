@@ -6,13 +6,15 @@ Rails.application.routes.draw do
   # Authentication Routes
   get '/login_page' => 'users#login_page'
   post '/ajax_mf_user_auth' => 'users#ajax_mf_user_auth'
-  post '/mf_api_user_create' => 'users#mf_api_user_create'
   post '/ajax_mf_app_create' => 'users#ajax_mf_app_create'
+
+  # Infusionsoft API Routes
+  post '/mf_api_user_create' => 'users#mf_api_user_create'
+  post '/mf_api_failed_payment' => 'users#mf_api_failed_payment'
 
   # MailFunnels Webhook Routes
   post '/abandoned_cart_process' => 'hooks#process_abandoned_carts'
-
-
+  
   # Funnel Page Routes
   get '/funnels', to: 'funnels#index'
   get '/edit_funnel/:funnel_id', to: 'funnels#edit_funnel'
@@ -87,7 +89,8 @@ Rails.application.routes.draw do
   # Error Routes
   get '/error_page', to: 'main_interface#error_page'
   get '/account_disabled', to: 'main_interface#account_disabled'
-  get '/access_denied', to: 'users#access_denied', :as => :denied
+  get '/access_denied', to: 'users#access_denied'
+  get '/server_error', to: 'users#server_error'
 
   # Import CSV Routes
   post 'import_csv' => 'main_interface#import_csv'
