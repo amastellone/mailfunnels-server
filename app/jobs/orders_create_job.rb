@@ -14,6 +14,13 @@ class OrdersCreateJob < ApplicationJob
 
       app = MailfunnelsUtil.get_app
 
+      subs_remaining = MailFunnelsUser.get_remaining_subs(app.user.clientid)
+
+      # If no more subscribers left in plan, return error response
+      if subs_remaining < 1
+        return
+      end
+
       logger.info("Looking for subscriber...")
       subscriber = EmailUtil.get_subscriber(webhook[:email], app.id)
 
