@@ -11,18 +11,12 @@ class RefundsCreateJob < ActiveJob::Base
         logger.info("Order found!")
 
         logger.info("Checking if subscriber #{order.email} exists")
-        subscriber = EmailUtil.get_subscriber(webhook[:email], app.id)
+        subscriber = EmailUtil.get_subscriber(order.email, app.id)
 
         if subscriber
           logger.info("Subscriber found!")
           logger.info("Decrementing Subscriber revenue...")
-          subscriber = EmailUtil.decrease_subscriber_revenue(subscriber, webhook[:subtotal_price].to_f)
-          if subscriber
-            logger.info("Subscriber updated!")
-          else
-            logger.debug("Error updating subsrriber revenue!")
-            return
-          end
+          subscriber.put('',:revenue => subscriber.revenue.to_f-webhook[:subtotal_price].to_f)
         else
           logger.info("Subscriber does not exist, creating now")
           subscriber = EmailUtil.add_new_subscriber(order.email,
@@ -50,103 +44,106 @@ class RefundsCreateJob < ActiveJob::Base
           return
         end
 
-        logger.info("Looking for trigger")
-        trigger = EmailUtil.get_trigger(app.id, hook.id)
+        trigger = nil
 
-        if trigger
-          logger.info("Trigger found!")
-          trigger = EmailUtil.increment_trigger_hit_count(trigger)
+        order.line_items.each do |product|
+          trigger = EmailUtil.get_trigger_product(app.id, hook.id, product.product_id)
           if trigger
-            logger.info("Trigger updated!")
-          else
-            logger.debug("Error incrementing trigger hit count")
-            return
+            logger.info("product trigger found")
+            trigger = EmailUtil.increment_trigger_hit_count(trigger)
+            break
           end
-
-        else
-          logger.debug("Trigger not found!")
-          return
         end
 
-        logger.info("Looking for funnel")
-        funnel = EmailUtil.get_funnel(app.id, trigger.id)
-        if funnel
-          logger.info("Funnel found!")
-          logger.info("Incrementing Funnel revenue...")
-          funnel = EmailUtil.increase_funnel_revenue(funnel, webhook[:subtotal_price].to_f)
+
+        unless trigger
+          logger.info("general trigger found")
+          trigger = EmailUtil.get_trigger(app.id, hook.id)
+          trigger = EmailUtil.increment_trigger_hit_count(trigger)
+        end
+
+
+          if trigger
+
+          logger.info("Looking for funnel")
+          funnel = EmailUtil.get_funnel(app.id, trigger.id)
           if funnel
-            logger.info("Funnel updated!")
+            logger.info("Funnel found!")
+            logger.info("Incrementing Funnel revenue...")
+            funnel = EmailUtil.increase_funnel_revenue(funnel, webhook[:subtotal_price].to_f)
+            if funnel
+              logger.info("Funnel updated!")
+            else
+              logger.debug("Error increasing funnel revenue")
+              return
+            end
+
           else
-            logger.debug("Error increasing funnel revenue")
+            logger.debug("Funnel not found!")
             return
           end
 
-        else
-          logger.debug("Funnel not found!")
-          return
-        end
 
-
-        emailsub = EmailUtil.get_email_list_subscription(app.id,
-                                                         funnel.email_list_id,
-                                                         subscriber.id)
-        if emailsub
-          logger.info("Email list subscription found!")
-        else
-          logger.info("No Email list subscription found!")
-          emailsub = EmailUtil.add_subscriber_to_list(app.id,
-                                                      funnel.email_list_id,
-                                                      subscriber.id)
+          emailsub = EmailUtil.get_email_list_subscription(app.id,
+                                                           funnel.email_list_id,
+                                                           subscriber.id)
           if emailsub
-            logger.info("Subscriber added to list")
+            logger.info("Email list subscription found!")
           else
-            logger.debug("Error adding subscriber to list!")
+            logger.info("No Email list subscription found!")
+            emailsub = EmailUtil.add_subscriber_to_list(app.id,
+                                                        funnel.email_list_id,
+                                                        subscriber.id)
+            if emailsub
+              logger.info("Subscriber added to list")
+            else
+              logger.debug("Error adding subscriber to list!")
+              return
+            end
+          end
+
+          logger.info("Looking for start link")
+          link = EmailUtil.get_start_link(funnel.id)
+
+          if link
+            logger.info("Start link found!")
+          else
+            logger.debug("Start link not found!")
             return
           end
-        end
 
-        logger.info("Looking for start link")
-        link = EmailUtil.get_start_link(funnel.id)
+          logger.info("looking for Node")
+          node = EmailUtil.get_node(link.to_node_id)
 
-        if link
-          logger.info("Start link found!")
-        else
-          logger.debug("Start link not found!")
-          return
-        end
-
-        logger.info("looking for Node")
-        node = EmailUtil.get_node(link.to_node_id)
-
-        if node
-          logger.info("Node found!")
-        else
-          logger.debug("Node not found!")
-          return
-        end
-
-        logger.info ("Checking if job already exists")
-        if EmailUtil.does_job_exist(app.id,
-                                    funnel.id,
-                                    node.id,
-                                    subscriber.id)
-          logger.info("Jobs Already Exists")
-        else
-          job = EmailUtil.create_new_email_job(app.id,
-                                               funnel.id,
-                                               subscriber.id,
-                                               node.id,
-                                               node.email_template_id,
-                                               funnel.email_list_id
-          )
-          if job
-            logger.info("New Email Job Created!")
+          if node
+            logger.info("Node found!")
           else
-            logger.debug("Error creating email job")
+            logger.debug("Node not found!")
             return
           end
-        end
 
+          logger.info ("Checking if job already exists")
+          if EmailUtil.does_job_exist(app.id,
+                                      funnel.id,
+                                      node.id,
+                                      subscriber.id)
+            logger.info("Jobs Already Exists")
+          else
+            job = EmailUtil.create_new_email_job(app.id,
+                                                 funnel.id,
+                                                 subscriber.id,
+                                                 node.id,
+                                                 node.email_template_id,
+                                                 funnel.email_list_id
+            )
+            if job
+              logger.info("New Email Job Created!")
+            else
+              logger.debug("Error creating email job")
+              return
+            end
+          end
+        end
       end
     end
     logger.info("---Job Completed Properly---")
