@@ -1,8 +1,8 @@
 $(function() {
 
-
-    /* --- MODALS --- */
-    var shopify_modal = $('#mf_auth_setup_modal');
+    /* --- MESSAGES --- */
+    var invalid_credential_message = $('#invalid_login_credentials_message');
+    var server_error_message = $('#server_error_message');
 
     /* --- INPUT FIELDS --- */
     var login_username = $('#mf_login_username_input');
@@ -69,6 +69,7 @@ $(function() {
             },
             error: function(e) {
                 console.log(e);
+                server_error_message.show();
             },
             success: function(response) {
                 console.log(response);
@@ -79,6 +80,8 @@ $(function() {
                     } else {
                         window.location.href = "http://localhost:3000/login/?shop=" + response.url;
                     }
+                } else {
+                    invalid_credential_message.show();
                 }
             }
 
@@ -126,6 +129,10 @@ $(function() {
 
         //Disable Shopify Account Submit Button
         shopify_account_submit_button.prop('disabled', true);
+
+        //Hide Error Messages
+        invalid_credential_message.hide();
+        server_error_message.hide();
 
     }
 
