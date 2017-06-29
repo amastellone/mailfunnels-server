@@ -16,11 +16,10 @@ ActiveRecord::Schema.define(version: 20170627195521) do
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string   "username"
     t.string   "password"
     t.integer  "clientid"
     t.string   "client_tags"
-    t.string   "email",           :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
+    t.string   "email",           :index=>{:name=>"index_users_on_email", :unique=>true, :using=>:btree}
     t.string   "street_address"
     t.string   "city"
     t.string   "state"
@@ -34,13 +33,6 @@ ActiveRecord::Schema.define(version: 20170627195521) do
   create_table "apps", force: :cascade do |t|
     t.string   "name",                  :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
     t.string   "auth_token",            :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "street_address"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "state"
     t.integer  "is_admin"
     t.integer  "is_disabled"
     t.datetime "created_at",            :null=>false
@@ -48,10 +40,6 @@ ActiveRecord::Schema.define(version: 20170627195521) do
     t.string   "from_email"
     t.string   "from_name"
     t.integer  "postmark_signature_id"
-    t.string   "username"
-    t.string   "password"
-    t.integer  "clientid"
-    t.string   "client_tag"
     t.integer  "user_id",               :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
   end
 
