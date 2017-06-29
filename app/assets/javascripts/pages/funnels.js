@@ -17,6 +17,8 @@ $(function() {
     /* --- MODALS --- */
     var new_funnel_modal = $('#newFunnelModal');
 
+    var confirm_delete_modal = $('#confirm_delete_modal');
+
     /* --- INPUT FIELDS --- */
     var funnel_name_input = $('#funnel_name_input');
     var funnel_description_input = $('#funnel_description_input');
@@ -26,6 +28,8 @@ $(function() {
     /* --- BUTTONS --- */
     var new_funnel_submit = $('#new_funnel_submit_button');
     var delete_funnel_button = $('.delete_funnel_button');
+
+    var confirm_delete_funnel_button = $('#confirm_delete_funnel_button');
 
 
     //Disable Submit Button on Form until a list and trigger is selected
@@ -111,22 +115,34 @@ $(function() {
 
         var id = $(this).data('id');
 
-        $.ajax({
-            type:'POST',
-            url: '/ajax_delete_funnel',
-            dataType: "json",
-            data: {
-                funnel_id: id,
-                authenticity_token: csrf_token
-            },
-            error: function(e) {
-                console.log(e);
-            },
-            success: function(response) {
-                console.log(response);
-                window.location.reload(true);
-            }
+        confirm_delete_modal.modal('toggle');
+
+        confirm_delete_funnel_button.on('click', function(){
+
+
+            $.ajax({
+                type:'POST',
+                url: '/ajax_delete_funnel',
+                dataType: "json",
+                data: {
+                    funnel_id: id,
+                    authenticity_token: csrf_token
+                },
+                error: function(e) {
+                    console.log(e);
+                },
+                success: function(response) {
+                    confirm_delete_modal.modal('toggle');
+                    console.log(response);
+                    window.location.reload(true);
+                }
+            });
+
+
+
         });
+
+
 
     });
 
