@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627195521) do
+ActiveRecord::Schema.define(version: 20170629193954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170627195521) do
     t.string   "password"
     t.integer  "clientid"
     t.string   "client_tags"
-    t.string   "email",           :index=>{:name=>"index_users_on_email", :unique=>true, :using=>:btree}
+    t.string   "email",          :index=>{:name=>"index_users_on_email", :unique=>true, :using=>:btree}
     t.string   "street_address"
     t.string   "city"
     t.string   "state"
@@ -211,10 +211,11 @@ ActiveRecord::Schema.define(version: 20170627195521) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.integer  "app_id",        :foreign_key=>{:references=>"apps", :name=>"fk_unsubscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_app_id", :using=>:btree}
-    t.datetime "created_at",    :null=>false
-    t.datetime "updated_at",    :null=>false
-    t.integer  "email_list_id", :foreign_key=>{:references=>"email_lists", :name=>"fk_unsubscribers_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_email_list_id", :using=>:btree}
+    t.integer  "app_id",           :foreign_key=>{:references=>"apps", :name=>"fk_unsubscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_app_id", :using=>:btree}
+    t.datetime "created_at",       :null=>false
+    t.datetime "updated_at",       :null=>false
+    t.integer  "email_list_id",    :foreign_key=>{:references=>"email_lists", :name=>"fk_unsubscribers_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_email_list_id", :using=>:btree}
+    t.integer  "initial_ref_type"
   end
 
 end
