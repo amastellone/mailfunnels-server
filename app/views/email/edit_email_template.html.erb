@@ -10,6 +10,9 @@
     <%= javascript_include_tag 'pages/editemailtemplate.js' %>
     <%= stylesheet_link_tag 'EmailTemplate/simple.css' %>
 
+
+
+
     <div class="hidden">
       <input id="current_template_id" type="number" value="<%= @template.id %>"/>
       <input id="current_content_value" type="text" value="<%= @template.email_content %>"/>
@@ -62,13 +65,12 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Theme</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Styled</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <select class="form-control" id="color_select">
-                    <option value="#3498db">Blue</option>
-                    <option value="#ff4248">Red</option>
-                    <option value="#00d600">Green</option>
-                  </select>
+                  <div id="theme_color_select" class="input-group">
+                    <input id="theme_color" type="text" value="#e01ab5" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                  </div>
                 </div>
               </div>
 
