@@ -11,18 +11,17 @@ class ApplicationController < ActionController::Base
 
         app = App.where(name: domain).first
 
-        user = app.user
-
         # If no app was found, redirect to Access Denied Page
         unless app
           redirect_to '/access_denied'
         end
 
+        user = app.user
 
         # Load Account Data from Infusionsoft
 
         begin
-          contact = Infusionsoft.data_load('Contact', user.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :Groups])
+          contact = Infusionsoft.data_load('Contact', user.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :PostalCode, :Groups])
 
           # Parse through Tags and look for failed payment tag
           tags = contact['Groups'].split(",")
@@ -50,10 +49,11 @@ class ApplicationController < ActionController::Base
               :street_address => contact['StreetAddress1'],
               :city => contact['City'],
               :state => contact['State'],
+              :zip => contact['PostalCode'],
               :client_tags => contact['Groups'],
           })
 
-        rescue Infusionsoft::RecordNotFoundError => e
+        rescue => e
           redirect_to '/server_error'
         end
       end

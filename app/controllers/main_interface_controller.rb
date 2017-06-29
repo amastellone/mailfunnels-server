@@ -17,6 +17,13 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
       redirect_to '/account_disabled'
     end
 
+    user = @app.user
+
+    @subs_left = MailFunnelsUser.get_remaining_subs(user.clientid)
+
+    logger.info @subs_left
+
+
     @num_email_sent = EmailJob.where(app_id: @app.id, sent: 1).size
 
     @num_email_opened = EmailJob.where(app_id: @app.id, opened: 1).size

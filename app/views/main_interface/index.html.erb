@@ -24,6 +24,14 @@
           <div class="title_left">
             <h3>MailFunnels <small>Dashboard</small></h3>
           </div>
+
+          <div class="title_right">
+            <% if @subs_left === -1 %>
+                <h4 class="text-danger pull-right">No Plan</h4>
+            <% else %>
+                <h4 class="text-primary pull-right"><%= @subs_left %> Subscribers Remaining</h4>
+            <% end %>
+          </div>
         </div>
         <hr class="fade-2"/>
       </div>
