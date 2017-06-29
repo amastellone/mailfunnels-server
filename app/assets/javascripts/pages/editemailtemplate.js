@@ -18,7 +18,8 @@ $(function(){
     var button_select = $('#button_select');
     var button_form_div = $('#button_forms_div');
     var color_select = $('#color_select');
-
+    //var theme_color_select = $('#theme_color_select');
+    var theme_color = $('#theme_color');
     /* --- EMAIL PREVIEW FIELDS --- */
     var preview_email_title = $('#printEmailTitle');
     var preview_email_button_text = $('#printButtonText');
@@ -31,53 +32,12 @@ $(function(){
     /* --- MODALS --- */
     var email_template_saved_modal = $('#email_template_saved_modal');
 
-
-    /* --- INITIAL EDIT EMAIL SETUP --- */
-    preview_email_title.html(emailTitleInput.val());
-    preview_email_button_text.html(buttonTextInput.val());
-    color_select.val($('#current_color_value').val());
-
-    //Set the Value of the Show Button Select from DB
-    if ($('#show_button_value').val() === '1') {
-        button_select.val('true');
-    } else {
-        button_select.val('false');
-    }
-
-    if (button_select.val() === 'true') {
-        preview_email_buttons_div.show();
-        button_form_div.show();
-
-    } else {
-        preview_email_buttons_div.hide();
-        button_form_div.hide();
-    }
-
-    var summernote = $('#summernote');
-    summernote.summernote({
-        height: 200,
-        toolbar: [
-            // [groupName, [list of button]]
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough', 'superscript', 'subscript']],
-            ['fontsize', ['fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']]
-        ],
-        shortcuts: false,
-        dialogsInBody: true
-    });
-
-
-    summernote.summernote('code', old_content);
-
-    $('.left_col').height($('.right_col').height());
-
+    //Initialize Edit Email Template Page
+    init();
 
     /* --- Functions to live update EmailView --- */
 
-    color_select.on('change', function() {
+    theme_color.on('change', function() {
 
         var color = $(this).val();
 
@@ -117,7 +77,7 @@ $(function(){
         var email_content =  $('#summernote').summernote('code');
         var button_text = buttonTextInput.val();
         var button_url =  buttonLink.val();
-        var color = color_select.val();
+        var color = theme_color.val();
         var has_button = false;
 
         if (button_select.val() === "true") {
@@ -153,6 +113,54 @@ $(function(){
 
 
 
+    function init() {
+
+        /* --- INITIAL EDIT EMAIL SETUP --- */
+        preview_email_title.html(emailTitleInput.val());
+        preview_email_button_text.html(buttonTextInput.val());
+        color_select.val($('#current_color_value').val());
+
+        //Set the Value of the Show Button Select from DB
+        if ($('#show_button_value').val() === '1') {
+            button_select.val('true');
+        } else {
+            button_select.val('false');
+        }
+
+        if (button_select.val() === 'true') {
+            preview_email_buttons_div.show();
+            button_form_div.show();
+
+        } else {
+            preview_email_buttons_div.hide();
+            button_form_div.hide();
+        }
+
+        var summernote = $('#summernote');
+        summernote.summernote({
+            height: 200,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ],
+            shortcuts: false,
+            dialogsInBody: true
+        });
+
+
+        summernote.summernote('code', old_content);
+
+        $('.left_col').height($('.right_col').height());
+
+
+        //Set Color Picker to bootstrap color picker instance
+        $('#theme_color_select').colorpicker();
+    }
 
 
 

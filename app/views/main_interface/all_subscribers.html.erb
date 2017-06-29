@@ -120,9 +120,38 @@
 
 
           <%= form_tag({action: :import_csv}, multipart: true) do %>
-              <%= file_field_tag 'csv' %>
-              <%= submit_tag 'Submit' %>
+
+
+                <div class="modal-body">
+
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Choose File:</label>
+                    <%= file_field_tag 'csv' %>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="padding-top: 10px">Required</label>
+
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <div class="checkbox">
+                        <label>
+                          <input id="import_csv_confirm_checkbox" type="checkbox" value=""> Subscribers gave me permission to
+                          be added to my list.
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  </div>
+
+
+              <div class="modal-footer" style="margin-top: 29px">
+               <%= submit_tag 'Submit', :class => 'btn btn-success', :id => 'import_csv_submit_button' %>
+              </div>
+
           <% end %>
+
 
 
         </div>

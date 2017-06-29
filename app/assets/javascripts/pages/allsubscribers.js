@@ -23,9 +23,10 @@ $(function() {
     /* --- MODALS --- */
     var new_subscriber_modal = $('#new_subscriber_modal');
     var new_batch_email_modal = $('#new_batch_email_modal');
-
     var subscriber_info_modal = $('#subscriber_info_modal');
     var import_csv_modal = $('#import_csv_modal');
+
+    var edit_list_modal = $('#edit_list_modal');
 
 
     /* --- INPUT FIELDS --- */
@@ -36,6 +37,11 @@ $(function() {
     var email_list_name = $('#email_list_name');
     var subscriber_confirm_checkbox = $('#subscriber_confirm_checkbox');
     add_subscriber_email_list_select = $('#add_subscriber_email_list_select');
+    var import_csv_confirm_checkbox = $('#import_csv_confirm_checkbox');
+
+    var edit_list_name_input = $('#edit_list_name_input');
+    var edit_list_description_input = $('#edit_list_description_input');
+
 
     /* --- BUTTONS --- */
     var import_csv_submit_button = $('#import_csv_submit_button')
@@ -45,11 +51,74 @@ $(function() {
     var batch_email_send_button = $('#batch_email_send_button');
     var view_subscriber_info_button = $('#view_subscriber_info_button');
     add_subscriber_button = $('#add_subscriber_button');
+    var submit_csv_button = $('#csv_import_submit');
+
+    var edit_list_button = $('#edit_list_button');
+    var edit_list_submit_button = $('#edit_list_submit_button');
 
 
 
     //Initialize the Page
     init();
+
+
+    // edit_list_button.on('click', function(){
+    //
+    //
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: 'ajax_load_edit_list_info',
+    //         dataType: 'json',
+    //         data: {
+    //             app_id: app_id,
+    //             id: email_list_id,
+    //             authenticity_token: csrf_token
+    //         },
+    //         error: function(e){
+    //             console.log(e);
+    //         },
+    //         success: function(response){
+    //             edit_list_name_input.val(response.name);
+    //             edit_list_description_input.val("Hello");
+    //         }
+    //
+    //     });
+
+
+    edit_list_submit_button.on('click', function(){
+
+        $.ajax({
+            type: 'POST',
+            url: 'ajax_save_edited_list_info',
+            dataType : 'json',
+            data: {
+                app_id: app_id,
+                list_id: email_list_id,
+                name: edit_list_name_input.val(),
+                description: edit_list_description_input.val(),
+                authenticity_token: csrf_token
+            },
+            error: function(e){
+                console.log("ERROR");
+                console.log(e);
+
+            },
+            success: function(response) {
+                console.log(response);
+                edit_list_modal.modal('toggle');
+                window.location.reload();
+
+            }
+        });
+
+    });
+
+
+
+
+
+
+
 
     /**
      * Import subscribers modal toggle
@@ -64,8 +133,8 @@ $(function() {
         var file = new FormData($('#file')[0]);
         $.ajax({
             // Your server script to process the upload
-            url: '/ajax_import_csv',
             type: 'POST',
+            url: '/import_csv',
 
             // Form data
             data: {
@@ -94,6 +163,27 @@ $(function() {
                 return myXhr;
             },
         });
+        import_csv_modal.modal('toggle');
+
+    });
+
+
+
+
+    /**
+     * On import CSV Checkbox Confirm change check to see
+     * whether the checkbox is checked and enable the submit button
+     * otherwise disable the button
+     *
+     */
+    import_csv_confirm_checkbox.on('change', function() {
+
+        if($(this).is(":checked")) {
+            import_csv_submit_button.prop('disabled', false);
+        } else {
+            import_csv_submit_button.prop('disabled', true);
+        }
+
     });
 
 
@@ -205,6 +295,7 @@ $(function() {
 
         //Disable new Subscriber Submit Button
         new_subscriber_submit_button.prop('disabled', true);
+        import_csv_submit_button.prop('disabled', true);
 
         //Make Table jQuery Datatable instance
         subscribers_table.dataTable({

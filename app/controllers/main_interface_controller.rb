@@ -713,6 +713,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   def import_csv
     puts "=========TRIGGERED========="
+    puts params
     if request.post?
       if params[:csv].present?
         app = MailfunnelsUtil.get_app
@@ -728,6 +729,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
         redirect_to :controller => 'main_interface', :action => 'all_subscribers'
       else
+        puts "=========FAILED======="
         redirect_to :controller => 'main_interface', :action => 'all_subscribers'
       end
     end
@@ -803,6 +805,25 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     render json: response
   end
 
+  def ajax_save_edited_list_info
+    list = EmailList.find(params[:list_id])
+
+    list.name = params[:name]
+    list.description = params[:description]
+
+    list.put('', {
+        :name => list.name,
+        :description => list.description,
+    })
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'List Updated!'
+    }
+    render json: response
+
+
+  end
 
   def form_page
     if request.post?
