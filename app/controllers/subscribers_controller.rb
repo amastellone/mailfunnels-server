@@ -17,7 +17,6 @@ class SubscribersController < ApplicationController
     # Get the Subscriber from the DB
     subscriber = Subscriber.where(id: params[:subscriber_id]).first
 
-
     # If the subscriber is already removed
     if subscriber.nil?
 
