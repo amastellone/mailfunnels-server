@@ -25,6 +25,16 @@ $(function(){
     var save_account_info_button = $('#save_account_info_button');
     var save_email_info_button = $('#save_email_info_button');
     var change_password_submit = $('#mf_change_password_submit');
+    var upgrade_plan_button = $('.upgrade_plan_button');
+    var upgrade_plan_submit_button = $('#upgrade_plan_submit_button');
+
+    /* ---- MODAL ----- */
+
+    var upgrade_plan_modal = $('#upgrade_plan_modal');
+
+    /* ----- SUBSCRIPTION PLAN INFO ------ */
+    var plan_id = -1;
+    var upgrade_plan_last_four_input = $('#upgrade_plan_last_four_input');
 
 
     //Initialize the My Account Page
@@ -66,7 +76,7 @@ $(function(){
 
     first_name_input.on('keyup', function() {
 
-      validateAccountInput();
+        validateAccountInput();
 
     });
 
@@ -181,17 +191,52 @@ $(function(){
                 password: change_password_input.val(),
                 confirm: change_password_confirm_input.val()
             },
-            error: function(e) {
+            error: function (e) {
                 console.log(e);
                 window.location.reload();
             },
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
                 window.location.reload();
             }
         });
 
+    });
 
+
+    //On New Node Button Click
+    upgrade_plan_button.click(function(event) {
+        event.preventDefault();
+        upgrade_plan_modal.modal('toggle');
+        plan_id = $(this).data('id');
+
+    });
+
+    upgrade_plan_submit_button.on('click', function(e){
+
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_upgrade_plan',
+            dataType: "json",
+            data: {
+                last_four: upgrade_plan_last_four_input.val(),
+                subscription_id: plan_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+                //window.location.reload(true);
+
+
+            },
+            success: function(response) {
+                console.log(response);
+                //window.location.reload(true);
+
+            }
+
+        });
     });
 
 

@@ -213,7 +213,7 @@
                                 <td>Up to 1,000 Subscribers</td>
                                 <td>$9.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                                <td><a class="btn btn-primary btn-sm upgrade_plan_button" data-id="2">Upgrade</a></td>
                               </tr>
                           <% else %>
                               <tr>
@@ -230,7 +230,7 @@
                                 <td>Up to 2,000 Subscribers</td>
                                 <td>$29.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                                <td><a class="btn btn-primary btn-sm upgrade_plan_button" data-id="4">Upgrade</a></td>
                               </tr>
                           <% else %>
                               <tr>
@@ -246,7 +246,7 @@
                                 <td>Up to 4,000 Subscribers</td>
                                 <td>$49.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                                <td><a class="btn btn-primary btn-sm upgrade_plan_button" data-id="6">Upgrade</a></td>
                               </tr>
                           <% else %>
                               <tr>
@@ -262,7 +262,7 @@
                                 <td>Up to 8,000 Subscribers</td>
                                 <td>$89.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                                <td><a class="btn btn-primary btn-sm upgrade_plan_button" data-id="8">Upgrade</a></td>
                               </tr>
                           <% else %>
                               <tr>
@@ -278,7 +278,7 @@
                                 <td>Up to 12,000 Subscribers</td>
                                 <td>$139.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                                <td><a class="btn btn-primary btn-sm upgrade_plan_button" data-id="10">Upgrade</a></td>
                               </tr>
                           <% else %>
                               <tr>
@@ -294,7 +294,7 @@
                                 <td>Up to 20,000 Subscribers</td>
                                 <td>$219.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                                <td><a class="btn btn-primary btn-sm upgrade_plan_button" data-id="12">Upgrade</a></td>
                               </tr>
                           <% else %>
                               <tr>
@@ -307,10 +307,10 @@
 
                           <% if @highestTag < 118 %>
                               <tr>
-                                <td>Up to 20,000 Subscribers</td>
-                                <td>$219.99</td>
+                                <td>Up to 35,000 Subscribers</td>
+                                <td>$289.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary btn-sm">Upgrade</a></td>
+                                <td><a class="btn btn-primary btn-sm upgrade_plan_button" data-id="14">Upgrade</a></td>
                               </tr>
                           <% else %>
                               <tr>
@@ -372,6 +372,41 @@
           </div>
         </div>
       </div>
+
+
+      <div id="upgrade_plan_modal" aria-labelledby="#modal_node_create" class="modal fade bs-example-modal-sm">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel">Upgrade Subscription</h4>
+            </div>
+
+            <form class="form-horizontal form-label-left">
+
+              <div class="modal-body">
+
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Four of Credit Card</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <input id="upgrade_plan_last_four_input" type="text" class="form-control" placeholder="Last Four">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="modal-footer">
+                <button id="upgrade_plan_submit_button" type="button" class="btn btn-success">Submit</button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+
     </div>
 
 

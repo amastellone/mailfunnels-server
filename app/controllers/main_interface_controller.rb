@@ -267,7 +267,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
 
-
   # Page Render Function
   # --------------------
   # Renders the Admin Panel for MailFunnels App
@@ -576,10 +575,10 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     end
 
     email_lists.each do |el|
-       list = {
-           :email_list_id => el.email_list_id,
-           :email_list_name => el.email_list.name,
-       }
+      list = {
+          :email_list_id => el.email_list_id,
+          :email_list_name => el.email_list.name,
+      }
 
       email_list.push(list)
     end
@@ -650,22 +649,76 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   def ajax_upgrade_plan
 
     @app = MailfunnelsUtil.get_app
+    user = User.find(@app.user_id)
 
-    creditCardId = Infustionsoft.invoice_locate_existing_card(@app.clientId, params[:last_four])
+    products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
 
-    if(creditCardId == 0)
+    product = products.select { |product| product['Id'] == params[:subscription_id].to_i }[0]
+
+
+    unless product
+      response = {
+                success: false,
+                message: 'Error retrieving subscription plan'
+            }
+            render json: response
+    end
+
+    price = product['PlanPrice']
+
+    creditCardId = Infusionsoft.invoice_locate_existing_card(user.clientid, params[:last_four])
+
+    if (creditCardId == 0)
       response = {
           success: false,
-          message: 'Credit card not found'
+          message: 'Error retrieving card'
       }
       render json: response
     end
 
-    Infusionsoft.invoice_create_invoice_for_recurring(params[:subscription_id])
+    invoice = Infusionsoft.invoice_add_subscription(user.clientid,
+                                          false,
+                                          params[:subscription_id],
+                                          1,
+                                          price,
+                                          false,
+                                          4,
+                                          creditCardId,
+                                          0,
+                                          0
+    )
 
-    Infusionsoft.invoice_charge_invoice(invoice_id, notes, credit_card_id, merchange_id, bypass_commissions)
+
+
+    tag = -1
+
+    if params[:subscription_id].to_i == 2
+    tag=106
+    elsif params[:subscription_id].to_i == 4
+      tag=108
+
+    elsif params[:subscription_id].to_i == 6
+      tag=110
+
+    elsif params[:subscription_id].to_i == 8
+      tag=112
+
+    elsif params[:subscription_id].to_i == 10
+      tag=114
+
+    elsif params[:subscription_id].to_i == 12
+      tag=116
+
+    elsif params[:subscription_id].to_i == 14
+      tag=118
+    end
+
+    puts '======='
+    puts tag
+    puts '======='
+
+    Infusionsoft.contact_add_to_group(user.clientid, tag)
   end
-
 
 
   # USED WITH AJAX
@@ -712,15 +765,14 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
   def import_csv
-    puts "=========TRIGGERED========="
-    puts params
     if request.post?
       if params[:csv].present?
         app = MailfunnelsUtil.get_app
         csv_text = params[:csv].read
         csv = CSV.parse(csv_text, :headers => true)
+
         csv.each do |row|
-          h =  row.to_hash
+          h = row.to_hash
           h.merge!(app_id: app.id)
           h.merge!(revenue: 0)
           h.merge!(initial_ref_type: 0)
