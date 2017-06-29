@@ -131,36 +131,11 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
+    # Get Current MailFunnels Plan For User
+    @plan = MailFunnelsUser.get_user_plan(@app.user.clientid)
+
     # Get The Current User
     @user = @app.user
-
-    # Get User Information from Infusionsoft
-    contact = Infusionsoft.data_load('Contact', @user.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :Groups])
-
-    # Update App Information
-    @user.put('', {
-        :first_name => contact['FirstName'],
-        :last_name => contact['LastName'],
-        :street_address => contact['StreetAddress1'],
-        :city => contact['City'],
-        :state => contact['State'],
-        :client_tags => contact['Groups'],
-    })
-
-
-    # Parse through Tags and look for failed payment tag
-    @tags = contact['Groups'].split(",")
-    @highestTag = -1
-    @tags.each do |tag|
-      if @highestTag < tag.to_i
-        @highestTag = tag.to_i
-      end
-      # If contact has failed payment tag, redirect to access denied page
-      if tag === '120'
-        redirect_to '/access_denied'
-      end
-    end
-
 
     @app = MailfunnelsUtil.get_app
 
@@ -333,6 +308,33 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   # email: Email address of the Subscriber
   #
   def ajax_create_subscriber
+
+    # Get Current App
+    app = App.find(params[:app_id])
+
+    # If no app found return error response
+    unless app
+      response = {
+          success: false,
+          type: -1,
+          message: 'Could not find current App'
+      }
+      render json: response and return
+    end
+
+    # Get Current User Remaining Subs
+    subs_remaining = MailFunnelsUser.get_remaining_subs(app.user.id)
+
+    # If no more subscribers left in plan, return error response
+    if subs_remaining < 1
+      response = {
+          success: false,
+          type: 0,
+          message: 'Could not find current App'
+      }
+      render json: response and return
+    end
+
 
     # Create new Subscriber instance
     subscriber = Subscriber.new
