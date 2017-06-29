@@ -99,7 +99,7 @@
                     <p>Created at: <%= DateTime.parse(@app.created_at).strftime("%D %I:%M %p")  %></p>
                   </td>
                   <td><h5><%= Subscriber.where(app_id: @app.id, initial_ref_type: 2).size %></h5></td>
-                  <td><h5> 0 </h5></td>
+                  <td><h5><%= Unsubscriber.where(app_id: @app.id, initial_ref_type: 2).size %></h5></td>
                   <td><h5 id="default_refund_emails_sent_view">Loading...</h5></td>
                   <td><h5 id="default_refund_emails_opened_view">Loading...</h5></td>
                   <td><h5 id="default_refund_emails_clicked_view">Loading...</h5></td>
@@ -114,7 +114,7 @@
                     <p>Created at: <%= DateTime.parse(@app.created_at).strftime("%D %I:%M %p")  %></p>
                   </td>
                   <td><h5><%= Subscriber.where(app_id: @app.id, initial_ref_type: 3).size%></h5></td>
-                  <td><h5> 0 </h5></td>
+                  <td><h5><%= Unsubscriber.where(app_id: @app.id, initial_ref_type: 3).size %></h5></td>
                   <td><h5 id="default_abandoned_emails_sent_view">Loading...</h5></td>
                   <td><h5 id="default_abandoned_emails_opened_view">Loading...</h5></td>
                   <td><h5 id="default_abandoned_emails_clicked_view">Loading...</h5></td>
