@@ -344,6 +344,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     subscriber.first_name = params[:first_name]
     subscriber.last_name = params[:last_name]
     subscriber.email = params[:email]
+    subscriber.initial_ref_type = 0
     subscriber.revenue = 0.0
 
 
