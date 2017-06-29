@@ -15,9 +15,6 @@
     <%= javascript_include_tag 'pages/allsubscribers.js' %>
 
 
-
-
-
     <div class="hidden">
       <input id="current_app_id" type="number" value="<%= @app.id %>"/>
     </div>
@@ -157,6 +154,32 @@
         </div>
       </div>
     </div>
+
+
+    <div id="no_subscribers_left_modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">No More Subscribers</h4>
+          </div>
+
+          <div class="modal-body">
+            <p>You have no more subscribers left in your plan. Upgrade your plan to add more subscribers.</p>
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
 
     <div id="new_subscriber_modal" class="modal fade bs-example-modal-sm">
       <div class="modal-dialog modal-md">

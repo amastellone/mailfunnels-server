@@ -57,6 +57,8 @@ $(function() {
     var edit_list_submit_button = $('#edit_list_submit_button');
 
 
+    /* --- MODALS --- */
+    var no_more_subscribers_modal = $('#no_subscribers_left_modal');
 
     //Initialize the Page
     init();
@@ -250,8 +252,13 @@ $(function() {
             },
             success: function(response) {
                 console.log(response);
-                window.location.reload(true);
-                new_subscriber_modal.modal('toggle');
+                if (response.success === true) {
+                    window.location.reload(true);
+                    new_subscriber_modal.modal('toggle');
+                } else {
+                    new_subscriber_modal.modal('toggle');
+                    no_more_subscribers_modal.modal('toggle');
+                }
             }
         });
         

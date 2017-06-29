@@ -323,14 +323,14 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     end
 
     # Get Current User Remaining Subs
-    subs_remaining = MailFunnelsUser.get_remaining_subs(app.user.id)
+    subs_remaining = MailFunnelsUser.get_remaining_subs(app.user.clientid)
 
     # If no more subscribers left in plan, return error response
     if subs_remaining < 1
       response = {
           success: false,
           type: 0,
-          message: 'Could not find current App'
+          message: 'No more subscribers left'
       }
       render json: response and return
     end
