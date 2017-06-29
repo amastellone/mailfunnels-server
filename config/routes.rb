@@ -84,6 +84,9 @@ Rails.application.routes.draw do
   # Support Routes
   get '/support', to: 'main_interface#support'
 
+  # Subscription Plan Routes
+  post '/ajax_upgrade_plan' => 'main_interface#ajax_upgrade_plan'
+
   # Error Routes
   get '/error_page', to: 'main_interface#error_page'
   get '/account_disabled', to: 'main_interface#account_disabled'
