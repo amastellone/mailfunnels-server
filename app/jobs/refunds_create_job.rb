@@ -5,6 +5,13 @@ class RefundsCreateJob < ActiveJob::Base
 
     shop.with_shopify_session do
       app = MailfunnelsUtil.get_app
+      subs_remaining = MailFunnelsUser.get_remaining_subs(app.user.clientid)
+
+      # If no more subscribers left in plan, return error response
+      if subs_remaining < 1
+        return
+      end
+
       logger.info("Finding order #{webhook[:order_id]}")
       order = ShopifyAPI::Order.find(:all, :params => {:limit => 1, :id => webhook[:order_id]}).first
       if order.nil? == false

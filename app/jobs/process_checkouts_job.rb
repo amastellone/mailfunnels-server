@@ -5,6 +5,13 @@ class ProcessCheckoutsJob < ApplicationJob
 
     shop.with_shopify_session do
 
+      app = App.find(app_id)
+      subs_remaining = MailFunnelsUser.get_remaining_subs(app.user.clientid)
+
+      # If no more subscribers left in plan, return error response
+      if subs_remaining < 1
+        return
+      end
 
       trigger = Trigger.where(app_id: app_id, hook_id: 3).sort {|a, b| b.last_abondoned_id <=> a.last_abondoned_id}.first
       if trigger.nil? == true
