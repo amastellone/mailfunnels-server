@@ -33,6 +33,8 @@ $(function() {
     var view_template_button = $('#viewButton'); // View Template from node
     var edit_template_button = $('#editButton'); // Edit Template from node
 
+
+
     /* --- FORM INPUTS --- */
     var new_node_label = $('#new_node_label_input');
     var new_node_email_template_select = $('#new_node_email_template_select');
@@ -45,6 +47,8 @@ $(function() {
     var view_template_modal = $('#view_template_modal'); //Preview Email Modal
     var edit_node_modal = $('#modal_node_edit'); //Edit Node Modal
     var edit_funnel_modal = $('#edit_funnel_modal'); //Edit Funnel Modal
+
+
 
     /* --- VIEW INFO MODAL COMPONENTS --- */
     var node_view_name = $('#view_node_name');
@@ -102,6 +106,7 @@ $(function() {
      * Updates the info of the current funnel
      */
     edit_funnel_submit_button.on('click', function() {
+
 
         $.ajax({
             type: 'POST',
