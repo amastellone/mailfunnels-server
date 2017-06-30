@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 # SERVER
 
+source "https://rubygems.org"
+ruby "2.4.1"
+
 # Job Worker
 gem 'postmark-rails'
 
