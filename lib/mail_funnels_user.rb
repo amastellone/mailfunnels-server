@@ -158,9 +158,6 @@ class MailFunnelsUser
     # Get Number of Subscribers in app
     num_subscribers = app.subscribers.size
 
-    if num_subscribers === 0
-      return 0
-    end
 
     case plan
       when 106

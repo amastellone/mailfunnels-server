@@ -456,8 +456,8 @@ function viewSubscriberInfo(id) {
 
             for(var i = 0; i < response.total_lists; i++) {
                 var html = "<tr>";
-                html = html + "<td class='text-left' style='font-size: 28px'>" + list_obj[i].email_list_name + "</td>";
-                html = html + "<td style='width: 100px;'>" + "<button onclick='removeSubscriber(" + response.id +"," + list_obj[i].email_list_id + ")' type='button' class='btn btn-danger btn-block'><i class='fa fa-trash-o'></i></button>" + "</td>";
+                html = html + "<td class='text-left'>" + list_obj[i].email_list_name + "</td>";
+                html = html + "<td style='width: 100px;'>" + "<button onclick='removeSubscriber(" + response.id +"," + list_obj[i].email_list_id + ")' type='button' class='btn btn-danger btn-sm btn-block'><i class='fa fa-trash-o'></i></button>" + "</td>";
 
                 html = html + "</tr>";
                 $('#list_table_body').append(html);
@@ -487,11 +487,11 @@ function removeSubscriber(subscriber_id, list_id){
         },
         error: function(e){
             console.log(e);
+            window.location.reload();
         },
         success: function(response){
-            subscriber_info_modal.modal('toggle');
             console.log(response);
-            window.location.reload(true);
+            window.location.reload();
 
         }
 

@@ -724,11 +724,16 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
       tag=118
     end
 
-    puts '======='
-    puts tag
-    puts '======='
-
     Infusionsoft.contact_add_to_group(user.clientid, tag)
+
+
+    response = {
+        success: true,
+        message: 'Subscription Added!'
+    }
+
+    render json: response
+
   end
 
 
