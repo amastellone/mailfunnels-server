@@ -90,7 +90,7 @@ $(function() {
                 success: function(response) {
                     console.log(response);
                     delete_list_modal.modal('toggle');
-                    // window.location.assign('email#lists');
+                    window.location.assign('/lists');
 
                 }
             })

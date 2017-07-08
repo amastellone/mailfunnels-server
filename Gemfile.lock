@@ -387,6 +387,7 @@ DEPENDENCIES
   mime-types
   multi_json
   netrc
+  nokogiri (~> 1.8.0)
   pg
   postmark-rails
   pry-rails
@@ -413,5 +414,8 @@ DEPENDENCIES
   xmlrpc
   yaml_db
 
+RUBY VERSION
+   ruby 2.4.1p111
+
 BUNDLED WITH
-   1.14.6
+   1.15.1
