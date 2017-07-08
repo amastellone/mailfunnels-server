@@ -29,7 +29,7 @@ class SendEmailJob < ApplicationJob
 			 response = client.deliver(
 			 		:subject     => template.email_subject,
 			 		:to          => subscriber.email,
-			 		:from        => app.from_email,
+			 		:from        => app.name.sub(".myshopify.com", "@custprotection.com"),
 			 		:html_body   => @renderedhtml,
 			 		:track_opens => 'true')
 
