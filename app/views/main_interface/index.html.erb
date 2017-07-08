@@ -28,6 +28,9 @@
           <div class="title_right">
             <% if @subs_left === -1 %>
                 <h4 class="text-danger pull-right">No Plan</h4>
+
+            <% elsif @subs_left <= 100 %>
+                <h4 class="text-danger pull-right"><%= @subs_left %> Subscribers Remaining</h4>
             <% else %>
                 <h4 class="text-primary pull-right"><%= @subs_left %> Subscribers Remaining</h4>
             <% end %>
@@ -47,51 +50,51 @@
             <div class="row">
 
               <a href="<%= root_url %>all_subscribers">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-users text-primary"></i>
-                  </div>
-                  <div class="count"><%= @app.subscribers.size %></div>
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-users text-primary"></i>
+                    </div>
+                    <div class="count"><%= @app.subscribers.size %></div>
 
-                  <h3>Total Subscribers</h3>
+                    <h3>Total Subscribers</h3>
+                  </div>
                 </div>
-              </div>
               </a>
 
               <a href="<%= root_url %>funnels">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-filter text-primary"></i>
-                  </div>
-                  <div class="count"><%= @app.funnels.size %></div>
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-filter text-primary"></i>
+                    </div>
+                    <div class="count"><%= @app.funnels.size %></div>
 
-                  <h3>Funnels</h3>
+                    <h3>Funnels</h3>
+                  </div>
                 </div>
-              </div>
               </a>
 
               <a href="<%= root_url %>lists">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-envelope-o text-primary"></i>
-                  </div>
-                  <div class="count"><%= @app.email_lists.size %></div>
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-envelope-o text-primary"></i>
+                    </div>
+                    <div class="count"><%= @app.email_lists.size %></div>
 
-                  <h3>Email Lists</h3>
+                    <h3>Email Lists</h3>
+                  </div>
                 </div>
-              </div>
               </a>
 
               <a href="<%= root_url %>email_templates">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-envelope-o text-primary"></i>
-                  </div>
-                  <div class="count"><%= @app.email_templates.size %></div>
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-envelope-o text-primary"></i>
+                    </div>
+                    <div class="count"><%= @app.email_templates.size %></div>
 
-                  <h3>Email Templates</h3>
+                    <h3>Email Templates</h3>
+                  </div>
                 </div>
-              </div>
               </a>
 
             </div>

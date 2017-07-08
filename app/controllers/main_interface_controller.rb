@@ -21,8 +21,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     @subs_left = MailFunnelsUser.get_remaining_subs(user.clientid)
 
-    logger.info @subs_left
-
 
     @num_email_sent = EmailJob.where(app_id: @app.id, sent: 1).size
 
