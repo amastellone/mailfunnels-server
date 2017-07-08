@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20170627195521) do
     t.string   "username"
     t.string   "password"
     t.integer  "clientid"
-    t.string   "client_tag"
-    t.integer  "user_id",               :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
+    t.integer  "client_tag"
+    t.integer  "user_id",        :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
   end
 
   create_table "email_lists", force: :cascade do |t|
