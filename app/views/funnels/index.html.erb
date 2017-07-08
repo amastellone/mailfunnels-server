@@ -7,7 +7,11 @@
         });
     </script>
 
+
+    <%= stylesheet_link_tag 'components/switchery.min.css' %>
+    <%= javascript_include_tag 'components/switchery.min.js' %>
     <%= javascript_include_tag 'pages/funnels.js' %>
+
 
 
     <div class="hidden">
@@ -44,12 +48,22 @@
                   <div class="x_content">
 
                     <div class="text-center">
-                      <% if funnel.active and funnel.active === 1 %>
-                          <span class="label label-success">Active</span>
-                      <% else %>
-                          <span class="label label-danger">Inactive</span>
-                      <% end %>
+                      <div class="form-group">
+                        <div class="col-xs-12">
+                          <div class="">
+                            <label>
+                              <% if funnel.active and funnel.active === 1 %>
+                                  <input type="checkbox" class="js-switch mf_funnel_active_toggle" data-id="<%= funnel.id %>" checked="" data-switchery="true"> <span class="label label-success">Active</span>
+                              <% else %>
+                                  <input type="checkbox" class="js-switch mf_funnel_active_toggle" data-id="<%= funnel.id %>" data-switchery="true"> <span class="label label-danger">Inactive</span>
+                              <% end %>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
+                    <br/>
 
                     <h3 class="name"><%= funnel.name %></h3>
 

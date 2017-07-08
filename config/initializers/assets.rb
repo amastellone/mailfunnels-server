@@ -24,6 +24,7 @@ Rails.application.config.assets.precompile += %w( pages/home.js )
 Rails.application.config.assets.precompile += %w( pages/admin_panel.js )
 Rails.application.config.assets.precompile += %w( pages/account.js )
 Rails.application.config.assets.precompile += %w( components/jquery.tabletoCSV.js )
+Rails.application.config.assets.precompile += %w( components/switchery.min.js )
 
 
 # CSS Files
@@ -31,3 +32,4 @@ Rails.application.config.assets.precompile += %w( pages/login.css )
 Rails.application.config.assets.precompile += %w( dashboard.css )
 Rails.application.config.assets.precompile += %w( components/jquery.flowchart.css )
 Rails.application.config.assets.precompile += %w( EmailTemplate/simple.css )
+Rails.application.config.assets.precompile += %w( components/switchery.min.css )
