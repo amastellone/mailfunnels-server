@@ -30,10 +30,11 @@
           <div class="title_right">
             <button type="button" class="btn btn-border btn-success pull-right" data-toggle="modal" data-target="#funnel_saved_modal">Save</button>
             <% if !@funnel.active or @funnel.active === 0 %>
-              <button id="funnel_activate_button" type="button" class="btn btn-border btn-primary pull-right" style="margin-right: 5px;">Make Active</button>
+                <button id="funnel_activate_button" type="button" class="btn btn-border btn-primary pull-right" style="margin-right: 5px;">Make Active</button>
             <% else %>
                 <button id="funnel_deactivate_button" type="button" class="btn btn-border btn-danger pull-right" style="margin-right: 5px;">Make Inactive</button>
-          <% end %>
+            <% end %>
+            <a href="<%= root_url %>funnels" class="btn btn-primary btn-border pull-right" style="margin-right: 5px;" ><i class="fa fa-chevron-left"></i> Back</a>
           </div>
 
           <hr/>
