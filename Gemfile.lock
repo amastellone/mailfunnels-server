@@ -372,6 +372,7 @@ DEPENDENCIES
   jwt
   listen (~> 3.0.5)
   meta_request
+  nokogiri (~> 1.7.2)
   omniauth
   pg
   postmark-rails
@@ -401,5 +402,8 @@ DEPENDENCIES
   tzinfo-data
   yaml_db
 
+RUBY VERSION
+   ruby 2.4.1p111
+
 BUNDLED WITH
-   1.14.3
+   1.15.1

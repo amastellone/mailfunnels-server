@@ -17,7 +17,6 @@ class SubscribersController < ApplicationController
     # Get the Subscriber from the DB
     subscriber = Subscriber.where(id: params[:subscriber_id]).first
 
-
     # If the subscriber is already removed
     if subscriber.nil?
 
@@ -32,6 +31,7 @@ class SubscribersController < ApplicationController
       unsubscriber.first_name = subscriber.first_name
       unsubscriber.last_name = subscriber.last_name
       unsubscriber.email = subscriber.email
+      unsubscriber.initial_ref_type = subscriber.initial_ref_type
       if !email_list_subscriber.nil?
         unsubscriber.email_list_id = email_list_subscriber.email_list_id
       end

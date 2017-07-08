@@ -46,6 +46,6 @@ class UnsubscribersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def unsubscriber_params
-      params.require(:unsubscriber).permit(:first_name, :last_name, :email, :app_id)
+      params.require(:unsubscriber).permit(:first_name, :last_name, :email, :initial_ref_type, :app_id)
     end
 end

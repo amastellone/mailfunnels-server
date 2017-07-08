@@ -10,17 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627195521) do
+ActiveRecord::Schema.define(version: 20170708171743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string   "username"
     t.string   "password"
     t.integer  "clientid"
     t.string   "client_tags"
-    t.string   "email"
+    t.string   "email",          :index=>{:name=>"index_users_on_email", :unique=>true, :using=>:btree}
     t.string   "street_address"
     t.string   "city"
     t.string   "state"
@@ -32,27 +31,16 @@ ActiveRecord::Schema.define(version: 20170627195521) do
   end
 
   create_table "apps", force: :cascade do |t|
-    t.string   "name",           :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
-    t.string   "auth_token",     :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "street_address"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "state"
+    t.string   "name",                  :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
+    t.string   "auth_token",            :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
     t.integer  "is_admin"
     t.integer  "is_disabled"
     t.datetime "created_at",     :null=>false
     t.datetime "updated_at",     :null=>false
     t.string   "from_email"
     t.string   "from_name"
-    t.string   "company_name"
-    t.string   "username"
-    t.string   "password"
-    t.integer  "clientid"
-    t.integer  "client_tag"
-    t.integer  "user_id",        :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
+    t.integer  "postmark_signature_id"
+    t.integer  "user_id",               :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
   end
 
   create_table "email_lists", force: :cascade do |t|
@@ -148,7 +136,7 @@ ActiveRecord::Schema.define(version: 20170627195521) do
     t.datetime "updated_at",      :null=>false
     t.integer  "app_id",          :foreign_key=>{:references=>"apps", :name=>"fk_funnels_app_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_app_id", :using=>:btree}
     t.integer  "trigger_id",      :foreign_key=>{:references=>"triggers", :name=>"fk_funnels_trigger_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_trigger_id", :using=>:btree}
-    t.integer  "email_list_id",   :foreign_key=>{:references=>"email_lists", :name=>"fk_funnels_email_list_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__funnels_email_list_id", :using=>:btree}
+    t.integer  "email_list_id",   :foreign_key=>{:references=>"email_lists", :name=>"fk_funnels_email_list_id", :on_update=>:no_action, :on_delete=>:nullify}, :index=>{:name=>"fk__funnels_email_list_id", :using=>:btree}
     t.integer  "active"
   end
 
@@ -222,10 +210,11 @@ ActiveRecord::Schema.define(version: 20170627195521) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.integer  "app_id",        :foreign_key=>{:references=>"apps", :name=>"fk_unsubscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_app_id", :using=>:btree}
-    t.datetime "created_at",    :null=>false
-    t.datetime "updated_at",    :null=>false
-    t.integer  "email_list_id", :foreign_key=>{:references=>"email_lists", :name=>"fk_unsubscribers_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_email_list_id", :using=>:btree}
+    t.integer  "app_id",           :foreign_key=>{:references=>"apps", :name=>"fk_unsubscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_app_id", :using=>:btree}
+    t.datetime "created_at",       :null=>false
+    t.datetime "updated_at",       :null=>false
+    t.integer  "email_list_id",    :foreign_key=>{:references=>"email_lists", :name=>"fk_unsubscribers_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__unsubscribers_email_list_id", :using=>:btree}
+    t.integer  "initial_ref_type"
   end
 
 end
