@@ -5,6 +5,8 @@ ruby "2.4.1"
 
 # CLIENT
 
+gem 'nokogiri', '~> 1.8.0'
+
 
 gem 'log4r'
 gem 'foreman'
