@@ -86,11 +86,11 @@
 
               <div class="x_content">
                 <button class="btn btn-block btn-sm btn-border btn-primary" data-toggle="modal" data-target="#edit_funnel_modal">Edit Funnel</button>
-                <button class="btn btn-block btn-sm btn-border btn-primary" id="create_button">Add Node</button>
+                <button class="btn btn-block btn-sm btn-border btn-primary" id="create_button">Add Action</button>
                 <button class="btn btn-block btn-sm btn-border btn-success" id="preview_email_button">Preview Email</button>
-                <button class="btn btn-block btn-sm btn-border btn-success" id="view_selected_button" data-node="2">View Node Info</button>
-                <button class="btn btn-block btn-sm btn-border btn-success" id="edit_selected_button">Edit Node</button>
-                <button class="btn btn-block btn-sm btn-border btn-danger" id="delete_selected_button">Delete Node</button>
+                <button class="btn btn-block btn-sm btn-border btn-success" id="view_selected_button" data-node="2">View Action Info</button>
+                <button class="btn btn-block btn-sm btn-border btn-success" id="edit_selected_button">Edit Action</button>
+                <button class="btn btn-block btn-sm btn-border btn-danger" id="delete_selected_button">Delete Action</button>
               </div>
             </div>
 
@@ -128,7 +128,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Add Node</h4>
+            <h4 class="modal-title" id="myModalLabel">Add Action</h4>
           </div>
 
           <form class="form-horizontal form-label-left">
@@ -136,7 +136,7 @@
             <div class="modal-body">
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Node Label</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Action Label</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <input id="new_node_label_input" type="text" class="form-control"  placeholder="Enter a label for the node"/>
                 </div>
@@ -219,7 +219,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Funnel Node Info</h4>
+            <h4 class="modal-title" id="myModalLabel">Funnel Action Info</h4>
           </div>
 
           <div class="modal-body">
@@ -239,7 +239,7 @@
                         <td id="view_node_funnel_name"><%= @funnel.name %></td>
                       </tr>
                       <tr>
-                        <th scope="row">Node Name:</th>
+                        <th scope="row">Action Name:</th>
                         <td id="view_node_name">Loading...</td>
                       </tr>
                       <tr>
@@ -338,9 +338,9 @@
             <div class="modal-body">
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Node Label</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Action Label</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="edit_node_label_input" type="text" class="form-control"  placeholder="Enter a label for the node"/>
+                  <input id="edit_node_label_input" type="text" class="form-control"  placeholder="Enter a label for the action"/>
                 </div>
               </div>
 
