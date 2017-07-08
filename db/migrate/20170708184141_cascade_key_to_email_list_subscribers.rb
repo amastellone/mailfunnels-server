@@ -1,6 +1,5 @@
 class CascadeKeyToEmailListSubscribers < ActiveRecord::Migration[5.0]
 
-
   def up
     connection.execute(%q{
     alter table email_list_subscribers
@@ -14,6 +13,5 @@ class CascadeKeyToEmailListSubscribers < ActiveRecord::Migration[5.0]
     on delete cascade
   })
   end
-
 
 end
