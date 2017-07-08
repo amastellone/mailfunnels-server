@@ -67,6 +67,11 @@ class UsersController < ActionController::Base
 
     user.save
 
+    # Update Infusionsoft Contact
+    Infusionsoft.contact_update(params[:client_id], {
+        :Password => secure_password,
+    })
+
     # Return Success Response
     response = {
         success: true,
