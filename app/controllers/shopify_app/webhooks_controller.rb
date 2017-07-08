@@ -19,7 +19,7 @@ module ShopifyApp
     end
 
     def webhook_job_klass
-      "#{webhook_type.classify}Job".safe_constantize or raise ShopifyApp::MissingWebhookJobError
+      # "#{webhook_type.classify}Job".safe_constantize or raise ShopifyApp::MissingWebhookJobError
     end
 
     def webhook_type
