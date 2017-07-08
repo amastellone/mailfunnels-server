@@ -25,13 +25,7 @@
           <div class="title_left">
             <h3>MailFunnels <small>Subscribers for List</small></h3>
           </div>
-
-          <div class="title_right">
-            <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#new_batch_email_modal"><i class="fa fa-plus"></i> New Batch Email</button>
-            <button id="subscribers_export_button" class="btn btn-primary btn-border pull-right" style="margin-right: 5px;" type="button"><i class="fa fa-download"></i> Export CSV </button>
-            <button id="edit_list_button" class="btn btn-primary btn-border pull-right" style="margin-right: 5px;" type="button" data-toggle="modal" data-target="#edit_list_modal"><i class="fa fa-wrench"></i> Edit</button>
-          </div>
-
+          
           <hr/>
           <div class="clearfix"></div>
         </div>
@@ -42,8 +36,11 @@
 
 
     <div class="row">
+      <div class="col-xs-12">
 
-      <div class="col-md-12 col-sm-12 col-xs-12">
+       <div class="row">
+
+      <div class="col-xs-12 col-sm-9 pull-left">
         <div class="x_panel">
           <div class="x_title">
             <h2>Subscribers List</h2>
@@ -90,6 +87,31 @@
             <!-- END Hooks Table -->
           </div>
         </div>
+      </div>
+
+
+        <div class="col-xs-12 col-sm-3 pull-right">
+
+          <div class="x_panel tile">
+            <div class="x_title">
+              <h2 style="font-size: 20px;">Funnel Actions</h2>
+              <div class="clearfix"></div>
+            </div>
+            <hr class="fade-2"/>
+            <div class="x_content">
+              <button id="edit_list_button" class="btn btn-primary btn-border pull-right" type="button" style="width: 100%;" data-toggle="modal" data-target="#edit_list_modal"><i class="fa fa-wrench"></i> Edit</button>
+              <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" style="width: 100%;" data-target="#new_batch_email_modal"><i class="fa fa-plus"></i> New Batch Email</button>
+              <button id="subscribers_export_button" class="btn btn-primary btn-border pull-right" style="width: 100%;" type="button"><i class="fa fa-download"></i> Export CSV </button>
+              <button id="list_delete_button" class="btn btn-danger btn-border pull-right" style="width: 100%;" type="button" data-toggle="modal" data-target="#delete_list_modal"><i class="fa fa-trash"></i> Delete </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+       </div>
+
       </div>
 
     </div>
@@ -284,9 +306,31 @@
         </div>
       </div>
     </div>
-
-
     <!-- End Edit Email List Modal-->
+
+    <!--Start Delete Email List Confirm Modal-->
+    <div id="delete_list_modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">Confirm Email List Delete</h4>
+          </div>
+
+          <div class="modal-body">
+            <h4>Are you sure you want to delete this email list?</h4>
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button id="confirm_delete_list_button" type="button" class="btn btn-success">Confirm</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--End Delete Email List Confirm Modal-->
 
 
 

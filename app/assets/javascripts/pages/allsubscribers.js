@@ -25,8 +25,11 @@ $(function() {
     var new_batch_email_modal = $('#new_batch_email_modal');
     var subscriber_info_modal = $('#subscriber_info_modal');
     var import_csv_modal = $('#import_csv_modal');
-
     var edit_list_modal = $('#edit_list_modal');
+
+    var delete_list_modal = $('#delete_list_modal');
+
+
 
 
     /* --- INPUT FIELDS --- */
@@ -38,7 +41,6 @@ $(function() {
     var subscriber_confirm_checkbox = $('#subscriber_confirm_checkbox');
     add_subscriber_email_list_select = $('#add_subscriber_email_list_select');
     var import_csv_confirm_checkbox = $('#import_csv_confirm_checkbox');
-
     var edit_list_name_input = $('#edit_list_name_input');
     var edit_list_description_input = $('#edit_list_description_input');
 
@@ -52,9 +54,11 @@ $(function() {
     var view_subscriber_info_button = $('#view_subscriber_info_button');
     add_subscriber_button = $('#add_subscriber_button');
     var submit_csv_button = $('#csv_import_submit');
-
     var edit_list_button = $('#edit_list_button');
     var edit_list_submit_button = $('#edit_list_submit_button');
+
+    var delete_list_button = $('#list_delete_button');
+    var confirm_delete_list_button = $('#confirm_delete_list_button');
 
 
     /* --- MODALS --- */
@@ -64,27 +68,38 @@ $(function() {
     init();
 
 
-    // edit_list_button.on('click', function(){
-    //
-    //
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: 'ajax_load_edit_list_info',
-    //         dataType: 'json',
-    //         data: {
-    //             app_id: app_id,
-    //             id: email_list_id,
-    //             authenticity_token: csrf_token
-    //         },
-    //         error: function(e){
-    //             console.log(e);
-    //         },
-    //         success: function(response){
-    //             edit_list_name_input.val(response.name);
-    //             edit_list_description_input.val("Hello");
-    //         }
-    //
-    //     });
+    delete_list_button.on('click', function(){
+
+
+        confirm_delete_list_button.on('click', function(){
+
+
+            $.ajax({
+                type: 'POST',
+                url: 'ajax_delete_email_list',
+                dataType: 'json',
+                data: {
+                    app_id: app_id,
+                    list_id: email_list_id,
+                    authenticity_token: csrf_token
+                },
+                error: function(e){
+                    console.log("ERROR");
+                    console.log(e);
+                },
+                success: function(response) {
+                    console.log(response);
+                    delete_list_modal.modal('toggle');
+                    // window.location.assign('email#lists');
+
+                }
+            })
+
+
+        });
+
+
+    });
 
 
     edit_list_submit_button.on('click', function(){
