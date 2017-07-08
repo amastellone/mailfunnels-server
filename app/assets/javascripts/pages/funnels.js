@@ -32,6 +32,10 @@ $(function() {
     var confirm_delete_funnel_button = $('#confirm_delete_funnel_button');
 
 
+    //Initialize the Funnels Page
+    init();
+
+
     //Disable Submit Button on Form until a list and trigger is selected
     new_funnel_submit.prop("disabled",true);
 
@@ -58,6 +62,49 @@ $(function() {
     //
     //
     // });
+
+    $('.mf_funnel_active_toggle').on('change', function() {
+
+        //Get the Funnel ID
+        var funnel_id = $(this).data('id');
+
+        if ($(this).is(':checked')) {
+            $.ajax({
+                type:'POST',
+                url: '/ajax_activate_funnel',
+                dataType: "json",
+                data: {
+                    funnel_id: funnel_id,
+                    authenticity_token: csrf_token
+                },
+                error: function(e) {
+                    console.log(e);
+                },
+                success: function(response) {
+                    console.log(response);
+                    window.location.reload();
+                }
+            });
+        } else {
+            $.ajax({
+                type:'POST',
+                url: '/ajax_deactivate_funnel',
+                dataType: "json",
+                data: {
+                    funnel_id: funnel_id,
+                    authenticity_token: csrf_token
+                },
+                error: function(e) {
+                    console.log(e);
+                },
+                success: function(response) {
+                    console.log(response);
+                    window.location.reload();
+                }
+            });
+        }
+
+    });
 
 
 
@@ -142,9 +189,14 @@ $(function() {
 
         });
 
-
-
     });
+
+
+    function init() {
+
+
+
+    }
 
 
 
