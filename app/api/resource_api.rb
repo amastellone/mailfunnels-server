@@ -306,6 +306,13 @@ class ResourceApi < Grape::API
     put do
       EmailList.update(params)
     end
+
+    # DELETE Route
+    # ------------
+    delete ':id' do
+      EmailList.find(params[:id]).destroy
+    end
+
   end
 
   # EmailTemplate Resource API
