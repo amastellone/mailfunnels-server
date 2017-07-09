@@ -137,7 +137,7 @@
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Action Label</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="new_node_label_input" type="text" class="form-control"  placeholder="Enter a label for the node"/>
+                  <input id="new_node_label_input" type="text" class="form-control"  placeholder="Enter a label for the action"/>
                 </div>
               </div>
 
@@ -475,6 +475,103 @@
       </div>
     </div>
     <!-- END EDIT FUNNEL MODAL -->
+
+
+    <div id="new_email_template_modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content col-xs-10 col-xs-offset-1">
+
+
+          <div class="hidden">
+            <input id="email_template_id" type="number" value=""/>
+          </div>
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Edit New Template</h4>
+          </div>
+
+          <form class="form-horizontal form-label-left">
+
+            <div class="modal-body" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+
+              <div class="form-group" style="margin-left: -16%;">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Subject</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="new_email_subject_input" type="text" class="form-control" placeholder="Email Subject">
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-left: -16%;">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Styled</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <div id="theme_color_select" class="input-group">
+                    <input id="theme_color" type="text" value="#e01ab5" class="form-control" />
+                    <span class="input-group-addon"><i></i></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" style="margin-left: -16%;">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Title</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="email_title_input" type="text" class="form-control" placeholder="Email Title">
+                </div>
+              </div>
+
+
+              <div class="form-group" style="margin-left: -16%;">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Show Button</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <select class="form-control" id="button_select">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div>
+              </div>
+
+
+              <div id="button_form_div" style="margin-left: -16%;">
+
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Button Text
+                  </label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <input id="buttonTextInput" type="text" class="form-control" placeholder="Button Text">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Button URL
+                  </label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <input id="buttonUrlInput" type="text"  class="form-control" placeholder="Button Url">
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-3">Content</label>
+                <div id="summernote"></div>
+              </div>
+
+
+            </div>
+
+
+
+
+            <div class="modal-footer">
+              <button id="new_template_submit_button" type="button" class="btn btn-success">Submit</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
 
 
 

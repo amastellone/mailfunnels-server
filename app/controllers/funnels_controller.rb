@@ -114,7 +114,26 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # Update the fields of Node Instance
     node.app_id = params[:app_id]
     node.funnel_id = params[:funnel_id]
-    node.email_template_id = params[:email_template_id]
+
+    if params[:email_template_id] == '0'
+      # Create a new Email Template
+      template = EmailTemplate.new
+      template.app_id = params[:app_id]
+      template.name = params[:name] + ' Email Template'
+      template.description = ''
+      template.email_subject = ''
+      template.color = '#3498db'
+
+      # Save blank Email Template
+      template.save!
+
+      node.email_template_id = template.id
+
+    else
+      node.email_template_id = params[:email_template_id]
+
+    end
+
     node.name = params[:name]
     node.delay_time = params[:delay_time]
     node.delay_unit = params[:delay_unit]
@@ -128,20 +147,19 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
 
 
-    # Save and verify Node and return correct JSON response
-    if node.save!
-      final_json = JSON.pretty_generate(result = {
-          :success => true,
-          :id => node.id
-      })
-    else
-      final_json = JSON.pretty_generate(result = {
-          :success => false
-      })
-    end
+    node.save
 
-    # Return JSON response
-    render json: final_json
+    response = {
+      success: true,
+      message: 'Node Saved',
+      id: node.id,
+      email_template_id: template.id
+
+    }
+
+    render json: response
+
+
 
   end
 
