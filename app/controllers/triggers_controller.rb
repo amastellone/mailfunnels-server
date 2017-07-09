@@ -220,8 +220,8 @@ class TriggersController < ShopifyApp::AuthenticatedController
 
     trigger.name = params[:name]
     trigger.description = params[:description]
-    trigger.hook_id = params[:trigger_hook]
-    trigger.product_id = params[:trigger_product]
+    trigger.hook_id = params[:hook_id]
+    trigger.product_id = params[:product_id]
 
     # Save and verify Node and return correct JSON response
     trigger.put('', {
