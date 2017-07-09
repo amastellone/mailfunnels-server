@@ -49,10 +49,11 @@
               <!-- Triggers Table Header -->
               <thead>
               <tr>
+                <th class="text-center">ID</th>
                 <th class="text-center">First Name</th>
                 <th class="text-center">Last Name</th>
                 <th class="text-center">Email</th>
-                <th class="text-center">Shopify Domain</th>
+
                 <th class="text-center">Action</th>
               </tr>
               </thead>
@@ -60,23 +61,16 @@
 
               <!-- Hooks Table BODY -->
               <tbody>
-              <% if @apps.any? %>
-                  <% @apps.each do |user| %>
+              <% if @users.any? %>
+                  <% @users.each do |user| %>
 
                       <tr>
+                        <td><%= user.clientid %></td>
                         <td><%= user.first_name %></td>
                         <td><%= user.last_name %></td>
                         <td><%= user.email %></td>
-                        <td><%= user.name %></td>
                         <td style="width: 50px;">
-                          <% if !user.is_disabled %>
-                              <button onclick="disableApp(<%= user.id %>)" class="btn btn-sm btn-danger btn-border"><i class="fa fa-ban"></i></button>
-                          <% elsif user.is_disabled === 0 %>
-                              <button onclick="disableApp(<%= user.id %>)" class="btn btn-sm btn-danger btn-border"><i class="fa fa-ban"></i></button>
-                          <% elsif user.is_disabled === 1 %>
-                              <button onclick="enableApp(<%= user.id %>)" class="btn btn-sm btn-primary btn-border"><i class="fa fa-unlock-alt"></i></button>
-                          <% end %>
-
+                          <button class="btn btn-sm btn-primary btn-border mf_admin_user_info"><i class="fa fa-plus"></i></button>
                         </td>
                       </tr>
                   <% end %>
