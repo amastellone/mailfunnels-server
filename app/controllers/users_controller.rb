@@ -271,4 +271,34 @@ class UsersController < ActionController::Base
   end
 
 
+  # USED WITH AJAX
+  # --------------
+  # Manually Adds a new User
+  #
+  # PARAMETERS
+  # ----------
+  # client_id: Infusionsoft ID of the client
+  # email: Email of the user
+  #
+  def mf_api_manually_add_user
+
+    # Create new User
+    user = User.new
+
+    # Populate User
+    user.clientid = params[:client_id]
+    user.email = params[:email]
+
+    user.save
+
+    response = {
+        success: true,
+        message: 'New User Created!'
+    }
+
+    render json: response
+
+  end
+
+
 end

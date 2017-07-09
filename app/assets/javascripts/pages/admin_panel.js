@@ -19,6 +19,11 @@ $(function() {
 
     /* --- MODALS --- */
     var user_info_modal = $('#user_info_modal');
+    var new_user_modal = $('#new_mf_user_modal');
+
+    /* --- BUTTONS --- */
+    var new_user_button = $('#mf_admin_add_user');
+    var new_user_submit_button = $('#mf_new_user_submit');
 
     /* --- COMPONENTS --- */
     var current_user_id = $('#modal_user_id');
@@ -27,10 +32,11 @@ $(function() {
     var user_last_name = $('#view_user_last_name');
     var user_email = $('#view_user_email');
 
+    var new_user_inf_id = $('#mf_new_user_inf_id');
+    var new_user_email = $('#mf_new_user_email');
 
     //Initialize the Admin Panel Page
     init();
-
 
 
     $('.mf_admin_user_info').on('click', function() {
@@ -66,6 +72,49 @@ $(function() {
 
     });
 
+    new_user_button.on('click', function() {
+        new_user_modal.modal('toggle');
+    });
+
+    new_user_inf_id.on('change', function() {
+        validateNewUserInput();
+    });
+
+    new_user_email.on('keyup', function() {
+        validateNewUserInput();
+    });
+
+
+    new_user_submit_button.on('click', function() {
+
+        if (new_user_inf_id.val() === '' || new_user_email.val() === '') {
+            new_user_submit_button.prop('disabled', true);
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/mf_api_manually_add_user',
+            data: {
+                client_id: new_user_inf_id.val(),
+                email: new_user_email.val()
+            },
+            error: function(e) {
+                console.log(e);
+                window.location.reload();
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload();
+            }
+
+        });
+
+
+
+    });
+
+
 
     function init() {
 
@@ -76,7 +125,19 @@ $(function() {
             } ]
         });
 
+        //Disable New User Submit Button
+        new_user_submit_button.prop('disabled', true);
 
+    }
+
+
+    function validateNewUserInput() {
+
+        if (new_user_inf_id.val() === '' || new_user_email.val() === '') {
+            new_user_submit_button.prop('disabled', true);
+        } else {
+            new_user_submit_button.prop('disabled', false);
+        }
     }
 
 
