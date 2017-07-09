@@ -38,8 +38,6 @@ $(function() {
         // Get the user ID from row
         var user_id = $(this).data('id');
 
-        alert(user_id);
-
         current_user_id.val(user_id);
 
         // Retrieve User info
@@ -55,7 +53,7 @@ $(function() {
             },
             success: function(response) {
                 console.log(response);
-                if (response.success === true) {\
+                if (response.success === true) {
                     user_inf_id.html(response.user_infusionsoft_id);
                     user_first_name.html(response.user_first_name);
                     user_last_name.html(response.user_last_name);
@@ -66,11 +64,7 @@ $(function() {
 
         });
 
-
-
     });
-
-
 
 
     function init() {

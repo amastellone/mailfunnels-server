@@ -53,7 +53,6 @@
                 <th class="text-center">First Name</th>
                 <th class="text-center">Last Name</th>
                 <th class="text-center">Email</th>
-
                 <th class="text-center">Action</th>
               </tr>
               </thead>
@@ -102,19 +101,12 @@
           <div class="modal-body">
             <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
 
-              <div class="hidden">
-                <input id="current_subscriber_id" type="number" value="0"/>
-              </div>
-
               <div class="panel">
                 <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <h4 class="panel-title">User Info</h4>
                 </a>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
                   <div class="panel-body">
-                    <div class="hidden">
-                      <input id="modal_user_id" type="text"/>
-                    </div>
                     <table class="table table-striped">
                       <tbody>
                       <tr>
@@ -138,33 +130,6 @@
                   </div>
                 </div>
               </div>
-
-
-              <!--START EMAILS SENT TO SUBSCRIBER-->
-              <div class="panel">
-                <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  <h4 class="panel-title">User Settings</h4>
-                </a>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-                  <div class="panel-body">
-
-                    <div class="row">
-                      <div class="col-xs-4">
-                        <button id="admin_user_disable" class="btn btn-danger btn-block">Disable User</button>
-                      </div>
-                      <div class="col-xs-4">
-                        <button id="admin_user_enable" class="btn btn-success btn-block">Enable User</button>
-                      </div>
-                      <div class="col-xs-4">
-                        <button id="admin_user_promote" class="btn btn-success btn-block">Promote Admin</button>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-
-              <!--END EMAILS SENT TO SUBSCRIBER-->
 
 
             </div>
