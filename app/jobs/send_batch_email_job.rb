@@ -19,11 +19,23 @@ class SendBatchEmailJob < ApplicationJob
       ERB.new(html, 0, "", "@renderedhtml").result(binding)
       puts "Template rendered!"
       puts"Creating Postmark Client"
+      if app.from_name.nil?
+        name = "Shop Admin"
+      else
+        name = app.from_name
+      end
+
+      if app.from_email.nil?
+        email = "noreply@custprotection.com"
+      else
+        email = app.from_email
+      end
+
       client = Postmark::ApiClient.new('b650bfe2-d2c6-4714-aa2d-e148e1313e37', http_open_timeout: 60)
       response = client.deliver(
           :subject     => template.email_subject,
           :to          => subscriber.email,
-          :from        => app.name.sub(".myshopify.com", "@custprotection.com"),
+          :from        => name+' '+email,
           :html_body   => @renderedhtml,
           :track_opens => 'true')
 
