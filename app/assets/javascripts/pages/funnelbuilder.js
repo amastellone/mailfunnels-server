@@ -5,7 +5,8 @@
  *
  * @Version 1.0
  */
-
+var new_node_email_template_select;
+var current_template_id;
 $(function() {
 
     /* --- AUTHENTICATION --- */
@@ -16,6 +17,7 @@ $(function() {
     var funnel_id = $('#current_funnel_id').val();
     var current_trigger_id = $('#current_trigger_id').val();
     var current_email_list_id = $('#current_list_id').val();
+    // var new_email_template_id = $('#email_template_id');
 
     /* --- FUNNEL BUILDER COMPONENTS --- */
     var funnel_builder = $('#funnel_builder');
@@ -35,9 +37,10 @@ $(function() {
 
 
 
+
     /* --- FORM INPUTS --- */
     var new_node_label = $('#new_node_label_input');
-    var new_node_email_template_select = $('#new_node_email_template_select');
+    new_node_email_template_select = $('#new_node_email_template_select');
     var new_node_delay_time_input = $('#new_node_delay_time_input');
     var time_unit_select = $('#time_unit_select');
 
@@ -47,6 +50,8 @@ $(function() {
     var view_template_modal = $('#view_template_modal'); //Preview Email Modal
     var edit_node_modal = $('#modal_node_edit'); //Edit Node Modal
     var edit_funnel_modal = $('#edit_funnel_modal'); //Edit Funnel Modal
+
+    var new_email_template_modal = $('#new_email_template_modal');
 
 
 
@@ -75,6 +80,21 @@ $(function() {
     var edit_funnel_submit_button = $('#edit_funnel_submit_button');
 
 
+    /* --- New Email Template Components --- */
+    var new_email_subject_input = $('#new_email_subject_input');
+    var theme_color = $('#theme_color');
+    var email_title_input = $('#email_title_input');
+    var button_select = $('#button_select');
+    var buttonTextInput = $('#buttonTextInput');
+    var buttonUrlInput = $('#buttonUrlInput');
+
+    var button_form_div = $('#button_form_div');
+
+    var new_template_submit_button = $('#new_template_submit_button');
+
+
+
+
     var email_title = $('#printEmailTitle');
     var email_content = $('#printEmailContent');
     var button_text = $('#printButtonText');
@@ -88,6 +108,16 @@ $(function() {
 
     //Setup the initial funnel builder
     init();
+
+    button_select.on('change', function(){
+
+        if ($(this).val() === 'true') {
+
+            button_form_div.show();
+        } else {
+            button_form_div.hide();
+        }
+    });
 
 
     edit_funnel_trigger.on('change', function() {
@@ -242,13 +272,73 @@ $(function() {
                     }
                 };
                 funnel_builder.flowchart('createOperator', operatorId, operatorData);
+                current_template_id = response.email_template_id;
+
+
+
+
             }
         });
 
 
 
+        if (email_template_id == '0'){
+            create_new_node_modal.modal('toggle');
+            new_email_template_modal.modal('toggle');
+
+
+
+        }
+
+
         edit_template_button.attr('href', 'edit_email_template/' + email_template_id);
-        create_new_node_modal.modal('toggle');
+
+    });
+
+
+    new_template_submit_button.on('click', function(){
+        var email_subject = new_email_subject_input.val();
+        var color = theme_color.val();
+        var email_title = email_title_input.val();
+        var button_text = buttonTextInput.val();
+        var button_url = buttonUrlInput.val();
+        var content = $('#summernote').summernote('code');
+
+        var has_button = false;
+
+        if (button_select.val() === "true") {
+            has_button = true;
+        }
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax_update_email_template',
+            dataType: "json",
+            data: {
+                app_id: app_id,
+                id: current_template_id,
+                email_subject: email_subject,
+                email_title: email_title,
+                email_content: content,
+                has_button: has_button,
+                button_text: button_text,
+                button_url: button_url,
+                color: color,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                new_email_template_modal.modal('toggle');
+            }
+        });
+
+
+
+
+
     });
 
     delete_selected_button.click(function() {
@@ -430,6 +520,20 @@ $(function() {
     });
 
 
+    new_template_submit_button.on('click', function(){
+
+
+
+
+
+
+
+
+
+
+    });
+
+
     
     /* ---- FUNNEL BUILDER FUNCTIONS --- */
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -494,6 +598,36 @@ $(function() {
 
             }
         });
+
+
+        if (button_select.val() === 'true') {
+            button_form_div.show();
+
+        } else {
+            button_form_div.hide();
+        }
+
+
+
+        var summernote = $('#summernote');
+        summernote.summernote({
+            height: 200,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ],
+            shortcuts: false,
+            dialogsInBody: true
+        });
+
+
+        //Set Color Picker to bootstrap color picker instance
+        $('#theme_color_select').colorpicker();
 
     }
 
