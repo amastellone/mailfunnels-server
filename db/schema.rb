@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20170708184141) do
     t.datetime "updated_at",            :null=>false
     t.string   "from_email"
     t.string   "from_name"
-    t.integer  "postmark_signature_id"
     t.integer  "user_id",               :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
   end
 
