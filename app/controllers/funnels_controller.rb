@@ -15,7 +15,6 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # Get all Funnel models
     @funnels = Funnel.where(app_id: @app.id)
 
-    logger.info @funnels
   end
 
 
