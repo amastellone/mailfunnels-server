@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   # User Routes
   post '/ajax_change_password' => 'main_interface#ajax_change_password'
+  post '/mf_api_get_user_info' => 'users#mf_api_get_user_info'
 
   # Funnel Page Routes
   get '/funnels', to: 'funnels#index'

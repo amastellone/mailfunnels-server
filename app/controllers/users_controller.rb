@@ -228,6 +228,45 @@ class UsersController < ActionController::Base
 
     render json: response
 
+  end
+
+
+  # USED WITH AJAX
+  # --------------
+  # Retrieves user info given a user id
+  #
+  # PARAMETERS
+  # ----------
+  # user_id: ID of the user
+  #
+  def mf_api_get_user_info
+
+    # Get the user from the DB
+    user = User.find(params[:user_id])
+
+    # If no user, return error response
+    unless user
+      response = {
+          success: false,
+          message: 'User not found'
+      }
+
+      render json: response and return
+    end
+
+    # Create User Info Response
+    response = {
+        success: true,
+        message: 'User Info successfully retrieved',
+        user_id: user.id,
+        user_infusionsoft_id: user.clientid,
+        user_first_name: user.first_name,
+        user_last_name: user.last_name,
+        user_email: user.email,
+    }
+
+    # Return success response
+    render json: response
 
   end
 
