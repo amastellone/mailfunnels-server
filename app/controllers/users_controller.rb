@@ -172,10 +172,11 @@ class UsersController < ActionController::Base
   def ajax_mf_app_create
 
     domain = params[:domain] + ".myshopify.com"
+    from_email = params[:domain] + "@custprotection.com"
 
     digest = OpenSSL::Digest.new('sha256')
     token = Base64.encode64(OpenSSL::HMAC.digest(digest, ENV['SECRET_KEY_BASE'], params[:domain])).strip
-    app = App.create(user_id: params[:user_id], name: domain, auth_token: token)
+    app = App.create(user_id: params[:user_id], name: domain, auth_token: token, from_email: from_email)
 
     response = {
         success: true,

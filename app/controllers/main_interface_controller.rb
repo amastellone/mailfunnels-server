@@ -137,14 +137,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     @app = MailfunnelsUtil.get_app
 
-    if @app.postmark_signature_id.nil?
-      @confirmed = false
-    else
-      client = Postmark::AccountApiClient.new('ac673fb9-9e7a-491f-bc43-77f29de16bfd')
-      signature = client.get_sender(@app.postmark_signature_id)
-      @confirmed = signature[:confirmed]
-    end
-
 
   end
 
@@ -205,45 +197,34 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   end
 
+
   def ajax_update_email_info
+
     # Access current app
     app = App.find(params[:id])
-    client = Postmark::AccountApiClient.new('ac673fb9-9e7a-491f-bc43-77f29de16bfd')
-    # Save The App Info
-    if app.postmark_signature_id == nil
-      response = client.create_sender(name: params[:from_name], from_email: params[:from_email])
-      app.put('', {
-          :from_email => params[:from_email],
-          :from_name => params[:from_name],
-          :postmark_signature_id => response[:id].to_i
-      })
-    else
-      client.get_sender(app.postmark_signature_id)
-      signature = client.get_sender(app.postmark_signature_id)
 
-      if signature[:email_address] == params[:from_email]
-        client.update_sender(app.postmark_signature_id, name: params[:from_name], from_email: params[:from_email])
-        app.put('', {:from_name => params[:from_name]})
-      else
-        client.delete_signature(app.postmark_signature_id)
-        response = client.create_sender(name: params[:from_name], from_email: params[:from_email])
-        app.put('', {
-            :from_email => params[:from_email],
-            :from_name => params[:from_name],
-            :postmark_signature_id => response[:id].to_i
-        })
-      end
+    unless app
+      response = {
+          success: false,
+          message: 'App not found'
+      }
 
+      render json: response and return
 
     end
 
-
-    final_json = JSON.pretty_generate(result = {
-        :success => true
+    app.put('', {
+        :from_name => params[:from_name]
     })
-    logger.info("---DONE!---")
+
+
+    response = {
+        success: true,
+        message: 'From Name Successflully Set'
+    }
+
     # Return JSON response
-    render json: final_json
+    render json: response
   end
 
 
@@ -667,10 +648,10 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     unless product
       response = {
-                success: false,
-                message: 'Error retrieving subscription plan'
-            }
-            render json: response
+          success: false,
+          message: 'Error retrieving subscription plan'
+      }
+      render json: response
     end
 
     price = product['PlanPrice']
@@ -686,15 +667,15 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     end
 
     invoice = Infusionsoft.invoice_add_subscription(user.clientid,
-                                          false,
-                                          params[:subscription_id],
-                                          1,
-                                          price,
-                                          false,
-                                          4,
-                                          creditCardId,
-                                          0,
-                                          0
+                                                    false,
+                                                    params[:subscription_id],
+                                                    1,
+                                                    price,
+                                                    false,
+                                                    4,
+                                                    creditCardId,
+                                                    0,
+                                                    0
     )
 
 
@@ -702,7 +683,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     tag = -1
 
     if params[:subscription_id].to_i == 2
-    tag=106
+      tag=106
     elsif params[:subscription_id].to_i == 4
       tag=108
 

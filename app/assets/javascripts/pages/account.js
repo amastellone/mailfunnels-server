@@ -18,7 +18,6 @@ $(function(){
     var change_password_confirm_input = $('#mf_confirm_password_input');
 
     /* --- EMAIL FORM INPUT FIELDS --- */
-    var from_email_input = $('#from_email_input');
     var from_name_input = $('#from_name_input');
 
     /* ---- BUTTONS --- */
@@ -139,7 +138,6 @@ $(function(){
 
     save_email_info_button.on('click', function(e){
 
-        var from_email = from_email_input.val();
         var from_name = from_name_input.val();
 
         $.ajax({
@@ -148,7 +146,6 @@ $(function(){
             dataType: "json",
             data: {
                 id: app_id,
-                from_email: from_email,
                 from_name: from_name,
                 authenticity_token: csrf_token
             },
