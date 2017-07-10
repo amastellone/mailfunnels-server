@@ -7,7 +7,10 @@
         });
     </script>
 
+
+    <%= javascript_include_tag 'datatable_manifest.js' %>
     <%= javascript_include_tag 'pages/broadcasts.js' %>
+    <%= stylesheet_link_tag 'dashboard.css' %>
 
 
     <div class="hidden">
@@ -24,7 +27,7 @@
             </div>
 
             <div class="title_right">
-              <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#new_email_list_modal"><i class="fa fa-plus"></i> New Broadcast</button>
+              <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#new_broadcast_modal"><i class="fa fa-plus"></i> New Broadcast</button>
             </div>
 
             <hr/>
@@ -47,10 +50,10 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <!-- Triggers Table -->
+              <!-- Broadcasts Table -->
               <table id="broadcasts_table" class="table table-striped text-center">
 
-                <!-- Triggers Table Header -->
+                <!-- Broadcasts Table Header -->
                 <thead>
                 <tr>
                   <th class="text-left">Name</th>
@@ -61,17 +64,31 @@
                   <th class="text-center"><i class="fa fa-wrench"></i></th>
                 </tr>
                 </thead>
-                <!-- END Hooks Table Header -->
+                <!-- END Broadcasts Table Header -->
 
-                <!-- Hooks Table BODY -->
+                <!-- Broadcasts Table BODY -->
                 <tbody>
 
+                <% if @broadcasts %>
+                    <% @broadcasts.each do |broadcast| %>
+                        <tr>
+                          <td><%= broadcast.name %></td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td style="width: 50px;">
+                            <button type="button" class="btn btn-primary btn-sm btn-border view_trigger_info_button" data-id="<%= broadcast.id %>"><i class="fa fa-plus"></i></button>
+                          </td>
+                        </tr>
+                    <% end %>
+                <% end %>
 
                 </tbody>
-                <!-- END Hooks Table BODY -->
+                <!-- END Broadcasts Table BODY -->
 
               </table>
-              <!-- END Hooks Table -->
+              <!-- END Broadcasts Table -->
             </div>
           </div>
         </div>
