@@ -96,6 +96,13 @@ class EmailController < ShopifyApp::AuthenticatedController
     end
 
 
+    # Get all lists For App
+    @lists = EmailList.where(app_id: @app.id)
+
+    # Get all Email Templates For App
+    @templates = EmailTemplate.where(app_id: @app.id)
+
+
 
   end
 
