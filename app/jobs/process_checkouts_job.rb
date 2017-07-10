@@ -49,7 +49,7 @@ class ProcessCheckoutsJob < ApplicationJob
             logger.info("Subscriber found!")
           else
             logger.info("Subscriber does not exist, creating now")
-            if first_name.nil? == false || last_name.nil? == false
+            if abandoned_cart.shipping_address.first_name.nil? == false || abandoned_cart.shipping_address.last_name.nil? == false
               logger.info("shipping address information present")
               first_name = abandoned_cart.shipping_address.first_name
               last_name = abandoned_cart.shipping_address.last_name
@@ -60,10 +60,10 @@ class ProcessCheckoutsJob < ApplicationJob
             end
             subscriber = Subscriber.create(app_id: app_id,
                                            email: email,
-                                           first_name: abandoned_cart.shipping_address.first_name,
-                                           last_name: abandoned_cart.shipping_address.last_name,
+                                           first_name: first_name,
+                                           last_name: last_name,
                                            revenue: 0,
-                                            intial_ref_type: 3,
+                                           initial_ref_type: 3,
             )
           end
           trigger = nil
