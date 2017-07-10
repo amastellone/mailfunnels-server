@@ -1,5 +1,6 @@
 MailFunnelServer::Application.routes.draw do
 
+  resources :broadcast_lists
 	mount ResourceApi => '/'
 
   # Unsubscribe Page Route
