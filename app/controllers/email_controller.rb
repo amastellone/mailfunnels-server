@@ -255,7 +255,7 @@ class EmailController < ShopifyApp::AuthenticatedController
     # Update the Attributes for the Batch Email Job
     batch.app_id = params[:app_id]
     batch.email_template_id = params[:email_template_id]
-
+    batch.email_list_id = params[:email_list_id]
     batch.name = params[:name]
     batch.description = params[:description]
 
@@ -263,13 +263,13 @@ class EmailController < ShopifyApp::AuthenticatedController
     batch.save
 
     # Create new Broadcast List
-    list = BroadcastList.new
-
-    list.app_id = params[:app_id]
-    list.batch_email_job_id = batch.id
-    list.email_list = params[:email_list_id]
-    
-    list.save
+    # list = BroadcastList.new
+    #
+    # list.app_id = params[:app_id]
+    # list.batch_email_job_id = batch.id
+    # list.email_list = params[:email_list_id]
+    #
+    # list.save
 
 
     response = {
