@@ -83,6 +83,9 @@ Rails.application.routes.draw do
   match '/create_list' => 'email#create_list', via: [:post]
   post '/ajax_create_email_list' => 'email#ajax_create_email_list'
 
+  # Broadcasts Routes
+  get '/broadcasts', to: 'email#broadcasts'
+
 
   # Admin Routes
   get '/admin_panel', to: 'main_interface#admin_panel'

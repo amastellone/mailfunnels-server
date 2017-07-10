@@ -78,6 +78,28 @@ class EmailController < ShopifyApp::AuthenticatedController
   end
 
 
+  # Page Render Function
+  # --------------------
+  # Renders the Broadcasts page
+  #
+  #
+  def broadcasts
+
+    # Get the current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the Current User
+    @user = User.find(@app.user.id)
+
+    unless @user
+      redirect_to '/error_page'
+    end
+
+
+
+  end
+
+
   # USED WITH AJAX
   # Creates a new EmailTemplate Instance
   #
