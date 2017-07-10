@@ -59,7 +59,7 @@ class ProcessCheckoutsJob < ApplicationJob
               last_name = null
             end
             subscriber = Subscriber.create(app_id: app_id,
-                                           email: email,
+                                           email: abandoned_cart.email,
                                            first_name: first_name,
                                            last_name: last_name,
                                            revenue: 0,
