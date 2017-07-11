@@ -96,13 +96,12 @@
 
           <div class="x_panel tile">
             <div class="x_title">
-              <h2 style="font-size: 20px;">Funnel Actions</h2>
+              <h2 style="font-size: 20px;">List Actions</h2>
               <div class="clearfix"></div>
             </div>
             <hr class="fade-2"/>
             <div class="x_content">
               <button id="edit_list_button" class="btn btn-primary btn-border btn-block" type="button" data-toggle="modal" data-target="#edit_list_modal"><i class="fa fa-wrench"></i> Edit</button>
-              <button class="btn btn-primary btn-border btn-block" type="button" data-toggle="modal" data-target="#new_batch_email_modal"><i class="fa fa-plus"></i> New Batch Email</button>
               <button id="subscribers_export_button" class="btn btn-primary btn-border btn-block" type="button"><i class="fa fa-download"></i> Export CSV </button>
               <button id="list_delete_button" class="btn btn-danger btn-border btn-block" type="button" data-toggle="modal" data-target="#delete_list_modal"><i class="fa fa-trash"></i> Delete </button>
 
@@ -118,57 +117,7 @@
 
     </div>
 
-
-
-    <!--Start New Batch Email Modal-->
-
-    <div id="new_batch_email_modal" class="modal fade bs-example-modal-sm">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content">
-
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">New Batch Email</h4>
-          </div>
-
-          <form class="form-horizontal form-label-left">
-
-            <div class="modal-body">
-
-              <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">Email List</label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <h4 id="email_list_name"><%= @list.name %></h4>
-              </div>
-            </div>
-
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Template</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <select class="form-control" id="template_list_select">
-                    <% @templates.each do |t| %>
-                        <option value="<%= t.id %>"><%= t.name %></option>
-                    <% end %>
-                  </select>
-                </div>
-              </div>
-
-
-            </div>
-
-            <div class="modal-footer">
-              <button id="batch_email_send_button" type="button" class="btn btn-success">Send</button>
-            </div>
-
-          </form>
-
-        </div>
-      </div>
-    </div>
-
-    <!--End New Batch Email Modal-->
+    
 
     <!-- START View Subscriber Info Modal -->
     <div id="subscriber_info_modal" class="modal fade bs-example-modal-sm">
