@@ -47,6 +47,10 @@ class BroadcastController < ShopifyApp::AuthenticatedController
     # Get the Batch Email Job
     @broadcast = BatchEmailJob.find(params[:id])
 
+
+    # Get All Email Lists for Broadcast
+    @lists = BroadcastList.where(batch_email_job_id: @broadcast.id)
+
   end
 
 

@@ -67,4 +67,54 @@
     </div>
 
 
+    <div class="row">
+      <div class="col-xs-12">
+
+        <div class="row">
+
+
+          <!--Start Left Side panels-->
+          <div class="col-xs-12 col-sm-3 pull-left">
+
+            <div class="x_panel tile">
+              <div class="x_title">
+                <h2 style="font-size: 20px;">Broadcast Info</h2>
+                <div class="clear-fix"></div>
+              </div>
+
+              <div class="x_content">
+                <h5><b>Name:</b> <%= @broadcast.name %> </h5>
+                <h5><b>Description:</b> <%= @broadcast.description %> </h5>
+
+                <h5><b>Created at:</b> <%= @broadcast.created_at %> </h5>
+                <h5><b>Email Lists:</b>
+                <% @lists.each do |list| %>
+                  <%= list.email_list.name %>
+
+                <% end %>
+                </h5>
+
+              </div>
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+          </div>
+          <!--End Left Side Panels-->
+
+
+        </div>
+      </div>
+    </div>
+
+
 <% end %>
