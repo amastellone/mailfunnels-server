@@ -84,8 +84,9 @@ Rails.application.routes.draw do
   post '/ajax_create_email_list' => 'email#ajax_create_email_list'
 
   # Broadcasts Routes
-  get '/broadcasts', to: 'email#broadcasts'
-  post '/ajax_new_broadcast' => 'email#ajax_new_broadcast'
+  get '/broadcasts', to: 'broadcast#broadcasts'
+  get '/broadcast_info/:id', to: 'broadcast#broadcast_info'
+  post '/ajax_new_broadcast' => 'broadcast#ajax_new_broadcast'
 
 
   # Admin Routes

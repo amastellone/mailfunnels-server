@@ -1,0 +1,70 @@
+<% content_for :javascript do %>
+    <script type="text/javascript">
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                icon: '/mailfunnels-logo.jpg'
+            });
+        });
+    </script>
+
+
+    <%= javascript_include_tag 'datatable_manifest.js' %>
+    <%= javascript_include_tag 'pages/broadcasts.js' %>
+    <%= stylesheet_link_tag 'dashboard.css' %>
+
+
+    <div class="hidden">
+      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+    </div>
+
+    <div class="col-xs-12">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="page-title">
+            <div class="title_left">
+              <h3>MailFunnels <small>Broadcast Info</small></h3>
+            </div>
+
+            <div class="title_right">
+
+            </div>
+
+            <hr/>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="fade-2"/>
+
+
+      <!-- Start Email Lists Table -->
+      <!-- ~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Broadcasts</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+
+
+<% end %>
