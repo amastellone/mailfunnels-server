@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708184141) do
+
+ActiveRecord::Schema.define(version: 20170710184743) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,16 +33,15 @@ ActiveRecord::Schema.define(version: 20170708184141) do
   end
 
   create_table "apps", force: :cascade do |t|
-    t.string   "name",                  :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
-    t.string   "auth_token",            :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
+    t.string   "name",        :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
+    t.string   "auth_token",  :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
     t.integer  "is_admin"
     t.integer  "is_disabled"
-    t.datetime "created_at",            :null=>false
-    t.datetime "updated_at",            :null=>false
+    t.datetime "created_at",  :null=>false
+    t.datetime "updated_at",  :null=>false
     t.string   "from_email"
     t.string   "from_name"
-    t.integer  "postmark_signature_id"
-    t.integer  "user_id",               :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
+    t.integer  "user_id",     :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
   end
 
   create_table "email_lists", force: :cascade do |t|
@@ -74,6 +75,14 @@ ActiveRecord::Schema.define(version: 20170708184141) do
     t.integer  "email_template_id", :foreign_key=>{:references=>"email_templates", :name=>"fk_batch_email_jobs_email_template_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__batch_email_jobs_email_template_id", :using=>:btree}
     t.datetime "created_at",        :null=>false
     t.datetime "updated_at",        :null=>false
+  end
+
+  create_table "broadcast_lists", force: :cascade do |t|
+    t.integer  "app_id",             :foreign_key=>{:references=>"apps", :name=>"fk_broadcast_lists_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__broadcast_lists_app_id", :using=>:btree}
+    t.integer  "batch_email_job_id", :foreign_key=>{:references=>"batch_email_jobs", :name=>"fk_broadcast_lists_batch_email_job_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__broadcast_lists_batch_email_job_id", :using=>:btree}
+    t.integer  "email_list_id",      :foreign_key=>{:references=>"email_lists", :name=>"fk_broadcast_lists_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__broadcast_lists_email_list_id", :using=>:btree}
+    t.datetime "created_at",         :null=>false
+    t.datetime "updated_at",         :null=>false
   end
 
   create_table "campaign_product_leads", force: :cascade do |t|

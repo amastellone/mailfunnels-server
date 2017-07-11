@@ -644,5 +644,38 @@ class ResourceApi < Grape::API
     end
   end
 
+  # BroadcastLists Resource API
+  # -----------------
+  resource :broadcast_lists do
+
+    # Get Routes
+    # ----------------
+    get do
+      BroadcastList.where(params)
+    end
+
+    route_param :id do
+      get do
+        BroadcastList.find(params[:id])
+      end
+    end
+
+
+    # Post/Put Routes
+    # ----------------
+    post do
+      BroadcastList.create! params
+    end
+
+    put ':id' do
+      BroadcastList.find(params[:id]).update(params)
+    end
+
+    put do
+      BroadcastList.update(params)
+    end
+
+  end
+
 
 end

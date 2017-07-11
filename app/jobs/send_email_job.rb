@@ -25,11 +25,23 @@ class SendEmailJob < ApplicationJob
 			html = File.open("app/views/email/template.html.erb").read
 			@renderedhtml = "1"
 			ERB.new(html, 0, "", "@renderedhtml").result(binding)
+			if app.from_name.nil?
+				name = "Shop Admin"
+			else
+				name = app.from_name
+			end
+
+			if app.from_email.nil?
+				email = "noreply@custprotection.com"
+			else
+				email = app.from_email
+			end
+
 			client = Postmark::ApiClient.new('b650bfe2-d2c6-4714-aa2d-e148e1313e37', http_open_timeout: 60)
 			 response = client.deliver(
 			 		:subject     => template.email_subject,
 			 		:to          => subscriber.email,
-			 		:from        => app.from_email,
+			 		:from        => name+' '+email,
 			 		:html_body   => @renderedhtml,
 			 		:track_opens => 'true')
 
