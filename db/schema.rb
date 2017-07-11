@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708183827) do
+ActiveRecord::Schema.define(version: 20170708184141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 20170708183827) do
     t.string   "auth_token",            :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
     t.integer  "is_admin"
     t.integer  "is_disabled"
-    t.datetime "created_at",     :null=>false
-    t.datetime "updated_at",     :null=>false
+    t.datetime "created_at",            :null=>false
+    t.datetime "updated_at",            :null=>false
     t.string   "from_email"
     t.string   "from_name"
     t.integer  "postmark_signature_id"
@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(version: 20170708183827) do
   create_table "email_list_subscribers", force: :cascade do |t|
     t.integer  "app_id",        :foreign_key=>{:references=>"apps", :name=>"fk_email_list_subscribers_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__email_list_subscribers_app_id", :using=>:btree}
     t.integer  "subscriber_id", :foreign_key=>{:references=>"subscribers", :name=>"fk_email_list_subscribers_subscriber_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__email_list_subscribers_subscriber_id", :using=>:btree}
-    t.integer  "email_list_id", :foreign_key=>{:references=>"email_lists", :name=>"fk_email_list_subscribers_email_list_id", :on_update=>:no_action, :on_delete=>:nullify}, :index=>{:name=>"fk__email_list_subscribers_email_list_id", :using=>:btree}
+    t.integer  "email_list_id", :foreign_key=>{:references=>"email_lists", :name=>"fk_email_list_subscribers_email_list_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__email_list_subscribers_email_list_id", :using=>:btree}
     t.datetime "created_at",    :null=>false
     t.datetime "updated_at",    :null=>false
   end
