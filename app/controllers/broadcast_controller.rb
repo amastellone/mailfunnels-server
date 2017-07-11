@@ -94,7 +94,8 @@ class BroadcastController < ShopifyApp::AuthenticatedController
 
     response = {
         success: true,
-        message: 'Broadcast Created'
+        message: 'Broadcast Created',
+        broadcast_id: batch.id
     }
 
     render json: response
