@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20170710184743) do
-
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,15 +31,16 @@ ActiveRecord::Schema.define(version: 20170710184743) do
   end
 
   create_table "apps", force: :cascade do |t|
-    t.string   "name",        :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
-    t.string   "auth_token",  :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
+    t.string   "name",                  :index=>{:name=>"index_apps_on_name", :unique=>true, :using=>:btree}
+    t.string   "auth_token",            :index=>{:name=>"index_apps_on_auth_token", :unique=>true, :using=>:btree}
     t.integer  "is_admin"
     t.integer  "is_disabled"
-    t.datetime "created_at",  :null=>false
-    t.datetime "updated_at",  :null=>false
+    t.datetime "created_at",            :null=>false
+    t.datetime "updated_at",            :null=>false
     t.string   "from_email"
     t.string   "from_name"
-    t.integer  "user_id",     :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
+    t.integer  "postmark_signature_id"
+    t.integer  "user_id",               :foreign_key=>{:references=>"users", :name=>"fk_apps_user_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__apps_user_id", :using=>:btree}
   end
 
   create_table "email_lists", force: :cascade do |t|
