@@ -36,8 +36,6 @@ $(function() {
     var edit_template_button = $('#editButton'); // Edit Template from node
 
 
-
-
     /* --- FORM INPUTS --- */
     var new_node_label = $('#new_node_label_input');
     new_node_email_template_select = $('#new_node_email_template_select');
@@ -249,6 +247,7 @@ $(function() {
             },
             error: function(e) {
                 console.log(e);
+                create_new_node_modal.modal('toggle');
             },
             success: function(response) {
                 console.log(response);
@@ -273,22 +272,14 @@ $(function() {
                 };
                 funnel_builder.flowchart('createOperator', operatorId, operatorData);
                 current_template_id = response.email_template_id;
-
-
-
+                create_new_node_modal.modal('toggle');
+                if (email_template_id === '0') {
+                    new_email_template_modal.modal('toggle');
+                }
 
             }
         });
 
-
-
-        if (email_template_id == '0'){
-            create_new_node_modal.modal('toggle');
-            new_email_template_modal.modal('toggle');
-
-
-
-        }
 
 
         edit_template_button.attr('href', 'edit_email_template/' + email_template_id);
