@@ -15,6 +15,7 @@
 
     <div class="hidden">
       <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+
     </div>
 
     <div class="col-xs-12">
@@ -66,6 +67,111 @@
 
     </div>
 
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="">
+          <div class="x_content">
+
+            <div class="row">
+
+              <a href="<%= root_url %>all_subscribers">
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-users text-primary"></i>
+                    </div>
+                    <div class="count">0</div>
+
+                    <h3>Total Subscribers</h3>
+                  </div>
+                </div>
+              </a>
+
+              <a href="<%= root_url %>funnels">
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-filter text-primary"></i>
+                    </div>
+                    <div class="count">0</div>
+
+                    <h3>Funnels</h3>
+                  </div>
+                </div>
+              </a>
+
+              <a href="<%= root_url %>lists">
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-envelope-o text-primary"></i>
+                    </div>
+                    <div class="count"><%= @lists.size %></div>
+
+                    <h3>Email Lists</h3>
+                  </div>
+                </div>
+              </a>
+
+              <a href="<%= root_url %>email_templates">
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-envelope-o text-primary"></i>
+                    </div>
+                    <div class="count">0</div>
+
+                    <h3>Email Templates</h3>
+                  </div>
+                </div>
+              </a>
+
+            </div>
+
+
+
+            <div class="row">
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-envelope text-primary"></i>
+                  </div>
+
+                  <div class="count"><%= @sent %></div>
+
+                  <h3>Emails Sent</h3>
+                </div>
+              </div>
+              <div id="emails_opened_div" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-envelope-open-o text-primary"></i>
+                  </div>
+                  <div id="emails_opened_view" class="count"><%= @opened %></div>
+
+                  <h3>Emails Opened</h3>
+                </div>
+              </div>
+              <div id="emails_clicked_div" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-envelope-open text-primary"></i>
+                  </div>
+                  <div id="emails_clicked_view" class="count"><%= @clicked %></div>
+
+                  <h3>Emails Clicked</h3>
+                </div>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                  <div class="icon"><i class="fa fa-dollar text-primary"></i>
+                  </div>
+                  <div class="count">0</div>
+
+                  <h3>Total Revenue</h3>
+                </div>
+              </div>
+            </div>
+
+            <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="row">
       <div class="col-xs-12">
@@ -82,17 +188,23 @@
                 <div class="clear-fix"></div>
               </div>
 
+
               <div class="x_content">
                 <h5><b>Name:</b> <%= @broadcast.name %> </h5>
                 <h5><b>Description:</b> <%= @broadcast.description %> </h5>
 
                 <h5><b>Created at:</b> <%= @broadcast.created_at %> </h5>
                 <h5><b>Email Lists:</b>
+
                 <% @lists.each do |list| %>
-                  <%= list.email_list.name %>
+                        <p><%= list.email_list.name %></p>
 
                 <% end %>
+
+
                 </h5>
+
+
 
               </div>
 
