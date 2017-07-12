@@ -46,6 +46,6 @@ class BatchEmailJobsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def batch_email_job_params
-      params.require(:batch_email_job).permit(:name, :description, :app_id, :email_list_id, :email_template_id)
+      params.require(:batch_email_job).permit(:name, :description, :app_id, :email_template_id)
     end
 end
