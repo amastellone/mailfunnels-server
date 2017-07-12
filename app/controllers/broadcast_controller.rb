@@ -43,8 +43,9 @@ class BroadcastController < ShopifyApp::AuthenticatedController
   #
   def broadcast_info
 
-    subs = 0
-    i = 0
+    @total_subs = 0
+
+
 
     # Get the current App
     @app = MailfunnelsUtil.get_app
@@ -61,17 +62,8 @@ class BroadcastController < ShopifyApp::AuthenticatedController
 
 
 
-    # while i < @lists.size
-    #
-    #   subs += EmailListSubscriber.where(email_list_id: @lists.email_list_id).size
-    #
-    #   i += 1
-    #
-    # end
-    #
-    #
-    # # Get All subscribers from all email Lists
-    # @subscribers = subs
+
+
 
     # Get All Opened Emails
     @opened = EmailJob.where(app_id: @app.id, batch_email_job_id: @broadcast.id, opened: 1).size
@@ -82,6 +74,10 @@ class BroadcastController < ShopifyApp::AuthenticatedController
 
     # Get All Sent Emails
     @sent = EmailJob.where(app_id: @app.id, batch_email_job_id: @broadcast.id, sent: 1).size
+
+    # Get All Subscribers
+
+    # @subscribers = EmailListSubscriber.where(app_id: @app.id, email_list_id: @lists.email_list_id).size
 
 
 
