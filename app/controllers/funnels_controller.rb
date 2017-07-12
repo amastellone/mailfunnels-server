@@ -125,7 +125,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
       template.color = '#3498db'
 
       # Save blank Email Template
-      template.save!
+      template.save
 
       node.email_template_id = template.id
 
@@ -153,7 +153,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
       success: true,
       message: 'Node Saved',
       id: node.id,
-      email_template_id: template.id
+      email_template_id: node.email_template_id
 
     }
 

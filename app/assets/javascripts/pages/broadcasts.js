@@ -48,7 +48,9 @@ $(function() {
             },
             success: function(response) {
                 console.log(response);
-                window.location.reload();
+                if (response.success === true){
+                    window.location.assign('/broadcast_info/' + response.broadcast_id)
+                }
             }
         });
 
