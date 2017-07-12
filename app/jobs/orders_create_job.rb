@@ -79,8 +79,11 @@ class OrdersCreateJob < ApplicationJob
         end
       end
 
-      # for calculating daily revenue
-      CapturedHook.create(hook_id:hook.id, subscriber_id:subscriber.id, app_id:app.id,revenue:price)
+      if EmailUtil.should_capture_hook(subscriber.id, app.id)
+        # for calculating daily revenue
+        CapturedHook.create(hook_id:hook.id, subscriber_id:subscriber.id, app_id:app.id,revenue:price)
+      end
+
 
       if trigger
         logger.info("Trigger found!")

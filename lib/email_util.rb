@@ -27,7 +27,7 @@ class EmailUtil
   end
 
   def self.increase_subscriber_revenue(subscriber, amount)
-    subscriber_test = subscriber.put('',:revenue => subscriber.revenue.to_f+amount)
+    subscriber_test = subscriber.put('', :revenue => subscriber.revenue.to_f+amount)
     if subscriber.nil? == false
       return subscriber
     else
@@ -36,7 +36,7 @@ class EmailUtil
   end
 
   def self.decrease_subscriber_revenue(subscriber, amount)
-    subscriber_test = subscriber.put('',:revenue => subscriber.revenue.to_f-amount)
+    subscriber_test = subscriber.put('', :revenue => subscriber.revenue.to_f-amount)
     if subscriber.nil? == false
       return subscriber
     else
@@ -45,7 +45,7 @@ class EmailUtil
   end
 
   def self.set_subscriber_revenue(subscriber, amount)
-    subscriber_test = subscriber.put('',:revenue => amount)
+    subscriber_test = subscriber.put('', :revenue => amount)
     if subscriber.nil? == false
       return subscriber
     else
@@ -67,8 +67,8 @@ class EmailUtil
 
   def self.add_subscriber_to_list(app_id, email_list_id, subscriber_id)
     emailsub = EmailListSubscriber.post('', {:app_id => app_id,
-                                  :subscriber_id => subscriber_id,
-                                  :email_list_id => email_list_id})
+                                             :subscriber_id => subscriber_id,
+                                             :email_list_id => email_list_id})
 
     if emailsub.nil? == false
       return emailsub
@@ -174,13 +174,13 @@ class EmailUtil
 
   def self.create_new_email_job(app_id, funnel_id, subscriber_id, node_id, email_template_id, email_list_id)
     job = EmailJob.post('', {:app_id => app_id,
-                       :funnel_id => funnel_id,
-                       :subscriber_id => subscriber_id,
-                       :executed => false,
-                       :node_id => node_id,
-                       :email_template_id => email_template_id,
-                       :email_list_id => email_list_id,
-                       :sent => 0
+                             :funnel_id => funnel_id,
+                             :subscriber_id => subscriber_id,
+                             :executed => false,
+                             :node_id => node_id,
+                             :email_template_id => email_template_id,
+                             :email_list_id => email_list_id,
+                             :sent => 0
     })
     if job.nil? == false
       return job
@@ -189,10 +189,20 @@ class EmailUtil
     end
   end
 
-  def self.scanProductTrigger(product)
+
+  def self.should_capture_hook(subscriber_id, app_id)
+    job = EmailJob.where(app_id: app_id, subscriber_id: subscriber_id, sent: 1).first
+
+    if job.nil? == false
+      return true
+    else
+      return false
+    end
+
   end
 
-
+  def self.scanProductTrigger(product)
+  end
 
 
 end

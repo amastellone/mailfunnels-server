@@ -94,6 +94,8 @@ class ProcessCheckoutsJob < ApplicationJob
               logger.info("Looking for start link")
               link = Link.where(funnel_id: funnel.id, start_link: 1).first
 
+              EmailUtil.increment_trigger_hit_count(trigger)
+
               if link
                 logger.info("Start link found!")
               else

@@ -70,28 +70,41 @@ class BroadcastController < ShopifyApp::AuthenticatedController
   def ajax_new_broadcast
 
     # Create new Batch Email
-    batch = BatchEmailJob.new
+    batch = BatchEmailJob.create(app_id: params[:app_id],
+                         email_template_id: params[:email_template_id],
+                         name: params[:name],
+                         description: params[:description])
+    puts "========"
+    puts batch.id
+    puts "========"
 
-    # Update the Attributes for the Batch Email Job
-    batch.app_id = params[:app_id]
-    batch.email_template_id = params[:email_template_id]
-    batch.name = params[:name]
-    batch.description = params[:description]
-
-    # Save Broadcast
-    batch.save
+    # batch = BatchEmailJob.new
+    #
+    # # Update the Attributes for the Batch Email Job
+    # batch.app_id = params[:app_id]
+    # batch.email_template_id = params[:email_template_id]
+    # batch.name = params[:name]
+    # batch.description = params[:description]
+    #
+    # # Save Broadcast
+    # batch.save
 
     # Create new Broadcast List Instance
     params[:email_list_id].each do |listid|
-      list = BroadcastList.new
+      # list = BroadcastList.new
 
-      # Update with attributes
-      list.app_id = params[:app_id]
-      list.batch_email_job_id = batch.id
-      list.email_list_id = listid
+      BroadcastList.create(app_id: params[:app_id],
+                           batch_email_job_id: batch.id,
+                           email_list_id: listid
+      )
 
-      # Save Broadcast List
-      list.save
+      # # Update with attributes
+      # list.app_id = params[:app_id]
+      # list.batch_email_job_id = batch.id
+      # list.email_list_id = listid
+      #
+      # # Save Broadcast List
+      # list.save
     end
 
 
