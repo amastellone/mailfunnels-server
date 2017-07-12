@@ -72,11 +72,13 @@
                 <% if @broadcasts %>
                     <% @broadcasts.each do |broadcast| %>
                         <tr>
-                          <td><%= broadcast.name %></td>
-                          <td>0</td>
-                          <td>0</td>
-                          <td>0</td>
-                          <td>0</td>
+                          <td>
+                            <h5 class="pull-left"><%= broadcast.name %></h5>
+                          </td>
+                          <td><h5>0</h5></td>
+                          <td><h5>0</h5></td>
+                          <td><h5>0</h5></td>
+                          <td><h5>0</h5></td>
                           <td style="width: 50px;">
                             <a href="<%= root_url %>broadcast_info/<%= broadcast.id %>" class="btn btn-primary btn-sm btn-border">View</a>
                           </td>
