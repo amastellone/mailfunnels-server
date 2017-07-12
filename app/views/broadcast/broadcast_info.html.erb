@@ -39,197 +39,167 @@
 
       <hr class="fade-2"/>
 
-
-      <!-- Start Email Lists Table -->
-      <!-- ~~~~~~~~~~~~~~~~~~~~~~~ -->
       <div class="row">
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>Broadcasts</h2>
-              <div class="clearfix"></div>
-            </div>
+        <div class="col-xs-12">
+          <div class="">
             <div class="x_content">
 
+              <div class="col-xs-12 col-sm-4">
 
+                <div class="row">
+
+
+                  <!--Start Left Side panels-->
+                  <div class="col-xs-12 pull-left">
+
+                    <div class="x_panel tile">
+                      <div class="x_title">
+                        <h2 style="font-size: 20px;">Broadcast Info</h2>
+                        <div class="clearfix"></div>
+                        <hr class="fade-2"/>
+                      </div>
+
+
+
+                      <div class="x_content">
+                        <h5><b>Name:</b> <%= @broadcast.name %> </h5>
+                        <h5><b>Description:</b> <%= @broadcast.description %> </h5>
+
+                        <h5><b>Date Created:</b> <%= DateTime.parse( @broadcast.created_at).strftime("%D %I:%M %p") %> </h5>
+                        <h5>
+                          <b>Email Lists:</b>
+                          <% @lists.each do |list| %>
+                              <%= list.email_list.name %>,
+                          <% end %>
+                        </h5>
+                        <br/>
+
+                        <h5><b>Open Rate:</b></h5>
+                        <% if @sent === 0 %>
+                            <div class="row">
+                              <div class="col-xs-10">
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-success" data-transitiongoal="0" aria-valuenow="0"></div>
+                                </div>
+                              </div>
+                              <div class="col-xs-2">
+                                <p>0%</p>
+                              </div>
+                            </div>
+                        <% else %>
+                            <% percent = (@opened.to_f / @sent.to_f) * 100 %>
+                            <div class="row">
+                              <div class="col-xs-10">
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-success" data-transitiongoal="<%= percent %>" aria-valuenow="<%= percent %>" style="width: <%= percent.to_i.to_s + '%' %>"></div>
+                                </div>
+                              </div>
+                              <div class="col-xs-2">
+                                <p><%= percent.to_i %>%</p>
+                              </div>
+                            </div>
+
+                        <% end %>
+
+                        <h5><b>Click Rate:</b></h5>
+                        <% if @sent === 0 %>
+                            <div class="row">
+                              <div class="col-xs-10">
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-success" data-transitiongoal="0" aria-valuenow="0"></div>
+                                </div>
+                              </div>
+                              <div class="col-xs-2">
+                                <p>0%</p>
+                              </div>
+                            </div>
+
+                        <% else %>
+                            <% percent = (@clicked.to_f / @sent.to_f) * 100 %>
+                            <div class="row">
+                              <div class="col-xs-10">
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-success" data-transitiongoal="<%= percent %>" aria-valuenow="<%= percent %>" style="width: <%= percent.to_i.to_s + '%' %>"></div>
+                                </div>
+                              </div>
+                              <div class="col-xs-2">
+                                <p><%= percent.to_i %>%</p>
+                              </div>
+                            </div>
+
+                        <% end %>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <!--End Left Side Panels-->
+
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-8">
+
+                <div class="row">
+                    <div class="animated flipInY col-sm-6 col-xs-12">
+                      <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-users text-primary"></i>
+                        </div>
+                        <div class="count"> <%= @subscribers %> </div>
+
+                        <h3>Total Subscribers</h3>
+                      </div>
+                    </div>
+
+                  <div class="animated flipInY col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                      <div class="icon"><i class="fa fa-envelope text-primary"></i>
+                      </div>
+
+                      <div class="count"><%= @sent %></div>
+
+                      <h3>Emails Sent</h3>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+
+                  <div id="emails_opened_div" class="animated flipInY  col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                      <div class="icon"><i class="fa fa-envelope-open-o text-primary"></i>
+                      </div>
+                      <div id="emails_opened_view" class="count"><%= @opened %></div>
+
+                      <h3>Emails Opened</h3>
+                    </div>
+                  </div>
+                  <div id="emails_clicked_div" class="animated flipInY col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                      <div class="icon"><i class="fa fa-envelope-open text-primary"></i>
+                      </div>
+                      <div id="emails_clicked_view" class="count"><%= @clicked %></div>
+
+                      <h3>Emails Clicked</h3>
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+
+
+              <br>
             </div>
           </div>
         </div>
-
       </div>
-
-
-
-
-
-
 
     </div>
 
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="">
-          <div class="x_content">
-
-            <div class="row">
-              <% @lists.each do |list| %>
-                <% @total_subs = 0 %>
-                  <% @total_subs += EmailListSubscriber.where(email_list_id: list.email_list_id).size %>
-              <% end %>
-              <a href="<%= root_url %>all_subscribers">
-                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                  <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-users text-primary"></i>
-                    </div>
-                    <div class="count"> <%= @total_subs %> </div>
-
-                    <h3>Total Subscribers</h3>
-                  </div>
-                </div>
-              </a>
-
-              <a href="<%= root_url %>funnels">
-                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                  <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-filter text-primary"></i>
-                    </div>
-                    <div class="count">0</div>
-
-                    <h3>Funnels</h3>
-                  </div>
-                </div>
-              </a>
-
-              <a href="<%= root_url %>lists">
-                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                  <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-envelope-o text-primary"></i>
-                    </div>
-                    <div class="count"><%= @lists.size %></div>
-
-                    <h3>Email Lists</h3>
-                  </div>
-                </div>
-              </a>
-
-              <a href="<%= root_url %>email_templates">
-                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                  <div class="tile-stats">
-                    <div class="icon"><i class="fa fa-envelope-o text-primary"></i>
-                    </div>
-                    <div class="count">0</div>
-
-                    <h3>Email Templates</h3>
-                  </div>
-                </div>
-              </a>
-
-            </div>
-
-
-
-            <div class="row">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-envelope text-primary"></i>
-                  </div>
-
-                  <div class="count"><%= @sent %></div>
-
-                  <h3>Emails Sent</h3>
-                </div>
-              </div>
-              <div id="emails_opened_div" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-envelope-open-o text-primary"></i>
-                  </div>
-                  <div id="emails_opened_view" class="count"><%= @opened %></div>
-
-                  <h3>Emails Opened</h3>
-                </div>
-              </div>
-              <div id="emails_clicked_div" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-envelope-open text-primary"></i>
-                  </div>
-                  <div id="emails_clicked_view" class="count"><%= @clicked %></div>
-
-                  <h3>Emails Clicked</h3>
-                </div>
-              </div>
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-dollar text-primary"></i>
-                  </div>
-                  <div class="count">0</div>
-
-                  <h3>Total Revenue</h3>
-                </div>
-              </div>
-            </div>
-
-            <br>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row">
-      <div class="col-xs-12">
-
-        <div class="row">
-
-
-          <!--Start Left Side panels-->
-          <div class="col-xs-12 col-sm-3 pull-left">
-
-            <div class="x_panel tile">
-              <div class="x_title">
-                <h2 style="font-size: 20px;">Broadcast Info</h2>
-                <div class="clear-fix"></div>
-              </div>
-
-
-              <div class="x_content">
-                <h5><b>Name:</b> <%= @broadcast.name %> </h5>
-                <h5><b>Description:</b> <%= @broadcast.description %> </h5>
-
-                <h5><b>Created at:</b> <%= DateTime.parse( @broadcast.created_at).strftime("%D %I:%M %p") %> </h5>
-                <h5><b>Email Lists:</b>
-
-                <% @lists.each do |list| %>
-                        <p><%= list.email_list.name %></p>
-
-                <% end %>
-
-
-                </h5>
-
-
-
-              </div>
-
-
-
-
-            </div>
-
-
-
-
-
-
-
-
-          </div>
-          <!--End Left Side Panels-->
-
-
-        </div>
-      </div>
-    </div>
 
 
 <% end %>

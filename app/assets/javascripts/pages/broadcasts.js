@@ -28,7 +28,6 @@ $(function() {
     init();
 
 
-
     submit_new_broadcast.on('click', function() {
 
         $.ajax({
@@ -75,6 +74,11 @@ $(function() {
         });
 
         $('.left_col').height($('.right_col').height() + 50);
+
+        // Progressbar
+        if ($(".progress .progress-bar")[0]) {
+            $('.progress .progress-bar').progressbar();
+        }
     }
 
 
