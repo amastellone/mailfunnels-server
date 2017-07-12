@@ -56,6 +56,11 @@ $(function() {
 
     });
 
+    $('#broadcasts_table_length').on('change', function() {
+
+        $('.left_col').height($('.right_col').height() + 50);
+    });
+
 
 
 
@@ -68,6 +73,8 @@ $(function() {
                 "orderable": false,
             } ]
         });
+
+        $('.left_col').height($('.right_col').height() + 50);
     }
 
 

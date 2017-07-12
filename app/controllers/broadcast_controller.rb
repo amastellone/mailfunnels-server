@@ -28,6 +28,9 @@ class BroadcastController < ShopifyApp::AuthenticatedController
     # Get all Broadcasts For App
     @broadcasts = BatchEmailJob.where(app_id: @app.id)
 
+    # Initialize Global Variable
+    @total_subs = 0
+
   end
 
 

@@ -60,7 +60,6 @@
                   <th class="text-center">Subscribers</th>
                   <th class="text-center">Emails Opened</th>
                   <th class="text-center">Emails Clicked</th>
-                  <th class="text-center">Unsubscribers</th>
                   <th class="text-center"><i class="fa fa-wrench"></i></th>
                 </tr>
                 </thead>
@@ -71,18 +70,19 @@
 
                 <% if @broadcasts %>
                     <% @broadcasts.each do |broadcast| %>
-                        <% total_subs = 0 %>
-                        <% @broadcast.broadcast_lists.each do |list| %>
-
+                        <% @total_subs = 0 %>
+                        <% broadcast.broadcast_lists.each do |list| %>
+                          <% @total_subs += EmailListSubscriber.where(email_list_id: list.email_list_id).size %>
                         <% end %>
                         <tr>
-                          <td>
-                            <h5 class="pull-left"><%= broadcast.name %></h5>
+                          <td class="text-left">
+                            <h5><%= broadcast.name %></h5>
+                            <p>Created at: <%= DateTime.parse( broadcast.created_at).strftime("%D %I:%M %p") %></p>
+                            <p><%= broadcast.description %></p>
                           </td>
-                          <td><h5>0</h5></td>
-                          <td><h5>0</h5></td>
-                          <td><h5>0</h5></td>
-                          <td><h5>0</h5></td>
+                          <td><h5><%= @total_subs %></h5></td>
+                          <td><h5><%= EmailJob.where(batch_email_job_id: broadcast.id, opened: 1).size %></h5></td>
+                          <td><h5><%= EmailJob.where(batch_email_job_id: broadcast.id, clicked: 1).size %> </h5></td>
                           <td style="width: 50px;">
                             <a href="<%= root_url %>broadcast_info/<%= broadcast.id %>" class="btn btn-primary btn-sm btn-border">View</a>
                           </td>
