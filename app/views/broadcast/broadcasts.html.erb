@@ -57,6 +57,7 @@
                 <thead>
                 <tr>
                   <th class="text-left">Name</th>
+                  <th class="text-center">Email Lists</th>
                   <th class="text-center">Subscribers</th>
                   <th class="text-center">Emails Opened</th>
                   <th class="text-center">Emails Clicked</th>
@@ -80,6 +81,7 @@
                             <p>Created at: <%= DateTime.parse( broadcast.created_at).strftime("%D %I:%M %p") %></p>
                             <p><%= broadcast.description %></p>
                           </td>
+                          <td><h5><%= BroadcastList.where(batch_email_job_id: broadcast.id).size %></h5></td>
                           <td><h5><%= @total_subs %></h5></td>
                           <td><h5><%= EmailJob.where(batch_email_job_id: broadcast.id, opened: 1).size %></h5></td>
                           <td><h5><%= EmailJob.where(batch_email_job_id: broadcast.id, clicked: 1).size %> </h5></td>
