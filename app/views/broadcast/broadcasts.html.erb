@@ -71,6 +71,10 @@
 
                 <% if @broadcasts %>
                     <% @broadcasts.each do |broadcast| %>
+                        <% total_subs = 0 %>
+                        <% @broadcast.broadcast_lists.each do |list| %>
+
+                        <% end %>
                         <tr>
                           <td>
                             <h5 class="pull-left"><%= broadcast.name %></h5>
