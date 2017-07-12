@@ -27,7 +27,7 @@ class BroadcastController < ShopifyApp::AuthenticatedController
 
     # Get all Broadcasts For App
     @broadcasts = BatchEmailJob.where(app_id: @app.id)
-
+    
     # Initialize Global Variable
     @total_subs = 0
 
@@ -44,11 +44,44 @@ class BroadcastController < ShopifyApp::AuthenticatedController
   #
   def broadcast_info
 
+    @total_subs = 0
+
+
+
     # Get the current App
     @app = MailfunnelsUtil.get_app
 
     # Get the Batch Email Job
     @broadcast = BatchEmailJob.find(params[:id])
+
+
+
+
+
+    # Get All Email Lists for Broadcast
+    @lists = BroadcastList.where(batch_email_job_id: @broadcast.id)
+
+
+
+
+
+
+    # Get All Opened Emails
+    @opened = EmailJob.where(app_id: @app.id, batch_email_job_id: @broadcast.id, opened: 1).size
+
+    # Get all Clicked Emails
+    @clicked = EmailJob.where(app_id: @app.id, batch_email_job_id: @broadcast.id, clicked: 1).size
+
+
+    # Get All Sent Emails
+    @sent = EmailJob.where(app_id: @app.id, batch_email_job_id: @broadcast.id, sent: 1).size
+
+    # Get All Subscribers
+
+    # @subscribers = EmailListSubscriber.where(app_id: @app.id, email_list_id: @lists.email_list_id).size
+
+
+
 
   end
 

@@ -74,6 +74,7 @@
                         <% @total_subs = 0 %>
                         <% broadcast.broadcast_lists.each do |list| %>
                           <% @total_subs += EmailListSubscriber.where(email_list_id: list.email_list_id).size %>
+
                         <% end %>
                         <tr>
                           <td class="text-left">
