@@ -61,7 +61,8 @@ class MailFunnelsUser
   # Returns: INTEGER
   # ----------------
   # -1 : Error
-  # -2 : MailFunnels Free Trial
+  # -2 : MailFunnels Free Trial User
+  # -99 : Mailfunnels Free Trial Ended and No Plan (Account Disabled)
   # 106 : MailFunnels 1k
   # 108 : MailFunnels 2k
   # 110 : MailFunnels 4k
@@ -92,6 +93,7 @@ class MailFunnelsUser
     # Parse through Tags and set current plan
     current_plan = -1
     trial_user = false
+    trial_ended = false
     tags = user.client_tags.split(",")
     tags.each do |tag|
 
@@ -108,6 +110,10 @@ class MailFunnelsUser
         trial_user = true
       end
 
+      if temp === 145
+        trial_ended = true
+      end
+
       # If tag is a subscription tag, update current_plan
       if temp > 104 and temp < 120
 
@@ -120,9 +126,21 @@ class MailFunnelsUser
 
     end
 
-    # Return the current plan
-    if trial_user and current_plan === -1
-      return -2
+
+    # If current plan is -1
+    if current_plan === -1
+
+      if trial_ended
+        return -99
+
+      elsif trial_user
+        return -2
+      end
+
+    else
+
+      return current_plan
+
     end
 
     return current_plan
@@ -187,6 +205,8 @@ class MailFunnelsUser
         return 35000 - num_subscribers
       when -2
         return 500 - num_subscribers
+      when -99
+        return 0
       else
         return -2
     end

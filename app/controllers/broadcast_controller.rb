@@ -23,7 +23,7 @@ class BroadcastController < ShopifyApp::AuthenticatedController
     @user_plan = MailFunnelsUser.get_user_plan(user.clientid)
 
     # If the User is not an admin redirect to error page
-    if @user_plan === -2
+    if @user_plan === -2 or @user_plan === -99
       redirect_to '/trial_access_denied'
     end
 

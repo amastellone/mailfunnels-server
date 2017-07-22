@@ -33,7 +33,7 @@
           </div>
 
           <div class="title_right">
-            <% if @user_plan === -2 %>
+            <% if @user_plan === -2 or @user_plan === -99 %>
                 <button data-toggle="modal" data-target="#trial_denied_modal" class="btn btn-primary btn-border pull-right" style="margin-right: 5px;" type="button">
                   <i class="fa fa-download"></i> Export CSV
                 </button>

@@ -102,7 +102,7 @@
             <hr class="fade-2"/>
             <div class="x_content">
               <button id="edit_list_button" class="btn btn-primary btn-border btn-block" type="button" data-toggle="modal" data-target="#edit_list_modal"><i class="fa fa-wrench"></i> Edit</button>
-              <% if @user_plan === -2 %>
+              <% if @user_plan === -2 or @user_plan === -99 %>
                   <button data-toggle="modal" data-target="#trial_denied_modal" class="btn btn-primary btn-border btn-block" type="button"><i class="fa fa-download"></i> Export CSV </button>
               <% else %>
                   <button id="subscribers_export_button" class="btn btn-primary btn-border btn-block" type="button"><i class="fa fa-download"></i> Export CSV </button>

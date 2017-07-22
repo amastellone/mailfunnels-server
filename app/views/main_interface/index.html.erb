@@ -35,6 +35,9 @@
                 <% else %>
                     <h4 class="text-primary pull-right"><%= @subs_left %> Trial Subscribers Remaining</h4>
                 <% end %>
+
+            <% elsif @user_plan === -99 %>
+                <h4 class="text-danger pull-right">Free Trial Ended</h4>
             <% elsif @subs_left <= 100 %>
                 <h4 class="text-danger pull-right"><%= @subs_left %> Subscribers Remaining</h4>
             <% else %>
