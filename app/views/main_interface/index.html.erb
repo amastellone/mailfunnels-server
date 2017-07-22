@@ -29,6 +29,12 @@
             <% if @subs_left === -1 %>
                 <h4 class="text-danger pull-right">No Plan</h4>
 
+            <% elsif @user_plan === -2 %>
+                <% if @subs_left <= 100 %>
+                    <h4 class="text-danger pull-right"><%= @subs_left %> Trial Subscribers Remaining</h4>
+                <% else %>
+                    <h4 class="text-primary pull-right"><%= @subs_left %> Trial Subscribers Remaining</h4>
+                <% end %>
             <% elsif @subs_left <= 100 %>
                 <h4 class="text-danger pull-right"><%= @subs_left %> Subscribers Remaining</h4>
             <% else %>

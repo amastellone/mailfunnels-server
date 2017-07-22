@@ -19,7 +19,13 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     user = @app.user
 
+    @user_plan = MailFunnelsUser.get_user_plan(user.clientid)
+
+    logger.info @user_plan
+
     @subs_left = MailFunnelsUser.get_remaining_subs(user.clientid)
+
+    logger.info @subs_left
 
 
     @num_email_sent = EmailJob.where(app_id: @app.id, sent: 1).size
@@ -164,6 +170,19 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   #
   #
   def account_disabled
+
+  end
+
+
+  # Page Render Function
+  # --------------------
+  # Renders the Trial User access denied page
+  #
+  #
+  def trial_page_disabled
+
+    #Get the Current App
+    @app = MailfunnelsUtil.get_app
 
   end
 

@@ -106,6 +106,7 @@ Rails.application.routes.draw do
   get '/account_disabled', to: 'main_interface#account_disabled'
   get '/access_denied', to: 'users#access_denied'
   get '/server_error', to: 'users#server_error'
+  get '/trial_access_denied', to: 'main_interface#trial_page_disabled'
 
   # Import CSV Routes
   post 'import_csv' => 'main_interface#import_csv'
