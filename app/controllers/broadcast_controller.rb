@@ -18,6 +18,15 @@ class BroadcastController < ShopifyApp::AuthenticatedController
       redirect_to '/error_page'
     end
 
+    user = @app.user
+
+    @user_plan = MailFunnelsUser.get_user_plan(user.clientid)
+
+    # If the User is not an admin redirect to error page
+    if @user_plan === -2
+      redirect_to '/trial_access_denied'
+    end
+
 
     # Get all lists For App
     @lists = EmailList.where(app_id: @app.id)
