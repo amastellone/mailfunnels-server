@@ -56,6 +56,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get all subscribers instances for the app
     @subscribers = Subscriber.where(app_id: @app.id, initial_ref_type: 2)
 
+    @user_plan = MailFunnelsUser.get_user_plan(@app.user.clientid)
+
   end
 
   # Page Render Function
@@ -72,6 +74,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get all subscribers instances for the app
     @subscribers = Subscriber.where(app_id: @app.id, initial_ref_type: 3)
 
+    @user_plan = MailFunnelsUser.get_user_plan(@app.user.clientid)
+
   end
 
   # Page Render Function
@@ -87,6 +91,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Get all subscribers instances for the app
     @subscribers = Subscriber.where(app_id: @app.id)
+
+    @user_plan = MailFunnelsUser.get_user_plan(@app.user.clientid)
 
 
   end
@@ -115,6 +121,10 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Get all Email Templates
     @templates = EmailTemplate.where(app_id: @app.id)
+
+
+    @user_plan = MailFunnelsUser.get_user_plan(@app.user.clientid)
+
 
 
   end
