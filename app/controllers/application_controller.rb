@@ -21,16 +21,11 @@ class ApplicationController < ActionController::Base
         # Load Account Data from Infusionsoft
 
         begin
-          contact = Infusionsoft.data_load('Contact', user.clientid, [:FirstName, :LastName, :Email, :Website, :StreetAddress1, :City, :State, :PostalCode, :Groups])
 
-          # Parse through Tags and look for failed payment tag
-          tags = contact['Groups'].split(",")
-          tags.each do |tag|
+          @user_plan = MailFunnelsUser.get_user_plan(user.clientid)
 
-            # If contact has failed payment tag, redirect to access denied page
-            if tag === '120'
-              redirect_to '/access_denied'
-            end
+          if @user_plan === 120  or @user_plan === -99
+            redirect_to '/access_denied'
           end
 
           # If App does not have auth_token set, update the auth token
@@ -41,17 +36,6 @@ class ApplicationController < ActionController::Base
                 :auth_token => token
             })
           end
-
-          # Update Account Info
-          user.put('', {
-              :first_name => contact['FirstName'],
-              :last_name => contact['LastName'],
-              :street_address => contact['StreetAddress1'],
-              :city => contact['City'],
-              :state => contact['State'],
-              :zip => contact['PostalCode'],
-              :client_tags => contact['Groups'],
-          })
 
         rescue => e
           redirect_to '/server_error'

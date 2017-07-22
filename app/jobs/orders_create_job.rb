@@ -45,7 +45,12 @@ class OrdersCreateJob < ApplicationJob
         if subscriber
           logger.info("Subscriber added")
           logger.info("Incrementing Subscriber revenue...")
-          subscriber = EmailUtil.increase_subscriber_revenue(subscriber, webhook[:subtotal_price].to_f)
+
+          if EmailUtil.should_capture_hook(subscriber.id, app.id)
+            # for calculating revenue
+            subscriber = EmailUtil.increase_subscriber_revenue(subscriber, webhook[:subtotal_price].to_f)
+          end
+
           if subscriber
             logger.info("Subscriber updated!")
           else
@@ -118,7 +123,12 @@ class OrdersCreateJob < ApplicationJob
       if funnel
         logger.info("Funnel found!")
         logger.info("Incrementing Funnel revenue...")
-        funnel = EmailUtil.increase_funnel_revenue(funnel, webhook[:subtotal_price].to_f)
+
+        if EmailUtil.should_capture_hook(subscriber.id, app.id)
+          # for calculating Revenue
+          funnel = EmailUtil.increase_funnel_revenue(funnel, webhook[:subtotal_price].to_f)
+        end
+
         if funnel
           logger.info("Funnel updated!")
         else
