@@ -1,4 +1,5 @@
 require 'csv'
+require 'Date'
 
 class MainInterfaceController < ShopifyApp::AuthenticatedController
 
@@ -126,7 +127,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     @user_plan = MailFunnelsUser.get_user_plan(@app.user.clientid)
 
 
-
   end
 
 
@@ -146,7 +146,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     if !@app.is_admin or @app.is_admin === 0
       redirect_to '/error_page'
     end
-
 
 
     # Otherwise get list of all Users
@@ -299,9 +298,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Return JSON response
     render json: response
   end
-
-
-
 
 
   # USED WITH AJAX
@@ -708,7 +704,6 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     )
 
 
-
     tag = -1
 
     if params[:subscription_id].to_i == 2
@@ -912,6 +907,142 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
 
   end
+
+
+  # def ajax_test
+  #
+  #   # @app = MailfunnelsUtil.get_app
+  #   # user = User.find(@app.user_id)
+  #   # puts "------ 1"
+  #   # products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
+  #   #
+  #   # product = products.select { |product| product['Id'] == 2 }[0]
+  #   #
+  #   #
+  #   # unless product
+  #   #   response = {
+  #   #       success: false,
+  #   #       message: 'Error retrieving subscription plan'
+  #   #   }
+  #   #   render json: response
+  #   # end
+  #   #
+  #   # price = product['PlanPrice']
+  #   # puts "------ 2"
+  #   #
+  #   # creditCardId = Infusionsoft.invoice_locate_existing_card(14, '1111')
+  #   #
+  #   # if (creditCardId == 0)
+  #   #   response = {
+  #   #       success: false,
+  #   #       message: 'Error retrieving card'
+  #   #   }
+  #   #   render json: response
+  #   # end
+  #   #
+  #   # puts "------ 3"
+  #   #
+  #   # subscription_id = Infusionsoft.invoice_add_subscription(14,
+  #   #                                                 false,
+  #   #                                                 2,
+  #   #                                                 1,
+  #   #                                                 price,
+  #   #                                                 false,
+  #   #                                                 4,
+  #   #                                                         creditCardId,
+  #   #                                                 0,
+  #   #                                                 0
+  #   # )
+  #   #
+  #   # puts "------ 4"
+  #   #
+  #   # invoice_id = Infusionsoft.invoice_create_invoice_for_recurring(subscription_id)
+  #   # puts "------ 5"
+  #   #
+  #   # test_response = Infusionsoft.invoice_charge_invoice(invoice_id, "--TEST--", creditCardId, 4, false)
+  #   #
+  #   #
+  #   #
+  #   # tag = -1
+  #   #
+  #   # if params[:subscription_id].to_i == 2
+  #   #   tag=106
+  #   # elsif params[:subscription_id].to_i == 4
+  #   #   tag=108
+  #   #
+  #   # elsif params[:subscription_id].to_i == 6
+  #   #   tag=110
+  #   #
+  #   # elsif params[:subscription_id].to_i == 8
+  #   #   tag=112
+  #   #
+  #   # elsif params[:subscription_id].to_i == 10
+  #   #   tag=114
+  #   #
+  #   # elsif params[:subscription_id].to_i == 12
+  #   #   tag=116
+  #   #
+  #   # elsif params[:subscription_id].to_i == 14
+  #   #   tag=118
+  #   # end
+  #   #
+  #   # # Infusionsoft.contact_add_to_group(25, tag)
+  #
+  #   @app = MailfunnelsUtil.get_app
+  #   user = User.find(@app.user_id)
+  #
+  #   current_year = Date.today.strftime('%Y')
+  #   current_month = Date.today.strftime('%m')
+  #
+  #
+  #   creditCardId = Infusionsoft.data_query('CreditCard',
+  #                                          100,
+  #                                          0,
+  #                                          {'ContactId' => user.clientid, 'ExpirationYear' => '~>=~' + current_year, 'Status' => 3},
+  #                                          [:Id, :ContactId, :ExpirationMonth, :ExpirationYear]
+  #   ).each do |creditCard|
+  #
+  #     if Integer(creditCard['ExpirationYear']) == Integer(current_year)
+  #       if Integer(creditCard['ExpirationMonth']) >= Integer(current_month)
+  #
+  #         response = {
+  #             success: true,
+  #             message: 'Card good',
+  #             response: creditCard,
+  #             response2: creditCard['Id']
+  #         }
+  #
+  #         render json: response
+  #         return
+  #       end
+  #     else
+  #       response = {
+  #           success: true,
+  #           message: 'Card good',
+  #           response: creditCard,
+  #           response2: creditCard['Id']
+  #       }
+  #
+  #       render json: response
+  #       return
+  #     end
+  #   end
+  #
+  #   response = {
+  #       success: false,
+  #       message: 'no good cards',
+  #       response: creditCardId
+  #   }
+  #
+  #   render json: response
+  #
+  #
+  #   # creditCardId = Infusionsoft.data_query('CreditCard', 100, 0, {'ContactId' => user.clientid, 'ExpirationYear' => '~>=~' + Date.today.strftime('%Y')}, [:Id, :ContactId, :ExpirationYear, :ExpirationMonth])
+  #   # products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
+  #
+  #
+  # end
+
 
   def form_page
     if request.post?

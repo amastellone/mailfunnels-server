@@ -12,6 +12,8 @@ $(function(){
 
     /* --- MODALS --- */
     var new_template_modal = $('#newEmailTemplateModal');
+    var confirm_delete_modal = $('#confirm_delete_modal');
+
 
     /* --- INPUT FIELDS --- */
     var template_name_input = $('#template_name_input');
@@ -20,6 +22,8 @@ $(function(){
 
     /* --- BUTTONS --- */
     var new_template_submit = $('#new_template_submit_button');
+    var delete_template_button = $('.delete_template_button');
+    var confirm_delete_template_button = $('#confirm_delete_template_button');
 
 
     /**
@@ -64,6 +68,47 @@ $(function(){
         });
 
     });
+
+
+    delete_template_button.on('click', function() {
+
+        var id = $(this).data('id');
+
+        confirm_delete_modal.modal('toggle');
+
+
+        confirm_delete_template_button.on('click', function(){
+
+
+            $.ajax({
+                type:'POST',
+                url: '/ajax_delete_template',
+                dataType: "json",
+                data: {
+                    template_id: id,
+                    authenticity_token: csrf_token
+                },
+                error: function(e) {
+                    console.log(e);
+                },
+                success: function(response) {
+                    confirm_delete_modal.modal('toggle');
+                    console.log(response);
+                    window.location.reload(true);
+                }
+            });
+
+
+
+
+
+        });
+
+
+
+    });
+
+
 
 
 });

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+
+  # Test Route
+
+  # post '/ajax_test' => 'main_interface#ajax_test'
+
+
   # Main
   root :to => 'main_interface#index'
 
@@ -72,6 +78,7 @@ Rails.application.routes.draw do
   get '/view_email', to: 'email#view_email'
   post '/ajax_create_email_template' => 'email#ajax_create_email_template'
   post '/ajax_update_email_template' => 'email#ajax_update_email_template'
+  post '/ajax_delete_template' => 'email#ajax_delete_template'
 
   # Account Routes
   get '/account', to: 'main_interface#account'

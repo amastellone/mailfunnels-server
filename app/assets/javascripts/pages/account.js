@@ -135,6 +135,31 @@ $(function(){
 
     });
 
+    // save_account_info_button.on('click', function(e) {
+    //
+    //
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/ajax_test',
+    //         dataType: "json",
+    //         error: function(e) {
+    //             console.log(e);
+    //
+    //
+    //         },
+    //         success: function(response) {
+    //             console.log(response);
+    //         }
+    //
+    //
+    //
+    //
+    //     });
+    //
+    //
+    // });
+
+
 
     save_email_info_button.on('click', function(e){
 

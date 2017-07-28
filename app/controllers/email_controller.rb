@@ -206,6 +206,20 @@ class EmailController < ShopifyApp::AuthenticatedController
   end
 
 
+  def ajax_delete_template
+
+    # Get the funnel from the DB
+    template = EmailTemplate.find(params[:template_id])
+
+    if !template.nil?
+      template.destroy
+    end
+
+
+
+  end
+
+
 
 
   # EMAIL TEMPLATE RENDER FUNCTION

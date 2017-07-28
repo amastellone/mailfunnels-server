@@ -131,6 +131,7 @@ class MailFunnelsUser
     if current_plan === -1
 
       if trial_ended
+
         return -99
 
       elsif trial_user
@@ -186,6 +187,7 @@ class MailFunnelsUser
 
     # Get Number of Subscribers in app
     num_subscribers = app.subscribers.size
+
 
 
     case plan

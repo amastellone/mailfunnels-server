@@ -98,6 +98,9 @@ $(function() {
     var button_text = $('#printButtonText');
 
 
+    var summernote_content
+
+
 
 
     /* --- DYNAMIC VALUES --- */
@@ -473,7 +476,7 @@ $(function() {
 
         var node_id = funnel_builder.flowchart('getSelectedOperatorId');
         var node_name = edit_node_label.val();
-        var email_template_id = edit_node_time_unit_select.val();
+        var email_template_id = edit_node_email_template_select.val();
         var delay_time = edit_node_delay_time_input.val();
         var time_unit = edit_node_time_unit_select.val();
 
@@ -511,18 +514,19 @@ $(function() {
     });
 
 
-    new_template_submit_button.on('click', function(){
+    // new_template_submit_button.on('click', function(){
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    // });
 
-
-
-
-
-
-
-
-
-
-    });
 
 
     
@@ -615,6 +619,9 @@ $(function() {
             shortcuts: false,
             dialogsInBody: true
         });
+
+        $('.note-editable').css('font-size','13px');
+
 
 
         //Set Color Picker to bootstrap color picker instance
