@@ -347,6 +347,12 @@ class ResourceApi < Grape::API
       EmailTemplate.update(params)
     end
 
+    # DELETE Route
+    # ------------
+    delete ':id' do
+      EmailTemplate.find(params[:id]).destroy
+    end
+
   end
 
   # CapturedHooks Resource API
