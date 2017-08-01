@@ -1,5 +1,4 @@
-
-require 'Date'
+require 'date'
 class ApplicationController < ActionController::Base
   before_action :verify_mf_integrity
 
