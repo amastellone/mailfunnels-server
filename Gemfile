@@ -96,6 +96,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'listen', '~> 3.0.5'
 
 #Postmark
 gem 'postmark-rails'
