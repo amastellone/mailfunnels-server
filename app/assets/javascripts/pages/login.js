@@ -1,5 +1,9 @@
 $(function() {
 
+    /* ---- TEST COMMENT ---- */
+
+
+
     /* --- MESSAGES --- */
     var invalid_credential_message = $('#invalid_login_credentials_message');
     var server_error_message = $('#server_error_message');
