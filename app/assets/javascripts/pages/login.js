@@ -1,6 +1,6 @@
 $(function() {
 
-    /* ---- TEST COMMENT ---- */
+    /* ---- COMMENT ---- */
 
 
 
