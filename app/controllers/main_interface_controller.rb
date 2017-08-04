@@ -1,5 +1,5 @@
 require 'csv'
-require 'Date'
+require 'date'
 
 class MainInterfaceController < ShopifyApp::AuthenticatedController
 
