@@ -78,8 +78,8 @@ $(function() {
                         shopify_account_submit_button.attr('data-id', response.user_id);
                         window.location.href = '#signup';
                     } else {
-                        window.location.href = "https://www.mailfunnels.com/login?shop=" + response.url;
-                        // window.location.href = "http://localhost:3000/login/?shop=" + response.url;
+                        // window.location.href = "https://www.mailfunnels.com/login?shop=" + response.url;
+                        window.location.href = "http://localhost:3000/login/?shop=" + response.url;
                     }
                 } else {
                     invalid_credential_message.show();

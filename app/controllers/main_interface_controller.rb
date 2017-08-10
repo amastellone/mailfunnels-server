@@ -898,9 +898,9 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   def ajax_delete_email_list
     # Get the list from the database
-    list = EmailList.find(params[:list_id])
+    list = EmailList.find(:list_id)
 
-    # If funnel exists, then remove the funnel
+    # If list exists, then remove the list
     if !list.nil?
       list.destroy
     end
