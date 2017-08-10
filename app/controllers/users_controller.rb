@@ -70,7 +70,7 @@ class UsersController < ActionController::Base
     user.save
 
     # Update Infusionsoft Contact ------THIS LINE OF CODE IS WHERE IT FUCKS UP
-    Infusionsoft.contact_update(params[:client_id], {:Password => "secure_password"})
+    Infusionsoft.contact_update(params[:client_id], {:Password => secure_password})
 
     # Return Success Response
     response = {
