@@ -670,6 +670,12 @@ class ResourceApi < Grape::API
       BroadcastList.update(params)
     end
 
+    # DELETE Route
+    # ------------
+    delete ':id' do
+      BroadcastList.find(params[:id]).destroy
+    end
+
   end
 
 

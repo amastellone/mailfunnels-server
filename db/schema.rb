@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170722174745) do
+ActiveRecord::Schema.define(version: 20170811173910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20170722174745) do
   create_table "broadcast_lists", force: :cascade do |t|
     t.integer  "app_id",             :foreign_key=>{:references=>"apps", :name=>"fk_broadcast_lists_app_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__broadcast_lists_app_id", :using=>:btree}
     t.integer  "batch_email_job_id", :foreign_key=>{:references=>"batch_email_jobs", :name=>"fk_broadcast_lists_batch_email_job_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__broadcast_lists_batch_email_job_id", :using=>:btree}
-    t.integer  "email_list_id",      :foreign_key=>{:references=>"email_lists", :name=>"fk_broadcast_lists_email_list_id", :on_update=>:no_action, :on_delete=>:no_action}, :index=>{:name=>"fk__broadcast_lists_email_list_id", :using=>:btree}
+    t.integer  "email_list_id",      :foreign_key=>{:references=>"email_lists", :name=>"fk_broadcast_lists_email_list_id", :on_update=>:no_action, :on_delete=>:cascade}, :index=>{:name=>"fk__broadcast_lists_email_list_id", :using=>:btree}
     t.datetime "created_at",         :null=>false
     t.datetime "updated_at",         :null=>false
   end
