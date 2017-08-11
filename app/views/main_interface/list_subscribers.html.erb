@@ -275,6 +275,19 @@
 
           <div class="modal-body">
             <h4>Are you sure you want to delete this email list?</h4>
+            <h4>Funnels currently using this email list:
+            <% @funnels.each do |funnel| %>
+
+              <%= funnel.name %>
+
+              <% end %>
+            </h4>
+
+            <% if @user_plan != -2 %>
+            <h4>Number of Broadcast Lists currently using this email list: <%= @num_broadcasts %></h4>
+
+            <% end %>
+
           </div>
 
 

@@ -93,6 +93,8 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get all subscribers instances for the app
     @subscribers = Subscriber.where(app_id: @app.id)
 
+
+
     @user_plan = MailFunnelsUser.get_user_plan(@app.user.clientid)
 
 
@@ -123,8 +125,17 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     # Get all Email Templates
     @templates = EmailTemplate.where(app_id: @app.id)
 
+    # Get all Funnels associated with current email list
+    @funnels = Funnel.where(email_list_id: params[:list_id])
+
+    # Get number of broadcast lists associated with current email list
+    @num_broadcasts = BroadcastList.where(email_list_id: params[:list_id]).size
+
+
 
     @user_plan = MailFunnelsUser.get_user_plan(@app.user.clientid)
+
+
 
 
   end
@@ -898,10 +909,25 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
   def ajax_delete_email_list
     # Get the list from the database
-    list = EmailList.find(:list_id)
+    list = EmailList.find(params[:list_id])
+    # broadcast_list = BroadcastList.where(email_list_id: list.id)
+    # email_job = EmailJob.where(email_list_id: list.id)
+
+
 
     # If list exists, then remove the list
     if !list.nil?
+
+      # email_job.each do |job|
+      #
+      #   job.put('', {
+      #       :email_list_id => ''
+      #   })
+      #
+      # end
+
+
+
       list.destroy
     end
 
