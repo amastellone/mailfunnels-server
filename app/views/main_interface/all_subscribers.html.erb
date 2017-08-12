@@ -364,7 +364,7 @@
                     <div class="form-group">
                       <div class="col-xs-8">
                         <select class="form-control" id="add_subscriber_email_list_select">
-                          <% @app.email_lists.each do |list| %>
+                          <% @app.email_lists.where(app_id: @app.id, active: 0).each do |list| %>
                               <option value="<%= list.id %>"><%= list.name %></option>
                           <% end %>
                         </select>
