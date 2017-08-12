@@ -274,11 +274,11 @@
           </div>
 
           <div class="modal-body">
-            <h4>Are you sure you want to delete this email list?</h4>
+            <h4>Are you sure you want to delete this email list? All subscribers in this list will be permanently deleted.</h4>
             <h4>Funnels currently using this email list:
             <% @funnels.each do |funnel| %>
 
-              <%= funnel.name %>
+              <h4><%= funnel.name %></h4>
 
               <% end %>
             </h4>

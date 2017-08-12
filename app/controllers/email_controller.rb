@@ -188,6 +188,7 @@ class EmailController < ShopifyApp::AuthenticatedController
     list.app_id = params[:app_id]
     list.name = params[:name]
     list.description = params[:description]
+    list.active = 0
 
     # Save and verify Template and return correct JSON response
     if list.save!
