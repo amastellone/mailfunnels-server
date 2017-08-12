@@ -908,28 +908,28 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
   def ajax_delete_email_list
+
+
+
     # Get the list from the database
     list = EmailList.find(params[:list_id])
-    # broadcast_list = BroadcastList.where(email_list_id: list.id)
-    # email_job = EmailJob.where(email_list_id: list.id)
+
+    # Get subscribers that belong to current Email List
+    list_subscriber = EmailListSubscriber.where(email_list_id: list.id)
 
 
+    list_subscriber.each do |subscriber|
 
-    # If list exists, then remove the list
-    if !list.nil?
+      global_subscriber = Subscriber.find(subscriber.subscriber_id)
 
-      # email_job.each do |job|
-      #
-      #   job.put('', {
-      #       :email_list_id => ''
-      #   })
-      #
-      # end
+      global_subscriber.destroy
 
-
-
-      list.destroy
     end
+
+
+    list.put('', {
+        :active => 1
+    })
 
 
   end
