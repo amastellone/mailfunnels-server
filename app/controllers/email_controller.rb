@@ -12,7 +12,7 @@ class EmailController < ShopifyApp::AuthenticatedController
   def lists
 
     @app  = MailfunnelsUtil.get_app
-    @lists = EmailList.where(app_id: @app.id)
+    @lists = EmailList.where(app_id: @app.id, active: 0)
 
   end
 
@@ -188,6 +188,7 @@ class EmailController < ShopifyApp::AuthenticatedController
     list.app_id = params[:app_id]
     list.name = params[:name]
     list.description = params[:description]
+    list.active = 0
 
     # Save and verify Template and return correct JSON response
     if list.save!

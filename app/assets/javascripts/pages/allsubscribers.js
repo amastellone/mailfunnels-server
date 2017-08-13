@@ -70,7 +70,6 @@ $(function() {
 
     delete_list_button.on('click', function(){
 
-
         confirm_delete_list_button.on('click', function(){
 
 
@@ -85,6 +84,7 @@ $(function() {
                 },
                 error: function(e){
                     console.log("ERROR");
+
                     console.log(e);
                 },
                 success: function(response) {

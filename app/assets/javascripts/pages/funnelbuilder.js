@@ -622,6 +622,8 @@ $(function() {
 
         $('.note-editable').css('font-size','13px');
 
+        $('.note-editable').css('line-height', '1.0');
+
 
 
         //Set Color Picker to bootstrap color picker instance
