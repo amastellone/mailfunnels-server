@@ -15,7 +15,7 @@ class SendEmailJob < ApplicationJob
 		template = EmailTemplate.find(job.email_template_id)
 		subscriber = Subscriber.find(job.subscriber_id)
 		node = Node.find(job.node_id)
-		app = App.find(job.app_id);
+		app = App.find(job.app_id)
 		if job.sent == 1
 			puts"Email Already Sent to Subscriber"
 		else
