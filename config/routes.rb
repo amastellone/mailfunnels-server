@@ -100,8 +100,6 @@ Rails.application.routes.draw do
   get '/admin_panel', to: 'main_interface#admin_panel'
   post '/ajax_enable_app' => 'main_interface#ajax_enable_app'
   post '/ajax_disable_app' => 'main_interface#ajax_disable_app'
-
-
   # Support Routes
   get '/support', to: 'main_interface#support'
 

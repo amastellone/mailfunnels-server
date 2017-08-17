@@ -145,6 +145,7 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.email_content = params[:email_content]
     template.has_button = params[:has_button]
     template.color = params[:color]
+    template.has_checkout_url = params[:has_checkout]
 
     template.button_text = params[:button_text]
     template.button_url = params[:button_url]
@@ -158,7 +159,8 @@ class EmailController < ShopifyApp::AuthenticatedController
         :has_button => template.has_button,
         :button_text => template.button_text,
         :button_url => template.button_url,
-        :color => template.color
+        :color => template.color,
+        :has_checkout_url => template.has_checkout_url
     })
 
 

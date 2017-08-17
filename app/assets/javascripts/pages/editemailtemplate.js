@@ -15,6 +15,7 @@ $(function(){
     var emailTitleInput = $('#emailTitleInput');
     var buttonTextInput = $('#buttonTextInput');
     var buttonLink = $('#buttonUrlInput');
+    var checkoutUrlSelect = $('#checkout_url_select');
     var button_select = $('#button_select');
     var button_form_div = $('#button_forms_div');
     var color_select = $('#color_select');
@@ -67,6 +68,19 @@ $(function(){
         }
     });
 
+    checkoutUrlSelect.on('change', function(){
+        if (this.checked == true) {
+            $(this).val(1);
+            $("#buttonUrlInput").prop('disabled', true);
+            $('#abandoned_text').show();
+        } else {
+            $(this).val(0);
+            $("#buttonUrlInput").prop('disabled', false);
+            $('#abandoned_text').hide();
+        }
+    });
+
+
 
     email_submit.on("click", function(e){
 
@@ -97,6 +111,7 @@ $(function(){
                 button_text: button_text,
                 button_url: button_url,
                 color: color,
+                has_checkout: checkoutUrlSelect.val(),
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -135,6 +150,18 @@ $(function(){
             preview_email_buttons_div.hide();
             button_form_div.hide();
         }
+
+        // set the value of checkout select from db
+        if ($('#checkout_url_select').val() === '1') {
+            checkout_url_select.checked = true;
+            $("#buttonUrlInput").prop('disabled', true);
+            $('#abandoned_text').show();
+        } else {
+            checkout_url_select.checked = false;
+            $("#buttonUrlInput").prop('disabled', false);
+            $('#abandoned_text').hide();
+        }
+
 
         var summernote = $('#summernote');
         summernote.summernote({

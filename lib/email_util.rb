@@ -204,5 +204,14 @@ class EmailUtil
   def self.scanProductTrigger(product)
   end
 
+  def self.update_abandoned_url(subscriber, abandoned_url)
+    subscriber_test = subscriber.put('', :abandoned_url => abandoned_url)
+    if subscriber.nil? == false
+      return subscriber
+    else
+      return false
+    end
+  end
+
 
 end
