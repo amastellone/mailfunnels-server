@@ -154,7 +154,7 @@
                     <td align="center">
                       <% if template.has_button %>
                           <p>
-                            <a href="http://localhost:3001/email_clicked/<%= @email_job.id %>" style="background: <%= @template.color %>;" class="button"> <%= @template.button_text %> </a>
+                            <a href="http://mailfunnels-server.herokuapp.com/email_clicked/<%= @email_job.id %>" style="background: <%= @template.color %>;" class="button"> <%= @template.button_text %> </a>
                           </p>
                       <% end %>
                     </td>
