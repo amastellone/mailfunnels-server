@@ -66,7 +66,18 @@ class EmailJobsController < ApplicationController
       if template.nil?
         render html: "Sorry but the page does not exist anymore"
       else
-        redirect_to template.button_url
+        if template.has_checkout_url == 1
+          puts "has checkout url"
+          if email_job.abandoned_url.nil?
+            puts "nil"
+
+          else
+            puts "has checkout url"
+            redirect_to email_job.abandoned_url
+          end
+        else
+          redirect_to template.button_url
+        end
       end
 
     end
