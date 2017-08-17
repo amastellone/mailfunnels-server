@@ -4,16 +4,16 @@ class ProcessCheckoutsJob < ApplicationJob
   def perform(app_id, shop)
 
     shop.with_shopify_session do
-
       app = App.find(app_id)
+
       subs_remaining = MailFunnelsUser.get_remaining_subs(app.user.clientid)
 
       # If no more subscribers left in plan, return error response
-      if subs_remaining < 1
-        return
-      end
-
+      # if subs_remaining < 1
+      #   return
+      # end
       trigger = Trigger.where(app_id: app_id, hook_id: 3).sort {|a, b| b.last_abondoned_id <=> a.last_abondoned_id}.first
+
       if trigger.nil? == true
         return
       end
@@ -43,10 +43,12 @@ class ProcessCheckoutsJob < ApplicationJob
       abandonedCarts.each do |abandoned_cart|
         if abandoned_cart.email.nil? == false
           logger.info("Looking for subscriber...")
+
           subscriber = Subscriber.where(app_id: app_id, email: abandoned_cart.email).first
 
           if subscriber
             logger.info("Subscriber found!")
+            EmailUtil.update_abandoned_url(subscriber, abandoned_cart.abandoned_checkout_url)
           else
             logger.info("Subscriber does not exist, creating now")
             if abandoned_cart.shipping_address.first_name.nil? == false || abandoned_cart.shipping_address.last_name.nil? == false
@@ -64,6 +66,7 @@ class ProcessCheckoutsJob < ApplicationJob
                                            last_name: last_name,
                                            revenue: 0,
                                            initial_ref_type: 3,
+                                           abandoned_url: abandoned_cart.abandoned_checkout_url,
             )
           end
           trigger = nil
@@ -71,12 +74,12 @@ class ProcessCheckoutsJob < ApplicationJob
             abandoned_cart.line_items.each do |product|
               logger.info("checking triggers")
               trigger = Trigger.where(app_id: app_id, hook_id: 3, product_id: product.product_id).first
-              if trigger
+              if trigger.nil?
                 break
               end
             end
 
-            if trigger.nil? == true
+            if trigger.nil?
               trigger = Trigger.where(app_id: app_id, hook_id: 3).first
             end
 
