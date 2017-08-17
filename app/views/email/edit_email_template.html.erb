@@ -10,7 +10,18 @@
     <%= javascript_include_tag 'pages/editemailtemplate.js' %>
     <%= stylesheet_link_tag 'EmailTemplate/simple.css' %>
 
-
+    <style>
+      .vcenter {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+      }
+        .abandoned_text_warning{
+          font-size: 10px;
+          font-style: italic;
+          color: red;
+        }
+    </style>
 
 
     <div class="hidden">
@@ -97,6 +108,20 @@
               <div id="button_forms_div">
 
                 <div class="form-group">
+                  <div class="col-md-3 col-sm-3 col-xs-12 vcenter">
+                    <label class="control-label ">Abandoned Checkout Url</label>
+                  </div><!--
+                  --><div class="col-md-9 col-sm-9 col-xs-12 vcenter">
+                    <input type="checkbox" value="<%= @template.has_checkout_url %>" id="checkout_url_select" />
+                  </div>
+                </div>
+                <div id="abandoned_text" class="row">
+                  <div class="col-xs-12 text-center">
+                    <p class="abandoned_text_warning">only use this for funnels with abandoned checkout triggers</p>
+                  </div>
+                </div>
+
+                <div class="form-group">
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Button Text
                   </label>
                   <div class="col-md-9 col-sm-9 col-xs-12">
@@ -111,6 +136,8 @@
                       <input id="buttonUrlInput" type="text" value="<%= @template.button_url %>" class="form-control" placeholder="Button Url">
                   </div>
                 </div>
+
+
               </div>
 
             </form>

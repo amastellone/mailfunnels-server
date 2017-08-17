@@ -11,6 +11,7 @@ class HooksController < ApplicationController
     shop = Shop.find_by(shopify_domain: domain)
     app = App.where(name: domain).first
     ProcessCheckoutsJob.perform_later(app.id, shop)
+
   end
 
 
