@@ -4,7 +4,7 @@ desc "This task is called by the Heroku scheduler add-on"
 task :process_trial_accounts => :environment do
   puts "Processing Trial Users"
   User.find_each do |user|
-  puts "Inside User loop"
+  puts "1"
     plan_id  = MailFunnelsUser.get_user_plan(user.client_id)
     if plan_id == -99
 
@@ -15,6 +15,7 @@ task :process_trial_accounts => :environment do
       unless product
 
       end
+      puts "2"
 
       price = product['PlanPrice']
 
@@ -38,6 +39,7 @@ task :process_trial_accounts => :environment do
           cardId = creditCard['Id']
         end
       end
+      puts "3"
 
       if cardId != 0
 
@@ -64,9 +66,11 @@ task :process_trial_accounts => :environment do
           # Add tag to user for 1000 subscribers tier level
           Infusionsoft.contact_add_to_group(user.clientid, new_tier_level_tag)
 
+          puts "4"
 
         end
-        
+        puts "5"
+
       end
 
     else
@@ -75,6 +79,7 @@ task :process_trial_accounts => :environment do
 
   end
 
+  puts "6"
 
 
 
