@@ -1,5 +1,6 @@
-class User < RestModel.extend(ActiveResource::Batches::ClassMethods)
+class User < RestModel
 
   has_many :apps
 
+  include ActiveResource::Batches::ClassMethods
 end
