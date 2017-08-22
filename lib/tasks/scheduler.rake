@@ -3,7 +3,7 @@ desc "This task is called by the Heroku scheduler add-on"
 
 task :process_trial_accounts => :environment do
   puts "Processing Trial Users"
-  User.find_each do |user|
+  User.all.each do |user|
   puts "1"
     plan_id  = MailFunnelsUser.get_user_plan(user.client_id)
     if plan_id == -99
