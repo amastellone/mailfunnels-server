@@ -5,7 +5,7 @@ task :process_trial_accounts => :environment do
   puts "Processing Trial Users"
   User.find(:all).each do |user|
   puts "1"
-    plan_id  = MailFunnelsUser.get_user_plan(user.client_id)
+    plan_id  = MailFunnelsUser.get_user_plan(user.clientid)
     if plan_id == -99
 
       products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
@@ -17,7 +17,6 @@ task :process_trial_accounts => :environment do
       end
       puts "2"
 
-      price = product['PlanPrice']
 
       cardId = 0
       current_year = Date.today.strftime('%Y')
