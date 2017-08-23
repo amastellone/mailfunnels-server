@@ -4,24 +4,24 @@ desc "This task is called by the Heroku scheduler add-on"
 task :process_trial_accounts => :environment do
   puts "Processing Trial Users"
   User.find(:all).each do |user|
-  puts "1"
+  puts user.email
     plan_id  = MailFunnelsUser.get_user_plan(user.clientid)
     if plan_id == -99
 
-      products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
-
-      product = products.select { |product| product['Id'] == 2 }[0]
-
-      unless product
-
-      end
+      # products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
+      #
+      # product = products.select { |product| product['Id'] == 2 }[0]
+      #
+      # unless product
+      #
+      # end
       puts "2"
 
 
       cardId = 0
       current_year = Date.today.strftime('%Y')
       current_month = Date.today.strftime('%m')
-      creditCardId = Infusionsoft.data_query('CreditCard',
+      Infusionsoft.data_query('CreditCard',
                                              100,
                                              0,
                                              {'ContactId' => user.clientid, 'ExpirationYear' => '~>=~' + current_year, 'Status' => 3},
@@ -34,14 +34,12 @@ task :process_trial_accounts => :environment do
             cardId = creditCard['Id']
           end
         else
-
           cardId = creditCard['Id']
         end
       end
-      puts "3"
 
       if cardId != 0
-
+        puts "credit card valid!"
         subscription_id = Infusionsoft.invoice_add_recurring_order(user.clientid, true, 2, 4, cardId, 0, 0)
 
 
@@ -49,7 +47,10 @@ task :process_trial_accounts => :environment do
 
         upgrade_response = Infusionsoft.invoice_charge_invoice(invoice_id, "Automatic Upgrade to 1000 Subscriber Tier", cardId, 4, false)
 
+        puts upgrade_response.to_s
+
         if upgrade_response[:Successful]
+          puts "upgrade response successful"
           # Tag for 1000 sub tier level plan
           new_tier_level_tag = 106
 
@@ -65,11 +66,11 @@ task :process_trial_accounts => :environment do
           # Add tag to user for 1000 subscribers tier level
           Infusionsoft.contact_add_to_group(user.clientid, new_tier_level_tag)
 
-          puts "4"
+          puts "user processed successfully successful"
 
         end
-        puts "5"
-
+        puts "Upgrade response not successful"
+        puts "==============================="
       end
 
     else
@@ -79,9 +80,6 @@ task :process_trial_accounts => :environment do
   end
 
   puts "6"
-
-
-
 
 end
 
