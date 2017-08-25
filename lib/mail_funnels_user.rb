@@ -137,7 +137,6 @@ class MailFunnelsUser
 
       if trial_ended
         puts " "
-
         puts "======================="
         puts "returning 99"
         puts "======================="

@@ -9,6 +9,7 @@ task :process_trial_accounts => :environment do
   puts " "
   puts "======================="
   puts user.email
+  puts user.clientid
   puts "returning current plan_id"
   puts plan_id
   puts "======================="
