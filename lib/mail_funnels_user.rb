@@ -139,7 +139,7 @@ class MailFunnelsUser
         puts " "
 
         puts "======================="
-        put "returning 99"
+        puts "returning 99"
         puts "======================="
         puts " "
 
