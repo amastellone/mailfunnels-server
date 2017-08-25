@@ -111,6 +111,7 @@ class MailFunnelsUser
       end
 
       if temp === 145
+        puts "TRIAL ENDED == TRUE!!!"
         trial_ended = true
       end
 
