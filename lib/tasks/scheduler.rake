@@ -4,8 +4,17 @@ desc "This task is called by the Heroku scheduler add-on"
 task :process_trial_accounts => :environment do
   puts "Processing Trial Users"
   User.find(:all).each do |user|
-  puts user.email
+
     plan_id  = MailFunnelsUser.get_user_plan(user.clientid)
+  puts " "
+  puts "======================="
+  puts user.email
+  puts "returning current plan_id"
+  puts plan_id
+  puts "======================="
+  puts " "
+
+
     if plan_id == -99
 
       # products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
@@ -27,7 +36,7 @@ task :process_trial_accounts => :environment do
                                              {'ContactId' => user.clientid, 'ExpirationYear' => '~>=~' + current_year, 'Status' => 3},
                                              [:Id, :ContactId, :ExpirationMonth, :ExpirationYear]
       ).each do |creditCard|
-
+        puts creditCard
         if Integer(creditCard['ExpirationYear']) == Integer(current_year)
           if Integer(creditCard['ExpirationMonth']) >= Integer(current_month)
 

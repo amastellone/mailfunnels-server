@@ -111,7 +111,11 @@ class MailFunnelsUser
       end
 
       if temp === 145
+        puts " "
+        puts "======================="
         puts "TRIAL ENDED == TRUE!!!"
+        puts "======================="
+        puts " "
         trial_ended = true
       end
 
@@ -132,6 +136,13 @@ class MailFunnelsUser
     if current_plan === -1
 
       if trial_ended
+        puts " "
+
+        puts "======================="
+        put "returning 99"
+        puts "======================="
+        puts " "
+
 
         return -99
 
@@ -140,11 +151,22 @@ class MailFunnelsUser
       end
 
     else
+      puts " "
+      puts "======================="
+      puts "returning current plan 1"
+      puts current_plan
+      puts "======================="
+      puts " "
 
       return current_plan
 
     end
-
+    puts " "
+    puts "======================="
+    puts "returning current plan 2"
+    puts current_plan
+    puts "======================="
+    puts " "
     return current_plan
 
   end
