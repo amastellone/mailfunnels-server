@@ -2,14 +2,7 @@ desc "This task is called by the Heroku scheduler add-on"
 
 
 task :process_trial_accounts => :environment do
-  puts "Processing Trial Users"
-  cat =User.where(:email => 'karolgrycuk@gmail.com').first
-  cat.clientid =45
-  cat.save
-  puts "saved"
-
-
-
+  
   User.find(:all).each do |user|
     plan_id  = MailFunnelsUser.get_user_plan(user.clientid)
   puts " "
@@ -55,7 +48,9 @@ task :process_trial_accounts => :environment do
           cardId = creditCard['Id']
         end
       end
-
+      puts "here we are"
+      puts cardId
+      puts "helllop"
       if cardId != 0
         puts "credit card valid!"
         subscription_id = Infusionsoft.invoice_add_recurring_order(user.clientid, true, 2, 4, cardId, 0, 0)
