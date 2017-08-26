@@ -4,7 +4,7 @@ class SendEmailJob < ApplicationJob
   @queue = :default
 
   def perform(job_id)
-    
+
     job = EmailJob.where(id: job_id).first
     if job.nil? == false
 
@@ -107,7 +107,7 @@ class SendEmailJob < ApplicationJob
 
       end
     end
->>>>>>> e1f9f5b82480dc4a89f0d6b93f0a33785e069020
+
   end
 
 end
