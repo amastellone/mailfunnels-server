@@ -676,6 +676,23 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     @app = MailfunnelsUtil.get_app
     user = User.find(@app.user_id)
+    puts "-----1-----"
+
+
+    plan = MailFunnelsUser.get_user_plan(user.clientid)
+    puts "2"
+    recurring_orders = Infusionsoft.data_query('RecurringOrderWithContact', 100, 0, {}, [:Id, :ContactId])
+    puts "3"
+
+    recurring = recurring_orders.select {|recurring| recurring['ContactId'] == user.clientid}[0]
+
+    order = recurring['Id']
+    puts "Recurring Order ID: #{order}"
+
+
+    puts "4"
+
+
 
     products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
 
@@ -702,6 +719,9 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
       render json: response
     end
 
+
+
+
     invoice = Infusionsoft.invoice_add_subscription(user.clientid,
                                                     false,
                                                     params[:subscription_id],
@@ -713,6 +733,11 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
                                                     0,
                                                     0
     )
+
+
+
+
+
 
 
     tag = -1
@@ -738,8 +763,15 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
       tag=118
     end
 
+    Infusionsoft.contact_remove_from_group(user.clientid, plan)
+
+
+    puts "--------------TEST---------------"
+
     Infusionsoft.contact_add_to_group(user.clientid, tag)
 
+
+    Infusionsoft.invoice_delete_subscription(order)
 
     response = {
         success: true,
