@@ -693,6 +693,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     puts "4"
 
 
+    plan_id  = MailFunnelsUser.get_user_plan(user.clientid)
 
     products = Infusionsoft.data_query('SubscriptionPlan', 100, 0, {}, [:Id, :PlanPrice])
 
@@ -769,6 +770,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     puts "--------------TEST---------------"
 
     Infusionsoft.contact_add_to_group(user.clientid, tag)
+    Infusionsoft.contact_remove_from_group(user.clientid, plan_id)
 
 
     Infusionsoft.invoice_delete_subscription(order)
