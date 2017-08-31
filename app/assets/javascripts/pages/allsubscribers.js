@@ -7,7 +7,12 @@ var clicked_view_info = 0;
 var view_info_id = -1;
 var add_subscriber_email_list_select;
 var add_subscriber_button;
+var subscribers_table;
+var subcribers_table_settings;
 $(function() {
+
+
+
 
 
     /* --- AUTHENTICATION --- */
@@ -18,7 +23,11 @@ $(function() {
     email_list_id = $('#current_email_list_id').val();
 
     /* --- TABLES --- */
-    var subscribers_table = $('#subscribers_table');
+    subscribers_table = $('#subscribers_table');
+
+
+
+
 
     /* --- MODALS --- */
     var new_subscriber_modal = $('#new_subscriber_modal');
@@ -210,7 +219,12 @@ $(function() {
      * Exports the All Subscribers Table to CSV
      */
     subscribers_export_button.on('click', function() {
+
+        subcribers_table_settings._iDisplayLength = -1;
+        subscribers_table.fnDraw();
         subscribers_table.tableToCSV();
+
+        window.location.reload();
     });
 
 
@@ -322,12 +336,13 @@ $(function() {
         //Make Table jQuery Datatable instance
         subscribers_table.dataTable({
             "pageLength": 5,
-            "lengthMenu": [[5, 10, 25], [5, 10, 25]],
+            "lengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
             "columnDefs": [ {
                 "targets": 'no-sort',
                 "orderable": false
             } ]
         });
+        subcribers_table_settings = subscribers_table.fnSettings();
 
     }
 
@@ -513,6 +528,7 @@ function removeSubscriber(subscriber_id, list_id){
 
 
     });
+
 
 }
 

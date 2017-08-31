@@ -4,13 +4,17 @@ jQuery.fn.tableToCSV = function() {
         text = text.replace(/"/g, '""');
         return '"'+text+'"';
     };
-    
+
+
 	$(this).each(function(){
 			var table = $(this);
 			var caption = $(this).find('caption').text();
 			var title = [];
 			var rows = [];
 
+
+
+			// Start Loop for every page
 			$(this).find('tr').each(function(){
 				var data = [];
 				$(this).find('th').each(function(){
@@ -26,12 +30,15 @@ jQuery.fn.tableToCSV = function() {
 				});
 			title = title.join(",");
 			rows = rows.join("\n");
+			// End Loop
 
 			var csv = title + rows;
 			var uri = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
 			var download_link = document.createElement('a');
 			download_link.href = uri;
 			var ts = new Date().getTime();
+
+
 			if(caption==""){
 				download_link.download = ts+".csv";
 			} else {
