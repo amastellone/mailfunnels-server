@@ -829,11 +829,17 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   end
 
   def import_csv
+    puts "import csv"
     if request.post?
+      puts "1"
       if params[:csv].present?
+        puts "2"
         app = MailfunnelsUtil.get_app
+        puts "3"
         csv_text = params[:csv].read
+        puts "4"
         csv = CSV.parse(csv_text, :headers => true)
+        puts "5"
 
         csv.each do |row|
           h = row.to_hash
@@ -841,14 +847,69 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
           h.merge!(revenue: 0)
           h.merge!(initial_ref_type: 0)
           Subscriber.create!(h)
+          puts "subscriber created"
         end
 
-        redirect_to :controller => 'main_interface', :action => 'all_subscribers'
+        # redirect_to :controller => 'main_interface', :action => 'all_subscribers'
       else
         puts "=========FAILED======="
-        redirect_to :controller => 'main_interface', :action => 'all_subscribers'
+        # redirect_to :controller => 'main_interface', :action => 'all_subscribers'
       end
     end
+  end
+
+  def import_subscribers_csv
+    puts "import subscribers csv"
+
+    # list_id = params[:list_id]
+    # puts "email list found: #{list_id}"
+    if request.post?
+      puts "1"
+      if params[:csv].present?
+        puts "2"
+        app = MailfunnelsUtil.get_app
+        puts "3"
+
+        csv_text = params[:csv].read
+        puts "4"
+        csv = CSV.parse(csv_text, :headers => true)
+        puts "5"
+
+        csv.each do |row|
+          h = row.to_hash
+          h.merge!(app_id: app.id)
+          h.merge!(revenue: 0)
+          h.merge!(initial_ref_type: 0)
+          subscriber = Subscriber.create!(h)
+
+          puts "SUBSCRIBER CREATED"
+
+          # a = row.to_hash
+          # a.merge!(app_id: app.id)
+          # a.merge!(email_list_id: params[:list_id])
+          # a.merge!(subscriber_id: subscriber.id)
+          # EmailListSubscriber.create!(a)
+          # puts "email list subscriber created"
+
+          email_list = EmailList.find
+
+
+          list_subscriber = EmailListSubscriber.new
+          list_subscriber.app_id = app.id
+          list_subscriber.email_list_id = list.id
+          list_subscriber.subscriber_id = subscriber.id
+          list_subscriber.save!
+        end
+
+
+
+        # redirect_to :controller => 'main_interface', :action => 'all_subscribers'
+      else
+        puts "=========FAILED======="
+        # redirect_to :controller => 'main_interface', :action => 'all_subscribers'
+      end
+    end
+
   end
 
   def ajax_add_to_list

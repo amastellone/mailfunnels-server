@@ -50,12 +50,13 @@ $(function() {
     var subscriber_confirm_checkbox = $('#subscriber_confirm_checkbox');
     add_subscriber_email_list_select = $('#add_subscriber_email_list_select');
     var import_csv_confirm_checkbox = $('#import_csv_confirm_checkbox');
+
     var edit_list_name_input = $('#edit_list_name_input');
     var edit_list_description_input = $('#edit_list_description_input');
 
 
     /* --- BUTTONS --- */
-    var import_csv_submit_button = $('#import_csv_submit_button')
+    var import_csv_submit_button = $('#import_csv_submit_button');
     var import_csv_button = $('#import_csv_button');
     var subscribers_export_button = $('#subscribers_export_button');
     var new_subscriber_submit_button = $('#new_subscriber_submit_button');
@@ -72,6 +73,13 @@ $(function() {
 
     /* --- MODALS --- */
     var no_more_subscribers_modal = $('#no_subscribers_left_modal');
+
+    /* --- Specific List import csv --- */
+    var csv_confirm_checkbox = $('#csv_confirm_checkbox');
+    var import_modal = $('#import_modal');
+    var import_csv_file_button = $('#import_csv_file_button');
+    var submit_csv_file_button = $('#submit_csv_file_button');
+
 
     //Initialize the Page
     init();
@@ -144,7 +152,7 @@ $(function() {
 
 
 
-
+    // Start All Subscribers Import function
 
     /**
      * Import subscribers modal toggle
@@ -212,6 +220,84 @@ $(function() {
 
     });
 
+    // End all subscribers import function
+
+
+    // Start List specific import function
+
+    /**
+     * Import subscribers modal toggle
+     */
+    import_csv_file_button.on('click', function(){
+        import_modal.modal('toggle');
+    });
+
+
+
+    submit_csv_file_button.on('click', function(){
+        var file = new FormData($('#file')[0]);
+        $.ajax({
+            // Your server script to process the upload
+            type: 'POST',
+            url: '/import_subscribers_csv',
+
+            // Form data
+            data: {
+                csv: file,
+                list_id: email_list_id,
+                authenticity_token: csrf_token
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            // Custom XMLHttpRequest
+            xhr: function() {
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) {
+                    // For handling the progress of the upload
+                    myXhr.upload.addEventListener('progress', function(e) {
+                        if (e.lengthComputable) {
+                            $('progress').attr({
+                                value: e.loaded,
+                                max: e.total,
+                            });
+                        }
+                    } , false);
+                }
+                return myXhr;
+            },
+        });
+        import_modal.modal('toggle');
+
+    });
+
+
+
+
+    /**
+     * On import CSV Checkbox Confirm change check to see
+     * whether the checkbox is checked and enable the submit button
+     * otherwise disable the button
+     *
+     */
+    csv_confirm_checkbox.on('change', function() {
+
+        if($(this).is(":checked")) {
+            submit_csv_file_button.prop('disabled', false);
+        } else {
+            submit_csv_file_button.prop('disabled', true);
+        }
+
+    });
+
+
+
+
+
+
+    // End List Specific Import Function
 
     /**
      * On Export Button Click
@@ -332,6 +418,7 @@ $(function() {
         //Disable new Subscriber Submit Button
         new_subscriber_submit_button.prop('disabled', true);
         import_csv_submit_button.prop('disabled', true);
+        submit_csv_file_button.prop('disabled', true);
 
         //Make Table jQuery Datatable instance
         subscribers_table.dataTable({
