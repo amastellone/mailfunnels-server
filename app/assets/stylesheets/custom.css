@@ -3618,7 +3618,7 @@ form:after {
     padding: 25px 0 0;
     position: relative;
     text-align: center;
-    text-shadow: 0 1px 0 #fff;
+    /*text-shadow: 0 1px 0 #fff;*/
     min-width: 280px
 }
 .login_content a,
@@ -3668,7 +3668,8 @@ form:after {
     box-shadow: 0 0 2px #3498db inset;
     background-color: rgba(255,255,255,0.1);
     border: 1px solid #555;
-    outline: none
+    outline: none;
+    color: white;
 }
 #username {
     background-position: 10px 10px !important
@@ -3678,7 +3679,7 @@ form:after {
 }
 .login_content form div a {
     font-size: 12px;
-    margin: 10px 15px 0 0
+
 }
 .reset_pass {
     margin-top: 10px !important
@@ -3698,6 +3699,7 @@ form:after {
     font-size: 18px !important;
     color: white;
     margin-right: 0px;
+    font-weight: 200;
 }
 
 .separator p {
@@ -3705,7 +3707,7 @@ form:after {
 }
 
 .separator a:hover{
-    color: dodgerblue;
+    color: white;
 
 }
 .button {
@@ -4369,4 +4371,41 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 
 .dataTables_wrapper > .row{
   overflow:auto !important; /*prevent datatables overflowing its container*/
+}
+
+
+.mailfunnels_login {
+    color: white;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 200;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+
+}
+
+#mf_login_username_input {
+    height: 55px;
+    border-radius: 2px;
+
+}
+
+#mf_login_username_input::placeholder{
+    color: white;
+}
+
+#mf_login_password_input {
+    height: 55px;
+    border-radius: 2px;
+}
+
+#mf_login_password_input::placeholder{
+    color: white;
+}
+
+.footer_text h1 {
+    font-size: 20px;
+    color: white;
 }
