@@ -841,19 +841,43 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
         csv = CSV.parse(csv_text, :headers => true)
         puts "5"
 
-        csv.each do |row|
-          h = row.to_hash
-          h.merge!(app_id: app.id)
-          h.merge!(revenue: 0)
-          h.merge!(initial_ref_type: 0)
-          Subscriber.create!(h)
-          puts "subscriber created"
+        if params[:list_id].present?
+          puts "List Id Present"
+          csv.each do |row|
+            h = row.to_hash
+            h.merge!(app_id: app.id)
+            h.merge!(revenue: 0)
+            h.merge!(initial_ref_type: 0)
+            subscriber = Subscriber.create!(h)
+            puts "subscriber created"
+
+            list_subscriber = EmailListSubscriber.new
+            list_subscriber.app_id = app.id
+            list_subscriber.email_list_id = params[:list_id]
+            list_subscriber.subscriber_id = subscriber.id
+            list_subscriber.save!
+          end
+
+        else
+          puts "List Id Not Present"
+          csv.each do |row|
+            h = row.to_hash
+            h.merge!(app_id: app.id)
+            h.merge!(revenue: 0)
+            h.merge!(initial_ref_type: 0)
+            Subscriber.create!(h)
+            puts "subscriber created"
+          end
         end
 
-        # redirect_to :controller => 'main_interface', :action => 'all_subscribers'
+
+
+
+
+        redirect_to :controller => 'email', :action => 'lists'
       else
         puts "=========FAILED======="
-        # redirect_to :controller => 'main_interface', :action => 'all_subscribers'
+        redirect_to :controller => 'email', :action => 'lists'
       end
     end
   end

@@ -75,10 +75,12 @@ $(function() {
     var no_more_subscribers_modal = $('#no_subscribers_left_modal');
 
     /* --- Specific List import csv --- */
-    var csv_confirm_checkbox = $('#csv_confirm_checkbox');
-    var import_modal = $('#import_modal');
-    var import_csv_file_button = $('#import_csv_file_button');
-    var submit_csv_file_button = $('#submit_csv_file_button');
+    // var csv_confirm_checkbox = $('#csv_confirm_checkbox');
+    // var import_modal = $('#import_modal');
+    // var import_button = $('#import_csv_file_button');
+    // var submit_button = $('#submit_csv_file_button');
+    var list_id = $('#list_id');
+
 
 
     //Initialize the Page
@@ -165,6 +167,7 @@ $(function() {
 
     import_csv_submit_button.on('click', function(){
         var file = new FormData($('#file')[0]);
+
         $.ajax({
             // Your server script to process the upload
             type: 'POST',
@@ -173,6 +176,7 @@ $(function() {
             // Form data
             data: {
                 csv: file,
+                list_id: list_id,
                 authenticity_token: csrf_token
             },
 
@@ -222,6 +226,85 @@ $(function() {
 
     // End all subscribers import function
 
+
+
+
+    // Start List Specific Subscribers Import function
+
+
+    // /**
+    //  * Import subscribers modal toggle
+    //  */
+    // import_csv_button.on('click', function(){
+    //     alert(email_list_id);
+    //     import_csv_modal.modal('toggle');
+    // });
+    //
+    //
+    //
+    // import_csv_submit_button.on('click', function(){
+    //     var file = new FormData($('#file')[0]);
+    //
+    //     $.ajax({
+    //         // Your server script to process the upload
+    //         type: 'POST',
+    //         url: '/import_csv',
+    //
+    //         // Form data
+    //         data: {
+    //             csv: file,
+    //             authenticity_token: csrf_token
+    //         },
+    //
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //
+    //         // Custom XMLHttpRequest
+    //         xhr: function() {
+    //             var myXhr = $.ajaxSettings.xhr();
+    //             if (myXhr.upload) {
+    //                 // For handling the progress of the upload
+    //                 myXhr.upload.addEventListener('progress', function(e) {
+    //                     if (e.lengthComputable) {
+    //                         $('progress').attr({
+    //                             value: e.loaded,
+    //                             max: e.total,
+    //                         });
+    //                     }
+    //                 } , false);
+    //             }
+    //             return myXhr;
+    //         },
+    //     });
+    //     import_csv_modal.modal('toggle');
+    //
+    // });
+    //
+    //
+    //
+    //
+    // /**
+    //  * On import CSV Checkbox Confirm change check to see
+    //  * whether the checkbox is checked and enable the submit button
+    //  * otherwise disable the button
+    //  *
+    //  */
+    // import_csv_confirm_checkbox.on('change', function() {
+    //
+    //     if($(this).is(":checked")) {
+    //         import_csv_submit_button.prop('disabled', false);
+    //     } else {
+    //         import_csv_submit_button.prop('disabled', true);
+    //     }
+    //
+    // });
+
+
+
+
+
+    // End List Specific Subscribers Import function
 
 
     /**
@@ -343,7 +426,7 @@ $(function() {
         //Disable new Subscriber Submit Button
         new_subscriber_submit_button.prop('disabled', true);
         import_csv_submit_button.prop('disabled', true);
-        submit_csv_file_button.prop('disabled', true);
+        // submit_csv_file_button.prop('disabled', true);
 
         //Make Table jQuery Datatable instance
         subscribers_table.dataTable({
