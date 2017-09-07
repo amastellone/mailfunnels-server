@@ -83,7 +83,7 @@ $(function() {
                         window.location.href = '#signup';
                     } else {
 
-                        window.location.href = "https://www.mailfunnels.com/login?shop=" + response.url;
+                        window.location.href = "https://www.mailfunnels.io/login?shop=" + response.url;
                         // window.location.href = "http://localhost:3000/login/?shop=" + response.url;
 
                     }
