@@ -123,6 +123,14 @@
       text-decoration: none;
       font-weight: bold;
     }
+
+    .store_address {
+      background-color: white;
+    }
+    .street_text{
+      margin-bottom: 0;
+    }
+
   </style>
 </head>
 
@@ -165,6 +173,21 @@
           </table>
         </td>
       </tr>
+
+      <tr>
+        <td class="container">
+          <table>
+            <tr>
+              <td class="store_address" align="center">
+                <p class="street_text"><%= @email_job.app.user.street_address %></p>
+                <p><%= @email_job.app.user.city %>, <%= @email_job.app.user.state %></p>
+
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
       <tr>
         <td class="container email_footer">
           <!--Need to include unsubscribe link-->
