@@ -109,6 +109,8 @@
 
     .container .content.email_footer {
       background: none;
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     .container .content.email_footer p {
@@ -179,7 +181,7 @@
           <table>
             <tr>
               <td class="store_address" align="center">
-                <p class="street_text"><%= @email_job.app.user.street_address %></p>
+                <p><%= @email_job.app.user.street_address %></p>
                 <p><%= @email_job.app.user.city %>, <%= @email_job.app.user.state %></p>
 
               </td>
@@ -188,6 +190,24 @@
         </td>
       </tr>
 
+      <% if @email_job.app.user.has_mailfunnel_watermark %>
+          <tr>
+            <td class="container">
+              <table>
+                <tr>
+                  <td align="center">
+
+                    <p>Powered by MailFunnels</p>
+
+
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+      <% end %>
+
       <tr>
         <td class="container email_footer">
           <!--Need to include unsubscribe link-->
@@ -195,6 +215,15 @@
             <tr>
               <td class="content email_footer" align="center">
                 <p><a href="http://mailfunnels-server.herokuapp.com/unsubscribe/<%= @subscriber.id %>">Unsubscribe</a></p>
+                <p><%= @email_job.app.user.street_address %></p>
+                <p><%= @email_job.app.user.city %>, <%= @email_job.app.user.state %></p>
+
+                <% if @email_job.app.user.has_mailfunnel_watermark %>
+                    <p>Powered by MailFunnels</p>
+                <% end %>
+
+
+
               </td>
             </tr>
           </table>
