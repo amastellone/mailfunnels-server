@@ -77,6 +77,9 @@
                 </table>
               </td>
             </tr>
+
+
+
             <tr>
               <td class="container email_footer">
                 <!--Need to include unsubscribe link-->
@@ -84,6 +87,18 @@
                   <tr>
                     <td class="content email_footer" align="center">
                       <p><a href= "#">Unsubscribe</a></p>
+                      <p><%= @user.street_address %></p>
+                      <p><%= @user.city %>, <%= @user.state %></p>
+
+                      <% if @user.has_mailfunnel_watermark %>
+                          <p> Powered by MailFunnels </p>
+
+
+                      <% end %>
+
+
+
+
                     </td>
                   </tr>
                 </table>

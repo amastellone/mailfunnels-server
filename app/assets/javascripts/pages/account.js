@@ -27,6 +27,13 @@ $(function(){
     var upgrade_plan_button = $('.upgrade_plan_button');
     var upgrade_plan_submit_button = $('#upgrade_plan_submit_button');
 
+
+
+    var powered_by_mailfunnels_checkbox = $('#powered_by_mailfunnels_checkbox');
+    var mailfunnel_watermark = $('#mailfunnel_watermark').val();
+
+
+
     /* ---- MODAL ----- */
 
     var upgrade_plan_modal = $('#upgrade_plan_modal');
@@ -38,6 +45,7 @@ $(function(){
 
     //Initialize the My Account Page
     init();
+
 
 
     change_password_input.on('keyup', function() {
@@ -102,6 +110,7 @@ $(function(){
         var email = email_input.val();
         var confirm_email = confirm_email_input.val();
 
+
         if (email !== confirm_email) {
             save_account_info_button.prop('disabled', true);
             return;
@@ -135,6 +144,16 @@ $(function(){
 
     });
 
+    powered_by_mailfunnels_checkbox.on('change', function () {
+        if($(this).is(":checked")) {
+            powered_by_mailfunnels_checkbox.attr('value', true);
+
+        } else {
+            powered_by_mailfunnels_checkbox.attr('value', false);
+        }
+
+    });
+
     // save_account_info_button.on('click', function(e) {
     //
     //
@@ -164,6 +183,7 @@ $(function(){
     save_email_info_button.on('click', function(e){
 
         var from_name = from_name_input.val();
+        var checkbox_value = powered_by_mailfunnels_checkbox.val();
 
         $.ajax({
             type:'POST',
@@ -172,6 +192,7 @@ $(function(){
             data: {
                 id: app_id,
                 from_name: from_name,
+                watermark: checkbox_value,
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -273,6 +294,14 @@ $(function(){
 
         //Disable Account Info Button
         save_account_info_button.prop('disabled', true);
+
+        if (mailfunnel_watermark == 'true'){
+            powered_by_mailfunnels_checkbox.prop('checked', true);
+            powered_by_mailfunnels_checkbox.attr('value', true);
+        } else {
+            powered_by_mailfunnels_checkbox.prop('checked', false);
+            powered_by_mailfunnels_checkbox.attr('value', false);
+        }
 
     }
 

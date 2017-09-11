@@ -49,6 +49,9 @@ class EmailController < ShopifyApp::AuthenticatedController
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 
+    # Get the current user
+    @user = User.find(@app.user_id)
+
     # Get the EmailTemplate We want to View
     @template = EmailTemplate.find(params[:template_id])
 
@@ -71,6 +74,9 @@ class EmailController < ShopifyApp::AuthenticatedController
 
     # Get the Current App
     @app = MailfunnelsUtil.get_app
+
+    # Get the current user
+    @user = User.find(@app.user_id)
 
     # Get the EmailTemplate We want to View
     @template = EmailTemplate.find(params[:template_id])

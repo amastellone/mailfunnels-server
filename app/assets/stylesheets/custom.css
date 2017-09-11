@@ -4392,7 +4392,13 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 
 }
 
+
+
 #mf_login_username_input::placeholder{
+    color: white;
+}
+
+#mf_login_username_input, select, textarea {
     color: white;
 }
 
@@ -4402,6 +4408,19 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 }
 
 #mf_login_password_input::placeholder{
+    color: white;
+}
+
+#mf_login_password_input, select, textarea {
+    color: white;
+}
+
+
+#mf_shopify_domain_input::placeholder{
+    color: white;
+}
+
+#mf_shopify_domain_input, select, textarea {
     color: white;
 }
 
