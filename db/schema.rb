@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170909205544) do
+ActiveRecord::Schema.define(version: 20170913195108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20170909205544) do
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "trial"
-    t.boolean  "has_mailfunnel_watermark"
+    t.boolean  "has_mailfunnel_watermark", :default=>true
   end
 
   create_table "apps", force: :cascade do |t|
