@@ -1252,7 +1252,8 @@ td span {
 .error-number {
     font-size: 90px;
     line-height: 90px;
-    margin: 20px 0
+    margin: 20px 0;
+    color: white;
 }
 .col-middle {
     margin-top: 5%
