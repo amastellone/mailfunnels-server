@@ -285,7 +285,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # Access current app
     app = App.find(params[:id])
-    user = User.find(app.user_id)
+    # user = User.find(app.user_id)
 
     unless app
       response = {
@@ -301,9 +301,9 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
         :from_name => params[:from_name]
     })
 
-    user.put('', {
-        :has_mailfunnel_watermark => params[:watermark]
-    })
+    # user.put('', {
+    #     :has_mailfunnel_watermark => params[:watermark]
+    # })
 
 
     response = {
