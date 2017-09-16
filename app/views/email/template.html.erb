@@ -190,23 +190,6 @@
         </td>
       </tr>
 
-      <% if @email_job.app.user.has_mailfunnel_watermark %>
-          <tr>
-            <td class="container">
-              <table>
-                <tr>
-                  <td align="center">
-
-                    <p>Powered by MailFunnels</p>
-
-
-
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-      <% end %>
 
       <tr>
         <td class="container email_footer">
@@ -218,17 +201,13 @@
                 <p><%= @email_job.app.user.street_address %></p>
                 <p><%= @email_job.app.user.city %>, <%= @email_job.app.user.state %></p>
 
-                <% if @email_job.app.user.has_mailfunnel_watermark %>
-                    <p>Powered by MailFunnels</p>
-                <% end %>
-
-
 
               </td>
             </tr>
           </table>
         </td>
       </tr>
+
     </table>
 </div>
 <!-- ~~~~~~~~~~~~~~~~ -->
