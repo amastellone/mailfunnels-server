@@ -6,9 +6,10 @@ class ApplicationController < ActionController::Base
 
     begin
       domain = params[:shop]
+      puts "Domain Found"
 
       if domain != nil
-
+        puts "Domain not found"
         app = App.where(name: domain).first
         # If no app was found, redirect to Access Denied Page
         unless app
