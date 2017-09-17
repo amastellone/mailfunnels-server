@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
         unless app
           redirect_to '/access_denied'
         end
-        user = app.user
+        user = User.where(id: app.user_id).first
         # Load Account Data from Infusionsoft
         begin
 
