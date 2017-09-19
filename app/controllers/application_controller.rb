@@ -10,13 +10,23 @@ class ApplicationController < ActionController::Base
 
       if domain != nil
         puts "Domain found"
+        
         app = App.where(name: domain).first
         # If no app was found, redirect to Access Denied Page
         unless app
           puts "redirecting to access_denied"
+        app = App.where(name: domain).first
+        # If no app was found, redirect to Access Denied Page
+        unless app
+          puts "--APP NOT FOUND--"
           redirect_to '/access_denied'
         end
-        user = app.user
+        user = User.where(id: app.user_id).first
+        unless user
+          puts "--USER NOT FOUND--"
+          redirect_to '/access_denied'
+        end
+
         # Load Account Data from Infusionsoft
         begin
 
