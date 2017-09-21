@@ -62,7 +62,7 @@ task :process_trial_accounts => :environment do
 
         puts upgrade_response.to_s
 
-        if upgrade_response[:Successful]
+
           puts "upgrade response successful"
           # Tag for 1000 sub tier level plan
           new_tier_level_tag = 106
@@ -81,7 +81,7 @@ task :process_trial_accounts => :environment do
 
           puts "user processed successfully successful"
 
-        end
+        
         puts "Upgrade response not successful"
         puts "==============================="
       end
