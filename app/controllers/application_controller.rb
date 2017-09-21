@@ -9,12 +9,6 @@ class ApplicationController < ActionController::Base
 
 
       if domain != nil
-        puts "Domain found"
-
-        app = App.where(name: domain).first
-        # If no app was found, redirect to Access Denied Page
-        unless app
-          puts "redirecting to access_denied"
         app = App.where(name: domain).first
         # If no app was found, redirect to Access Denied Page
         unless app
@@ -193,6 +187,4 @@ class ApplicationController < ActionController::Base
   ensure ShopifyAPI::Base.site = nil
   end
 
-  end
 end
-

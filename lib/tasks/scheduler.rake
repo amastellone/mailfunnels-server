@@ -29,6 +29,7 @@ task :process_trial_accounts => :environment do
       puts "2"
 
 
+
       cardId = 0
       current_year = Date.today.strftime('%Y')
       current_month = Date.today.strftime('%m')
@@ -69,19 +70,31 @@ task :process_trial_accounts => :environment do
 
           # Tags to remove from user
           trial_ended_tag = 145
-          failed_payment_tag = 120
+          # failed_payment_tag = 120
 
-          # Remove Tags from user for failed payment and Trial ended
+          # Remove Tag from user for Trial ended
           Infusionsoft.contact_remove_from_group(user.clientid, trial_ended_tag)
-          Infusionsoft.contact_remove_from_group(user.clientid, failed_payment_tag)
+
+          # Remove tag from user for failed payment
+          # Infusionsoft.contact_remove_from_group(user.clientid, failed_payment_tag)
+
+          # Remove Tag for free trial User
+          Infusionsoft.contact_remove_from_group(user.clientid, 139)
 
 
           # Add tag to user for 1000 subscribers tier level
           Infusionsoft.contact_add_to_group(user.clientid, new_tier_level_tag)
 
           puts "user processed successfully successful"
+        else
+          # Add tag to user that payment failed
+          Infusionsoft.contact_add_to_group(user.clientid, 120)
 
         end
+
+
+
+
         puts "Upgrade response not successful"
         puts "==============================="
       end

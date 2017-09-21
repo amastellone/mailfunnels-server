@@ -682,6 +682,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     @app = MailfunnelsUtil.get_app
     user = User.find(@app.user_id)
     puts "-----1-----"
+    puts user
 
 
     plan = MailFunnelsUser.get_user_plan(user.clientid)
