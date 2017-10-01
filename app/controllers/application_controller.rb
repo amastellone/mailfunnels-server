@@ -40,6 +40,16 @@ class ApplicationController < ActionController::Base
 
           end
 
+          if @user_plan === 153
+
+            remaining_subscribers = 4000 - num_subscribers
+
+            if remaining_subscribers <= 0
+              limit_reached = true
+            end
+
+          end
+
 
           # if @user_plan === -99 or limit_reached
           #

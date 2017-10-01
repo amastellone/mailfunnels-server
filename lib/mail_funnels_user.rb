@@ -71,6 +71,7 @@ class MailFunnelsUser
   # 116 : MailFunnels 20k
   # 118 : MailFunnels 35k
   # 120 : MailFunnels Failed Payment
+  # 153 : Mailfunnels 60 day trial member
   #
   def self.get_user_plan(client_id)
 
@@ -229,6 +230,8 @@ class MailFunnelsUser
         return 35000 - num_subscribers
       when -2
         return 500 - num_subscribers
+      when 153
+        return 4000 - num_subscribers
       when -99
         return 0
       else

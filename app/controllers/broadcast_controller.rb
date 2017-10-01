@@ -27,6 +27,10 @@ class BroadcastController < ShopifyApp::AuthenticatedController
       redirect_to '/trial_access_denied'
     end
 
+    if @user_plan === 153
+      redirect_to '/trial_access_denied'
+    end
+
 
     # Get all lists For App
     @lists = EmailList.where(app_id: @app.id)
