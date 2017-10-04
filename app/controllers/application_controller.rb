@@ -163,6 +163,9 @@ class ApplicationController < ActionController::Base
           end
 
         rescue => e
+          puts "=====rescue====="
+          puts e
+          puts "=====rescue====="
           redirect_to '/server_error'
         end
       end
