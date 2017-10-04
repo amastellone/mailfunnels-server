@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  line-height: 1.65; }
+
+img {
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+body,
+.body-wrap {
+  width: 100% !important;
+  height: 100%;
+  background: #f7f7f7;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+}
+
+.email_footer {
+    background-color: #e5e7e7;
+}
+
+.email_content {
+  margin-right: 22px;
+  margin-left: 22px;
+}
+
+.email_info h2{
+  font-size: 20px;
+}
+
+
+
+.button {
+  display: inline-block;
+  color: white;
+  background: #3498db;
+  padding: 10px 20px 8px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+
+.email_template h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 20px;
+  line-height: 1.25;
+}
+
+.email_template h1 {
+  font-size: 32px; }
+
+h2 {
+  font-size: 28px;
+}
+
+
+p, ul, ol {
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+
+pre {
+  font-size: 16px;
+  font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  margin-bottom: 20px;
+  padding: 0px;
+  background-color: inherit;
+  border: none;
+}
+
+.container {
+  display: block !important;
+  clear: both !important;
+  margin: 0 auto !important;
+  max-width: 100% !important;
+}
+
+.container table {
+  width: 100% !important;
+  border-collapse: collapse;
+}
+
+
+.container .email_title {
+    padding: 80px 0;
+    background: #3498db;
+    color: white;
+}
+
+.container .email_title h1 {
+    margin: 0 auto !important;
+    max-width: 90%;
+
+}
+
+.container .content {
+  background: white;
+  padding: 30px 35px;
+}
+
+.container .content.email_footer {
+  background: none;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.container .content.email_footer p {
+  margin-bottom: 0;
+  color: #888;
+  text-align: center;
+  font-size: 14px;
+}
+
+.container .content.email_footer a {
+  color: #888;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+
+.store_address {
+  background-color: white;
+}
+.street_text{
+  margin-bottom: 0;
+}
+
