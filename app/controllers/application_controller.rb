@@ -1,3 +1,5 @@
+require "../../lib/mail_funnels_user"
+
 class ApplicationController < ActionController::Base
   before_action :verify_mf_integrity
 
