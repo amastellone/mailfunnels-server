@@ -1,6 +1,8 @@
 require_relative 'boot'
 
 require 'rails/all'
+require '../lib/mail_funnels_user'
+require '../lib/mailfunnels_util'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -21,7 +23,7 @@ module MailFunnelClient
 		config.logger.level = Logger::ERROR
 		#config.active_job.queue_adapter = :default
 
-		config.autoload_paths << "#{Rails.root}/lib"
+		config.autoload_paths += %W(#{config.root}/lib)
 		config.autoload_paths << "#{Rails.root}/app/middleware"
 
 		config.action_dispatch.default_headers                = {
