@@ -24,7 +24,7 @@ module MailFunnelClient
 
 		config.autoload_paths << "#{Rails.root}/lib"
 		config.autoload_paths << "#{Rails.root}/app/middleware"
-
+		config.eager_load_paths << Rails.root.join('lib')
 
 
 		config.action_dispatch.default_headers                = {
