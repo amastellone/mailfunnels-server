@@ -22,10 +22,10 @@ module MailFunnelClient
 		config.logger.level = Logger::ERROR
 		#config.active_job.queue_adapter = :default
 
-		config.autoload_paths << "#{Rails.root}/lib"
+		config.autoload_paths << %W(#{config.root}/lib)
 		config.autoload_paths << "#{Rails.root}/app/middleware"
 
-		config.eager_load_paths << Rails.root.join('lib')
+
 
 		config.action_dispatch.default_headers                = {
 			 'X-Frame-Options' => 'ALLOWALL'
