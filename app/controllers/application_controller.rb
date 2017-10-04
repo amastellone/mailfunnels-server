@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  require "MailFunnelsUser"
+  require "mailfunnels-client/lib/mail_funnels_user"
   before_action :verify_mf_integrity
 
 
