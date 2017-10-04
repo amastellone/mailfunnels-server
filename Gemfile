@@ -114,6 +114,9 @@ end
 group :production do
 	gem 'rollbar'
 	gem 'pg'
+	gem 'rspec'
+	gem 'rspec-rails'
+	gem 'spring-commands-rspec'
 end
 
 group :development, :test do
