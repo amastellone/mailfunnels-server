@@ -1,8 +1,7 @@
 require_relative 'boot'
 
 require 'rails/all'
-require '../lib/mail_funnels_user'
-require '../lib/mailfunnels_util'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
