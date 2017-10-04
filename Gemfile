@@ -152,3 +152,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Gems appended using BASH '>' feature
 gem 'rack-jwt'
 
+
+# Added at 2017-10-03 22:49:37 -0500 by karolgrycuk:
+gem "dalli", "~> 2.7"
+
+# Added at 2017-10-03 22:50:05 -0500 by karolgrycuk:
+gem "rack-cache", "~> 1.7"
