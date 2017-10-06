@@ -36,3 +36,5 @@ Rails.application.config.assets.precompile += %w( dashboard.css )
 Rails.application.config.assets.precompile += %w( components/jquery.flowchart.css )
 Rails.application.config.assets.precompile += %w( EmailTemplate/simple.css )
 Rails.application.config.assets.precompile += %w( components/switchery.min.css )
+Rails.application.config.assets.precompile += %w( custom.css )
+

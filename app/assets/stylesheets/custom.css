@@ -3534,9 +3534,9 @@ ul.project_files li a i {
 .product_social ul li a i {
     font-size: 35px
 }
-.login {
-    background-image: url(galaxy.png);
-}
+/*.login {*/
+    /*background-image: url(galaxy.png);*/
+/*}*/
 .login .fa-paw {
     font-size: 26px
 }
