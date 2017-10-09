@@ -99,10 +99,14 @@ class UsersController < ActionController::Base
 
     # Get User Information from Infusionsoft
     contact = Infusionsoft.contact_find_by_email(params[:mf_auth_username], [:ID, :Password])
+    puts "found contact"
+    puts "1"
 
     if contact.first['Password'] === params[:mf_auth_password]
+      puts "----------1----------"
 
       user = User.where(clientid: contact.first['ID']).first
+      puts "------------2------------"
 
       unless user
         # Return Error Response
@@ -112,12 +116,15 @@ class UsersController < ActionController::Base
         }
 
         render json: response
+        puts "-----------3-----------"
       end
 
       # Look for App for the User
       app = App.where(user_id: user.id).first
+      puts "----------4------------"
 
       logger.info app
+      puts "------------5------------"
 
 
       if app
@@ -147,7 +154,7 @@ class UsersController < ActionController::Base
 
 
     else
-
+      puts "final else"
       # Return Error Response
       response = {
           success: false,

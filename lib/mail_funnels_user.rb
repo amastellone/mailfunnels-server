@@ -101,6 +101,10 @@ class MailFunnelsUser
       # Convert tag to integer
       temp = tag.to_i
 
+      if temp === 153
+        return 153
+      end
+
       # If contact has failed payment tag, return 120
       if temp === 120
         return 120
