@@ -38,6 +38,7 @@ Rails.application.config.assets.precompile += %w( EmailTemplate/simple.css )
 Rails.application.config.assets.precompile += %w( components/switchery.min.css )
 Rails.application.config.assets.precompile += %w( custom.css )
 
+
 # Require font awesome
 %w(eot svg ttf woff woff2).each do |ext|
   Rails.application.config.assets.precompile << "fontawesome-webfont.#{ext}"
