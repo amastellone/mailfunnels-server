@@ -27,7 +27,6 @@ Rails.application.config.assets.precompile += %w( pages/account.js )
 Rails.application.config.assets.precompile += %w( components/jquery.tabletoCSV.js )
 Rails.application.config.assets.precompile += %w( components/switchery.min.js )
 Rails.application.config.assets.precompile += %w( pages/broadcasts.js )
-Rails.application.config.assets.precompile += %w( javascripts/vendor/summernote.min.js)
 
 
 
@@ -38,11 +37,10 @@ Rails.application.config.assets.precompile += %w( components/jquery.flowchart.cs
 Rails.application.config.assets.precompile += %w( EmailTemplate/simple.css )
 Rails.application.config.assets.precompile += %w( components/switchery.min.css )
 Rails.application.config.assets.precompile += %w( custom.css )
-Rails.application.config.assets.precompile += %w( stylesheets/vendor/summernote.css)
 
 # Reqirements for Summernote
-%w(eot ttf woff).each do |ext|
-  Rails.application.config.assets.precompile << "stylesheets/vendor/summernote.#{ext}"
+%w(eot svg ttf woff woff2).each do |ext|
+  Rails.application.config.assets.precompile << "summernote.#{ext}"
 end
 
 
