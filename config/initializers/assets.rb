@@ -38,10 +38,7 @@ Rails.application.config.assets.precompile += %w( EmailTemplate/simple.css )
 Rails.application.config.assets.precompile += %w( components/switchery.min.css )
 Rails.application.config.assets.precompile += %w( custom.css )
 
-# Reqirements for Summernote
-%w(eot svg ttf woff woff2).each do |ext|
-  Rails.application.config.assets.precompile << "summernote.#{ext}"
-end
+
 
 
 # Require font awesome
