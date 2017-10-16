@@ -9,13 +9,12 @@
 
   <title>MailFunnels | Login</title>
 
-  <%= stylesheet_link_tag 'application', :media => 'all', 'data-turbolinks-track' => 'reload'%>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'%>
+  <%= stylesheet_link_tag 'application', :media => 'all', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'pages/login.js' %>
 
 </head>
-
--<body class="login" style="background-image: url("<%=image_tag("galaxy.png")%>")">
+<body class="login" style="background-image: url("<%= image_tag("galaxy.png") %>
 <div>
 
   <a class="hiddenanchor" id="signup"></a>
@@ -23,7 +22,7 @@
 
   <div class="login_wrapper">
 
-    <div  class="animate form login_form">
+    <div class="animate form login_form">
       <section class="login_content">
 
         <div style="margin-bottom: 100px;">
@@ -34,15 +33,14 @@
           <h2 class="mailfunnels_login">MailFunnels Login</h2>
 
 
-
           <p id="invalid_login_credentials_message" class="text-danger">Invalid Username/Password Combo</p>
-          <p id="server_error_message" class="text-danger" >Server Error</p>
+          <p id="server_error_message" class="text-danger">Server Error</p>
 
           <div>
-            <input id="mf_login_username_input" type="text" class="form-control" placeholder="Email" required="" />
+            <input id="mf_login_username_input" type="text" class="form-control" placeholder="Email" required=""/>
           </div>
           <div>
-            <input id="mf_login_password_input" type="password" class="form-control" placeholder="Password" required="" />
+            <input id="mf_login_password_input" type="password" class="form-control" placeholder="Password" required=""/>
           </div>
           <div>
             <button id="mf_login_submit_button" class="btn btn-primary" type="button">Log in</button>
@@ -83,7 +81,7 @@
           <div class="form-group">
 
             <div class="col-md-9 col-sm-9 col-xs-9">
-              <input id="mf_shopify_domain_input" type="text"  class="form-control" placeholder="Shopify Domain" required="" />
+              <input id="mf_shopify_domain_input" type="text" class="form-control" placeholder="Shopify Domain" required=""/>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-3">
               <label class="control-label" style="color: white;">.myshopify.com</label>
@@ -109,15 +107,10 @@
     </div>
 
 
-
   </div>
 
 
 </div>
-
-
-
-
 
 
 </body>
