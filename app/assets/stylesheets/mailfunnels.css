@@ -32,3 +32,10 @@ hr {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
+.mf_btn_btm_panel {
+
+    bottom: 0;
+
+}
