@@ -10,6 +10,12 @@ var app_id;
 
 $(function(){
 
+    ShopifyApp.ready(function () {
+        ShopifyApp.Bar.initialize({
+            icon: '/mailfunnels-logo.jpg'
+        });
+    });
+
     /* --- AUTHENTICATION --- */
     csrf_token = $('meta[name=csrf-token]').attr('content');
 
@@ -21,7 +27,7 @@ $(function(){
     var triggers_table = $('#triggers_table');
 
     /* --- MODALS --- */
-    var new_trigger_modal = $('#newTriggerModal');
+
     var trigger_info_modal = $('#trigger_info_modal');
     var trigger_confirm_delete_modal = $('#trigger_confirm_delete_modal');
     var edit_trigger_modal = $('#editTriggerModal');
@@ -32,14 +38,25 @@ $(function(){
     var edit_trigger_name_input = $('#edit_trigger_name_input');
     var edit_trigger_description_input = $('#edit_trigger_description_input');
 
+    /* --- NEW TRIGGER COMPONENTS --- */
+    var new_trigger_modal = $('#newTriggerModal');
+    var new_trigger_modal_button = $('#new_trigger_modal_btn');
+    var new_trigger_product_select_btn = $("#new_trigger_product_select_btn");
+    var product_select = $('#product_list_select');
+    var product_select_name = $('#product_list_select_name');
+    var new_trigger_reset = $('#new_trigger_reset_btn');
+    var new_trigger_submit = $('#new_trigger_submit_button');
+
+
+
     /* --- SELECT INPUT FIELDS --- */
     var hook_list_select = $('#hook_list_select');
-    var product_select = $('#product_list_select');
     var edit_hook_list_select = $('#edit_hook_list_select');
     var edit_product_select = $('#edit_product_list_select');
+    var edit_product_name = $('#edit_product_list_name');
+    var edit_product_select_btn = $('#edit_product_select_btn');
 
     /* --- BUTTONS --- */
-    var new_trigger_submit = $('#new_trigger_submit_button');
     var trigger_refresh_button = $('#trigger_refresh_button');
     var trigger_edit_button = $('#trigger_edit_button');
     var trigger_delete_button = $('#trigger_delete_button');
@@ -61,6 +78,78 @@ $(function(){
 
     //Initialize the Triggers Page
     init();
+
+
+    new_trigger_modal_button.on('click', function() {
+
+
+        new_trigger_modal.modal('toggle');
+
+    });
+
+
+    new_trigger_product_select_btn.on('click', function() {
+
+        var singleProductOptions = {
+            'selectMultiple': false,
+        };
+
+        ShopifyApp.Modal.productPicker(singleProductOptions, function(success, data) {
+            // Callback is triggered any time a button
+            // is clicked or the window is closed.
+
+            if(success) {
+                console.log(data);
+                console.log(data.products[0]);
+                newTriggerUpdateProductSelected(data.products[0]);
+
+            } else {
+                return;
+            }
+
+            if (data.errors) {
+                console.error(data.errors);
+            }
+        })
+    });
+
+    new_trigger_reset.on('click', function() {
+
+        product_select.attr('value', '');
+        product_select_name.attr('value', '');
+        trigger_name_input.val('');
+        trigger_description_input.val('');
+        hook_list_select.val(1);
+
+        new_trigger_product_select_btn.html("Any Product");
+
+    });
+
+
+    edit_product_select_btn.on('click', function() {
+
+        var singleProductOptions = {
+            'selectMultiple': false,
+        };
+
+        ShopifyApp.Modal.productPicker(singleProductOptions, function(success, data) {
+            // Callback is triggered any time a button
+            // is clicked or the window is closed.
+
+            if(success) {
+                console.log(data);
+                console.log(data.products[0]);
+                editTriggerUpdateProductSelected(data.products[0]);
+
+            } else {
+                return;
+            }
+
+            if (data.errors) {
+                console.error(data.errors);
+            }
+        })
+    });
 
 
     /**
@@ -134,7 +223,13 @@ $(function(){
                 edit_trigger_name_input.val(response.name);
                 edit_trigger_description_input.val(response.description);
                 edit_hook_list_select.val(response.hook_id);
-                edit_product_select.val(response.product_id);
+                edit_product_select.attr('value', response.product_id);
+                edit_product_name.attr('value', response.product_name);
+                if (response.product_id && response.product_id !== '') {
+                    edit_product_select_btn.html("Product: " + response.product_name);
+                } else {
+                    edit_product_select_btn.html(response.product_name);
+                }
                 edit_trigger_submit_button.attr('data-id', trigger_id);
                 edit_trigger_modal.modal('toggle');
 
@@ -222,19 +317,19 @@ $(function(){
         })
     });
 
-    
-    
+
+
     /**
      * Button On Click Function
      * ------------------------
-     * Deletes trigger while in the trigger delete confirmation modal 
+     * Deletes trigger while in the trigger delete confirmation modal
      */
-    
+
     confirm_trigger_delete_button.on('click', function() {
-        
+
         var trigger_id = $(this).data('id');
         trigger_confirm_delete_modal.modal('toggle');
-        
+
         $.ajax({
             type: 'POST',
             url: '/ajax_delete_trigger',
@@ -334,7 +429,7 @@ $(function(){
 
     });
 
-    
+
 
     //Initialize the Triggers Page
     function init() {
@@ -346,6 +441,29 @@ $(function(){
                 "orderable": false,
             } ]
         });
+
+    }
+
+
+    function newTriggerUpdateProductSelected(product) {
+
+        product_select.attr('value', product.id);
+        product_select_name.attr('value', product.title);
+
+        if (product_select.val() !== '') {
+            new_trigger_product_select_btn.html("Product: " + product.title);
+        }
+
+    }
+
+    function editTriggerUpdateProductSelected(product) {
+
+        edit_product_select.attr('value', product.id);
+        edit_product_name.attr('value', product.title);
+
+        if (edit_product_select.val() !== '') {
+            edit_product_select_btn.html("Product: " + product.title);
+        }
 
     }
 

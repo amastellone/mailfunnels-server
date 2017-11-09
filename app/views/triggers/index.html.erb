@@ -1,10 +1,6 @@
 <% content_for :javascript do %>
     <script type="text/javascript">
-        ShopifyApp.ready(function () {
-            ShopifyApp.Bar.initialize({
-                icon: '/mailfunnels-logo.jpg'
-            });
-        });
+
     </script>
 
 
@@ -25,7 +21,8 @@
           </div>
 
           <div class="title_right">
-            <button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#newTriggerModal"><i class="fa fa-plus"></i> New Trigger</button>
+            <button id="new_trigger_modal_btn" class="btn btn-primary btn-border pull-right" type="button"><i class="fa fa-plus"></i> New Trigger</button>
+            <!--<button class="btn btn-primary btn-border pull-right" type="button" data-toggle="modal" data-target="#newTriggerModal"><i class="fa fa-plus"></i> New Trigger</button>-->
             <button id="trigger_refresh_button" class="btn btn-primary btn-border pull-right" style="margin-right: 5px;" type="button"><i class="fa fa-refresh"></i> Refresh</button>
 
           </div>
@@ -142,12 +139,9 @@
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Product</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <select class="form-control" id="product_list_select">
-                    <option value="">Select Product For Trigger</option>
-                    <% @products.each do |product| %>
-                        <option value="<%= product.id %>"><%= product.title %></option>
-                    <% end %>
-                  </select>
+                  <input id="product_list_select" type="number" class="hidden" value=""/>
+                  <input id="product_list_select_name" type="text" class="hidden" value=""/>
+                  <button id="new_trigger_product_select_btn" type="button" class="form-control mf_select_btn-primary"> Any Product</button>
                 </div>
               </div>
 
@@ -155,7 +149,7 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="reset" class="btn btn-primary">Reset</button>
+              <button id="new_trigger_reset_btn" type="button" class="btn btn-primary">Reset</button>
               <button id="new_trigger_submit_button" type="button" class="btn btn-success">Submit</button>
             </div>
 
@@ -326,12 +320,9 @@
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Product</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                  <select class="form-control" id="edit_product_list_select">
-                    <option value="">Select Product For Trigger</option>
-                    <% @products.each do |product| %>
-                        <option value="<%= product.id %>"><%= product.title %></option>
-                    <% end %>
-                  </select>
+                  <input id="edit_product_list_select" type="number" class="hidden" value=""/>
+                  <input id="edit_product_list_name" type="text" class="hidden" value=""/>
+                  <button id="edit_product_select_btn" type="button" class="form-control mf_select_btn-primary"> Any Product</button>
                 </div>
               </div>
 

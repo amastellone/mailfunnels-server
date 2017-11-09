@@ -20,6 +20,7 @@ class TriggersController < ShopifyApp::AuthenticatedController
     # Get All Products on the Current Store
     @products = ShopifyAPI::Product.find(:all, :limit => 250)
 
+
   end
 
 
@@ -194,11 +195,18 @@ class TriggersController < ShopifyApp::AuthenticatedController
   def ajax_load_trigger_edit_info
     trigger = Trigger.find(params[:trigger_id])
 
+    if trigger.product_id
+      product_name = ShopifyAPI::Product.find(trigger.product_id).title
+    else
+      product_name = "Any Product"
+    end
+
     data = {
         :name => trigger.name,
         :description => trigger.description,
         :hook_id => trigger.hook_id,
         :product_id => trigger.product_id,
+        :product_name => product_name
     }
 
     # Return data as JSON

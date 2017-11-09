@@ -1,4 +1,23 @@
 
+.modal {
+    text-align: center;
+    padding: 0!important;
+}
+
+.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-top: -50px;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
 
 /* --- Horizontal Rules --- */
 hr {
@@ -37,5 +56,26 @@ hr {
 .mf_btn_btm_panel {
 
     bottom: 0;
+
+}
+
+
+
+.mf_select_btn-primary {
+    font-family: 'Avenir Next', sans-serif !important;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 10px 17px;
+    border: 1px solid #3498db;
+    -webkit-border-radius: 2px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 2px;
+    -moz-background-clip: padding;
+    border-radius: 2px;
+    background-clip: padding-box;
+    -webkit-transition: color 0.2s linear, background-color 0.2s linear;
+    transition: color 0.2s linear, background-color 0.2s linear;
+    color: #3498db;
 
 }
