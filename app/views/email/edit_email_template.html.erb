@@ -67,7 +67,7 @@
 
             <form class="form-horizontal form-label-left">
 
-              <h4 class="text-primary">Email Settings</h4>
+              <h4 class="mf_section_header">General Options</h4>
 
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Subject</label>
@@ -86,6 +86,8 @@
                 </div>
               </div>
 
+              <h4 class="mf_section_header">Header Options</h4>
+
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Title</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
@@ -93,6 +95,8 @@
                 </div>
               </div>
 
+
+              <h4 class="mf_section_header">Link Options</h4>
 
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Show Button</label>
@@ -106,18 +110,6 @@
 
 
               <div id="button_forms_div">
-
-                <div class="form-group">
-                  <div class="col-xs-12 vcenter m-b-5">
-                    <label class="control-label m-r-5">Abandoned Checkout Url</label>
-                    <input type="checkbox" value="<%= @template.has_checkout_url %>" id="checkout_url_select" />
-                  </div>
-                  <div id="abandoned_text" class="row">
-                    <div class="col-xs-12 text-center">
-                      <p class="abandoned_text_warning">only use this for funnels with abandoned checkout triggers</p>
-                    </div>
-                  </div>
-                </div>
 
 
                 <div class="form-group">
@@ -136,8 +128,36 @@
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <div class="col-xs-12 vcenter m-b-5">
+                    <input type="checkbox" class="m-r-5" value="<%= @template.has_checkout_url %>" id="checkout_url_select" />
+                    <label class="control-label m-l-5">Abandoned Checkout Url</label>
+                  </div>
+                  <div id="abandoned_text" class="row">
+                    <div class="col-xs-12 text-center">
+                      <p class="abandoned_text_warning">only use this for funnels with abandoned checkout triggers</p>
+                    </div>
+                  </div>
+                </div>
 
               </div>
+
+              <h4 class="mf_section_header">Footer Options</h4>
+
+              <div class="form-group">
+                <div class="col-xs-12 vcenter m-b-5">
+                  <input type="checkbox" class="m-r-5" value="<%= @template.mf_power_foot %>" id="mf_show_power_by" />
+                  <label for="mf_show_power_by" class="control-label m-l-5">Show Powered By MailFunnels</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-xs-12 vcenter m-b-5">
+                  <input type="checkbox" class="m-r-5" value="<%= @template.show_address %>" id="mf_show_address" />
+                  <label for="mf_show_address" class="control-label m-l-5">Show Address</label>
+                </div>
+              </div>
+
 
             </form>
 
@@ -198,10 +218,19 @@
                   <table>
                     <tr>
                       <td class="content email_footer" align="center">
-                        <p><a href= "#">Unsubscribe</a></p>
-                        <p><%= @user.street_address %></p>
-                        <p><%= @user.city %>, <%= @user.state %></p>
-                        
+
+                        <p class="mf_em_footer_unsub"><a href= "#">Unsubscribe</a></p>
+                        <br/>
+
+
+                        <div id="mf_template_address" class="mf_em_footer_address">
+                          <p><%= @user.street_address %></p>
+                          <p><%= @user.city %>, <%= @user.state %></p>
+                        </div>
+
+                        <div id="mf_footer_power_by">
+                          <p class="mf_em_footer_power_by">Powered by MailFunnels</p>
+                        </div>
 
 
                       </td>

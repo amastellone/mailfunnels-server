@@ -27,6 +27,15 @@ $(function(){
     var preview_email_buttons_div = $('#preview_buttons_div');
     var preview_email_header = $('#preview_header');
 
+    /* --- FOOTER OPTIONS --- */
+    var footer_show_power_by = $('#mf_show_power_by');
+    var footer_show_address = $('#mf_show_address');
+
+
+    /* --- FOOTER COMPONENTS --- */
+    var footer_em_address = $('#mf_template_address');
+    var footer_em_powered_by = $('#mf_footer_power_by');
+
     /* --- BUTTONS --- */
     var email_submit = $('#email_list_submit_button');
 
@@ -81,6 +90,30 @@ $(function(){
     });
 
 
+    footer_show_address.on('change', function() {
+
+        if (this.checked) {
+            footer_em_address.show();
+            $(this).val(1);
+        } else {
+            footer_em_address.hide();
+            $(this).val(0);
+        }
+
+    });
+
+    footer_show_power_by.on('change', function() {
+
+        if (this.checked) {
+            footer_em_powered_by.show();
+            $(this).val(1);
+        } else {
+            footer_em_powered_by.hide();
+            $(this).val(0);
+        }
+
+    });
+
 
     email_submit.on("click", function(e){
 
@@ -112,6 +145,8 @@ $(function(){
                 button_url: button_url,
                 color: color,
                 has_checkout: checkoutUrlSelect.val(),
+                show_address: footer_show_address.val(),
+                mf_power_foot: footer_show_power_by.val(),
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -150,6 +185,27 @@ $(function(){
             preview_email_buttons_div.hide();
             button_form_div.hide();
         }
+
+
+        //Show/Hide Powered By
+        if (footer_show_power_by.val() === '1') {
+            footer_show_power_by.attr('checked', true);
+            footer_em_powered_by.show();
+        } else {
+            footer_show_power_by.attr('checked', false);
+            footer_em_powered_by.hide();
+        }
+
+        //Show/Hide Address
+        if (footer_show_address.val() === '1') {
+            footer_show_address.attr('checked', true);
+            footer_em_address.show();
+        } else {
+            footer_em_address.hide();
+            footer_show_address.attr('checked', false);
+        }
+
+
 
         // set the value of checkout select from db
         if ($('#checkout_url_select').val() === '1') {

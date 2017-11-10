@@ -30,6 +30,14 @@
 }
 
 
+/* --- SECTION HEADERS --- */
+.mf_section_header {
+    font-size: 16px;
+    color: #3498db;
+    border-bottom: 1px solid #e0e3e5;
+}
+
+
 /* --- VERTICAL ALIGN MODALS --- */
 .modal {
     text-align: center;
@@ -109,4 +117,14 @@ hr {
     transition: color 0.2s linear, background-color 0.2s linear;
     color: #3498db;
 
+}
+
+/* --- EMAIL TEMPLATE CSS --- */
+.mf_em_footer_power_by {
+    font-size: 12px !important;
+    font-weight: 600;
+}
+
+.mf_em_footer_unsub {
+    font-size: 12px;
 }
