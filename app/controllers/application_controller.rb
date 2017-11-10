@@ -2,12 +2,10 @@ class ApplicationController < ActionController::Base
   before_action :verify_mf_integrity
 
 
-
   def verify_mf_integrity
 
     begin
       domain = params[:shop]
-
 
       if domain != nil
         app = App.where(name: domain).first
@@ -26,6 +24,21 @@ class ApplicationController < ActionController::Base
         begin
 
           @user_plan = MailFunnelsUser.get_user_plan(user.clientid)
+
+          # If cancellation request tag is found, remove other tags and disable app
+          if @user_plan === 171
+
+            status = MailFunnelsUser.process_account_cancellation(user.clientid)
+
+            puts "Status: #{status}"
+
+            app.put('', {
+                :is_disabled => 1
+            })
+
+            redirect_to '/account_disabled'
+
+          end
 
           num_subscribers = app.subscribers.size
 

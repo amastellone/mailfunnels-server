@@ -72,6 +72,7 @@ class MailFunnelsUser
   # 118 : MailFunnels 35k
   # 120 : MailFunnels Failed Payment
   # 153 : Mailfunnels 60 day trial member
+  # 171 : Mailfunnels Cancellation Request
   #
   def self.get_user_plan(client_id)
 
@@ -95,14 +96,21 @@ class MailFunnelsUser
     current_plan = -1
     trial_user = false
     trial_ended = false
+    sixty_day_trial = false
     tags = user.client_tags.split(",")
     tags.each do |tag|
 
       # Convert tag to integer
       temp = tag.to_i
 
+      # If cancellation tag, return cancellation tag
+      if temp === 171
+        return 171
+      end
+
+      # If 60 day trial tag found
       if temp === 153
-        return 153
+        sixty_day_trial = true
       end
 
       # If contact has failed payment tag, return 120
@@ -150,6 +158,9 @@ class MailFunnelsUser
 
         return -99
 
+      elsif sixty_day_trial
+        return 153
+
       elsif trial_user
         return -2
       end
@@ -165,6 +176,7 @@ class MailFunnelsUser
       return current_plan
 
     end
+
     puts " "
     puts "======================="
     puts "returning current plan 2"
@@ -242,9 +254,67 @@ class MailFunnelsUser
         return -2
     end
 
-
   end
 
+
+  def self.process_account_cancellation(client_id)
+
+
+    # Get user from DB
+    user = User.where(clientid: client_id).first
+
+    # If no user found, return -1 for erorr
+    unless user
+      return -1
+    end
+
+    # Verify that user has account cancellation tag
+    user_plan = self.get_user_plan(client_id)
+
+    # If user doesn't have cancellation tag, return -1 for error
+    if user_plan != 171
+      return -1
+    end
+
+    # Get all the tags for the user
+    tags = user.client_tags.split(",")
+
+    #Itterate through each tag
+    tags.each do |tag|
+
+      # Convert tag to integer
+      temp = tag.to_i
+
+      # If tag is a subscription tag
+      if (temp < 120 && temp > 103) || temp === 153
+
+        # Remove Subscription Tag From User
+        Infusionsoft.contact_remove_from_group(client_id, temp)
+
+      end
+
+    end
+
+
+
+    # Find recurring order for the user
+    recurring_orders = Infusionsoft.data_query('RecurringOrderWithContact', 100, 0, {:ContactId => client_id}, [:Id, :ContactId])
+    recurring = recurring_orders.select {|recurring| recurring['ContactId'] == client_id}[0]
+
+    # If there is a recurring order, cancel it
+    if recurring
+      order = recurring['Id']
+
+      # Remove the Users Subscription
+      Infusionsoft.invoice_delete_subscription(order)
+    end
+
+
+
+    # Return 1 for success
+    return 1
+
+  end
 
 
 

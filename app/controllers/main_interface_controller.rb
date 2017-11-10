@@ -15,12 +15,27 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     # If the User is not an admin redirect to error page
     if @app.is_disabled and @app.is_disabled === 1
-      redirect_to '/account_disabled'
+      redirect_to '/account_disabled' and return
     end
 
     user = @app.user
 
     @user_plan = MailFunnelsUser.get_user_plan(user.clientid)
+
+    # If cancellation request tag is found, remove other tags and disable app
+    if @user_plan === 171
+
+      status = MailFunnelsUser.process_account_cancellation(user.clientid)
+
+      puts "Status: #{status}"
+
+      @app.put('', {
+          :is_disabled => 1
+      })
+
+      redirect_to '/account_disabled' and return
+
+    end
 
     @subs_left = MailFunnelsUser.get_remaining_subs(user.clientid)
 
