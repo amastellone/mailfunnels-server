@@ -1157,6 +1157,49 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
   # end
 
 
+
+  def ajax_mf_cancel_account
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get User and add cancellation request tag
+    user = @app.user
+    Infusionsoft.contact_add_to_group(user.clientid, 171)
+
+    # Get User Plan to confirm cancellation request went through
+    @user_plan = MailFunnelsUser.get_user_plan(user.clientid)
+
+    # If cancellation request tag is found, remove other tags and cancel account
+    if @user_plan === 171
+
+      status = MailFunnelsUser.process_account_cancellation(user.clientid)
+
+      @app.put('', {
+          :is_disabled => 1
+      })
+
+      response = {
+          success: true,
+          message: 'Account Cancelled!'
+      }
+      render json: response and return
+
+    end
+
+    response = {
+        success: false,
+        message: 'Account Not Cancelled!'
+    }
+    render json: response
+
+  end
+
+  def account_cancelled
+
+  end
+
+
   def form_page
     if request.post?
       if params[:name].present?

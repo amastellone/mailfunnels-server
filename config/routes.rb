@@ -106,6 +106,9 @@ Rails.application.routes.draw do
   # Subscription Plan Routes
   post '/ajax_upgrade_plan' => 'main_interface#ajax_upgrade_plan'
 
+  post '/ajax_mf_cancel_account' => 'main_interface#ajax_mf_cancel_account'
+  get  '/account_cancelled' => 'main_interface#account_cancelled'
+
   # Error Routes
   get '/error_page', to: 'main_interface#error_page'
   get '/account_disabled', to: 'main_interface#account_disabled'

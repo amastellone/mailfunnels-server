@@ -310,6 +310,8 @@ class MailFunnelsUser
     end
 
 
+    user_plan = self.get_user_plan(client_id)
+
 
     # Return 1 for success
     return 1

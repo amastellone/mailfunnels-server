@@ -27,12 +27,11 @@ $(function(){
     var upgrade_plan_button = $('.upgrade_plan_button');
     var upgrade_plan_submit_button = $('#upgrade_plan_submit_button');
 
-
+    var cancel_account_btn = $('#mf_cancel_account_submit');
+    var mf_cancel_spinner = $('#mf_cancel_spinner');
 
     // var powered_by_mailfunnels_checkbox = $('#powered_by_mailfunnels_checkbox');
     // var mailfunnel_watermark = $('#mailfunnel_watermark').val();
-
-
 
     /* ---- MODAL ----- */
 
@@ -41,6 +40,7 @@ $(function(){
     /* ----- SUBSCRIPTION PLAN INFO ------ */
     var plan_id = -1;
     var upgrade_plan_last_four_input = $('#upgrade_plan_last_four_input');
+
 
 
     //Initialize the My Account Page
@@ -279,6 +279,32 @@ $(function(){
             }
 
         });
+    });
+
+
+    cancel_account_btn.on('click', function() {
+
+
+        mf_cancel_spinner.attr('class', '');
+
+        cancel_account_btn.html('Cancelling...');
+        cancel_account_btn.prop('disabled', true);
+
+        $.ajax({
+            type: 'POST',
+            url: '/ajax_mf_cancel_account',
+            data: {
+                id: app_id
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.assign('/account_cancelled');
+            }
+        });
+
     });
 
 

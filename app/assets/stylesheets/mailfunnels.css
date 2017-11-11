@@ -128,3 +128,11 @@ hr {
 .mf_em_footer_unsub {
     font-size: 12px;
 }
+
+
+.mf_error {
+    font-size: 75px;
+    line-height: 90px;
+    margin: 20px 0;
+    color: #3498db;
+}

@@ -326,6 +326,20 @@
                       </fieldset>
                       <br>
 
+                      <div class="row">
+                        <div class="col-xs-12">
+
+                          <div class="well">
+
+                            <h4 class="pull-left">Don't need MailFunnels anymore?</h4>
+
+                            <button type="button" class="btn btn-sm btn-danger pull-right" data-toggle="modal" data-target="#mf_cancel_confirm">Cancel Account</button>
+
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
 
@@ -373,39 +387,73 @@
       </div>
 
 
-      <div id="upgrade_plan_modal" aria-labelledby="#modal_node_create" class="modal fade bs-example-modal-sm">
+      <div id="mf_cancel_confirm" aria-labelledby="#modal_node_create" class="modal fade bs-example-modal-sm">
         <div class="modal-dialog modal-md">
           <div class="modal-content">
 
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
               </button>
-              <h4 class="modal-title" id="myModalLabel">Upgrade Subscription</h4>
+              <h4 class="modal-title" id="myModalLabel">Cancel MailFunnels Account</h4>
             </div>
 
-            <form class="form-horizontal form-label-left">
 
               <div class="modal-body">
+                <h5>Are you sure you want to cancel your MailFunnels Account?</h5>
 
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Four of Credit Card</label>
-                  <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input id="upgrade_plan_last_four_input" type="text" class="form-control" placeholder="Last Four">
-                  </div>
+                <div id="mf_cancel_spinner" class="hidden">
+                  <h2 class="text-center"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></h2>
                 </div>
 
               </div>
 
               <div class="modal-footer">
-                <button id="upgrade_plan_submit_button" type="button" class="btn btn-success">Submit</button>
+                <button data-dismiss="modal" class="btn btn-sm btn-default">No</button>
+                <button id="mf_cancel_account_submit" class="btn btn-sm btn-danger">Yes</button>
               </div>
-
-            </form>
 
           </div>
         </div>
       </div>
 
+
+
+
+    </div>
+
+
+
+    <div id="upgrade_plan_modal" aria-labelledby="#modal_node_create" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Upgrade Subscription</h4>
+          </div>
+
+          <form class="form-horizontal form-label-left">
+
+            <div class="modal-body">
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Four of Credit Card</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="upgrade_plan_last_four_input" type="text" class="form-control" placeholder="Last Four">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button id="upgrade_plan_submit_button" type="button" class="btn btn-success">Submit</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
     </div>
 
 
