@@ -114,7 +114,7 @@
                     <div class="col-xs-10">
                       <form class="form-horizontal form-label-left">
                         <fieldset>
-                          <legend>Account information</legend>
+                          <h4 class="mf_section_header">Account Information</h4>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
@@ -161,10 +161,7 @@
                     <div class="col-xs-10">
                       <form class="form-horizontal form-label-left">
                         <fieldset>
-                          <legend>
-                            Email Information
-                          </legend>
-
+                          <h4 class="mf_section_header">Email Information</h4>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">From Name</label>
@@ -173,6 +170,51 @@
                               <!--<input style="margin-top: 20px" id="powered_by_mailfunnels_checkbox" type="checkbox" value=""> Add "Powered By Mailfunnels" watermark to emails.-->
 
                             </div>
+                          </div>
+
+                          <h4 class="mf_section_header" style="margin-bottom: 10px;">Footer Options</h4>
+                          <div class="form-group">
+                            <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+                              <label for="mf_show_power_by"><input type="checkbox" value="<%= @app.show_mf_powered %>" id="mf_show_power_by"><span></span> Show Powered By MailFunnels</label>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+                              <label for="mf_foot_use_bill"><input type="checkbox" value="<%= @app.foot_use_bill_add %>" id="mf_foot_use_bill"><span></span> Use Billing Address</label>
+                            </div>
+                          </div>
+
+                          <div id="mf_foot_addr_div" class="hidden">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12">Street Address</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="mf_foot_street" type="text" value="<%= @app.foot_street %>" class="form-control" placeholder="Street Address (Ex. 123 Elm St)">
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12">City</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="mf_foot_city" type="text" value="<%= @app.foot_city %>" class="form-control" placeholder="City">
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12">State</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="mf_foot_state" type="text" value="<%= @app.foot_state %>" class="form-control" placeholder="State">
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="mf_foot_zip" type="text" value="<%= @app.foot_zip %>" class="form-control" placeholder="Zip Code">
+                              </div>
+                            </div>
+
+
                           </div>
 
 
@@ -192,9 +234,7 @@
                     <div class="col-xs-12">
 
                       <fieldset>
-                        <legend>
-                          Plans
-                        </legend>
+                        <h4 class="mf_section_header">Plans</h4>
 
 
                         <table class="table table-striped">
@@ -219,7 +259,7 @@
                                 <td>Up to 1,000 Subscribers</td>
                                 <td>$9.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                                <td><a class="btn btn-primary disabled btn-sm">Current</a></td>
                               </tr>
                           <% end %>
 
@@ -236,7 +276,7 @@
                                 <td>Up to 2,000 Subscribers</td>
                                 <td>$29.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                                <td><a class="btn btn-primary disabled btn-sm">Current</a></td>
                               </tr>
                           <% end %>
 
@@ -252,7 +292,7 @@
                                 <td>Up to 4,000 Subscribers</td>
                                 <td>$49.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                                <td><a class="btn btn-primary disabled btn-sm">Current</a></td>
                               </tr>
                           <% end %>
 
@@ -268,7 +308,7 @@
                                 <td>Up to 8,000 Subscribers</td>
                                 <td>$89.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                                <td><a class="btn btn-primary disabled btn-sm">Current</a></td>
                               </tr>
                           <% end %>
 
@@ -284,7 +324,7 @@
                                 <td>Up to 12,000 Subscribers</td>
                                 <td>$139.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                                <td><a class="btn btn-primary disabled btn-sm">Current</a></td>
                               </tr>
                           <% end %>
 
@@ -300,7 +340,7 @@
                                 <td>Up to 20,000 Subscribers</td>
                                 <td>$219.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                                <td><a class="btn btn-primary disabled btn-sm">Current</a></td>
                               </tr>
                           <% end %>
 
@@ -316,7 +356,7 @@
                                 <td>Up to 35,000 Subscribers</td>
                                 <td>$289.99</td>
                                 <td>1 Month</td>
-                                <td><a class="btn btn-primary disabled btn-sm">Purchased</a></td>
+                                <td><a class="btn btn-primary disabled btn-sm">Current</a></td>
                               </tr>
                           <% end %>
 
@@ -325,6 +365,8 @@
                         </table>
                       </fieldset>
                       <br>
+
+                      <h4 class="mf_section_header">Account Cancellation</h4>
 
                       <div class="row">
                         <div class="col-xs-12">
@@ -348,20 +390,18 @@
                     <div class="col-xs-10">
                       <form class="form-horizontal form-label-left">
                         <fieldset>
-                          <legend>
-                            Change Password
-                          </legend>
+                          <h4 class="mf_section_header">Change Password</h4>
 
                           <div class="item form-group">
                             <label for="password" class="control-label col-md-3">Password</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-9 col-sm-9 col-xs-12">
                               <input id="mf_change_password_input" type="password" class="form-control col-md-7 col-xs-12" placeholder="Password" required="required">
                             </div>
                           </div>
 
                           <div class="item form-group">
                             <label for="password" class="control-label col-md-3">Confirm Password</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="col-md-9 col-sm-9 col-xs-12">
                               <input id="mf_confirm_password_input"  type="password"  class="form-control col-md-7 col-xs-12" placeholder="Confirm Password" required="required">
                             </div>
                           </div>
@@ -370,7 +410,10 @@
                         <br>
 
                         <div class="row">
-                          <button id="mf_change_password_submit" type="button" class="btn btn-success btn-border pull-right">Change Password</button>
+                          <div class="col-xs-12">
+                            <button id="mf_change_password_submit" type="button" class="btn btn-success btn-border pull-right">Change Password</button>
+
+                          </div>
                         </div>
 
                       </form>

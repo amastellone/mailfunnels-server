@@ -71,7 +71,6 @@ class EmailController < ShopifyApp::AuthenticatedController
 
   def edit_email_template
 
-
     # Get the Current App
     @app = MailfunnelsUtil.get_app
 

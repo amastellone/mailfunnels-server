@@ -33,6 +33,16 @@ $(function(){
     // var powered_by_mailfunnels_checkbox = $('#powered_by_mailfunnels_checkbox');
     // var mailfunnel_watermark = $('#mailfunnel_watermark').val();
 
+
+    /* --- EMAIL INFORMATION COMPONENTS --- */
+    var footer_show_power_by = $('#mf_show_power_by');
+    var footer_use_bill_addr = $('#mf_foot_use_bill');
+    var footer_addr_div = $('#mf_foot_addr_div');
+    var footer_street = $('#mf_foot_street');
+    var footer_city = $('#mf_foot_city');
+    var footer_state = $('#mf_foot_state');
+    var footer_zip = $('#mf_foot_zip');
+
     /* ---- MODAL ----- */
 
     var upgrade_plan_modal = $('#upgrade_plan_modal');
@@ -185,6 +195,8 @@ $(function(){
         var from_name = from_name_input.val();
         // var checkbox_value = powered_by_mailfunnels_checkbox.val();
 
+        var mf_powered_by = footer_show_power_by.val();
+
         $.ajax({
             type:'POST',
             url: '/ajax_update_email_info',
@@ -192,6 +204,12 @@ $(function(){
             data: {
                 id: app_id,
                 from_name: from_name,
+                show_mf_powered: mf_powered_by,
+                foot_use_bill_add: footer_use_bill_addr.val(),
+                foot_street: footer_street.val(),
+                foot_city: footer_city.val(),
+                foot_state: footer_state.val(),
+                foot_zip: footer_zip.val(),
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -307,12 +325,51 @@ $(function(){
 
     });
 
+    footer_show_power_by.on('change', function() {
+
+        if (this.checked) {
+            $(this).val(1);
+        } else {
+            $(this).val(0);
+        }
+
+    });
+
+    footer_use_bill_addr.on('change', function() {
+
+        if (this.checked) {
+            $(this).val(1);
+            footer_addr_div.attr('class', 'hidden');
+        } else {
+            $(this).val(0);
+            footer_addr_div.attr('class', '');
+        }
+
+    });
+
 
     /**
      * Function that initializes the My Account Page
      *
      */
     function init() {
+
+
+        //Show/Hide Powered By
+        if (footer_show_power_by.val() === '1') {
+            footer_show_power_by.attr('checked', true);
+        } else {
+            footer_show_power_by.attr('checked', false);
+        }
+
+        if (footer_use_bill_addr.val() === '1') {
+           footer_use_bill_addr.attr('checked', true);
+            footer_addr_div.attr('class', 'hidden');
+
+        } else {
+            footer_use_bill_addr.attr('checked', false);
+            footer_addr_div.attr('class', '');
+        }
 
         //Disable the change Password Button
         change_password_submit.prop('disabled', true);

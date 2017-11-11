@@ -275,7 +275,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     user.put('', {
         :first_name => params[:first_name],
         :last_name => params[:last_name],
-        :email => params[:email],
+        :email => params[:email]
     })
 
     # Update Infusionsoft Contact
@@ -313,7 +313,13 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
     end
 
     app.put('', {
-        :from_name => params[:from_name]
+        :from_name => params[:from_name],
+        :show_mf_powered => params[:show_mf_powered],
+        :foot_use_bill_add => params[:foot_use_bill_add],
+        :foot_street => params[:foot_street],
+        :foot_city => params[:foot_city],
+        :foot_state => params[:foot_state],
+        :foot_zip => params[:foot_zip]
     })
 
     # user.put('', {

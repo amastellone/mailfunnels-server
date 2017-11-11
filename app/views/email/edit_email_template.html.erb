@@ -129,9 +129,8 @@
                 </div>
 
                 <div class="form-group">
-                  <div class="col-xs-12 vcenter m-b-5">
-                    <input type="checkbox" class="m-r-5" value="<%= @template.has_checkout_url %>" id="checkout_url_select" />
-                    <label class="control-label m-l-5">Abandoned Checkout Url</label>
+                  <div class="col-xs-12 col-md-9 col-md-offset-3 vcenter m-b-5">
+                    <label for="checkout_url_select"><input type="checkbox" value="<%= @template.has_checkout_url %>" id="checkout_url_select" /><span></span> Abandoned Checkout Url</label>
                   </div>
                   <div id="abandoned_text" class="row">
                     <div class="col-xs-12 text-center">
@@ -141,23 +140,6 @@
                 </div>
 
               </div>
-
-              <h4 class="mf_section_header">Footer Options</h4>
-
-              <div class="form-group">
-                <div class="col-xs-12 vcenter m-b-5">
-                  <input type="checkbox" class="m-r-5" value="<%= @template.mf_power_foot %>" id="mf_show_power_by" />
-                  <label for="mf_show_power_by" class="control-label m-l-5">Show Powered By MailFunnels</label>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-xs-12 vcenter m-b-5">
-                  <input type="checkbox" class="m-r-5" value="<%= @template.show_address %>" id="mf_show_address" />
-                  <label for="mf_show_address" class="control-label m-l-5">Show Address</label>
-                </div>
-              </div>
-
 
             </form>
 
@@ -223,15 +205,15 @@
                         <br/>
 
 
-                        <div id="mf_template_address" class="mf_em_footer_address">
+                        <div class="mf_em_footer_address">
                           <p><%= @user.street_address %></p>
                           <p><%= @user.city %>, <%= @user.state %></p>
                         </div>
 
-                        <div id="mf_footer_power_by">
-                          <p class="mf_em_footer_power_by">Powered by MailFunnels</p>
-                        </div>
 
+                        <% if @app.show_mf_powered === 1 %>
+                          <p class="mf_em_footer_power_by">Powered by MailFunnels</p>
+                        <% end %>
 
                       </td>
                     </tr>
