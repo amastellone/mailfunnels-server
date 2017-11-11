@@ -16,11 +16,11 @@
         vertical-align: middle;
         float: none;
       }
-        .abandoned_text_warning{
-          font-size: 10px;
-          font-style: italic;
-          color: red;
-        }
+      .abandoned_text_warning{
+        font-size: 10px;
+        font-style: italic;
+        color: red;
+      }
     </style>
 
 
@@ -70,17 +70,17 @@
               <h4 class="mf_section_header">General Options</h4>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Subject</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Subject</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <input id="email_subject_input" type="text" value="<%= @template.email_subject %>" class="form-control" placeholder="Email Subject">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Styled</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Color</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <div id="theme_color_select" class="input-group">
-                    <input id="theme_color" type="text" value="#e01ab5" class="form-control" />
+                    <input id="theme_color" type="text" value="<%= @template.color %>" class="form-control" />
                     <span class="input-group-addon"><i></i></span>
                   </div>
                 </div>
@@ -93,6 +93,37 @@
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <input id="emailTitleInput" type="text" value="<%= @template.email_title %>" class="form-control" placeholder="Email Title">
                 </div>
+              </div>
+
+              <h4 class="mf_section_header">Body Options</h4>
+
+              <div class="form-group">
+                <div class="col-xs-12 col-md-9 col-md-offset-3 vcenter m-b-5">
+                  <label for="mf_greet_default"><input type="checkbox" value="<%= @template.greet_use_default %>" id="mf_greet_default" /><span></span> Use Default Greeting</label>
+                </div>
+              </div>
+
+              <div id="mf_greet_div" class="hidden">
+
+                <div class="form-group">
+                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Greeting</label>
+                  <div class="col-md-9 col-sm-9 col-xs-12">
+                    <input id="mf_greet_content" type="text" value="<%= @template.greet_content %>" class="form-control" placeholder="Greeting Content">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-xs-12 col-md-9 col-md-offset-3 vcenter m-b-5">
+                    <label for="mf_greet_before_cust_name"><input type="checkbox" value="<%= @template.greet_before_cust_name%>" id="mf_greet_before_cust_name" /><span></span> Add Customer Name At Start</label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-xs-12 col-md-9 col-md-offset-3 vcenter m-b-5">
+                    <label for="mf_greet_after_cust_name"><input type="checkbox" value="<%= @template.greet_after_cust_name %>" id="mf_greet_after_cust_name" /><span></span> Add Customer Name At End</label>
+                  </div>
+                </div>
+
               </div>
 
 
@@ -124,7 +155,7 @@
                   <label class="control-label col-md-3 col-sm-3 col-xs-12">Button URL
                   </label>
                   <div class="col-md-9 col-sm-9 col-xs-12">
-                      <input id="buttonUrlInput" type="text" value="<%= @template.button_url %>" class="form-control" placeholder="Button Url">
+                    <input id="buttonUrlInput" type="text" value="<%= @template.button_url %>" class="form-control" placeholder="Button Url">
                   </div>
                 </div>
 
@@ -167,8 +198,10 @@
                     <tr>
                       <td class="content">
 
-                        <h2>Hi (Customer Name),</h2>
 
+                        <h2 id="mf_preview_def_greet" class="hidden">Hi [Customer Name],</h2>
+
+                        <h2 id="mf_preview_greet"><span id="preview_greet_before">[Customer Name]</span><span id="preview_greet_content"><%= @template.greet_content %></span><span id="preview_greet_after">[Customer Name]</span></h2>
 
                         <div class="form-group">
                           <div id="summernote"></div>
@@ -191,8 +224,6 @@
                 </td>
               </tr>
 
-
-
               <tr>
                 <td class="container email_footer">
 
@@ -206,13 +237,18 @@
 
 
                         <div class="mf_em_footer_address">
-                          <p><%= @user.street_address %></p>
-                          <p><%= @user.city %>, <%= @user.state %></p>
+                          <% if @app.foot_use_bill_add === 0 %>
+                              <p><%= @app.foot_street %></p>
+                              <p><%= @app.foot_city %>, <%= @app.foot_state %> <%= @app.foot_zip %></p>
+                          <% else %>
+                              <p><%= @user.street_address %></p>
+                              <p><%= @user.city %>, <%= @user.state %> <%= @user.zip %></p>
+                          <% end %>
                         </div>
 
 
                         <% if @app.show_mf_powered === 1 %>
-                          <p class="mf_em_footer_power_by">Powered by MailFunnels</p>
+                            <p class="mf_em_footer_power_by">Powered by MailFunnels</p>
                         <% end %>
 
                       </td>

@@ -169,7 +169,11 @@ class EmailController < ShopifyApp::AuthenticatedController
         :color => template.color,
         :has_checkout_url => template.has_checkout_url,
         :mf_power_foot => template.mf_power_foot,
-        :show_address => template.show_address
+        :show_address => template.show_address,
+        :greet_use_default => params[:greet_use_default],
+        :greet_content => params[:greet_content],
+        :greet_before_cust_name => params[:greet_before_cust_name],
+        :greet_after_cust_name => params[:greet_after_cust_name]
     })
 
 

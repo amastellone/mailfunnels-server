@@ -21,17 +21,33 @@ $(function(){
     var color_select = $('#color_select');
     //var theme_color_select = $('#theme_color_select');
     var theme_color = $('#theme_color');
+
     /* --- EMAIL PREVIEW FIELDS --- */
     var preview_email_title = $('#printEmailTitle');
     var preview_email_button_text = $('#printButtonText');
     var preview_email_buttons_div = $('#preview_buttons_div');
     var preview_email_header = $('#preview_header');
 
+    /* --- EMAIL GREETING COMPONENTS --- */
+    var greet_use_default = $('#mf_greet_default');
+    var greet_set_div = $('#mf_greet_div');
+    var greet_content = $('#mf_greet_content');
+    var greet_cust_name_before = $('#mf_greet_before_cust_name');
+    var greet_cust_name_after = $('#mf_greet_after_cust_name');
+
+    var preview_greet_default = $('#mf_preview_def_greet');
+    var preview_greet = $('#mf_preview_greet');
+    var preview_greet_content = $('#preview_greet_content');
+    var preview_greet_cust_before = $('#preview_greet_before');
+    var preview_greet_cust_after = $('#preview_greet_after');
+
     /* --- BUTTONS --- */
     var email_submit = $('#email_list_submit_button');
 
     /* --- MODALS --- */
     var email_template_saved_modal = $('#email_template_saved_modal');
+
+
 
     //Initialize Edit Email Template Page
     init();
@@ -112,6 +128,10 @@ $(function(){
                 button_url: button_url,
                 color: color,
                 has_checkout: checkoutUrlSelect.val(),
+                greet_use_default: greet_use_default.val(),
+                greet_content: greet_content.val(),
+                greet_before_cust_name: greet_cust_name_before.val(),
+                greet_after_cust_name: greet_cust_name_after.val(),
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -127,8 +147,84 @@ $(function(){
     });
 
 
+    greet_content.on('keyup', function() {
+
+        preview_greet_content.html($(this).val());
+
+    });
+
+
+    greet_use_default.on('change', function() {
+
+        if (this.checked) {
+            $(this).val(1);
+            greet_set_div.attr('class', 'hidden');
+            preview_greet_default.attr('class', '');
+            preview_greet.attr('class', 'hidden');
+        } else {
+            $(this).val(0);
+            greet_set_div.attr('class', '');
+            preview_greet_default.attr('class', 'hidden');
+            preview_greet.attr('class', '');
+
+        }
+
+    });
+
+
+    greet_use_default.on('change', function() {
+
+        if (this.checked) {
+            $(this).val(1);
+            greet_set_div.attr('class', 'hidden');
+            preview_greet_default.attr('class', '');
+            preview_greet.attr('class', 'hidden');
+        } else {
+            $(this).val(0);
+            greet_set_div.attr('class', '');
+            preview_greet_default.attr('class', 'hidden');
+            preview_greet.attr('class', '');
+
+        }
+
+    });
+
+    greet_cust_name_before.on('change', function() {
+        if (this.checked) {
+            $(this).val(1);
+            greet_cust_name_after.attr('checked', false);
+            greet_cust_name_after.val(0);
+            preview_greet_cust_after.hide();
+            preview_greet_cust_before.show();
+        } else {
+            $(this).val(0);
+            greet_cust_name_after.val(0);
+            preview_greet_cust_after.hide();
+            preview_greet_cust_before.hide();
+        }
+
+    });
+
+
+    greet_cust_name_after.on('change', function() {
+        if (this.checked) {
+            $(this).val(1);
+            greet_cust_name_before.attr('checked', false);
+            greet_cust_name_before.val(0);
+            preview_greet_cust_before.hide();
+            preview_greet_cust_after.show();
+        } else {
+            $(this).val(0);
+            greet_cust_name_before.val(0);
+            preview_greet_cust_after.hide();
+            preview_greet_cust_before.hide();
+        }
+
+    });
+
 
     function init() {
+
 
         /* --- INITIAL EDIT EMAIL SETUP --- */
         preview_email_title.html(emailTitleInput.val());
@@ -149,6 +245,37 @@ $(function(){
         } else {
             preview_email_buttons_div.hide();
             button_form_div.hide();
+        }
+
+
+        if (greet_use_default.val() === '1') {
+            greet_use_default.attr('checked', true);
+            greet_set_div.attr('class', 'hidden');
+            preview_greet_default.attr('class', '');
+            preview_greet.attr('class', 'hidden');
+
+        } else {
+            greet_use_default.attr('checked', false);
+            greet_set_div.attr('class', '');
+            preview_greet_default.attr('class', 'hidden');
+            preview_greet.attr('class', '');
+        }
+
+
+        if (greet_cust_name_before.val() === '1') {
+            greet_cust_name_before.attr('checked', true);
+            preview_greet_cust_before.show();
+        } else {
+            greet_cust_name_before.attr('checked', false);
+            preview_greet_cust_before.hide();
+        }
+
+        if (greet_cust_name_after.val() === '1') {
+            greet_cust_name_after.attr('checked', true);
+            preview_greet_cust_after.show();
+        } else {
+            greet_cust_name_after.attr('checked', false);
+            preview_greet_cust_after.hide();
         }
 
 
