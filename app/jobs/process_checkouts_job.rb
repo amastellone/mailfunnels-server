@@ -8,6 +8,11 @@ class ProcessCheckoutsJob < ApplicationJob
 
       subs_remaining = MailFunnelsUser.get_remaining_subs(app.user.clientid)
 
+      if app.is_disabled === 1
+        logger.info("App Disabled!")
+        return
+      end
+
       # If no more subscribers left in plan, return error response
       # if subs_remaining < 1
       #   return

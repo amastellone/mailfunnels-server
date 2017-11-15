@@ -209,3 +209,83 @@ input[type="checkbox"]:checked + span:before {
     opacity: 1;
     border-radius: 2px;
 }
+
+
+/* ---- INPUT FIELD CSS --- */
+.mf_textarea {
+    border-radius: 4px;
+    color: #3498db;
+}
+
+input {
+    border-radius: 4px !important;
+}
+
+input:focus {
+    border-color: #3498db !important;
+    color: #3498db !important;
+}
+
+input:hover {
+    border-color: #3498db !important;
+    color: #3498db !important;
+}
+
+textarea:focus {
+    border-color: #3498db !important;
+    color: #3498db !important;
+}
+
+
+::-webkit-input-placeholder { /* Chrome */
+    transition: opacity 250ms ease-in-out;
+}
+:focus::-webkit-input-placeholder {
+    color: #3498db !important;
+    opacity: 0.5;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    transition: opacity 250ms ease-in-out;
+}
+:focus:-ms-input-placeholder {
+    color: #3498db !important;
+    opacity: 0.5;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
+}
+:focus::-moz-placeholder {
+    color: #3498db !important;
+    opacity: 0.5;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
+}
+:focus:-moz-placeholder {
+    color: #3498db !important;
+    opacity: 0.5;
+}
+
+
+/* Custom Select */
+.select {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: .25em;
+}
+
+.select:focus {
+    color: #3498db !important;
+    border-color: #3498db !important;
+}
+
+.select:hover {
+    color: #3498db !important;
+    border-color: #3498db !important;
+
+}
+
+

@@ -24,17 +24,22 @@ $(function(){
     var save_account_info_button = $('#save_account_info_button');
     var save_email_info_button = $('#save_email_info_button');
     var change_password_submit = $('#mf_change_password_submit');
-    var upgrade_plan_button = $('.upgrade_plan_button');
-    var upgrade_plan_submit_button = $('#upgrade_plan_submit_button');
 
+
+    /* --- PLANS TAB COMPONENTS --- */
+    var confirm_cancel_account_btn = $('#mf_cancel_account_confirmed');
     var cancel_account_btn = $('#mf_cancel_account_submit');
     var mf_cancel_spinner = $('#mf_cancel_spinner');
+    var upgrade_plan_button = $('.upgrade_plan_button');
+    var upgrade_plan_submit_button = $('#upgrade_plan_submit_button');
+    var confirm_cancel_modal = $("#mf_confirm_cancel_modal");
+    var process_cancel_modal = $("#mf_process_cancel_modal");
 
-    // var powered_by_mailfunnels_checkbox = $('#powered_by_mailfunnels_checkbox');
-    // var mailfunnel_watermark = $('#mailfunnel_watermark').val();
 
 
     /* --- EMAIL INFORMATION COMPONENTS --- */
+    var mf_email_default_color = $('#mf_email_def_color');
+    var mf_theme_color = $('#mf_theme_color');
     var footer_show_power_by = $('#mf_show_power_by');
     var footer_use_bill_addr = $('#mf_foot_use_bill');
     var footer_addr_div = $('#mf_foot_addr_div');
@@ -43,8 +48,7 @@ $(function(){
     var footer_state = $('#mf_foot_state');
     var footer_zip = $('#mf_foot_zip');
 
-    /* ---- MODAL ----- */
-
+    /* ---- MODALS ----- */
     var upgrade_plan_modal = $('#upgrade_plan_modal');
 
     /* ----- SUBSCRIPTION PLAN INFO ------ */
@@ -154,41 +158,6 @@ $(function(){
 
     });
 
-    // powered_by_mailfunnels_checkbox.on('change', function () {
-    //     if($(this).is(":checked")) {
-    //         powered_by_mailfunnels_checkbox.attr('value', true);
-    //
-    //     } else {
-    //         powered_by_mailfunnels_checkbox.attr('value', false);
-    //     }
-    //
-    // });
-
-    // save_account_info_button.on('click', function(e) {
-    //
-    //
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/ajax_test',
-    //         dataType: "json",
-    //         error: function(e) {
-    //             console.log(e);
-    //
-    //
-    //         },
-    //         success: function(response) {
-    //             console.log(response);
-    //         }
-    //
-    //
-    //
-    //
-    //     });
-    //
-    //
-    // });
-
-
 
     save_email_info_button.on('click', function(e){
 
@@ -204,6 +173,7 @@ $(function(){
             data: {
                 id: app_id,
                 from_name: from_name,
+                email_def_color: mf_theme_color.val(),
                 show_mf_powered: mf_powered_by,
                 foot_use_bill_add: footer_use_bill_addr.val(),
                 foot_street: footer_street.val(),
@@ -325,6 +295,14 @@ $(function(){
 
     });
 
+
+    confirm_cancel_account_btn.on('click', function() {
+
+        confirm_cancel_modal.modal('toggle');
+
+        process_cancel_modal.modal('toggle');
+    });
+
     footer_show_power_by.on('change', function() {
 
         if (this.checked) {
@@ -377,13 +355,7 @@ $(function(){
         //Disable Account Info Button
         save_account_info_button.prop('disabled', true);
 
-        // if (mailfunnel_watermark == 'true'){
-        //     powered_by_mailfunnels_checkbox.prop('checked', true);
-        //     powered_by_mailfunnels_checkbox.attr('value', true);
-        // } else {
-        //     powered_by_mailfunnels_checkbox.prop('checked', false);
-        //     powered_by_mailfunnels_checkbox.attr('value', false);
-        // }
+        mf_email_default_color.colorpicker();
 
     }
 

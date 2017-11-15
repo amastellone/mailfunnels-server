@@ -21,6 +21,11 @@ class OrdersCreateJob < ApplicationJob
         return
       end
 
+      if app.is_disabled === 1
+        logger.info("App Disabled!")
+        return
+      end
+
       logger.info("Looking for subscriber...")
       subscriber = EmailUtil.get_subscriber(webhook[:email], app.id)
 

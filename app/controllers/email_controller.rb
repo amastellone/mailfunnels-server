@@ -99,6 +99,8 @@ class EmailController < ShopifyApp::AuthenticatedController
   #
   def ajax_create_email_template
 
+    app = MailfunnelsUtil.get_app
+
     # Create a new EmailTemplate Instance
     template = EmailTemplate.new
 
@@ -107,7 +109,7 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.name = params[:name]
     template.description = params[:description]
     template.email_subject = params[:email_subject]
-    template.color = '#3498db'
+    template.color = app.email_def_color
 
 
     # Save and verify Funnel and return correct JSON response

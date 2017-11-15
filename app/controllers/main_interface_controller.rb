@@ -314,6 +314,7 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     app.put('', {
         :from_name => params[:from_name],
+        :email_def_color => params[:email_def_color],
         :show_mf_powered => params[:show_mf_powered],
         :foot_use_bill_add => params[:foot_use_bill_add],
         :foot_street => params[:foot_street],

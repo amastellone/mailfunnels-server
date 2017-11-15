@@ -61,6 +61,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
       email_list.name = params[:name]
       email_list.description = params[:name]+ " Email List"
       email_list.app_id = params[:app_id]
+      email_list.active = 0
       email_list.save!
 
       email_list_id = email_list.id
@@ -150,10 +151,10 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     node.save
 
     response = {
-      success: true,
-      message: 'Node Saved',
-      id: node.id,
-      email_template_id: node.email_template_id
+        success: true,
+        message: 'Node Saved',
+        id: node.id,
+        email_template_id: node.email_template_id
 
     }
 
@@ -481,9 +482,23 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     template = EmailTemplate.find(node.email_template_id)
 
 
+    header = 'Hi [Customer Name]'
+
+    if template.greet_use_default != 1
+      if template.greet_before_cust_name === 1
+        header = '[Customer Name]' + template.greet_content
+      elsif template.greet_after_cust_name === 1
+        header = template.greet_content + '[Customer Name]'
+      else
+        header = template.greet_content
+      end
+    end
+
+
     data = {
         :template_id => template.id,
         :email_title => template.email_title,
+        :email_greet => header,
         :email_content => template.email_content,
         :has_button => template.has_button,
         :button_text => template.button_text,
@@ -677,13 +692,13 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_funnel
-      @funnel = Funnel.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_funnel
+    @funnel = Funnel.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def funnel_params
-      params.require(:funnel).permit(:name, :description, :num_emails_sent, :num_revenue, :app_id, :trigger_id, :email_list_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def funnel_params
+    params.require(:funnel).permit(:name, :description, :num_emails_sent, :num_revenue, :app_id, :trigger_id, :email_list_id)
+  end
 end

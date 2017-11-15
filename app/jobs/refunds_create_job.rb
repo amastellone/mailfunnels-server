@@ -12,6 +12,11 @@ class RefundsCreateJob < ActiveJob::Base
         return
       end
 
+      if app.is_disabled === 1
+        logger.info("App Disabled!")
+        return
+      end
+
       logger.info("Finding order #{webhook[:order_id]}")
       order = ShopifyAPI::Order.find(:all, :params => {:limit => 1, :id => webhook[:order_id]}).first
       if order.nil? == false

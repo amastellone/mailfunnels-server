@@ -418,6 +418,7 @@ $(function() {
             },
             success: function(response) {
                 email_title.html(response.email_title);
+                $('#preview_email_greet').html(response.email_greet);
                 email_content.html(response.email_content);
                 button_text.html(response.button_text);
                 button_text.css('background', response.color);
