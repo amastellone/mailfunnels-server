@@ -153,8 +153,6 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.has_button = params[:has_button]
     template.color = params[:color]
     template.has_checkout_url = params[:has_checkout]
-    template.show_address = params[:show_address]
-    template.mf_power_foot = params[:mf_power_foot]
 
     template.button_text = params[:button_text]
     template.button_url = params[:button_url]
@@ -170,8 +168,6 @@ class EmailController < ShopifyApp::AuthenticatedController
         :button_url => template.button_url,
         :color => template.color,
         :has_checkout_url => template.has_checkout_url,
-        :mf_power_foot => template.mf_power_foot,
-        :show_address => template.show_address,
         :greet_use_default => params[:greet_use_default],
         :greet_content => params[:greet_content],
         :greet_before_cust_name => params[:greet_before_cust_name],

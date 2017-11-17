@@ -133,6 +133,8 @@ $(function() {
                         console.log("ERROR: NO ENVIRONMENT SET");
                         server_error_message.show();
                     }
+                    // window.location.href = "https://www.mailfunnels.io/login?shop=" + response.url;
+                    // // window.location.href = "http://localhost:3000/login/?shop=" + response.url;
                 }
             }
         });
@@ -146,7 +148,7 @@ $(function() {
      */
     function init() {
 
-        CURR_ENV_TYPE = ENV_TYPE_PROD;
+        CURR_ENV_TYPE = ENV_TYPE_DEV;
 
 
         window.location.href = '#signin';

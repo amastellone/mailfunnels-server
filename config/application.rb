@@ -26,6 +26,7 @@ module MailFunnelClient
 		config.autoload_paths << "#{Rails.root}/app/middleware"
 		config.eager_load_paths << "#{Rails.root}/lib"
 
+		config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
 		config.action_dispatch.default_headers                = {
 			 'X-Frame-Options' => 'ALLOWALL'
