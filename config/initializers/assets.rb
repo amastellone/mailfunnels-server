@@ -26,6 +26,7 @@ Rails.application.config.assets.precompile += %w( pages/admin_panel.js )
 Rails.application.config.assets.precompile += %w( pages/account.js )
 Rails.application.config.assets.precompile += %w( components/jquery.tabletoCSV.js )
 Rails.application.config.assets.precompile += %w( components/switchery.min.js )
+Rails.application.config.assets.precompile += %w( components/papaparse.min.js )
 Rails.application.config.assets.precompile += %w( pages/broadcasts.js )
 
 

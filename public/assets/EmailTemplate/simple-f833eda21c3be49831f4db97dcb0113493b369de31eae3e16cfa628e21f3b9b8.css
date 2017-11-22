@@ -13,7 +13,7 @@ img {
 
 body,
 .body-wrap {
-  width: 100% !important;
+  width: 100%;
   height: 100%;
   background: #f7f7f7;
   -webkit-font-smoothing: antialiased;
@@ -128,5 +128,16 @@ pre {
 }
 .street_text{
   margin-bottom: 0;
+}
+
+.mf_em_footer_power_by {
+  font-size: 12px !important;
+  font-weight: 600;
+}
+
+.mf_em_footer_unsub {
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+  font-size: 12px !important;
 }
 
