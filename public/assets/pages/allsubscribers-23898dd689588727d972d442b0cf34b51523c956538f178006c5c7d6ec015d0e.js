@@ -1,4 +1,5 @@
 /* --- APP VALUES DECLARATIONS --- */
+
 var csrf_token;
 var app_id;
 var email_list_id;
@@ -550,3 +551,4 @@ function removeSubscriber(subscriber_id, list_id){
 }
 
 
+;

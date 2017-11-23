@@ -118,6 +118,7 @@ Rails.application.routes.draw do
 
   # Import CSV Routes
   post 'import_csv' => 'main_interface#import_csv'
+  post 'import_csv_subscribers' => 'subscribers#import_csv_subscribers'
 
 
 

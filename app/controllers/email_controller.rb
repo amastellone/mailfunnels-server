@@ -229,8 +229,6 @@ class EmailController < ShopifyApp::AuthenticatedController
       template.destroy
     end
 
-
-
   end
 
 

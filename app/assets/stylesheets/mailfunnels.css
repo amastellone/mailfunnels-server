@@ -29,6 +29,11 @@
     margin-bottom: 5px;
 }
 
+/* --- TEXT CSS --- */
+.mf_blue {
+    color: #3498db !important;
+}
+
 
 /* --- SECTION HEADERS --- */
 .mf_section_header {
@@ -208,16 +213,16 @@ input[type="checkbox"]:checked:not(.js-switch) + span:before {
     color: #3498db;
 }
 
-input {
+input:not(input[type=file]) {
     border-radius: 4px !important;
 }
 
-input:focus {
+input:focus:not(input[type=file]) {
     border-color: #3498db !important;
     color: #3498db !important;
 }
 
-input:hover {
+input:hover:not(input[type=file]) {
     border-color: #3498db !important;
     color: #3498db !important;
 }
@@ -277,6 +282,53 @@ textarea:focus {
     color: #3498db !important;
     border-color: #3498db !important;
 
+}
+
+#file-area {
+    width: 100% !important;
+    position: relative;
+    display: inline-block !important;
+
+}
+#file-area input[type=file] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+#file-area .file-dummy {
+    width: 100% !important;
+    padding: 30px;
+    background: rgba(214, 216, 216, 0.2) !important;
+    border: 2px dashed rgba(214, 216, 216, 0.2) !important;
+    text-align: center;
+    transition: background 0.3s ease-in-out !important;
+}
+#file-area .file-dummy .success {
+    display: none;
+}
+
+#file-area:hover .file-dummy {
+    background: rgba(214, 216, 216, 0.8) !important;
+}
+#file-area input[type=file]:focus + .file-dummy {
+    outline: 2px solid rgba(255, 255, 255, 0.5) !important;
+    outline: -webkit-focus-ring-color auto 5px !important;
+}
+#file-area input[type=file]:valid + .file-dummy {
+    border-color: rgba(58, 153, 217, 0.4) !important;
+    background-color: rgba(58, 153, 217, 0.3) !important;
+}
+#file-area input[type=file]:valid + .file-dummy .success {
+    display: inline-block;
+}
+#file-area input[type=file]:valid + .file-dummy .default-file {
+    display: none;
 }
 
 

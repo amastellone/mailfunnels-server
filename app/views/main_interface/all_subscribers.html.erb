@@ -12,8 +12,8 @@
     <%= javascript_include_tag 'dashboard_manifest.js' %>
     <%= stylesheet_link_tag 'dashboard.css' %>
     <%= javascript_include_tag 'components/jquery.tabletoCSV.js' %>
-    <%= javascript_include_tag 'pages/allsubscribers.js' %>
     <%= javascript_include_tag 'components/papaparse.min.js' %>
+    <%= javascript_include_tag 'pages/allsubscribers.js' %>
 
 
     <div class="hidden">
@@ -125,41 +125,41 @@
             <h4 class="modal-title" id="myModalLabel">Import CSV</h4>
           </div>
 
+          <div class="modal-body">
 
-          <%= form_tag({action: :import_csv}, multipart: true) do %>
-
-
-              <div class="modal-body">
-
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Choose File:</label>
-                  <%= file_field_tag 'csv' %>
+              <div id="file-area" class="file-area">
+                <input type="file" name="import_csv_file" id="import_csv_file" required="required"/>
+                <div class="file-dummy">
+                  <div class="success">Great, we found <strong id="csv_num_subs">12</strong> subscribers in this file, check the box below and click the "import" button to continue.</div>
+                  <div class="default-file">Please select a CSV file to upload</div>
                 </div>
+              </div>
+
+            <br/>
 
 
-                <div class="form-group">
-                  <label class="col-md-3 col-sm-3 col-xs-12 control-label" style="padding-top: 10px">Required</label>
+            <div id="mf_load_spinner" class="hidden">
+              <h2 class="text-center"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></h2>
+            </div>
 
-                  <div class="col-md-9 col-sm-9 col-xs-12">
-                    <div class="checkbox">
-                      <label>
-                        <input id="import_csv_confirm_checkbox" type="checkbox" value=""> Subscribers gave me permission to
-                        be added to my list.
-                      </label>
-                    </div>
+            <div class="clearfix"></div>
+
+          </div>
+
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group pull-left">
+                  <div class="col-xs-12">
+                    <label for="import_csv_confirm_checkbox"><input id="import_csv_confirm_checkbox" type="checkbox" value=""/><span></span>Subscribers gave me permission to be added to my list.</label>
                   </div>
                 </div>
-
+                <button type="button" id="import_csv_submit_button" class="btn btn-success btn-sm pull-right">Import</button>
               </div>
+            </div>
 
-
-              <div class="modal-footer" style="margin-top: 29px">
-                <%= submit_tag 'Submit', :class => 'btn btn-success', :id => 'import_csv_submit_button' %>
-              </div>
-
-          <% end %>
-
-
+            <div class="clearfix"></div>
+          </div>
 
         </div>
       </div>
@@ -408,16 +408,16 @@
           </div>
 
 
-            <div class="modal-body">
+          <div class="modal-body">
 
-              <p>Trial Users do not have access to this feature. Upgrade your plan to access these features and more.</p>
+            <p>Trial Users do not have access to this feature. Upgrade your plan to access these features and more.</p>
 
-            </div>
+          </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <a href="<%= root_url %>account" class="btn btn-primary">Upgrade Plan</a>
-            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <a href="<%= root_url %>account" class="btn btn-primary">Upgrade Plan</a>
+          </div>
 
 
         </div>

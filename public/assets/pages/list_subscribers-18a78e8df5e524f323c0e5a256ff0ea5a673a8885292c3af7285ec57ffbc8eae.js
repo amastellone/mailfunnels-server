@@ -1,4 +1,5 @@
 /* --- APP VALUES DECLARATIONS --- */
+
 var csrf_token;
 var app_id;
 var email_list_id;
@@ -191,7 +192,7 @@ $(function() {
             url: '/import_csv_subscribers',
             data: {
                 app_id: app_id,
-                email_list_id: -1,
+                email_list_id: email_list_id,
                 subscribers: csv_subscribers
             },
             error: function(e) {
@@ -305,7 +306,7 @@ $(function() {
                 }
             }
         });
-        
+
     });
 
     batch_email_send_button.on('click', function(){
@@ -550,3 +551,4 @@ function removeSubscriber(subscriber_id, list_id){
 }
 
 
+;
