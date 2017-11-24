@@ -2,36 +2,43 @@
 /* --- MARGIN HELPERS --- */
 
 .m-0 {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .m-r-0 {
-    margin-right: 0;
+    margin-right: 0 !important;
 }
 
 .m-r-5 {
-    margin-right: 5px;
+    margin-right: 5px !important;
 }
 
 .m-l-0 {
-    margin-left: 0;
+    margin-left: 0 !important;
 }
 
 .m-l-5 {
-    margin-left: 5px;
+    margin-left: 5px !important;
 }
 
 .m-b-0 {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 
 .m-b-5 {
-    margin-bottom: 5px;
+    margin-bottom: 5px !important;
 }
 
 /* --- TEXT CSS --- */
 .mf_blue {
     color: #3498db !important;
+}
+
+/* --- IMG CSS --- */
+.mf_head_logo {
+    margin-left: 0px;
+    width: 200px;
+    height: auto;
 }
 
 
@@ -40,6 +47,10 @@
     font-size: 16px;
     color: #3498db;
     border-bottom: 1px solid #e0e3e5;
+}
+
+.mf_head_title {
+    font-weight: 600;
 }
 
 
