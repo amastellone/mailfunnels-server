@@ -61,7 +61,7 @@ $(function() {
                 num_subs.html(response.num_subs);
                 num_unsubs.html(response.num_unsubs);
                 num_users.html(response.num_users);
-                num_revenue.html(response.num_revenue);
+                num_revenue.html(response.total_revenue);
             }
         });
 

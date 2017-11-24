@@ -34,6 +34,16 @@
     color: #3498db !important;
 }
 
+.mf_table_value {
+    color: #777;
+    font-weight: 600;
+    font-size: 16px;
+    vertical-align: middle;
+    text-align: center;
+    margin: auto;
+    height: 100%;
+}
+
 /* --- IMG CSS --- */
 .mf_head_logo {
     margin-left: 0px;
@@ -135,6 +145,24 @@ hr {
 
 }
 
+.mf_table_action_btn {
+    font-family: 'Avenir Next', sans-serif !important;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 10px 17px;
+    border: 1px solid #3498db;
+    -webkit-border-radius: 2px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 2px;
+    -moz-background-clip: padding;
+    border-radius: 2px;
+    background-clip: padding-box;
+    -webkit-transition: color 0.2s linear, background-color 0.2s linear;
+    transition: color 0.2s linear, background-color 0.2s linear;
+    color: #3498db;
+}
+
 
 
 .mf_error {
@@ -224,16 +252,16 @@ input[type="checkbox"]:checked:not(.js-switch) + span:before {
     color: #3498db;
 }
 
-input:not(input[type=file]) {
+input {
     border-radius: 4px !important;
 }
 
-input:focus:not(input[type=file]) {
+input:focus {
     border-color: #3498db !important;
     color: #3498db !important;
 }
 
-input:hover:not(input[type=file]) {
+input:hover {
     border-color: #3498db !important;
     color: #3498db !important;
 }
