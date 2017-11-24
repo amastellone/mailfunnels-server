@@ -8,32 +8,18 @@
     </script>
 
 
-
-    <%= javascript_include_tag 'triggers_manifest.js' %>
-    <%= javascript_include_tag 'pages/admin_panel.js' %>
+    <%= javascript_include_tag 'dashboard_manifest' %>
     <%= stylesheet_link_tag 'dashboard.css' %>
-
-    <div class="hidden">
-      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
-    </div>
+    <%= javascript_include_tag 'pages/admin_dashboard.js' %>
 
 
     <div class="row">
       <div class="col-xs-12">
         <div class="page-title">
           <div class="title_left">
-            <h3>MailFunnels <small>Admin Panel</small></h3>
+            <img class="mf_head_logo" src="/mf_logos/mf_logo_text.png"/>
+            <h3><small class="mf_head_title">Admin Dashboard</small></h3>
           </div>
-
-
-          <div class="title_right">
-            <button id="mf_admin_add_user" class="btn btn-primary btn-border pull-right">
-              <i class="fa fa-plus"></i> Add User
-            </button>
-          </div>
-
-          <hr/>
-          <div class="clearfix"></div>
 
         </div>
       </div>
@@ -41,158 +27,168 @@
 
     <hr class="fade-2"/>
 
+
     <div class="row">
-
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Users</h2>
-            <div class="clearfix"></div>
-          </div>
+      <div class="col-xs-12">
+        <div class="">
           <div class="x_content">
-            <!-- Triggers Table -->
-            <table id="users_table" class="table table-bordered text-center">
-
-              <!-- Triggers Table Header -->
-              <thead>
-              <tr>
-                <th class="text-center">ID</th>
-                <th class="text-center">First Name</th>
-                <th class="text-center">Last Name</th>
-                <th class="text-center">Email</th>
-                <th class="text-center">Action</th>
-              </tr>
-              </thead>
-              <!-- END Hooks Table Header -->
-
-              <!-- Hooks Table BODY -->
-              <tbody>
-              <% if @users.any? %>
-                  <% @users.each do |user| %>
-
-                      <tr>
-                        <td><%= user.clientid %></td>
-                        <td><%= user.first_name %></td>
-                        <td><%= user.last_name %></td>
-                        <td><%= user.email %></td>
-                        <td style="width: 50px;">
-                          <button class="btn btn-sm btn-primary btn-border mf_admin_user_info" data-id="<%= user.id %>"><i class="fa fa-plus"></i></button>
-                        </td>
-                      </tr>
-                  <% end %>
-              <% end %>
-
-              </tbody>
-              <!-- END Hooks Table BODY -->
-
-            </table>
-            <!-- END Hooks Table -->
-          </div>
-        </div>
-      </div>
-
-    </div>
 
 
 
-    <!--View User Info Modal Start-->
-    <div id="user_info_modal" class="modal fade bs-example-modal-sm">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">User Info</h4>
-          </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="title_left">
+                  <h3><small class="mf_head_title">Users and Apps</small></h3>
+                </div>
 
-          <div class="modal-body">
-            <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                <a href="<%= root_url %>all_subscribers">
+                  <div class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                      <div class="icon"><i class="fa fa-user-circle-o text-primary"></i>
+                      </div>
+                      <div class="count" id="mf_num_users">0</div>
 
-              <div class="panel">
-                <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  <h4 class="panel-title">User Info</h4>
+                      <h3>Users</h3>
+                    </div>
+                  </div>
                 </a>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
-                  <div class="panel-body">
-                    <table class="table table-striped">
-                      <tbody>
-                      <tr>
-                        <th scope="row">Infusionsoft ID:</th>
-                        <td id="view_user_inf_id">Loading...</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">First Name:</th>
-                        <td id="view_user_first_name">Loading...</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Last Name:</th>
-                        <td id="view_user_last_name">Loading...</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">Email:</th>
-                        <td id="view_user_email">Loading...</td>
-                      </tr>
-                      </tbody>
-                    </table>
+
+                <a href="<%= root_url %>funnels">
+                  <div class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                      <div class="icon"><i class="fa fa-download text-primary"></i>
+                      </div>
+                      <div class="count" id="mf_num_apps">0</div>
+
+                      <h3>Installed Apps</h3>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="<%= root_url %>lists">
+                  <div class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                      <div class="icon"><i class="fa fa-check-circle-o text-primary"></i>
+                      </div>
+                      <div class="count" id="mf_num_active_apps">0</div>
+
+                      <h3>Active Apps</h3>
+                    </div>
+                  </div>
+                </a>
+
+                <a href="<%= root_url %>email_templates">
+                  <div class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                      <div class="icon"><i class="fa fa-ban text-primary"></i>
+                      </div>
+                      <div class="count" id="mf_num_disabled_apps">0</div>
+
+                      <h3>Disabled Apps</h3>
+                    </div>
+                  </div>
+                </a>
+
+              </div>
+
+            </div>
+
+
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="title_left">
+                  <h3><small class="mf_head_title">Subscribers</small></h3>
+                </div>
+
+                <div class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-user-plus text-primary"></i>
+                    </div>
+                    <div class="count" id="mf_num_subs">0</div>
+                    <h3>Subscribers</h3>
+                  </div>
+                </div>
+                <div id="emails_opened_div" class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-user-times text-primary"></i>
+                    </div>
+                    <div class="count" id="mf_num_unsubs">0</div>
+
+                    <h3>Unsubscribers</h3>
+                  </div>
+                </div>
+                <div id="emails_clicked_div" class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-tags text-primary"></i>
+                    </div>
+                    <div class="count" id="mf_num_captured_hooks">0</div>
+
+                    <h3>Hook Captures</h3>
+                  </div>
+                </div>
+                <div class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-filter text-primary"></i>
+                    </div>
+                    <div class="count" id="mf_num_funnels">0</div>
+
+                    <h3>Funnels</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+
+                <div class="title_left">
+                  <h3><small class="mf_head_title">Emails</small></h3>
+                </div>
+
+                <div class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-paper-plane text-primary"></i>
+                    </div>
+                    <div class="count" id="mf_num_email_sent">0</div>
+                    <h3>Emails Sent</h3>
+                  </div>
+                </div>
+                <div id="emails_opened_div" class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-envelope-open-o text-primary"></i>
+                    </div>
+                    <div class="count" id="mf_num_email_opened">0</div>
+
+                    <h3>Emails Opened</h3>
+                  </div>
+                </div>
+                <div id="emails_clicked_div" class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-mouse-pointer text-primary"></i>
+                    </div>
+                    <div class="count" id="mf_num_email_clicked">0</div>
+
+                    <h3>Emails Clicked</h3>
+                  </div>
+                </div>
+                <div class="animated flipInY col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                  <div class="tile-stats">
+                    <div class="icon"><i class="fa fa-dollar text-primary"></i>
+                    </div>
+                    <div class="count">$<span id="mf_num_revenue">0</span></div>
+
+                    <h3>Total Revenue</h3>
                   </div>
                 </div>
               </div>
 
-
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-    <!--View User Info Modal End -->
-
-
-    <div id="new_mf_user_modal" class="modal fade bs-example-modal-sm">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content">
-
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="myModalLabel">Manually Add User</h4>
-          </div>
-
-          <form class="form-horizontal form-label-left">
-
-            <div class="modal-body">
-
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Infusionsoft ID</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="mf_new_user_inf_id" type="number" class="form-control" placeholder="Infusionsoft Client ID">
-                </div>
               </div>
 
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">User Email</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <input id="mf_new_user_email" type="text" class="form-control" placeholder="User Email">
-                </div>
-              </div>
-
-
-            </div>
-
-            <div class="modal-footer">
-              <button id="mf_new_user_submit" type="button" class="btn btn-success">Submit</button>
-            </div>
-
-          </form>
-
+            <br>
+          </div>
         </div>
       </div>
     </div>
-
 
 
 <% end %>
-
-
-
