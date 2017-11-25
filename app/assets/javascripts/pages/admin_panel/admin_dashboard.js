@@ -41,7 +41,7 @@ $(function() {
 
         $.ajax({
             type: 'POST',
-            url: '//mailfunnels-server.herokuapp.com/admin_dashboard_stats',
+            url: 'https://mailfunnels-server.herokuapp.com/admin_dashboard_stats',
             data: {
 
             },
