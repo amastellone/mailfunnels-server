@@ -10,7 +10,7 @@
 
 
     <%= javascript_include_tag 'triggers_manifest.js' %>
-    <%= javascript_include_tag 'pages/admin_panel.js' %>
+    <%= javascript_include_tag 'pages/admin_panel/admin_all_users.js' %>
     <%= stylesheet_link_tag 'dashboard.css' %>
 
     <div class="hidden">
@@ -76,7 +76,7 @@
                         <td><span class="mf_table_value"><%= user.last_name %></span></td>
                         <td><span class="mf_table_value"><%= user.email %></span></td>
                         <td style="width: 50px;">
-                          <button class="btn btn-sm btn-primary btn-border mf_table_action_btn mf_admin_user_info" data-id="<%= user.id %>">View</button>
+                          <a href="<%= root_url %>admin/user_profile/<%= user.id %>" class="btn btn-sm btn-primary btn-border mf_table_action_btn">View</a>
                         </td>
                       </tr>
                   <% end %>

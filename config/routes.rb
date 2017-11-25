@@ -99,8 +99,11 @@ Rails.application.routes.draw do
   # Admin Routes
   get '/admin_panel', to: 'admin#admin_dashboard'
   get '/admin_all_users', to: 'admin#admin_all_users'
+  get '/admin/user_profile/:user_id', to: 'admin#admin_user_profile'
   post '/ajax_enable_app' => 'main_interface#ajax_enable_app'
   post '/ajax_disable_app' => 'main_interface#ajax_disable_app'
+  post '/admin_delete_app' => 'admin#admin_delete_app'
+
   # Support Routes
   get '/support', to: 'main_interface#support'
 
