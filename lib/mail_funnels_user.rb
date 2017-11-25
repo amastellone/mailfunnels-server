@@ -300,7 +300,7 @@ class MailFunnelsUser
 
 
     # Find recurring order for the user
-    recurring_orders = Infusionsoft.data_query('RecurringOrder', 100, 0, {:ContactId => client_id}, [:Id, :ContactId, :OriginatingOrderId])
+    recurring_orders = Infusionsoft.data_query('RecurringOrder', 100, 0, {:ContactId => client_id}, [:Id, :ContactId, :OriginatingOrderId, :StartDate])
 
     puts recurring_orders
 
@@ -309,10 +309,14 @@ class MailFunnelsUser
 
     # If there is a recurring order, cancel it
     if recurring
-      order = recurring['OriginatingOrderId']
+      order = recurring['Id']
 
       # Remove the Users Subscription
-      Infusionsoft.invoice_delete_subscription(order)
+      begin
+      Infusionsoft.data_update('RecurringOrder', order, {:EndDate => DateTime.current.to_date, :AutoCharge => 0, :Status => "Inactive"})
+      rescue => e
+        puts "error cancelling subscription"
+      end
     end
 
 
