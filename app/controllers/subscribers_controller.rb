@@ -37,68 +37,33 @@ class SubscribersController < ShopifyApp::AuthenticatedController
 
       subscribers.each do |subscriber|
 
-        new_sub = Subscriber.new
+        if subscriber[1][:email] and subscriber[1][:email] != ""
 
-        new_sub.app_id = app.id
-        new_sub.first_name = subscriber[1][:first_name]
-        new_sub.last_name = subscriber[1][:last_name]
-        new_sub.email = subscriber[1][:email]
-        new_sub.initial_ref_type = 0
-        new_sub.revenue = 0
+          new_sub = Subscriber.new
 
-        new_sub.save!
+          new_sub.app_id = app.id
+          new_sub.first_name = subscriber[1][:first_name]
+          new_sub.last_name = subscriber[1][:last_name]
+          new_sub.email = subscriber[1][:email]
+          new_sub.initial_ref_type = 0
+          new_sub.revenue = 0
 
-        unless params[:email_list_id].to_i === -1
+          new_sub.save!
 
-          list_sub = EmailListSubscriber.new
-          list_sub.app_id = app.id
-          list_sub.email_list_id = params[:email_list_id]
-          list_sub.subscriber_id = new_sub.id
+          unless params[:email_list_id].to_i === -1
 
-          list_sub.save!
+            list_sub = EmailListSubscriber.new
+            list_sub.app_id = app.id
+            list_sub.email_list_id = params[:email_list_id]
+            list_sub.subscriber_id = new_sub.id
+
+            list_sub.save!
+          end
+
         end
 
       end
 
-
-
-      # if params[:csv].present?
-      #   puts "2"
-      #   app = MailfunnelsUtil.get_app
-      #   puts "3"
-      #   csv_text = params[:csv].read
-      #   puts "4"
-      #   csv = CSV.parse(csv_text, :headers => true)
-      #   puts "5"
-      #
-      #   if params[:list_id].present?
-      #     puts "List Id Present"
-      #     csv.each do |row|
-      #       h = row.to_hash
-      #       h.merge!(app_id: app.id)
-      #       h.merge!(revenue: 0)
-      #       h.merge!(initial_ref_type: 0)
-      #       subscriber = Subscriber.create!(h)
-      #       puts "subscriber created"
-      #
-      #       list_subscriber = EmailListSubscriber.new
-      #       list_subscriber.app_id = app.id
-      #       list_subscriber.email_list_id = params[:list_id]
-      #       list_subscriber.subscriber_id = subscriber.id
-      #       list_subscriber.save!
-      #     end
-      #
-      #   else
-      #     puts "List Id Not Present"
-      #     csv.each do |row|
-      #       h = row.to_hash
-      #       h.merge!(app_id: app.id)
-      #       h.merge!(revenue: 0)
-      #       h.merge!(initial_ref_type: 0)
-      #       Subscriber.create!(h)
-      #       puts "subscriber created"
-      #     end
-      #   end
 
       response = {
           success: true,
@@ -107,9 +72,9 @@ class SubscribersController < ShopifyApp::AuthenticatedController
 
       render json: response
 
-  end
+    end
 
-end
+  end
 
 
 end
