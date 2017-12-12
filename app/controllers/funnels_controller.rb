@@ -377,6 +377,7 @@ class FunnelsController < ShopifyApp::AuthenticatedController
         :node_id => node.id,
         :node_name => node.name,
         :node_delay_time => node.delay_time,
+        :node_delay_unit => node.delay_unit,
         :node_total_emails => node.email_jobs.size,
         :node_emails_sent => total_emails_sent,
         :node_emails_opened => total_emails_opened,

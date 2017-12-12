@@ -380,9 +380,20 @@ $(function() {
                 console.log(e);
             },
             success: function(response) {
+
+                var unit;
+
+                if (response.node_delay_unit === 1) {
+                    unit = "Minute(s)"
+                } else if (response.node_delay_unit === 2) {
+                    unit = "Hour(s)"
+                } else if (response.node_delay_unit === 3) {
+                    unit = "Day(s)"
+                }
+
                 node_view_name.html(response.node_name);
                 node_view_email_template_name.html(response.email_template_name);
-                node_view_delay_time.html(response.node_delay_time);
+                node_view_delay_time.html(response.node_delay_time + " " + unit);
                 node_view_total_emails.html(response.node_total_emails);
                 node_view_emails_sent.html(response.node_emails_sent);
                 node_view_emails_opened.html(response.node_emails_opened);
