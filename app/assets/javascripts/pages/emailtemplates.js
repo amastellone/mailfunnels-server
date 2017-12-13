@@ -26,6 +26,9 @@ $(function(){
     var confirm_delete_template_button = $('#confirm_delete_template_button');
 
 
+    init();
+
+
     /**
      * Button On Click Function
      * ------------------------
@@ -98,15 +101,14 @@ $(function(){
                 }
             });
 
-
-
-
-
         });
 
-
-
     });
+
+    function init() {
+        $('.left_col').height($('.right_col').height() + 100);
+
+    }
 
 
 

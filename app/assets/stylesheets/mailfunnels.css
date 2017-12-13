@@ -375,6 +375,10 @@ textarea:focus {
     padding-bottom: 10px !important;
 }
 
+.note-editor .note-editable {
+    line-height: 1;
+}
+
 
 .note-toolbar .note-para .note-btn-group .dropdown-toggle,
 .note-toolbar .note-fontsize .note-btn-group .dropdown-toggle,

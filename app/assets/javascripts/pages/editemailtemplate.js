@@ -295,7 +295,8 @@ $(function(){
 
 
         mf_summernote.summernote({
-            height: 200,
+            height: 350,
+            width: $('#email_summernote_cont').width(),
             toolbar: [
                 // [groupName, [list of button]]
                 ['style', ['bold', 'italic', 'underline', 'clear']],
