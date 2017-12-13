@@ -125,6 +125,9 @@ Rails.application.routes.draw do
   post 'import_csv_subscribers' => 'subscribers#import_csv_subscribers'
 
 
+  post 'upload_image_to_aws' => 'template#upload_image_to_aws'
+
+
 
   # Shopify Routes
   get 'modal' => "home#modal", :as => :modal

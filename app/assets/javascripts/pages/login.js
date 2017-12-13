@@ -151,6 +151,7 @@ $(function() {
 
         window.location.href = '#signin';
 
+
         //Disable Shopify Account Submit Button
         shopify_account_submit_button.prop('disabled', true);
 

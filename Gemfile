@@ -7,6 +7,7 @@ ruby "2.4.1"
 
 gem 'nokogiri', '~> 1.8.0'
 
+gem 'aws-sdk', '~> 2'
 
 gem 'log4r'
 gem 'foreman'

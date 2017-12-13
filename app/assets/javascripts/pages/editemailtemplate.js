@@ -6,6 +6,8 @@ $(function(){
     var template_id = $('#current_template_id').val();
     var old_content = $('#current_content_value').val();
 
+    var mf_summernote = $('#summernote');
+
 
     /* --- AUTHENTICATION --- */
     var csrf_token = $('meta[name=csrf-token]').attr('content');
@@ -291,30 +293,53 @@ $(function(){
         }
 
 
-        var summernote = $('#summernote');
-        summernote.summernote({
+
+        mf_summernote.summernote({
             height: 200,
             toolbar: [
                 // [groupName, [list of button]]
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['font', ['strikethrough']],
+                ['insert', ['picture']],
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']]
             ],
             shortcuts: false,
-            dialogsInBody: true
+            dialogsInBody: true,
+            callbacks: {
+                onImageUpload: function (files, editor, welEditable) {
+                    sendFile(files[0], editor, welEditable);
+                }
+            }
         });
 
 
-        summernote.summernote('code', old_content);
+        mf_summernote.summernote('code', old_content);
 
         $('.left_col').height($('.right_col').height());
 
 
         //Set Color Picker to bootstrap color picker instance
         $('#theme_color_select').colorpicker();
+    }
+
+    function sendFile(file, editor, welEditable) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/upload_image_to_aws",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                console.log(response);
+                mf_summernote.summernote('insertImage', response.url);
+            }
+        });
     }
 
 

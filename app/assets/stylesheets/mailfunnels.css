@@ -371,3 +371,14 @@ textarea:focus {
 }
 
 
+.note-toolbar {
+    padding-bottom: 10px !important;
+}
+
+
+.note-toolbar .note-para .note-btn-group .dropdown-toggle,
+.note-toolbar .note-fontsize .note-btn-group .dropdown-toggle,
+.note-toolbar .note-height .note-btn-group .dropdown-toggle,
+.note-toolbar .note-color .note-btn-group .dropdown-toggle {
+    height: 39px !important;
+}
