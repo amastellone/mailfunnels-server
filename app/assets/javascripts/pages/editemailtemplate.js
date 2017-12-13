@@ -49,7 +49,8 @@ $(function(){
     /* --- MODALS --- */
     var email_template_saved_modal = $('#email_template_saved_modal');
 
-
+    /* --- CUSTOM SUMMERNOTE BUTTONS --- */
+    var hyperlinkButton;
 
     //Initialize Edit Email Template Page
     init();
@@ -292,6 +293,23 @@ $(function(){
             $('#abandoned_text').hide();
         }
 
+        // Initialize hyperlinkButton
+        hyperlinkButton = function (context) {
+            var ui = $.summernote.ui;
+
+            // create button
+            var button = ui.button({
+                contents: '<i class="fa fa-link"/>',
+                tooltip: 'Add Hyperlink',
+                click: function () {
+                    // invoke insertText method with 'hello' on editor module.
+                    context.invoke('editor.insertText', 'hello');
+                }
+            });
+
+            return button.render();   // return button as jquery object
+        };
+
 
 
         mf_summernote.summernote({
@@ -302,10 +320,12 @@ $(function(){
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough']],
                 ['insert', ['picture']],
+                ['mybutton', ['hello']],
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
+                ['height', ['height']],
+                ['misc', ['fullscreen']]
             ],
             shortcuts: false,
             dialogsInBody: true,
@@ -313,13 +333,16 @@ $(function(){
                 onImageUpload: function (files, editor, welEditable) {
                     sendFile(files[0], editor, welEditable);
                 }
+            },
+            buttons: {
+                hello: hyperlinkButton
             }
         });
 
 
         mf_summernote.summernote('code', old_content);
 
-        $('.left_col').height($('.right_col').height());
+        $('.left_col').height($('.right_col').height() + 100);
 
 
         //Set Color Picker to bootstrap color picker instance
@@ -342,6 +365,14 @@ $(function(){
             }
         });
     }
+
+
+    $('.btn-fullscreen').on('click', function(e) {
+        e.preventDefault();
+
+        $('.left_col').toggle();
+
+    });
 
 
 
