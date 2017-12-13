@@ -1,4 +1,4 @@
-class TemplateController < ApplicationController
+class TemplateController < ShopifyApp::AuthenticatedController
 
 
   def upload_image_to_aws
@@ -22,7 +22,30 @@ class TemplateController < ApplicationController
 
     render json: response
 
+  end
 
+
+  def mf_email_template_add_link
+
+    url = "http://#{params[:url]}" unless params[:url]=~/^https?:\/\//
+
+    # Create a new TemplateHyperlink Instance
+    hyperlink = TemplateHyperlink.new
+
+    # Update the attributes of the TemplateHyperlink
+    hyperlink.app_id = MailfunnelsUtil.get_app.id
+    hyperlink.email_template_id = params[:template_id]
+    hyperlink.site_url = url
+
+    hyperlink.save!
+
+    response = {
+        success: true,
+        link: url
+    }
+
+    # Return JSON response
+    render json: response
   end
 
 end

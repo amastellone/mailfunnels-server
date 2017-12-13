@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   post '/ajax_create_email_template' => 'email#ajax_create_email_template'
   post '/ajax_update_email_template' => 'email#ajax_update_email_template'
   post '/ajax_delete_template' => 'email#ajax_delete_template'
+  post '/mf_email_template_add_link' => 'template#mf_email_template_add_link'
 
   # Account Routes
   get '/account', to: 'main_interface#account'

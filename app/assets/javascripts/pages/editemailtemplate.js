@@ -23,6 +23,8 @@ $(function(){
     var color_select = $('#color_select');
     //var theme_color_select = $('#theme_color_select');
     var theme_color = $('#theme_color');
+    var mf_email_hyperlink_input = $('#mf_email_hyperlink_input');
+    var mf_email_hyperlink_text = $('#mf_email_hyperlink_text');
 
     /* --- EMAIL PREVIEW FIELDS --- */
     var preview_email_title = $('#printEmailTitle');
@@ -45,9 +47,13 @@ $(function(){
 
     /* --- BUTTONS --- */
     var email_submit = $('#email_list_submit_button');
+    var mf_email_hyperlink_submit = $('#mf_email_hyperlink_submit');
 
     /* --- MODALS --- */
     var email_template_saved_modal = $('#email_template_saved_modal');
+    var mf_email_hyperlink_modal = $('#mf_email_hyperlink_modal');
+
+
 
     /* --- CUSTOM SUMMERNOTE BUTTONS --- */
     var hyperlinkButton;
@@ -225,6 +231,59 @@ $(function(){
 
     });
 
+    mf_email_hyperlink_input.on('keyup', function() {
+
+        if ($(this).val() === '' || mf_email_hyperlink_text.val() === '') {
+            mf_email_hyperlink_submit.prop('disabled', true);
+        } else {
+            mf_email_hyperlink_submit.prop('disabled', false);
+        }
+
+    });
+
+    mf_email_hyperlink_text.on('keyup', function() {
+
+        if ($(this).val() === '' || mf_email_hyperlink_input.val() === '') {
+            mf_email_hyperlink_submit.prop('disabled', true);
+        } else {
+            mf_email_hyperlink_submit.prop('disabled', false);
+        }
+
+    });
+
+    mf_email_hyperlink_submit.on('click', function() {
+
+        if (mf_email_hyperlink_input.val() === '') {
+            mf_email_hyperlink_submit.prop('disabled', true);
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/mf_email_template_add_link',
+            data: {
+                url: mf_email_hyperlink_input.val(),
+                template_id: template_id
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+
+                mf_summernote.summernote('createLink', {
+                    text: mf_email_hyperlink_text.val(),
+                    url: response.link,
+                    isNewWindow: true
+                });
+
+                mf_email_hyperlink_modal.modal('toggle');
+
+            }
+        });
+
+
+    });
 
     function init() {
 
@@ -303,7 +362,10 @@ $(function(){
                 tooltip: 'Add Hyperlink',
                 click: function () {
                     // invoke insertText method with 'hello' on editor module.
-                    context.invoke('editor.insertText', 'hello');
+                    mf_email_hyperlink_modal.modal('toggle');
+                    mf_email_hyperlink_input.val('');
+                    mf_email_hyperlink_text.val('');
+                    mf_email_hyperlink_submit.prop('disabled', true);
                 }
             });
 
