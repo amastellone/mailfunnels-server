@@ -146,7 +146,7 @@ $(function() {
      */
     function init() {
 
-        CURR_ENV_TYPE = ENV_TYPE_DEV;
+        CURR_ENV_TYPE = ENV_TYPE_PROD;
 
 
         window.location.href = '#signin';
