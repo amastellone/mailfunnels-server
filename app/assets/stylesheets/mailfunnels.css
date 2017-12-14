@@ -179,11 +179,11 @@ label {
     margin-bottom: 10px;
     line-height: 20px;
 }
-input[type="checkbox"]:not(.js-switch) {
+input[type="checkbox"]:not(.js-switch):not(#sn-checkbox-open-in-new-window) {
     visibility: hidden;
     position: absolute;
 }
-input[type="checkbox"]:not(.js-switch) + span {
+input[type="checkbox"]:not(.js-switch):not(#sn-checkbox-open-in-new-window) + span {
     float: left;
     position: relative;
     display: inline-block;
@@ -197,7 +197,7 @@ input[type="checkbox"]:not(.js-switch) + span {
 }
 
 
-input[type="checkbox"]:checked:not(.js-switch) + span {
+input[type="checkbox"]:checked:not(.js-switch):not(#sn-checkbox-open-in-new-window) + span {
     float: left;
     position: relative;
     display: inline-block;
@@ -210,7 +210,7 @@ input[type="checkbox"]:checked:not(.js-switch) + span {
     border-radius: 4px;
 }
 
-input[type="checkbox"]:not(.js-switch) + span:before {
+input[type="checkbox"]:not(.js-switch):not(#sn-checkbox-open-in-new-window) + span:before {
     position: absolute;
     bottom: 6px;
     left: -8.5px;
@@ -224,13 +224,13 @@ input[type="checkbox"]:not(.js-switch) + span:before {
     opacity: 0;
     transition: all 0.3s ease-in;
 }
-input[type="checkbox"].error:not(.js-switch) + span {
+input[type="checkbox"].error:not(.js-switch):not(#sn-checkbox-open-in-new-window) + span {
     background-color: #FE5F55;
 }
-input[type="checkbox"].wrap:not(.js-switch) + span {
+input[type="checkbox"].wrap:not(.js-switch):not(#sn-checkbox-open-in-new-window) + span {
     margin-bottom: 15px;
 }
-input[type="checkbox"]:checked:not(.js-switch) + span:before {
+input[type="checkbox"]:checked:not(.js-switch):not(#sn-checkbox-open-in-new-window) + span:before {
     position: absolute;
     bottom: 11.33333333px;
     left: -8.5px;
@@ -375,13 +375,23 @@ textarea:focus {
     padding-bottom: 10px !important;
 }
 
-.note-editor .note-editable {
+.note-editor .note-editable span {
     line-height: 1;
+}
+
+.note-btn.btn.btn-sm {
+    padding: 7px 12px;
+}
+
+.note-btn.btn.btn-sm.dropdown-toggle {
+    padding: 5px;
+    text-align: center;
+    height: 35px !important;
 }
 
 .note-toolbar .note-para .note-btn-group .dropdown-toggle,
 .note-toolbar .note-fontsize .note-btn-group .dropdown-toggle,
 .note-toolbar .note-height .note-btn-group .dropdown-toggle,
 .note-toolbar .note-color .note-btn-group .dropdown-toggle {
-    height: 39px !important;
+
 }

@@ -381,8 +381,7 @@ $(function(){
                 // [groupName, [list of button]]
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['font', ['strikethrough']],
-                ['insert', ['picture']],
-                ['mybutton', ['hello']],
+                ['insert', ['picture', 'link']],
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
