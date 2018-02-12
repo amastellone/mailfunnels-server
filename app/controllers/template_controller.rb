@@ -1,6 +1,40 @@
 class TemplateController < ShopifyApp::AuthenticatedController
 
 
+
+  # PAGE RENDER FUNCTION
+  # --------------------
+  # Renders the template builder page
+  #
+  # ROUTE: /template_builder/{template_id}
+  #
+  # Parameters
+  # ----------
+  # template_id : ID of the EmailTemplate we are editing
+  #
+  #
+  def template_builder
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the current user
+    @user = User.find(@app.user_id)
+
+    # Get the EmailTemplate We want to View
+    @template = EmailTemplate.find(params[:template_id])
+
+  end
+
+
+
+  # AJAX ROUTE
+  # ----------
+  # Uploads an image to AWS
+  #
+  # PARAMS
+  # ------
+  # :file (Image File .jpg to upload to server)
   def upload_image_to_aws
 
     puts "HERE"

@@ -91,6 +91,10 @@ Rails.application.routes.draw do
   match '/create_list' => 'email#create_list', via: [:post]
   post '/ajax_create_email_list' => 'email#ajax_create_email_list'
 
+
+  # Email Template Routes
+  get '/template_builder/:template_id', to: 'template#template_builder'
+
   # Broadcasts Routes
   get '/broadcasts', to: 'broadcast#broadcasts'
   get '/broadcast_info/:id', to: 'broadcast#broadcast_info'

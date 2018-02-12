@@ -34,7 +34,6 @@ Rails.application.config.assets.precompile += %w( components/papaparse.min.js )
 Rails.application.config.assets.precompile += %w( pages/broadcasts.js )
 
 
-
 # CSS Files
 Rails.application.config.assets.precompile += %w( pages/login.css )
 Rails.application.config.assets.precompile += %w( dashboard.css )
@@ -42,6 +41,15 @@ Rails.application.config.assets.precompile += %w( components/jquery.flowchart.cs
 Rails.application.config.assets.precompile += %w( EmailTemplate/simple.css )
 Rails.application.config.assets.precompile += %w( components/switchery.min.css )
 Rails.application.config.assets.precompile += %w( custom.css )
+
+# Template Builder Files
+Rails.application.config.assets.precompile += %w( components/slick.min.js )
+Rails.application.config.assets.precompile += %w( components/contentbuilder.js )
+Rails.application.config.assets.precompile += %w( components/contentbuilder.css )
+Rails.application.config.assets.precompile += %w( pages/template_builder.js )
+
+
+
 
 
 
