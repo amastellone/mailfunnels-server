@@ -31,6 +31,8 @@ $(function(){
     var trigger_info_modal = $('#trigger_info_modal');
     var trigger_confirm_delete_modal = $('#trigger_confirm_delete_modal');
     var edit_trigger_modal = $('#editTriggerModal');
+    var resolve_trigger_modal = $('#trigger_product_resolve_modal');
+
 
     /* --- INPUT FIELDS --- */
     var trigger_name_input = $('#trigger_name_input');
@@ -63,6 +65,8 @@ $(function(){
     var confirm_trigger_delete_button = $('#confirm_trigger_delete_button');
     var cancel_trigger_delete_button = $('#cancel_trigger_delete_button');
     var edit_trigger_submit_button = $('#edit_trigger_submit_button');
+    var resolve_all_products_button = $('#resolve_all_products_button');
+    var resolve_select_product_button = $('#resolve_select_product_button');
 
 
     /* --- VIEW TEXT FIELDS --- */
@@ -192,6 +196,70 @@ $(function(){
             }
 
         });
+    });
+
+    $('.resolve_trigger_info_button').on('click', function() {
+
+        //Get Current Trigger ID
+        var trigger_id = $(this).data('id');
+
+        resolve_all_products_button.attr('data-id', trigger_id);
+
+        resolve_select_product_button.attr('data-id', trigger_id);
+
+        resolve_trigger_modal.modal('toggle');
+
+    });
+
+    resolve_all_products_button.on('click', function() {
+
+        var trigger_id = $(this).attr('data-id');
+
+        $.ajax({
+            type:'POST',
+            url:'/ajax_resolve_all_products',
+            dataType: "json",
+            data: {
+                app_id: app_id,
+                trigger_id: trigger_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e){
+                console.log(e);
+            },
+            success: function(response) {
+                window.location.reload();
+            }
+
+        });
+    });
+
+    resolve_select_product_button.on('click', function() {
+
+        var trigger_id = $(this).attr('data-id');
+
+        var singleProductOptions = {
+            'selectMultiple': false,
+        };
+
+        ShopifyApp.Modal.productPicker(singleProductOptions, function(success, data) {
+            // Callback is triggered any time a button
+            // is clicked or the window is closed.
+
+            if(success) {
+                console.log(data);
+                console.log(data.products[0]);
+                resolveTriggerUpdateProductSelected(data.products[0], trigger_id);
+
+            } else {
+                return;
+            }
+
+            if (data.errors) {
+                console.error(data.errors);
+            }
+        })
+
     });
 
 
@@ -464,6 +532,30 @@ $(function(){
         if (edit_product_select.val() !== '') {
             edit_product_select_btn.html("Product: " + product.title);
         }
+
+    }
+
+    function resolveTriggerUpdateProductSelected(product, trigger_id) {
+
+        $.ajax({
+            type:'POST',
+            url:'/ajax_resolve_selected_product',
+            dataType: "json",
+            data: {
+                product_id: product.id,
+                trigger_id: trigger_id,
+                authenticity_token: csrf_token
+            },
+            error: function(e){
+                console.log(e);
+            },
+            success: function(response) {
+                window.location.reload();
+            }
+
+        });
+
+
 
     }
 

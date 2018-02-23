@@ -275,6 +275,43 @@ class TriggersController < ShopifyApp::AuthenticatedController
   end
 
 
+
+  def ajax_resolve_all_products
+
+    trigger = Trigger.find(params[:trigger_id])
+
+    trigger.put('', {
+        :product_id => nil
+    })
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Trigger Updated!'
+    }
+    render json: response
+
+  end
+
+
+  def ajax_resolve_selected_product
+
+    trigger = Trigger.find(params[:trigger_id])
+
+    trigger.put('', {
+        :product_id => params[:product_id]
+    })
+
+    # Return Success Response
+    response = {
+        success: true,
+        message: 'Trigger Updated!'
+    }
+    render json: response
+
+  end
+
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_trigger
