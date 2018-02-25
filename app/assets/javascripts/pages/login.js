@@ -169,7 +169,7 @@ $(function() {
 
                     $.ajax({
                         type: 'POST',
-                        url: 'http://mailfunnels-server.herokuapp.com/send_reset_password_email',
+                        url: 'https://mailfunnels-server.herokuapp.com/send_reset_password_email',
                         data: {
                             email: email
                         },
