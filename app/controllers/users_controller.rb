@@ -102,7 +102,6 @@ class UsersController < ActionController::Base
     if !contact.first['Password'].nil?
 
       user = User.where(clientid: contact.first['ID']).first
-      puts "------------2------------"
 
       unless user
         # Return Error Response
@@ -112,7 +111,6 @@ class UsersController < ActionController::Base
         }
 
         render json: response
-        puts "-----------3-----------"
       end
 
       user.put('', {
