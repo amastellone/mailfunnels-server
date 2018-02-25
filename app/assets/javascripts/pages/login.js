@@ -169,7 +169,7 @@ $(function() {
 
                     $.ajax({
                         type: 'POST',
-                        url: 'http://localhost:3001/send_reset_password_email',
+                        url: 'http://mailfunnels-server.herokuapp.com/send_reset_password_email',
                         data: {
                             email: email
                         },
@@ -197,7 +197,7 @@ $(function() {
      */
     function init() {
 
-        CURR_ENV_TYPE = ENV_TYPE_DEV;
+        CURR_ENV_TYPE = ENV_TYPE_PROD;
 
 
         window.location.href = '#signin';
