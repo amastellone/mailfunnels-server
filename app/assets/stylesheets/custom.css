@@ -3546,6 +3546,7 @@ ul.project_files li a i {
 a.hiddenanchor {
     display: none
 }
+
 .login_wrapper {
     right: 0px;
     margin: 0px auto;
@@ -3553,26 +3554,36 @@ a.hiddenanchor {
     max-width: 350px;
     position: relative
 }
+
+.reset-pass-form,
 .registration_form,
 .login_form {
     position: absolute;
     top: 0px;
     width: 100%
 }
+
+.reset-pass-form,
 .registration_form {
     z-index: 21;
     opacity: 0;
     width: 100%
 }
+
+
 .login_form {
     z-index: 22
 }
+
+#resetpass:target ~ .login_wrapper .reset-pass-form,
 #signup:target ~ .login_wrapper .registration_form,
 #signin:target ~ .login_wrapper .login_form {
     z-index: 22;
     animation-name: fadeInLeft;
     animation-delay: .1s
 }
+
+#resetpass:target ~ .login_wrapper .login_form,
 #signup:target ~ .login_wrapper .login_form,
 #signin:target ~ .login_wrapper .registration_form {
     animation-name: fadeOutLeft

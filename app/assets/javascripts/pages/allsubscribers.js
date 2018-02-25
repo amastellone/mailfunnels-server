@@ -165,6 +165,7 @@ $(function() {
 
         Papa.parse(csv_file, {
             header: true,
+            skipEmptyLines: true,
             complete: function(results) {
                 console.log("Here");
                 console.log(results);

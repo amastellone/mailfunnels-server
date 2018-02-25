@@ -11,14 +11,20 @@ $(function() {
     var invalid_credential_message = $('#invalid_login_credentials_message');
     var server_error_message = $('#server_error_message');
 
+    var reset_pass_email_sent = $('#reset-pass-sent');
+    var reset_pass_email_sent_content = $('#reset-pass-sent-content');
+
     /* --- INPUT FIELDS --- */
     var login_username = $('#mf_login_username_input');
     var login_password = $('#mf_login_password_input');
     var shopify_domain_input = $('#mf_shopify_domain_input');
+    var mf_reset_pass_email = $('#mf-reset-pass-email');
 
     /* --- BUTTONS --- */
     var login_submit_button = $('#mf_login_submit_button');
     var shopify_account_submit_button = $('#mf_auth_setup_submit_button');
+    var mf_reset_pass_submit_button = $('#mf-reset-pass-submit');
+
 
     //Initialize the login page
     init();
@@ -139,6 +145,51 @@ $(function() {
 
     });
 
+    mf_reset_pass_submit_button.on('click', function() {
+
+        //Get Email Input
+        var email = mf_reset_pass_email.val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/mf_user_reset_password',
+            data: {
+                email: email
+            },
+            error: function(e) {
+                console.log(e);
+                reset_pass_email_sent_content.html("Sorry, we could not find an account with the email provided. Please try again.");
+                reset_pass_email_sent.show();
+            },
+            success: function(response) {
+                console.log(response);
+                $('#reset-pass-content').hide();
+                reset_pass_email_sent_content.html(response.message);
+                reset_pass_email_sent.show();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'http://localhost:3001/send_reset_password_email',
+                        data: {
+                            email: email
+                        },
+                        error: function(e) {
+                            console.log(e);
+                            reset_pass_email_sent_content.html("Sorry, we could not find an account with the email provided. Please try again.");
+                            reset_pass_email_sent.show();
+                        },
+                        success: function(response) {
+                            console.log(response);
+                        }
+                    });
+
+            }
+        });
+
+
+
+    });
+
 
     /**
      * Initializes the Login Page
@@ -150,6 +201,9 @@ $(function() {
 
 
         window.location.href = '#signin';
+
+        reset_pass_email_sent.hide();
+
 
 
         //Disable Shopify Account Submit Button

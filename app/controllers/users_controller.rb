@@ -85,6 +85,62 @@ class UsersController < ActionController::Base
 
   end
 
+  # POST ROUTE
+  # ----------
+  # Retrieves user's password and sends them an email
+  # with their password
+  #
+  # PARAMETERS
+  # ----------
+  # email: Email Address of the User
+  #
+  def mf_user_reset_password
+
+    # Look for
+    contact = Infusionsoft.contact_find_by_email(params[:email], [:ID, :Password])
+
+    if !contact.first['Password'].nil?
+
+      user = User.where(clientid: contact.first['ID']).first
+      puts "------------2------------"
+
+      unless user
+        # Return Error Response
+        response = {
+            success: false,
+            message: 'User Not Found'
+        }
+
+        render json: response
+        puts "-----------3-----------"
+      end
+
+      user.put('', {
+          :password => contact.first['Password']
+      })
+
+      response = {
+          success: true,
+          message: 'Your password has been sent to your email..'
+      }
+
+      render json: response
+
+    else
+      puts "final else"
+      # Return Error Response
+      response = {
+          success: false,
+          message: 'Sorry, we could not find an account with this email.'
+      }
+
+      render json: response
+
+    end
+
+
+  end
+
 
   # USED WITH AJAX
   # --------------

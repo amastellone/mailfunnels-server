@@ -20,6 +20,7 @@
 
   <a class="hiddenanchor" id="signup"></a>
   <a class="hiddenanchor" id="signin"></a>
+  <a class="hiddenanchor" id="resetpass"></a>
 
   <div class="login_wrapper">
 
@@ -54,7 +55,7 @@
             <br/>
 
             <div>
-              <a class="forgot_password" href="https://mailfunnels.com/password">Forgot Password?</a>
+              <a class="forgot_password" href="#resetpass">Forgot Password?</a>
               <!--<h1 style="margin-top: 20px;"><i class="fa fa-envelope"></i> MailFunnels</h1>-->
               <!--<p>©2017 All Rights Reserved.</p>-->
             </div>
@@ -106,6 +107,53 @@
         </form>
       </section>
     </div>
+
+    <div id="resetpass" class="animate form reset-pass-form">
+      <section class="login_content">
+
+        <div style="margin-bottom: 100px;">
+          <%= image_tag("mailfunnels-logo.png", :alt => "Mailfunnels Logo") %>
+        </div>
+        <form class="form-horizontal form-label-right">
+          <h1>Forgot Password</h1>
+
+          <p style="color: white;">Please enter your email to retrieve your password.</p>
+
+          <div id="reset-pass-content">
+
+          <div class="form-group">
+
+            <div class="col-xs-12">
+              <input id="mf-reset-pass-email" type="email" class="form-control" placeholder="Email" required=""/>
+            </div>
+          </div>
+          <div>
+            <button id="mf-reset-pass-submit" type="button" class="btn btn-default" data-id="">Submit</button>
+          </div>
+
+          </div>
+
+          <div id="reset-pass-sent">
+
+            <p id="reset-pass-sent-content" style="color: white; font-weight: 600;">Your password has been sent to your email.</p>
+
+          </div>
+
+          <div class="clearfix"></div>
+
+          <div class="separator">
+            <div class="clearfix"></div>
+            <br/>
+
+            <div>
+              <h1><i class="fa fa-envelope"></i> MailFunnels</h1>
+              <p>©2017 All Rights Reserved.</p>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+
 
 
   </div>
