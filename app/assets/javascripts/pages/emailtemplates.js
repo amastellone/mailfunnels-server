@@ -6,14 +6,12 @@ $(function(){
     /* --- APP VALUES --- */
     var app_id = $('#current_app_id').val();
 
-
     /* --- AUTHENTICATION --- */
     var csrf_token = $('meta[name=csrf-token]').attr('content');
 
     /* --- MODALS --- */
     var new_template_modal = $('#newEmailTemplateModal');
     var confirm_delete_modal = $('#confirm_delete_modal');
-
 
     /* --- INPUT FIELDS --- */
     var template_name_input = $('#template_name_input');
@@ -24,6 +22,12 @@ $(function(){
     var new_template_submit = $('#new_template_submit_button');
     var delete_template_button = $('.delete_template_button');
     var confirm_delete_template_button = $('#confirm_delete_template_button');
+
+
+    var current_template_id = $('#mf_current_template_id_holder').val();
+    var send_test_email_input = $('#mf_test_email_input');
+    var send_test_email_submit = $('#mf_test_email_submit');
+    var test_email_modal = $('#test_email_modal');
 
 
     init();
@@ -101,6 +105,29 @@ $(function(){
                 }
             });
 
+        });
+
+    });
+
+    send_test_email_submit.on('click', function() {
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax/template/send_test_email',
+            dataType: "json",
+            data: {
+                email_template_id: current_template_id,
+                to_email: send_test_email_input.val(),
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                test_email_modal.modal('toggle');
+
+            }
         });
 
     });

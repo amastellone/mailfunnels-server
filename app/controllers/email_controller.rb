@@ -233,7 +233,6 @@ class EmailController < ShopifyApp::AuthenticatedController
 
 
 
-
   # EMAIL TEMPLATE RENDER FUNCTION
   # ------------------------------
   # Renders the Email Template for the customer

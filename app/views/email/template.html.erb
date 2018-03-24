@@ -3,25 +3,28 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width" />
+
   <style type="text/css">
     * {
       margin: 0;
       padding: 0;
       font-size: 100%;
       font-family: 'Avenir Next', "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-      line-height: 1.65;
     }
 
-    img {
-      max-width: 100%;
-      margin: 0 auto;
-      display: block;
-    }
-
-    body,
-    .body-wrap {
-      width: 100% !important;
+    body {
+      width: 100%;
       height: 100%;
+      background: #f7f7f7;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: none;
+    }
+
+    .body-wrap {
+      width: 600px;
+      height: 100%;
+      text-align: center;
+      margin: 0 auto;
       background: #f7f7f7;
       -webkit-font-smoothing: antialiased;
       -webkit-text-size-adjust: none;
@@ -49,22 +52,23 @@
       border-radius: 4px;
     }
 
-    .email_template h1,
+    h1,
     h2,
     h3,
     h4,
     h5,
     h6 {
       margin-bottom: 20px;
-      line-height: 1.25;
+
     }
 
-    .email_template h1 {
+    h1 {
       font-size: 32px;
     }
 
     h2 {
       font-size: 28px;
+      font-weight: normal;
     }
 
     p,
@@ -96,7 +100,6 @@
     .container .email_title h1 {
       margin: 0 auto !important;
       max-width: 90%;
-      text-transform: uppercase;
     }
 
     .container .content {
@@ -106,6 +109,8 @@
 
     .container .content.email_footer {
       background: none;
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     .container .content.email_footer p {
@@ -120,36 +125,72 @@
       text-decoration: none;
       font-weight: bold;
     }
+
+
+    .mf_em_footer_power_by {
+      font-size: 12px !important;
+      font-weight: 600;
+    }
+
+    .mf_em_footer_address p {
+      font-size: 11px !important;
+    }
+
+    .mf_em_footer_unsub {
+      margin-top: 5px !important;
+      margin-bottom: 10px !important;
+      font-size: 15px !important;
+    }
+
+
   </style>
 </head>
+
 
 <body>
 <!-- START MESSAGE VIEW -->
 <!-- ~~~~~~~~~~~~~~~~~~ -->
 <div class="row email_content">
 
+
   <table class="body-wrap">
     <tr>
       <td class="container">
         <table>
           <tr>
-            <td align="center" class="email_title">
-              <h1 class="email_template"><%= @template.email_title %></h1>
+            <td align="center" style="background: <%= @template.color %>;" class="email_title">
+              <h1><%= @template.email_title %></h1>
             </td>
           </tr>
           <tr>
-            <td class="content">
+            <td class="content" style="text-align: left;">
 
-              <h2>Hi Customer,</h2>
+
+              <% if @template.greet_use_default === 1 %>
+                  <h2>Hi <%= @subscriber.first_name %>,</h2>
+              <% elsif @template.greet_before_cust_name == 1 %>
+                  <% if @template.greet_content %>
+                      <h2><%= @subscriber.first_name %><%= @template.greet_content %></h2>
+                  <% else %>
+                      <h2><%= @subscriber.first_name %></h2>
+                  <% end %>
+              <% elsif @template.greet_after_cust_name == 1 %>
+                  <% if @template.greet_content %>
+                      <h2><%= @template.greet_content %> <%= @subscriber.first_name %></h2>
+                  <% else %>
+                      <h2><%= @subscriber.first_name %>,</h2>
+                  <% end %>
+              <% end %>
+
 
               <p> <%= @template.email_content %></p>
 
               <table>
                 <tr>
                   <td align="center">
-                    <% if template.has_button %>
+                    <% if @template.has_button %>
                         <p>
-                          <a href="<%= @template.button_url %>" class="button"> <%= @template.button_text %> </a>
+                          <a href="<%= @template.button_url %>" style="background: <%= @template.color %>;" class="button"> <%= @template.button_text %> </a>
                         </p>
                     <% end %>
                   </td>
@@ -160,18 +201,37 @@
         </table>
       </td>
     </tr>
+
     <tr>
       <td class="container email_footer">
         <!--Need to include unsubscribe link-->
         <table>
           <tr>
             <td class="content email_footer" align="center">
-              <p><a href= "#">Unsubscribe</a></p>
+              <p class="mf_em_footer_unsub"><a href="#">Unsubscribe</a></p>
+
+              <div class="mf_em_footer_address">
+                <% if @app.foot_use_bill_add === 0 %>
+                    <p><%= @app.foot_street %></p>
+                    <p><%= @app.foot_city %>, <%= @app.foot_state %> <%= @app.foot_zip %></p>
+                <% else %>
+                    <p><%= @app.user.street_address %></p>
+                    <p><%= @app.user.city %>, <%= @app.user.state %> <%= @app.user.zip %></p>
+                <% end %>
+              </div>
+
+
+              <% if @app.show_mf_powered === 1 %>
+                  <p class="mf_em_footer_power_by">Powered by MailFunnels</p>
+              <% end %>
+
+
             </td>
           </tr>
         </table>
       </td>
     </tr>
+
   </table>
 </div>
 <!-- ~~~~~~~~~~~~~~~~ -->

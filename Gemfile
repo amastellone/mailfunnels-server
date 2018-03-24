@@ -22,6 +22,8 @@ gem 'httparty'
 gem 'xmlrpc'
 gem 'infusionsoft'
 
+gem 'postmark-rails'
+
 # gem 'activerecord-session_store'
 # gem 'request_store_registry', :git => 'git://github.com/mikeantonelli/request_store_registry.git'
 # /vaskaloidis/request_store_registry

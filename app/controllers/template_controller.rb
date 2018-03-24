@@ -1,6 +1,6 @@
+require "erb"
+
 class TemplateController < ShopifyApp::AuthenticatedController
-
-
 
   # PAGE RENDER FUNCTION
   # --------------------
@@ -24,6 +24,62 @@ class TemplateController < ShopifyApp::AuthenticatedController
     # Get the EmailTemplate We want to View
     @template = EmailTemplate.find(params[:template_id])
 
+  end
+
+
+  # USED WITH AJAX
+  # --------------
+  # Renders and sends test email of template
+  #
+  # ROUTE: /ajax/template/send_test_email
+  #
+  # PARAMETERS
+  # --------------
+  # email_template_id: ID of Email Template
+  # to_email: Email to Send Test Email
+  #
+  def ajax_send_test_email
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get Template From DB
+    @template = EmailTemplate.find(params[:email_template_id])
+
+    unless @template
+      response = {
+          success: false,
+          message: "ERROR: Template Not Found with ID Provided"
+      }
+
+      render json: response and return
+    end
+
+    html = File.open("app/views/email/template.html.erb").read
+    @renderedhtml = "1"
+    ERB.new(html, 0, "", "@renderedhtml").result(binding)
+    if @app.from_name.nil?
+      name = "Shop Admin"
+    else
+      name = @app.from_name
+    end
+
+    if @app.from_email.nil?
+      email = "noreply@custprotection.com"
+    else
+      email = @app.from_email
+    end
+
+    # Send Email Using Postmark
+    client = Postmark::ApiClient.new('b650bfe2-d2c6-4714-aa2d-e148e1313e37', http_open_timeout: 60)
+    response = client.deliver(
+        :subject => @template.email_subject,
+        :to => params[:to_email],
+        :from => name+' '+email,
+        :html_body => @renderedhtml,
+        :track_opens => 'true')
+
+    render json: response
   end
 
 

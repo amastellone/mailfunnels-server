@@ -97,6 +97,7 @@ Rails.application.routes.draw do
 
   # Email Template Routes
   get '/template_builder/:template_id', to: 'template#template_builder'
+  post '/ajax/template/send_test_email', to: 'template#ajax_send_test_email'
 
   # Broadcasts Routes
   get '/broadcasts', to: 'broadcast#broadcasts'
