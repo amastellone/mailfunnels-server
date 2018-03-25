@@ -47,27 +47,37 @@
 
                   <div class="x_content" style="max-height: 180px; min-height: 180px;  overflow: hidden; text-overflow: ellipsis;">
 
-                        <h3 class="name" style="word-wrap: break-word"><%= template.name %></h3>
+                    <h3 class="name" style="word-wrap: break-word"><%= template.name %></h3>
 
-                          <% if !template.description.nil? && !(template.description === '') %>
-                            <p style=""><%= template.description %></p>
-                          <% else %>
-                            <p style="word-wrap: break-word;">No Description</p>
-                          <% end %>
+                    <% if !template.description.nil? && !(template.description === '') %>
+                        <p style=""><%= template.description %></p>
+                    <% else %>
+                        <p style="word-wrap: break-word;">No Description</p>
+                    <% end %>
 
                   </div>
 
                   <div class="x_content mf_btn_btm_panel">
+
                     <div class="row">
-                      <div class="col-xs-6">
-                        <a href="<% root_url %>view_email_template/<%= template.id %>" class="btn btn-block btn-border btn-primary">View</a>
-                      </div>
+                      <% if template.style_type === 1 %>
 
-                      <div class="col-xs-6">
-                        <a href="<% root_url %>edit_email_template/<%= template.id %>" class="btn btn-block btn-border btn-primary">Edit</a>
-                      </div>
+                          <div class="col-xs-12">
+                            <a href="<% root_url %>template_builder/<%= template.id %>" class="btn btn-block btn-border btn-primary">View/Edit</a>
+                          </div>
+
+                      <% else %>
+
+                          <div class="col-xs-6">
+                            <a href="<% root_url %>edit_email_template/<%= template.id %>" class="btn btn-block btn-border btn-primary">Edit</a>
+                          </div>
+
+                          <div class="col-xs-6">
+                            <a href="<% root_url %>view_email_template/<%= template.id %>" class="btn btn-block btn-border btn-primary">View</a>
+                          </div>
+
+                      <% end %>
                     </div>
-
 
                     <div class="row">
                       <div class="col-xs-12">

@@ -110,6 +110,24 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.description = params[:description]
     template.email_subject = params[:email_subject]
     template.color = app.email_def_color
+    template.html = "<div class='row clearfix'>
+		<div class='column full center'>
+			<i class='icon ion-leaf size-64'></i>
+			<h1 class='size-21'>BEAUTIFUL CONTENT</h1>
+            	<div class='display'>
+                	<h1 style='font-size: 3.5em; margin:0.2em 0'>Lorem Ipsum is simply dummy text</h1>
+            	</div>
+           <p>Lorem Ipsum is simply dummy text. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+       </div>
+	</div>
+	<div class='row clearfix'>
+		<div class='column full center'>
+            		    <div style='margin:1em 0'>
+           			 <a href=''#'' class='btn btn-primary edit' style='border-radius: 50px'>READ MORE</a>
+    </div>
+                </div>
+    </div>"
+    template.style_type = 1
 
 
     # Save and verify Funnel and return correct JSON response

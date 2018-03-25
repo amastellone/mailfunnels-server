@@ -26,6 +26,61 @@ class TemplateController < ShopifyApp::AuthenticatedController
 
   end
 
+  # Page Render Function
+  # --------------------
+  # Renders the view template page
+  #
+  #
+  # PARAMETERS
+  # ----------
+  # template_id: ID of the EmailTemplate we are viewing
+  #
+  def view_template
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Get the current user
+    @user = User.find(@app.user_id)
+
+    # Get the EmailTemplate We want to View
+    @template = EmailTemplate.find(params[:template_id])
+
+  end
+
+
+
+
+  # USED WITH AJAX
+  # Updates a EmailTemplate Instance
+  #
+  # PARAMETERS
+  # ------------
+  #
+  def ajax_save_email_template
+
+    # Access current template being edited
+    template = EmailTemplate.find(params[:id])
+
+    template.html = params[:html]
+    template.style_type = 1
+
+    template.put('', {
+        :html => template.html,
+        :style_type => template.style_type
+    })
+
+
+    response = {
+        :success => true
+    }
+
+    # Return JSON response
+    render json: response
+
+
+  end
+
 
   # USED WITH AJAX
   # --------------
@@ -55,9 +110,6 @@ class TemplateController < ShopifyApp::AuthenticatedController
       render json: response and return
     end
 
-    html = File.open("app/views/email/template.html.erb").read
-    @renderedhtml = "1"
-    ERB.new(html, 0, "", "@renderedhtml").result(binding)
     if @app.from_name.nil?
       name = "Shop Admin"
     else
@@ -70,16 +122,27 @@ class TemplateController < ShopifyApp::AuthenticatedController
       email = @app.from_email
     end
 
+    if @template.style_type === 1
+      html = File.open("app/views/template/styles/mf-minimal_1.html.erb").read
+    else
+
+      html = File.open("app/views/email/template.html.erb").read
+    end
+
+    @renderedhtml = "1"
+    ERB.new(html, 0, "", "@renderedhtml").result(binding)
+
     # Send Email Using Postmark
     client = Postmark::ApiClient.new('b650bfe2-d2c6-4714-aa2d-e148e1313e37', http_open_timeout: 60)
     response = client.deliver(
-        :subject => @template.email_subject,
+        :subject => "MailFunnels Email Preview",
         :to => params[:to_email],
         :from => name+' '+email,
         :html_body => @renderedhtml,
         :track_opens => 'true')
 
     render json: response
+
   end
 
 

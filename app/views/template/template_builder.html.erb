@@ -1,4 +1,4 @@
-<% content_for :javascript do %>
+<% content_for :template_builder do %>
     <script type="text/javascript">
         ShopifyApp.ready(function () {
             ShopifyApp.Bar.initialize({
@@ -7,17 +7,26 @@
         });
     </script>
 
-    <%= javascript_include_tag 'components/slick.min.js' %>
-    <%= stylesheet_link_tag 'components/contentbuilder.css' %>
-    <%= javascript_include_tag 'components/contentbuilder.js' %>
+
+    <link href="/template_builder/assets/minimalist-basic/content.css" rel="stylesheet" type="text/css" />
+    <link href="/contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
+    <script src="/contentbuilder/contentbuilder.js" type="text/javascript"></script>
+
     <%= javascript_include_tag 'pages/template_builder.js' %>
 
+    <style>
+      .is-container {  margin: 90px auto; max-width: 1050px; width:100%; padding:0 35px; box-sizing:border-box; }
+      @media all and (max-width: 1080px) {
+        .is-container { margin:0; }
+      }
+    </style>
 
 
     <div class="hidden">
       <input id="current_template_id" type="number" value="<%= @template.id %>"/>
       <input id="current_content_value" type="text" value="<%= @template.email_content %>"/>
       <input id="current_color_value" type="text" value="<%= @template.color %>"/>
+      <input id="current_html_value" type="text" value="<%= @template.html %>"/>
       <% if @template.has_button %>
           <input id="show_button_value" type="number" value="1"/>
       <% else %>
@@ -27,36 +36,64 @@
 
     <div class="row">
       <div class="col-xs-12">
-        <div class="page-title">
+        <div class="page-title mf-builder-page-title">
+
           <div class="title_left">
-            <img class="mf_head_logo" src="/mf_logos/mf_logo_text.png"/>
-            <h3><small class="mf_head_title">Edit <%= @template.name %></small></h3>
+            <a href="/"><img class="mf_head_logo" src="/mf_logos/mf_logo_text.png" style="margin-bottom: 0;"/></a>
+            <h3 class="mf-builder-title">Template Builder</h3>
+            <h3 class="mf-builder-subtitle"><%= @template.name %></h3>
           </div>
 
           <div class="title_right">
-            <button id="email_list_submit_button" type="button" class="btn btn-border btn-sm btn-success pull-right">Save</button>
-            <a href="<%= root_url %>email_templates" class="btn btn-primary btn-sm btn-border pull-right" style="margin-right: 5px;"><i class="fa fa-chevron-left"></i> Back</a>
+            <button id="email_list_submit_button" type="button" class="btn btn-sm btn-primary pull-right" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Save & Exit</button>
+            <a id="send_test_email" data-toggle="modal" data-target="#test_email_modal" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Send Test Email</a>
           </div>
 
-          <hr/>
           <div class="clearfix"></div>
         </div>
       </div>
     </div>
 
-    <hr class="fade-2"/>
 
+    <div class="row mf-email-builder-row" style="background: #ffffff;">
 
-    <div class="row">
       <div class="col-xs-12">
+        <div class="mf-email-builder-contentarea">
 
-        <div id="contentarea">
+          <!--  START CONTENT BUILDER -->
+          <div id="contentarea" class="is-container">
 
+
+          </div>
+          <!--  END CONTENT BUILDER -->
 
         </div>
+      </div>
 
+    </div>
 
+    <div id="test_email_modal" class="modal fade">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Send Test Email</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <input id="mf_current_template_id_holder" type="hidden" value="<%= @template.id %>">
+              <label>Send Email To:</label>
+              <input id="mf_test_email_input" class="form-control" type="email" placeholder="Email (Ex. name@mailfunnels.com)">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button id="mf_test_email_submit" class="btn btn-primary note-image-btn">Send Test</button></div>
+        </div>
       </div>
     </div>
+
+
 
 <% end %>

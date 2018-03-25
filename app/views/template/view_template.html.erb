@@ -1,0 +1,48 @@
+
+<% content_for :template_builder do %>
+    <script type="text/javascript">
+        ShopifyApp.ready(function () {
+            ShopifyApp.Bar.initialize({
+                icon: '/mailfunnels-logo.jpg'
+            });
+        });
+    </script>
+
+    <link href="/template_builder/assets/minimalist-basic/content.css" rel="stylesheet" type="text/css" />
+    <%= javascript_include_tag 'pages/emailtemplates.js' %>
+
+
+    <div class="hidden">
+      <input id="current_app_id" type="number" value="<%= @app.id %>"/>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="page-title">
+          <div class="title_left">
+            <img class="mf_head_logo" src="/mf_logos/mf_logo_text.png" style="margin-bottom: 0;"/>
+            <h3 style="margin-top: 0;"><small class="mf_head_title" style="margin-top: 0;">Edit <%= @template.name %></small></h3>
+          </div>
+
+          <div class="title_right">
+            <a href="<%= root_url %>email_templates" class="btn btn-sm btn-primary pull-right" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Exit</a>
+            <button id="email_list_submit_button" type="button" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Send Test Email</button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row" style="background: #ffffff;">
+      <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <div class="mf-email-builder-contentarea">
+          <%= @template.html.html_safe %>
+        </div>
+      </div>
+    </div>
+
+
+
+<% end %>

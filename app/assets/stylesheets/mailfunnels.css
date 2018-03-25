@@ -395,3 +395,78 @@ textarea:focus {
 .note-toolbar .note-color .note-btn-group .dropdown-toggle {
 
 }
+
+/* --- EMAIL TEMPLATE BUILDER CSS --- */
+
+.mf-builder-page-title {
+    font-size: 1rem;
+    color: #3d3e3e !important;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.mf-builder-title {
+    font-size: 1rem;
+    color: #3d3e3e !important;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.mf-builder-subtitle {
+    font-size: 0.7rem;
+    margin-top: 0;
+    color: #3a99d9 !important;
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+
+.mf-builder-action-top-btn {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.mf-builder-action-top-btn-text {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+
+
+
+
+.mf-builder-action-btn {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+
+.mf-builder-action-btn-sm {
+    background: #3a99d9;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+
+.mf-email-builder-row {
+    margin-bottom: 100px;
+}
+
+.mf-email-builder-contentarea {
+    background: #ffffff;
+}
+
+
+
+
