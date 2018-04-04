@@ -81,7 +81,7 @@
 
                     <div class="row">
                       <div class="col-xs-6">
-                        <a href="#" class="btn btn-block btn-border btn-primary">Clone</a>
+                        <a href="#" class="btn btn-block btn-border btn-primary mf-clone-template" data-id="<%= template.id %>">Clone</a>
                       </div>
 
                       <div class="col-xs-6">
@@ -160,6 +160,58 @@
         </div>
       </div>
     </div>
+
+
+    <!-- START CLONE TEMPLATE MODAL -->
+    <div id="mf-clone-template-modal" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">Clone Template</h4>
+          </div>
+
+          <form class="form-horizontal form-label-left">
+
+            <div class="modal-body">
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Template Name</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="mf_clone_name_input" type="text" class="form-control" placeholder="Name">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Template Description</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <textarea id="mf_clone_description_input" class="form-control" rows="3" placeholder="Description for email template"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Subject</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="mf_clone_subject_input" type="text" class="form-control" placeholder="Email Subject">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button id="mf_clone_submit_button" type="button" class="btn btn-success" data-id="0">Submit</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <!-- END CLONE TEMPLATE MODAL -->
+
 
     <div id="confirm_delete_modal" class="modal fade bs-example-modal-sm">
       <div class="modal-dialog modal-md">

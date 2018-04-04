@@ -123,7 +123,7 @@ $(function() {
             url: '/ajax_mf_app_create',
             data: {
                 user_id: user_id,
-                domain: shopify_domain_input.val()
+                domain: (shopify_domain_input.val()).trim()
             },
             error: function(e) {
                 console.log(e);

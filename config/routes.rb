@@ -95,11 +95,12 @@ Rails.application.routes.draw do
   post '/ajax_create_email_list' => 'email#ajax_create_email_list'
 
 
-  # Email Template Routes
+  # Email Template Routes v2
   get '/view_template/:template_id', to: 'template#view_template'
   get '/template_builder/:template_id', to: 'template#template_builder'
   post '/ajax/template/send_test_email', to: 'template#ajax_send_test_email'
   post '/ajax/template/save_email_template', to: 'template#ajax_save_email_template'
+  post '/ajax/template/clone_template', to: 'template#ajax_clone_template'
 
 
   # Broadcasts Routes

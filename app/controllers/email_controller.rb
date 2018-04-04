@@ -280,6 +280,20 @@ class EmailController < ShopifyApp::AuthenticatedController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def email_list_params
-    params.require(:email_list).permit(:name, :description, :app_id)
+    params.require(:email_list).permit(:email_subject,
+                                       :email_content,
+                                       :email_title,
+                                       :has_button,
+                                       :button_text,
+                                       :button_url,
+                                       :color,
+                                       :app_id,
+                                       :greet_use_default,
+                                       :greet_before_cust_name,
+                                       :greet_after_cust_name,
+                                       :greet_content,
+                                       :email_content,
+                                       :has_button,
+                                       :html)
   end
 end

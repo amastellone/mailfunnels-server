@@ -81,6 +81,51 @@ class TemplateController < ShopifyApp::AuthenticatedController
 
   end
 
+  # USED WITH AJAX
+  # ---------------
+  # Clones an EmailTemplate Instance
+  #
+  # PARAMETERS
+  # ------------
+  # template_id: ID of Email Template
+  #
+  def ajax_clone_template
+
+    # Access current template being edited
+    template = EmailTemplate.find(params[:template_id])
+
+    template_clone = EmailTemplate.new
+    template_clone.name = params[:name]
+    template_clone.description = params[:description]
+    template_clone.email_subject = params[:email_subject]
+    template_clone.app_id = template.app_id
+    template_clone.color = template.color
+    template_clone.html = template.html
+    template_clone.style_type = template.style_type
+    template_clone.email_title = template.email_title
+    template_clone.email_content = template.email_content
+    template_clone.has_button = template.has_button
+    template_clone.has_checkout_url = template.has_checkout_url
+    template_clone.button_text = template.button_text
+    template_clone.button_url = template.button_url
+    template_clone.greet_use_default = template.greet_use_default
+    template_clone.greet_content = template.greet_content
+    template_clone.greet_before_cust_name = template.greet_before_cust_name
+    template_clone.greet_after_cust_name = template.greet_after_cust_name
+
+    # Save and verify Template and return correct JSON response
+    template_clone.save!
+
+    response = {
+        :success => true
+    }
+
+    # Return JSON response
+    render json: response
+
+
+  end
+
 
   # USED WITH AJAX
   # --------------

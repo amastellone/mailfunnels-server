@@ -12,16 +12,21 @@ $(function(){
     /* --- MODALS --- */
     var new_template_modal = $('#newEmailTemplateModal');
     var confirm_delete_modal = $('#confirm_delete_modal');
+    var clone_template_modal = $('#mf-clone-template-modal');
 
     /* --- INPUT FIELDS --- */
     var template_name_input = $('#template_name_input');
     var template_description_input = $('#template_description_input');
     var template_email_subject_input = $('#template_email_subject_input');
+    var clone_name_input = $('#mf_clone_name_input');
+    var clone_description_input = $('#mf_clone_description_input');
+    var clone_subject_input = $('#mf_clone_subject_input');
 
     /* --- BUTTONS --- */
     var new_template_submit = $('#new_template_submit_button');
     var delete_template_button = $('.delete_template_button');
     var confirm_delete_template_button = $('#confirm_delete_template_button');
+    var clone_template_submit_button = $('#mf_clone_submit_button');
 
 
     var current_template_id = $('#mf_current_template_id_holder').val();
@@ -31,6 +36,49 @@ $(function(){
 
 
     init();
+
+
+    $('.mf-clone-template').on('click', function() {
+
+        var template_id = $(this).data('id');
+
+        clone_template_submit_button.attr('data-id', template_id);
+
+        clone_template_modal.modal('toggle');
+
+
+    });
+
+    clone_template_submit_button.on('click', function() {
+
+        var template_id = $(this).attr('data-id');
+
+        var template_name = clone_name_input.val();
+        var template_description = clone_description_input.val();
+        var template_email_subject = clone_subject_input.val();
+
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax/template/clone_template',
+            dataType: "json",
+            data: {
+                template_id: template_id,
+                name: template_name,
+                description: template_description,
+                email_subject: template_email_subject,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                window.location.reload();
+            }
+        });
+
+    });
 
 
     /**
