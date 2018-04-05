@@ -91,7 +91,7 @@ class OrdersCreateJob < ApplicationJob
 
       if EmailUtil.should_capture_hook(subscriber.id, app.id)
         # for calculating daily revenue
-        CapturedHook.create(hook_id:hook.id, subscriber_id:subscriber.id, app_id:app.id,revenue:price)
+        CapturedHook.create(hook_id:hook.id, subscriber_id: subscriber.id, app_id:app.id, revenue: price)
       end
 
 
@@ -102,7 +102,6 @@ class OrdersCreateJob < ApplicationJob
           logger.info("Trigger updated!")
         else
           logger.debug("Error incrementing trigger hit count")
-          return
         end
 
       else
@@ -115,7 +114,6 @@ class OrdersCreateJob < ApplicationJob
             logger.info("Trigger updated!")
           else
             logger.debug("Error updating trigger!")
-            return
           end
         else
           logger.info("Trigger not found")
@@ -138,7 +136,6 @@ class OrdersCreateJob < ApplicationJob
           logger.info("Funnel updated!")
         else
           logger.debug("Error increasing funnel revenue")
-          return
         end
 
       else

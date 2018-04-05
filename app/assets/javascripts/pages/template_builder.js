@@ -13,11 +13,33 @@ $(function() {
     var send_test_email_input = $('#mf_test_email_input');
     var send_test_email_submit = $('#mf_test_email_submit');
     var test_email_modal = $('#test_email_modal');
-
+    var set_default_button = $('#mf-set-default');
+    var default_template_modal = $('#mf-default-saved-modal');
 
 
 
     init();
+
+
+    set_default_button.on('click', function() {
+        $.ajax({
+            type:'POST',
+            url: '/ajax/template/set_default_template',
+            dataType: "json",
+            data: {
+                id: template_id,
+                html: $('#contentarea').data('contentbuilder').html(),
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                default_template_modal.modal('toggle');
+            }
+        });
+    });
 
     email_submit.on("click", function(e){
 
@@ -40,7 +62,6 @@ $(function() {
                 window.location.href = '/email_templates';
             }
         });
-
 
     });
 

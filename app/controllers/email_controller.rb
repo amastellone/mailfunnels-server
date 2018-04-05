@@ -107,8 +107,19 @@ class EmailController < ShopifyApp::AuthenticatedController
     template.description = params[:description]
     template.email_subject = params[:email_subject]
     template.color = app.email_def_color
-    template.html = "<div class='row clearfix'><div class='column full'><h1 class='size-48 is-title1-48 is-title-bold is-upper' style='text-align: center;'>Lorem Ipsum Risus Pharetra</h1></div></div><div class='row clearfix'><div class='column full'><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante, consectetur sit amet vulputate vel, dapibus sit amet lectus.&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante, consectetur sit amet vulputate vel, dapibus sit amet lectus.&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante, consectetur sit amet vulputate vel, dapibus sit amet lectus.&nbsp;</p></div></div><div class='row clearfix'><div class='column full center'><div style='margin:1em 0'><a href='#' class='btn btn-primary' style='border-radius: 50px; color: rgb(255, 255, 255); background-color: rgb(68, 152, 228);''>READ MORE</a></div></div></div>"
-    template.style_type = 1
+
+    if params[:use_builder] === "1"
+      template.style_type = 1
+    else
+      template.style_type = 0
+    end
+
+    if app.has_def_template == 1
+      template.html = app.default_template
+    else
+      template.html = "<div class='row clearfix'><div class='column full'><h1 class='size-48 is-title1-48 is-title-bold is-upper' style='text-align: center;'>Lorem Ipsum Risus Pharetra</h1></div></div><div class='row clearfix'><div class='column full'><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante, consectetur sit amet vulputate vel, dapibus sit amet lectus.&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante, consectetur sit amet vulputate vel, dapibus sit amet lectus.&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus leo ante, consectetur sit amet vulputate vel, dapibus sit amet lectus.&nbsp;</p></div></div><div class='row clearfix'><div class='column full center'><div style='margin:1em 0'><a href='#' class='btn btn-primary' style='border-radius: 50px; color: rgb(255, 255, 255); background-color: rgb(68, 152, 228);''>READ MORE</a></div></div></div>"
+    end
+
 
 
     # Save and verify Funnel and return correct JSON response

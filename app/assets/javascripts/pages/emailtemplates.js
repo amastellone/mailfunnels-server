@@ -34,6 +34,8 @@ $(function(){
     var send_test_email_submit = $('#mf_test_email_submit');
     var test_email_modal = $('#test_email_modal');
 
+    var use_new_template_checkbox = $('#mf-template-new-style');
+
 
     init();
 
@@ -47,6 +49,14 @@ $(function(){
         clone_template_modal.modal('toggle');
 
 
+    });
+
+    use_new_template_checkbox.on('change', function() {
+        if (this.checked) {
+            $(this).val(1);
+        } else {
+            $(this).val(0);
+        }
     });
 
     clone_template_submit_button.on('click', function() {
@@ -98,9 +108,6 @@ $(function(){
         var template_description = template_description_input.val();
         var template_email_subject = template_email_subject_input.val();
 
-
-
-
         $.ajax({
             type:'POST',
             url: '/ajax_create_email_template',
@@ -110,6 +117,7 @@ $(function(){
                 name: template_name,
                 description: template_description,
                 email_subject: template_email_subject,
+                use_builder: use_new_template_checkbox.val(),
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -181,6 +189,9 @@ $(function(){
     });
 
     function init() {
+
+        use_new_template_checkbox.val(0);
+
         $('.left_col').height($('.right_col').height() + 100);
 
     }

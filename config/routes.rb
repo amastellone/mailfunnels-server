@@ -101,6 +101,7 @@ Rails.application.routes.draw do
   post '/ajax/template/send_test_email', to: 'template#ajax_send_test_email'
   post '/ajax/template/save_email_template', to: 'template#ajax_save_email_template'
   post '/ajax/template/clone_template', to: 'template#ajax_clone_template'
+  post '/ajax/template/set_default_template', to: 'template#ajax_set_default_template'
 
 
   # Broadcasts Routes

@@ -94,7 +94,7 @@ $(function(){
     });
 
     checkoutUrlSelect.on('change', function(){
-        if (this.checked == true) {
+        if ($(this).val() === 'true') {
             $(this).val(1);
             $("#buttonUrlInput").prop('disabled', true);
             $('#abandoned_text').show();

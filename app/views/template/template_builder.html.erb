@@ -47,6 +47,7 @@
           <div class="title_right">
             <button id="email_list_submit_button" type="button" class="btn btn-sm btn-primary pull-right" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Save & Exit</button>
             <a id="send_test_email" data-toggle="modal" data-target="#test_email_modal" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Send Test Email</a>
+            <a id="mf-set-default" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Make Default</a>
           </div>
 
           <div class="clearfix"></div>
@@ -99,10 +100,7 @@
     <div id="test_email_modal" class="modal fade">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title">Send Test Email</h4>
-          </div>
+
           <div class="modal-body">
 
             <div class="form-group">
@@ -113,7 +111,20 @@
 
           </div>
           <div class="modal-footer">
-            <button id="mf_test_email_submit" class="btn btn-primary note-image-btn">Send Test</button></div>
+            <button id="mf_test_email_submit" class="btn btn-sm btn-primary pull-right" style="background: #3a99d9; font-size: 12px;">Send Test</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mf-default-saved-modal" class="modal fade bs-example-modal-sm" >
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <p class="text-primary">Current template is now your default template!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary" style="background: #3a99d9; font-size: 12px;">OK</button>
+          </div>
         </div>
       </div>
     </div>

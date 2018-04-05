@@ -27,7 +27,7 @@ class EmailUtil
   end
 
   def self.increase_subscriber_revenue(subscriber, amount)
-    subscriber_test = subscriber.put('', :revenue => subscriber.revenue.to_f+amount)
+    subscriber_test = subscriber.put('', :revenue => subscriber.revenue.to_f + amount.to_f)
     if subscriber.nil? == false
       return subscriber
     else
@@ -36,7 +36,7 @@ class EmailUtil
   end
 
   def self.decrease_subscriber_revenue(subscriber, amount)
-    subscriber_test = subscriber.put('', :revenue => subscriber.revenue.to_f-amount)
+    subscriber_test = subscriber.put('', :revenue => subscriber.revenue.to_f - amount)
     if subscriber.nil? == false
       return subscriber
     else
@@ -87,7 +87,7 @@ class EmailUtil
   end
 
   def self.increase_funnel_revenue(funnel, amount)
-    funnel_test = funnel.put('', :num_revenue => funnel.num_revenue.to_f+amount)
+    funnel_test = funnel.put('', :num_revenue => funnel.num_revenue.to_f + amount.to_f)
     if funnel.nil? == false
       return funnel
     else
@@ -114,7 +114,7 @@ class EmailUtil
   end
 
   def self.increment_trigger_hit_count(trigger)
-    trigger_test = trigger.put('', :num_triggered => trigger.num_triggered+1)
+    trigger_test = trigger.put('', :num_triggered => trigger.num_triggered + 1)
     if trigger.nil? == false
       return trigger
     else
@@ -123,7 +123,7 @@ class EmailUtil
   end
 
   def self.increment_trigger_hit_count_abandon(trigger, num_increment)
-    trigger_test = trigger.put('', :num_triggered => trigger.num_triggered+num_increment)
+    trigger_test = trigger.put('', :num_triggered => trigger.num_triggered + num_increment)
     if trigger.nil? == false
       return trigger
     else

@@ -82,6 +82,44 @@ class TemplateController < ShopifyApp::AuthenticatedController
   end
 
   # USED WITH AJAX
+  # Updates a EmailTemplate Instance
+  #
+  # PARAMETERS
+  # ------------
+  #
+  def ajax_set_default_template
+
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
+    # Access current template being edited
+    template = EmailTemplate.find(params[:id])
+
+    template.html = params[:html]
+    template.style_type = 1
+
+    template.put('', {
+        :html => template.html,
+        :style_type => template.style_type
+    })
+
+    @app.put('', {
+        :default_template => params[:html],
+        :has_def_template => 1
+    })
+
+
+    response = {
+        :success => true
+    }
+
+    # Return JSON response
+    render json: response
+
+
+  end
+
+  # USED WITH AJAX
   # ---------------
   # Clones an EmailTemplate Instance
   #

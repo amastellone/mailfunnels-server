@@ -722,10 +722,34 @@
 
 <!-- START MESSAGE VIEW -->
 <!-- ~~~~~~~~~~~~~~~~~~ -->
-<div class="mf-email-builder-contentarea">
+<div class="mf-email-builder-contentarea" class="is-container">
 
-  <div id="contentarea" class="is-container">
+  <div id="contentarea" class="is-container" style="margin-bottom: 0px; margin-top: 15px;">
     <%= @template.html.html_safe %>
+  </div>
+  <div class="column full" style="margin-top: 0px;">
+    <hr>
+    <div style="text-align: center;">
+      <b style="font-size: 14px; letter-spacing: 0px; line-height: 43px; color: rgb(68, 152, 228);">Unsubscribe</b>
+    </div>
+
+    <% if @app.foot_use_bill_add === 0 %>
+                <span style="letter-spacing: 0px; font-size: 12px;">
+                  <div style="text-align: center;">
+                    <p style="letter-spacing: 0px; line-height: 8px;"><%= @app.foot_street %></p>
+                    <p style="letter-spacing: 0px; line-height: 8px;"><%= @app.foot_city %>, <%= @app.foot_state %> <%= @app.foot_zip %></p>
+                    <b style="font-size: 11px; letter-spacing: 0px; line-height: 8px;">Powered By MailFunnels</b>
+                  </div>
+                </span>
+    <% else %>
+                <span style="letter-spacing: 0px; font-size: 12px;">
+                  <div style="text-align: center;">
+                    <p style="letter-spacing: 0px; line-height: 8px;"><%= @app.user.street_address %></p>
+                    <p style="letter-spacing: 0px; line-height: 8px;"><%= @app.user.city %>, <%= @app.user.state %> <%= @app.user.zip %></p>
+                    <b style="font-size: 11px; letter-spacing: 0px; line-height: 8px;">Powered By MailFunnels</b>
+                  </div>
+                </span>
+    <% end %>
   </div>
 
 </div>
