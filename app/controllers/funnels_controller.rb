@@ -38,6 +38,9 @@ class FunnelsController < ShopifyApp::AuthenticatedController
     # Get the Trigger from the Funnel
     @trigger = Trigger.find(@funnel.trigger_id)
 
+    # Get Email Templates For User
+    @templates = EmailTemplate.where(app_id: @app.id, is_archived: 0)
+
   end
 
   # USED WITH AJAX

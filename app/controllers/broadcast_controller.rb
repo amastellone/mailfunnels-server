@@ -36,7 +36,7 @@ class BroadcastController < ShopifyApp::AuthenticatedController
     @lists = EmailList.where(app_id: @app.id)
 
     # Get all Email Templates For App
-    @templates = EmailTemplate.where(app_id: @app.id)
+    @templates = EmailTemplate.where(app_id: @app.id, is_archived: 0)
 
     # Get all Broadcasts For App
     @broadcasts = BatchEmailJob.where(app_id: @app.id)

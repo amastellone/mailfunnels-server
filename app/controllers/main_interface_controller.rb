@@ -45,6 +45,9 @@ class MainInterfaceController < ShopifyApp::AuthenticatedController
 
     @num_email_clicked = EmailJob.where(app_id: @app.id, clicked: 1).size
 
+    # Get all Email Templates For App
+    @num_templates = EmailTemplate.where(app_id: @app.id, is_archived: 0).size
+
 
     # Calculate the the total revenue for the user
     @total_revenue = 0.0

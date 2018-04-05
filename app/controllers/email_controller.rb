@@ -29,7 +29,7 @@ class EmailController < ShopifyApp::AuthenticatedController
     @app = MailfunnelsUtil.get_app
 
     # Get all Email Templates For the App
-    @templates = EmailTemplate.where(app_id: @app.id)
+    @templates = EmailTemplate.where(app_id: @app.id, is_archived: 0)
 
   end
 
@@ -225,8 +225,17 @@ class EmailController < ShopifyApp::AuthenticatedController
     template = EmailTemplate.find(params[:template_id])
 
     if !template.nil?
-      template.destroy
+      template.put('', {
+          :is_archived => 1
+      })
     end
+
+    final_json = JSON.pretty_generate(result = {
+        :success => true
+    })
+
+    # Return JSON response
+    render json: final_json
 
   end
 

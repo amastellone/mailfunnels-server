@@ -149,7 +149,7 @@
                   <select class="form-control" id="new_node_email_template_select">
                     <option value="">Select An Email Template To Add...</option>
                         <option value="0">Create New Email Template...</option>
-                    <% @app.email_templates.each do |template| %>
+                    <% @templates.each do |template| %>
                         <option value="<%= template.id %>"><%= template.name %></option>
                     <% end %>
                   </select>
