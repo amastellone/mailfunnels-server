@@ -58,12 +58,36 @@
     <div class="row mf-email-builder-row" style="background: #ffffff;">
 
       <div class="col-xs-12">
-        <div class="mf-email-builder-contentarea">
+        <div class="mf-email-builder-contentarea" class="is-container">
 
           <!--  START CONTENT BUILDER -->
-          <div id="contentarea" class="is-container">
+          <div id="contentarea" class="is-container" style="margin-bottom: 0px;">
 
 
+          </div>
+          <div class="column full" style="margin-top: 0px;">
+            <hr>
+            <div style="text-align: center;">
+                <b style="font-size: 14px; letter-spacing: 0px; line-height: 43px; color: rgb(68, 152, 228);">Unsubscribe</b>
+            </div>
+
+            <% if @app.foot_use_bill_add === 0 %>
+                <span style="letter-spacing: 0px; font-size: 12px;">
+                  <div style="text-align: center;">
+                    <p style="letter-spacing: 0px; line-height: 8px;"><%= @app.foot_street %></p>
+                    <p style="letter-spacing: 0px; line-height: 8px;"><%= @app.foot_city %>, <%= @app.foot_state %> <%= @app.foot_zip %></p>
+                    <b style="font-size: 11px; letter-spacing: 0px; line-height: 8px;">Powered By MailFunnels</b>
+                  </div>
+                </span>
+            <% else %>
+                <span style="letter-spacing: 0px; font-size: 12px;">
+                  <div style="text-align: center;">
+                    <p style="letter-spacing: 0px; line-height: 8px;"><%= @app.user.street_address %></p>
+                    <p style="letter-spacing: 0px; line-height: 8px;"><%= @app.user.city %>, <%= @app.user.state %> <%= @app.user.zip %></p>
+                    <b style="font-size: 11px; letter-spacing: 0px; line-height: 8px;">Powered By MailFunnels</b>
+                  </div>
+                </span>
+            <% end %>
           </div>
           <!--  END CONTENT BUILDER -->
 
@@ -94,6 +118,27 @@
       </div>
     </div>
 
+
+    <div id="mf-image-select-modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Insert Image</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label>Select Image:</label>
+              <input id="mf-template-image-input" class="form-control" type="file">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button id="mf-template-image-submit" class="btn btn-primary note-image-btn">Add Image</button></div>
+        </div>
+      </div>
+    </div>
 
 
 <% end %>

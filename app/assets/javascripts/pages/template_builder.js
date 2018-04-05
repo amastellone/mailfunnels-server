@@ -67,6 +67,31 @@ $(function() {
 
     });
 
+    /*
+     USE THIS FUNCTION TO SELECT CUSTOM ASSET WITH CUSTOM VALUE TO RETURN
+     An asset can be a file, an image or a page in your own CMS
+     */
+    function selectAsset(assetValue) {
+
+        alert('Hello!');
+
+
+        // Get selected URL
+        var inp = parent.top.$('#active-input').val();
+        alert(inp);
+        parent.top.$('#' + inp).val(assetValue);
+
+        //Close dialog
+        // if (window.frameElement.id == 'ifrFileBrowse') parent.top.$("#md-fileselect").data('simplemodal').hide();
+        // if (window.frameElement.id == 'ifrImageBrowse') parent.top.$("#md-imageselect").data('simplemodal').hide();
+    }
+
+    $('#mf-template-image-submit').on('click', function() {
+
+        selectAsset($('#mf-template-image-input').val());
+    });
+
+
     function init() {
         // $('.left_col').hide();
 

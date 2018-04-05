@@ -2,6 +2,7 @@
 
     jQuery.saveimages = function (element, options) {
 
+
         var defaults = {
             handler: 'saveimage.php',
             onComplete: function () { },
