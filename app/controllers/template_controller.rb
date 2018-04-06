@@ -161,6 +161,37 @@ class TemplateController < ShopifyApp::AuthenticatedController
     # Return JSON response
     render json: response
 
+  end
+
+  # USED WITH AJAX
+  # Updates a EmailTemplate Instance
+  #
+  # PARAMETERS
+  # ------------
+  #
+  def ajax_update_template_info
+
+    # Access current template being edited
+    template = EmailTemplate.find(params[:template_id])
+
+    template.name = params[:name]
+    template.description = params[:description]
+    template.email_subject = params[:email_subject]
+
+    template.put('', {
+        :name => template.name,
+        :description => template.description,
+        :email_subject => template.email_subject
+    })
+
+
+    response = {
+        :success => true
+    }
+
+    # Return JSON response
+    render json: response
+
 
   end
 

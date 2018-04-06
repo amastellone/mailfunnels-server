@@ -4,6 +4,7 @@ $(function() {
     var csrf_token = $('meta[name=csrf-token]').attr('content');
 
     var template_id = $('#current_template_id').val();
+    var template_description = $('#current_description_value').val();
 
     var email_submit = $('#email_list_submit_button');
 
@@ -15,6 +16,11 @@ $(function() {
     var test_email_modal = $('#test_email_modal');
     var set_default_button = $('#mf-set-default');
     var default_template_modal = $('#mf-default-saved-modal');
+
+    var template_settings_submit = $('#mf_template_submit_button');
+    var template_settings_name = $('#mf_template_name_input');
+    var template_settings_subject = $('#mf_template_subject_input');
+    var template_settings_description = $('textarea#mf_template_description_input');
 
 
 
@@ -88,6 +94,36 @@ $(function() {
 
     });
 
+    template_settings_submit.on('click', function() {
+        
+        var template_name_val = template_settings_name.val();
+        var template_description_val = template_settings_description.val();
+        var template_email_subject_val = template_settings_subject.val();
+
+
+        $.ajax({
+            type:'POST',
+            url: '/ajax/template/update_template_info',
+            dataType: "json",
+            data: {
+                template_id: template_id,
+                name: template_name_val,
+                description: template_description_val,
+                email_subject: template_email_subject_val,
+                authenticity_token: csrf_token
+            },
+            error: function(e) {
+                console.log(e);
+            },
+            success: function(response) {
+                console.log(response);
+                $('#mf-template-settings-modal').modal('toggle');
+                $('#mf-updated-settings-modal').modal('toggle');
+            }
+        });
+
+    });
+
     /*
      USE THIS FUNCTION TO SELECT CUSTOM ASSET WITH CUSTOM VALUE TO RETURN
      An asset can be a file, an image or a page in your own CMS
@@ -117,10 +153,12 @@ $(function() {
         // $('.left_col').hide();
 
 
+        template_settings_description.text(template_description);
+
         $("#contentarea").contentbuilder({
             snippetCustomCode: true,
             snippetFile: '/template_builder/assets/minimalist-basic/snippets.html',
-            toolbar: 'left',
+            toolbar: 'left'
         });
 
         $("#contentarea").data('contentbuilder').loadHTML(current_html);
@@ -128,3 +166,9 @@ $(function() {
     }
 
 });
+
+
+function openTestEmailModal() {
+    $('#test_email_modal').modal('toggle');
+}
+
