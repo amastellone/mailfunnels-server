@@ -95,7 +95,7 @@ $(function() {
     });
 
     template_settings_submit.on('click', function() {
-        
+
         var template_name_val = template_settings_name.val();
         var template_description_val = template_settings_description.val();
         var template_email_subject_val = template_settings_subject.val();
@@ -158,7 +158,32 @@ $(function() {
         $("#contentarea").contentbuilder({
             snippetCustomCode: true,
             snippetFile: '/template_builder/assets/minimalist-basic/snippets.html',
-            toolbar: 'left'
+            toolbar: 'left',
+            snippetCategories: [[0, "Default"],
+                [-1, "All"],
+                [36, "Done For You"],
+                [1, "Titles"],
+                [6, "Paragraphs"],
+                [33, "Buttons"],
+                [34, "Cards"],
+                [11, "Images"],
+                [13, "Call To Action"],
+                [14, "Lists"],
+                [15, "Quotes"],
+                [17, "Maps"],
+                [20, "Video"],
+                [18, "Social Media"],
+                [22, "Contact Info"],
+                [23, "Pricing"],
+                [24, "Team Profile"],
+                [35, "Achievements & Skills"],
+                [25, "Products/Portfolio"],
+                [26, "How It Works"],
+                [28, "As Featured On"],
+                [30, "Coming Soon"],
+                [19, "Separator"],
+                [100, "Custom Code"],
+            ]
         });
 
         $("#contentarea").data('contentbuilder').loadHTML(current_html);
