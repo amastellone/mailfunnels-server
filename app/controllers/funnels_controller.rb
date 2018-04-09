@@ -479,34 +479,28 @@ class FunnelsController < ShopifyApp::AuthenticatedController
 
   def ajax_load_email_template_info
 
+    # Get the Current App
+    @app = MailfunnelsUtil.get_app
+
     # Get the Node from the DB
     node = Node.find(params[:node_id])
 
     # Get the Template related to node
-    template = EmailTemplate.find(node.email_template_id)
+    @template = EmailTemplate.find(node.email_template_id)
 
 
-    header = 'Hi [Customer Name]'
-
-    if template.greet_use_default != 1
-      if template.greet_before_cust_name === 1
-        header = '[Customer Name]' + template.greet_content
-      elsif template.greet_after_cust_name === 1
-        header = template.greet_content + '[Customer Name]'
-      else
-        header = template.greet_content
-      end
+    if @template.style_type === 1
+      html = File.open("app/views/template/styles/mf-minimal_1.html.erb").read
+    else
+      html = File.open("app/views/email/template.html.erb").read
     end
+
+    @renderedhtml = "1"
+    ERB.new(html, 0, "", "@renderedhtml").result(binding)
 
 
     data = {
-        :template_id => template.id,
-        :email_title => template.email_title,
-        :email_greet => header,
-        :email_content => template.email_content,
-        :has_button => template.has_button,
-        :button_text => template.button_text,
-        :color => template.color
+        :html => @renderedhtml
     }
 
     # Return data as JSON

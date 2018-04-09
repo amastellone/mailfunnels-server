@@ -98,8 +98,7 @@ $(function() {
     var button_text = $('#printButtonText');
 
 
-    var summernote_content
-
+    var email_preview = $('#mf-preview');
 
 
 
@@ -428,18 +427,24 @@ $(function() {
                 console.log(e);
             },
             success: function(response) {
-                email_title.html(response.email_title);
-                $('#preview_email_greet').html(response.email_greet);
-                email_content.html(response.email_content);
-                button_text.html(response.button_text);
-                button_text.css('background', response.color);
-                $('#email_header').css('background', response.color);
+                // email_title.html(response.email_title);
+                // $('#preview_email_greet').html(response.email_greet);
+                // email_content.html(response.email_content);
+                // button_text.html(response.button_text);
+                // button_text.css('background', response.color);
+                // $('#email_header').css('background', response.color);
+                //
+                // if (response.has_button === true) {
+                //     $('#preview_buttons_div').show();
+                // } else {
+                //     $('#preview_buttons_div').hide();
+                // }
 
-                if (response.has_button === true) {
-                    $('#preview_buttons_div').show();
-                } else {
-                    $('#preview_buttons_div').hide();
-                }
+                var body = email_preview.contents().find("body");
+                body.empty();
+                body.append(response.html);
+
+                // email_preview.html(response.html);
 
                 view_template_modal.modal('toggle');
                 console.log(response);

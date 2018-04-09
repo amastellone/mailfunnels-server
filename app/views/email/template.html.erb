@@ -167,18 +167,18 @@
 
 
               <% if @template.greet_use_default === 1 %>
-                  <h2>Hi <%= @subscriber.first_name %>,</h2>
+                  <h2>Hi [Name],</h2>
               <% elsif @template.greet_before_cust_name == 1 %>
                   <% if @template.greet_content %>
-                      <h2><%= @subscriber.first_name %><%= @template.greet_content %></h2>
+                      <h2>[Name]<%= @template.greet_content %></h2>
                   <% else %>
-                      <h2><%= @subscriber.first_name %></h2>
+                      <h2>[Name]</h2>
                   <% end %>
               <% elsif @template.greet_after_cust_name == 1 %>
                   <% if @template.greet_content %>
-                      <h2><%= @template.greet_content %> <%= @subscriber.first_name %></h2>
+                      <h2><%= @template.greet_content %> [Name]</h2>
                   <% else %>
-                      <h2><%= @subscriber.first_name %>,</h2>
+                      <h2>[Name],</h2>
                   <% end %>
               <% end %>
 
