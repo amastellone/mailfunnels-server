@@ -1,4 +1,5 @@
 require "erb"
+require 'premailer'
 
 class TemplateController < ShopifyApp::AuthenticatedController
 
@@ -239,12 +240,18 @@ class TemplateController < ShopifyApp::AuthenticatedController
     if @template.style_type === 1
       html = File.open("app/views/template/styles/mf-minimal_1.html.erb").read
     else
-
       html = File.open("app/views/email/template.html.erb").read
     end
 
     @renderedhtml = "1"
     ERB.new(html, 0, "", "@renderedhtml").result(binding)
+
+    if @template.style_type === 1
+      premailer = Premailer.new(@renderedhtml, { :warn_level => Premailer::Warnings::SAFE, :with_html_string => true})
+
+      @renderedhtml = premailer.to_inline_css
+
+    end
 
     # Send Email Using Postmark
     client = Postmark::ApiClient.new('b650bfe2-d2c6-4714-aa2d-e148e1313e37', http_open_timeout: 60)
