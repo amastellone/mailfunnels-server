@@ -130,23 +130,40 @@ $(function() {
      */
     function selectAsset(assetValue) {
 
-        alert('Hello!');
+        $('#contentarea').find("img").attr('src', assetValue);
 
-
-        // Get selected URL
-        var inp = parent.top.$('#active-input').val();
-        alert(inp);
-        parent.top.$('#' + inp).val(assetValue);
+        toggleImageUploadModal();
 
         //Close dialog
         // if (window.frameElement.id == 'ifrFileBrowse') parent.top.$("#md-fileselect").data('simplemodal').hide();
         // if (window.frameElement.id == 'ifrImageBrowse') parent.top.$("#md-imageselect").data('simplemodal').hide();
     }
 
-    $('#mf-template-image-submit').on('click', function() {
+    $("#mf-template-image-submit").click(function () {
 
-        selectAsset($('#mf-template-image-input').val());
+        data = new FormData();
+        data.append("file", $('#mf-template-image-input')[0].files[0]);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "/upload_image_to_aws",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                console.log(response);
+                selectAsset(response.url);
+
+            }
+        });
     });
+
+
+    function toggleImageUploadModal() {
+
+        $('#mf-image-select-modal').modal('toggle');
+
+    }
 
 
     function init() {
@@ -159,6 +176,9 @@ $(function() {
             snippetCustomCode: true,
             snippetFile: '/template_builder/assets/minimalist-basic/snippets.html',
             toolbar: 'left',
+            onImageBrowseClick: function () {
+                toggleImageUploadModal();
+            },
             snippetCategories: [[0, "Default"],
                 [-1, "All"],
                 [36, "Done For You"],
