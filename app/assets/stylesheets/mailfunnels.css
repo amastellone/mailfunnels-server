@@ -396,6 +396,55 @@ textarea:focus {
 
 }
 
+/* --- TEMPLATE PANELS CSS --- */
+
+.mf-template-name {
+    text-align: center;
+    word-wrap: break-word;
+    font-size: 16px;
+    margin: 10px 25px 5px 0;
+    width: 100%;
+    font-weight: 600;
+}
+
+.mf-template-label {
+    margin-top: 0 !important;
+    line-height: 11px;
+    text-align: center;
+    border: 1px solid #4792c8;
+    color: #4792c8;
+    background-color: transparent;
+}
+
+.mf-panel-divider {
+    border-bottom: 1px solid #4792c8;
+    margin-top: 10px;
+}
+
+
+.mf-funnel-revenue-count {
+    color: #7a878d;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+
+.mf-funnel-revenue-subtitle {
+    margin-bottom: 10px;
+}
+
+.mf-funnel-active-toggle .switchery {
+    height: 20px !important;
+    width: 40px !important;
+}
+
+.mf-funnel-active-toggle .switchery>small {
+    height: 20px !important;
+    width: 20px;
+}
+
+
+
 /* --- EMAIL TEMPLATE BUILDER CSS --- */
 
 .mf-builder-page-title {

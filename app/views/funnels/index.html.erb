@@ -29,12 +29,12 @@
           <div class="title_right">
             <button class="btn btn-primary btn-sm btn-border pull-right" type="button" data-toggle="modal" data-target="#newFunnelModal"><i class="fa fa-plus"></i> New Funnel</button>
           </div>
-
           <div class="clearfix"></div>
         </div>
-        <hr class="fade-2"/>
       </div>
     </div>
+    <hr class="fade-2"/>
+
 
     <div class="row">
 
@@ -51,12 +51,12 @@
                     <div class="text-center">
                       <div class="form-group">
                         <div class="col-xs-12">
-                          <div class="">
+                          <div class="mf-funnel-active-toggle">
                             <p>
                               <% if funnel.active and funnel.active === 1 %>
-                                  <input type="checkbox" class="js-switch mf_funnel_active_toggle" data-id="<%= funnel.id %>" checked="" data-switchery="true"> <span id="mf_funnel_label_<%= funnel.id %>" class="label label-success">Active</span>
+                                  <input type="checkbox" class="js-switch" data-id="<%= funnel.id %>" checked="" data-switchery="true"> <span id="mf_funnel_label_<%= funnel.id %>" class="label label-success">Active</span>
                               <% else %>
-                                  <input type="checkbox" class="js-switch mf_funnel_active_toggle" data-id="<%= funnel.id %>" data-switchery="true"> <span id="mf_funnel_label_<%= funnel.id %>" class="label label-danger">Inactive</span>
+                                  <input type="checkbox" class="js-switch" data-id="<%= funnel.id %>" data-switchery="true"> <span id="mf_funnel_label_<%= funnel.id %>" class="label label-danger">Inactive</span>
                               <% end %>
                             </p>
                           </div>
@@ -66,24 +66,32 @@
                     </div>
                     <br/>
 
-                    <h3 class="name"><%= funnel.name %></h3>
+                    <h3 class="mf-template-name"><%= funnel.name %></h3>
 
-                    <div class="flex">
-                      <ul class="list-inline count2">
-                        <li>
+                    <hr class="mf-panel-divider"/>
 
-                        </li>
-                        <li>
-                          <h3><%= number_to_currency(funnel.num_revenue) %></h3>
-                          <span>Revenue</span>
-                        </li>
-                        <li>
-                        </li>
-                      </ul>
+                    <div class="x-content" style="max-height: 150px; min-height: 150px; overflow: hidden; text-overflow: ellipsis;">
+
+                      <div class="mf-funnel-revenue-container text-center">
+                        <h3 class="mf-funnel-revenue-count"><%= number_to_currency(funnel.num_revenue) %></h3>
+                        <span class="mf-funnel-revenue-subtitle">Revenue</span>
+                      </div>
+
+                      <hr class="mf-panel-divider"/>
+
+                      <p style="word-wrap: break-word; text-align: left;"><b>Trigger: </b><%= funnel.trigger.name %></p>
+
+                      <% if !funnel.description.nil? && !(funnel.description === '') %>
+                          <p style="word-wrap: break-word; text-align: left;"><b>Description: </b><%= funnel.description %></p>
+                      <% else %>
+                          <p style="word-wrap: break-word; text-align: left;"><b>Description: </b>No Description</p>
+                      <% end %>
+
                     </div>
-                    <p>
-                      <%= funnel.description %>
-                    </p>
+
+
+
+
 
                     <div class="row">
                       <div class="col-xs-12 col-lg-6">

@@ -47,13 +47,30 @@
 
                   <div class="x_content" style="max-height: 180px; min-height: 180px;  overflow: hidden; text-overflow: ellipsis;">
 
-                    <h3 class="name" style="word-wrap: break-word"><%= template.name %></h3>
+                    <div class="text-center">
+                      <% if template.has_checkout_url %>
+                          <label class="mf-template-label label label-default">Abandoned Cart</label>
+                      <% end %>
+                    </div>
+
+                    <h3 class="mf-template-name"><%= template.name %></h3>
+
+                    <hr class="mf-panel-divider"/>
+
+
+
+                    <% if !template.email_subject.nil? && !(template.email_subject=== '') %>
+                        <p style="text-align: left;"><b>Subject: </b><%= template.email_subject %></p>
+                    <% else %>
+                        <p style="word-wrap: break-word; text-align: left;"><b>Subject: </b>No Subject</p>
+                    <% end %>
 
                     <% if !template.description.nil? && !(template.description === '') %>
-                        <p style=""><%= template.description %></p>
+                        <p style="text-align: left;"><b>Description: </b><%= template.description %></p>
                     <% else %>
-                        <p style="word-wrap: break-word;">No Description</p>
+                        <p style="word-wrap: break-word; text-align: left;"><b>Description: </b>No Description</p>
                     <% end %>
+
 
                   </div>
 
