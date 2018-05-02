@@ -169,7 +169,6 @@ $(function() {
     function init() {
         // $('.left_col').hide();
 
-
         template_settings_description.text(template_description);
 
         $("#contentarea").contentbuilder({
@@ -179,9 +178,16 @@ $(function() {
             onImageBrowseClick: function () {
                 toggleImageUploadModal();
             },
+            onDrop: function (event, ui) {
+                // if (ui.item[0].dataset['cat'] === '37') {
+                //     alert("hello!");
+                // }
+                // console.log(ui.item[0].dataset['cat']);  //custom script here
+            },
             snippetCategories: [[0, "Default"],
                 [-1, "All"],
                 [36, "Done For You"],
+                [37, "Abandoned Cart"],
                 [1, "Titles"],
                 [6, "Paragraphs"],
                 [33, "Buttons"],

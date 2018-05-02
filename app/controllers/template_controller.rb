@@ -243,6 +243,8 @@ class TemplateController < ShopifyApp::AuthenticatedController
       html = File.open("app/views/email/template.html.erb").read
     end
 
+    @product = ShopifyAPI::Product.find(288398540810)
+
     @renderedhtml = "1"
     ERB.new(html, 0, "", "@renderedhtml").result(binding)
 
