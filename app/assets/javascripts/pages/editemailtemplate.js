@@ -94,7 +94,7 @@ $(function(){
     });
 
     checkoutUrlSelect.on('change', function(){
-        if ($(this).val() === 'true') {
+        if (this.checked) {
             $(this).val(1);
             $("#buttonUrlInput").prop('disabled', true);
             $('#abandoned_text').show();
@@ -343,11 +343,11 @@ $(function(){
 
         // set the value of checkout select from db
         if ($('#checkout_url_select').val() === '1') {
-            checkout_url_select.checked = true;
+            checkoutUrlSelect.attr('checked', true);
             $("#buttonUrlInput").prop('disabled', true);
             $('#abandoned_text').show();
         } else {
-            checkout_url_select.checked = false;
+            checkoutUrlSelect.attr('checked', false);
             $("#buttonUrlInput").prop('disabled', false);
             $('#abandoned_text').hide();
         }
