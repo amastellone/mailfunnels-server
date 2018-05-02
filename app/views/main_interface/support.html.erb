@@ -2,8 +2,36 @@
     <script type="text/javascript">
         ShopifyApp.ready(function () {
             ShopifyApp.Bar.initialize({
-                icon: '/mailfunnels-logo.jpg'
+                icon: '/mailfunnels-logo.jpg',
+                buttons: {
+                    secondary: [
+                        { label: 'Facebook Group',
+                            message: 'facebook_group',
+                            callback: function(){
+                                window.open('https://www.facebook.com/groups/1899392843717613/', '_blank');
+                            }
+                        },
+                        { label: 'Become a MailFunnels Affiliate',
+                            message: 'mailfunnels_affiliate',
+                            callback: function(){
+                                window.open('http://mailfunnels.com/jv', '_blank');
+                            }
+                        },
+                        { label: 'Support Ticket',
+                            message: 'support_group',
+                            callback: function(){
+                                window.open('https://mailfunnels.freshdesk.com/support/tickets/new', '_blank');
+                            }
+                        }
+                    ]
+                }
             });
+        });
+    </script>
+
+    <script>
+        $(function() {
+            $('.left_col').height($('.right_col').height());
         });
     </script>
 
@@ -42,87 +70,71 @@
       </div>
     </div>
 
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-6 col-lg-6">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Getting Started</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+             <div class="embed-responsive embed-responsive-16by9">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/TyT8d8V0fTM" frameborder="0" allow="encrypted-media" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-6 col-lg-6">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Cart Abandonment</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/xB538kQ0Zx0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
 
     <div class="row">
+
+      <div class="col-xs-12 col-sm-6 col-lg-6">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Post Purchase</h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/CZu1535WS8k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="col-xs-12 col-sm-6 col-lg-6">
         <div class="x_panel">
           <div class="x_title">
             <h2>Win Back Campaigns</h2>
             <div class="clearfix"></div>
-            <hr class="fade-2"/>
           </div>
           <div class="x_content">
-
-              <div class="col-xs-12">
-                <div class="embed-responsive embed-responsive-16by9">
-                  <iframe src="https://player.vimeo.com/video/231413178?title=0&byline=0&portrait=0" width="100%" height="auto" frameborder="0" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
-                </div>
-              </div>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-6 col-lg-6">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Post Purchase Process</h2>
-            <div class="clearfix"></div>
-            <hr class="fade-2"/>
-          </div>
-          <div class="x_content">
-
-            <div class="col-xs-12">
-              <div class="embed-responsive embed-responsive-16by9">
-                <iframe src="https://player.vimeo.com/video/231412693?title=0&byline=0&portrait=0" width="100%" height="auto" frameborder="0" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
-              </div>
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/Iw1XdJk4lac" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
-
           </div>
         </div>
       </div>
 
 
-
-
     </div>
 
-
-    <div class="row">
-
-
-
-
-
-    </div>
-
-    <div class="row">
-
-      <div class="col-xs-12 col-sm-6 col-lg-6">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Abandoned Checkouts</h2>
-            <div class="clearfix"></div>
-            <hr class="fade-2"/>
-          </div>
-          <div class="x_content">
-
-            <div class="col-xs-12">
-              <div class="embed-responsive embed-responsive-16by9">
-                <iframe src="https://player.vimeo.com/video/231479881?title=0&byline=0&portrait=0" width="100%" height="auto" frameborder="0" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-    </div>
 
 
 <% end %>
