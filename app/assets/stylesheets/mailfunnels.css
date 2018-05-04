@@ -416,6 +416,14 @@ textarea:focus {
     background-color: transparent;
 }
 
+.mf-template-label-fill {
+    margin-top: 0 !important;
+    line-height: 11px;
+    text-align: center;
+    border: 1px solid #4792c8;
+    background-color: #4792c8;
+}
+
 .mf-panel-divider {
     border-bottom: 1px solid #4792c8;
     margin-top: 10px;

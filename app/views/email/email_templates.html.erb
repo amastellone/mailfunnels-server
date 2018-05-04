@@ -51,6 +51,9 @@
                       <% if template.has_checkout_url === 1 or template.has_ac_holder === 1 %>
                           <label class="mf-template-label label label-default">Abandoned Cart</label>
                       <% end %>
+                      <% if template.is_dynamic === 1 %>
+                          <label class="mf-template-label-fill label label-default">Dynamic</label>
+                      <% end %>
                     </div>
 
                     <h3 class="mf-template-name"><%= template.name %></h3>
