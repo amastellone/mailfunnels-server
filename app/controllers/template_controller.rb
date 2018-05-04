@@ -247,21 +247,32 @@ class TemplateController < ShopifyApp::AuthenticatedController
       html = File.open("app/views/email/template.html.erb").read
     end
 
-    product = ShopifyAPI::Product.find(288398540810)
 
-    puts product.to_s
+    if @template.is_dynamic and params[:product_id] != ''
+      product = ShopifyAPI::Product.find(params[:product_id])
 
-    @email_content = RedCloth.new(Liquid::Template.parse(@template.html).render(
-        'product_title' => product.title,
-        'product_description' => product.body_html,
-        'product_image' => product.images[0].src
-    )).to_html
+      puts product.to_s
+
+      @email_content = RedCloth.new(Liquid::Template.parse(@template.html).render(
+          'product_title' => product.title,
+          'product_description' => product.body_html,
+          'product_image' => product.images[0].src,
+          'product_price' => product.variants[0].price
+      )).to_html
+
+    else
+
+      @email_content = RedCloth.new(Liquid::Template.parse(@template.html).render(
+          'product_title' => "Product Name",
+          'product_description' => "Product Description",
+          'product_image' => 'https://s3-us-west-2.amazonaws.com/mailfunnels-dev/store_placeholder.png',
+          'product_price' => '19.99'
+      )).to_html
+
+    end
 
     @renderedhtml = "1"
     ERB.new(html, 0, "", "@renderedhtml").result(binding)
-
-
-    ERB.new(@renderedhtml, 0, "", "@renderedhtml").result(binding)
 
 
     if @template.style_type === 1

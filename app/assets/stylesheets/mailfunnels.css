@@ -429,6 +429,11 @@ textarea:focus {
     margin-top: 10px;
 }
 
+.mf-panel-divider-no-mar {
+    border-bottom: 1px solid #4792c8;
+    margin-top: 0 !important;
+    margin-bottom: 10px !important;
+}
 
 .mf-funnel-revenue-count {
     color: #7a878d;
@@ -449,6 +454,12 @@ textarea:focus {
 .mf-funnel-active-toggle .switchery>small {
     height: 20px !important;
     width: 20px;
+}
+
+.mf-builder-product-select-label {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
 }
 
 

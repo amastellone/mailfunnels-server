@@ -9,27 +9,40 @@ $(function() {
     var current_html = $('#current_html_value').val();
     var is_template_dynamic = parseInt($('#current_dynamic_value').val());
     var has_ac_holder = parseInt($('#current_ac_value_holder').val());
-
     var current_template_id = $('#mf_current_template_id_holder').val();
+
+    //Containers
+    var product_select_container = $('#mf-test-email-product-select-cont');
+
+    //Placeholders
+    var product_select = $('#test_email_product_list_select');
+    var product_select_name = $('#test_email_product_list_select_name');
+
+
+    //Input Fields
     var send_test_email_input = $('#mf_test_email_input');
-    var send_test_email_submit = $('#mf_test_email_submit');
-    var test_email_modal = $('#test_email_modal');
-    var set_default_button = $('#mf-set-default');
+    var template_settings_name = $('#mf_template_name_input');
+    var template_settings_subject = $('#mf_template_subject_input');
+    var template_settings_description = $('textarea#mf_template_description_input');
+
 
     //Modals
     var template_saved_modal = $('#mf-template-saved-modal');
     var default_template_modal = $('#mf-default-saved-modal');
     var added_dynamic_template_modal = $('#mf-dynamic-holder-modal');
+    var test_email_modal = $('#test_email_modal');
+    var send_test_email_submit = $('#mf_test_email_submit');
+
 
     //Buttons
     var email_submit = $('#email_list_submit_button');
     var email_save_button = $('#template_save_button');
     var template_clear_button = $('#mf-template-clear-button');
-
+    var test_email_select_product_button = $('#mf-test-email-select-product-btn');
+    var set_default_button = $('#mf-set-default');
     var template_settings_submit = $('#mf_template_submit_button');
-    var template_settings_name = $('#mf_template_name_input');
-    var template_settings_subject = $('#mf_template_subject_input');
-    var template_settings_description = $('textarea#mf_template_description_input');
+
+
 
 
     init();
@@ -108,6 +121,8 @@ $(function() {
 
     send_test_email_submit.on('click', function() {
 
+        console.log(product_select.attr('value'));
+
         $.ajax({
             type:'POST',
             url: '/ajax/template/send_test_email',
@@ -115,6 +130,7 @@ $(function() {
             data: {
                 email_template_id: current_template_id,
                 to_email: send_test_email_input.val(),
+                product_id: product_select.attr('value'),
                 authenticity_token: csrf_token
             },
             error: function(e) {
@@ -126,6 +142,33 @@ $(function() {
 
             }
         });
+
+    });
+
+    test_email_select_product_button.on('click', function() {
+
+
+        var singleProductOptions = {
+            'selectMultiple': false
+        };
+
+        ShopifyApp.Modal.productPicker(singleProductOptions, function(success, data) {
+            // Callback is triggered any time a button
+            // is clicked or the window is closed.
+
+            if(success) {
+                console.log(data);
+                console.log(data.products[0]);
+                sendTestProductSelected(data.products[0]);
+
+            } else {
+                return;
+            }
+
+            if (data.errors) {
+                console.error(data.errors);
+            }
+        })
 
     });
 
@@ -164,6 +207,7 @@ $(function() {
         $("#contentarea").data('contentbuilder').loadHTML("");
         is_template_dynamic = 0;
         has_ac_holder = 0;
+        product_select_container.hide();
     });
 
 
@@ -215,6 +259,10 @@ $(function() {
 
     function init() {
         // $('.left_col').hide();
+
+        if (is_template_dynamic === 0) {
+            product_select_container.hide();
+        }
 
         template_settings_description.text(template_description);
 
@@ -278,10 +326,24 @@ $(function() {
     function toggleDynamicTemplate() {
         added_dynamic_template_modal.modal('toggle');
         is_template_dynamic = 1;
+        product_select_container.show();
+
     }
 
     function toggleTemplateACHolder() {
         has_ac_holder = 1;
+    }
+
+    function sendTestProductSelected(product) {
+
+        product_select.attr('value', product.id);
+        product_select_name.attr('value', product.title);
+
+        if (product_select.val() !== '') {
+            test_email_select_product_button.html("Product: " + product.title);
+        }
+
+
     }
 
 
@@ -292,4 +354,6 @@ $(function() {
 function openTestEmailModal() {
     $('#test_email_modal').modal('toggle');
 }
+
+
 
