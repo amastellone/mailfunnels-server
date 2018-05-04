@@ -48,7 +48,7 @@
                   <div class="x_content" style="max-height: 180px; min-height: 180px;  overflow: hidden; text-overflow: ellipsis;">
 
                     <div class="text-center">
-                      <% if template.has_checkout_url %>
+                      <% if template.has_checkout_url === 1 or template.has_ac_holder === 1 %>
                           <label class="mf-template-label label label-default">Abandoned Cart</label>
                       <% end %>
                     </div>

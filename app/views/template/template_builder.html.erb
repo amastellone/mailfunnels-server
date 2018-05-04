@@ -5,19 +5,27 @@
                 icon: '/mailfunnels-logo.jpg',
                 buttons: {
                     primary: {
-                        label: 'Send Test Email',
-                        message: 'send_test_email',
+                        label: 'Save & Exit',
+                        message: 'save_and_exit',
                         callback: function() {
-                            openTestEmailModal();
+                            $('#email_list_submit_button').click();
                         }
                     },
-                    secondary: {
+                    secondary: [{
                         label: 'Back',
                         message: 'go_back',
                         callback: function(){
                             window.location.href = '/email_templates';
                         }
-                    }
+                    },
+                        {
+                            label: 'Send Test Email',
+                            message: 'send_test_email',
+                            callback: function() {
+                                openTestEmailModal();
+                            }
+                        }
+                    ]
                 }
             });
         });
@@ -40,10 +48,12 @@
 
     <div class="hidden">
       <input id="current_template_id" type="number" value="<%= @template.id %>"/>
-      <input id="current_content_value" type="text" value="<%= @template.email_content %>"/>
-      <input id="current_color_value" type="text" value="<%= @template.color %>"/>
       <input id="current_description_value" type="text" value="<%= @template.description %>"/>
       <input id="current_html_value" type="text" value="<%= @template.html %>"/>
+      <input id="current_dynamic_value" type="number" value="<%= @template.is_dynamic %>"/>
+      <input id="current_ac_value_holder" type="number" value="<%= @template.has_ac_holder %>"/>
+
+
       <% if @template.has_button %>
           <input id="show_button_value" type="number" value="1"/>
       <% else %>
@@ -61,10 +71,12 @@
             <h3 class="mf-builder-subtitle"><%= @template.name %></h3>
           </div>
 
-          <div class="title_right">
-            <button id="email_list_submit_button" type="button" class="btn btn-sm btn-primary pull-right" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Save & Exit</button>
-            <a id="send_test_email" data-toggle="modal" data-target="#mf-template-settings-modal" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Settings</a>
-            <a id="mf-set-default" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-top: 15px;">Make Default</a>
+          <div class="title_right" style="margin-top: 15px;">
+            <button id="email_list_submit_button" type="button" class="btn btn-sm btn-primary pull-right hidden" style="background: #3a99d9; font-size: 12px;">Save & Exit</button>
+            <button id="template_save_button" type="button" class="btn btn-sm btn-primary pull-right" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Save Changes</button>
+            <a id="send_test_email" data-toggle="modal" data-target="#mf-template-settings-modal" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Settings</a>
+            <a id="mf-set-default" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Make Default</a>
+            <a id="mf-template-clear-button" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Start Over</a>
           </div>
 
           <div class="clearfix"></div>
@@ -86,7 +98,7 @@
           <div class="column full" style="margin-top: 0px;">
             <hr>
             <div style="text-align: center;">
-                <b style="font-size: 14px; letter-spacing: 0px; line-height: 43px; color: rgb(68, 152, 228);">Unsubscribe</b>
+              <b style="font-size: 14px; letter-spacing: 0px; line-height: 43px; color: rgb(68, 152, 228);">Unsubscribe</b>
             </div>
 
             <% if @app.foot_use_bill_add === 0 %>
@@ -152,6 +164,32 @@
         <div class="modal-content">
           <div class="modal-body text-center">
             <p class="text-primary">Template Settings Saved!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary" style="background: #3a99d9; font-size: 12px;">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mf-dynamic-holder-modal" class="modal fade bs-example-modal-sm" >
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <p class="text-primary" style="font-size: 0.9rem;">You have just added a dynamic template. Emails will be populated with product info and/or links to the abandoned cart!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary" style="background: #3a99d9; font-size: 12px;">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mf-template-saved-modal" class="modal fade bs-example-modal-sm" >
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <p class="text-primary" style="font-size: 0.9rem;">Your changes have been successfully saved!</p>
           </div>
           <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn btn-sm btn-primary" style="background: #3a99d9; font-size: 12px;">OK</button>

@@ -28,6 +28,9 @@ gem 'premailer'
 
 gem 'intercom-rails'
 
+gem 'RedCloth'
+gem 'liquid'
+
 # gem 'activerecord-session_store'
 # gem 'request_store_registry', :git => 'git://github.com/mikeantonelli/request_store_registry.git'
 # /vaskaloidis/request_store_registry

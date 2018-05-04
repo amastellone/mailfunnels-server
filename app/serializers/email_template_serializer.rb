@@ -16,5 +16,6 @@ class EmailTemplateSerializer < ActiveModel::Serializer
              :greet_content,
              :email_content,
              :has_button,
-             :html
+             :html,
+             :is_dynamic
 end

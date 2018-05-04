@@ -65,10 +65,14 @@ class TemplateController < ShopifyApp::AuthenticatedController
 
     template.html = params[:html]
     template.style_type = 1
+    template.is_dynamic = params[:dynamic]
+    template.has_ac_holder = params[:has_ac_holder]
 
     template.put('', {
         :html => template.html,
-        :style_type => template.style_type
+        :style_type => template.style_type,
+        :is_dynamic => template.is_dynamic,
+        :has_ac_holder => template.has_ac_holder
     })
 
 
@@ -243,10 +247,22 @@ class TemplateController < ShopifyApp::AuthenticatedController
       html = File.open("app/views/email/template.html.erb").read
     end
 
-    @product = ShopifyAPI::Product.find(288398540810)
+    product = ShopifyAPI::Product.find(288398540810)
+
+    puts product.to_s
+
+    @email_content = RedCloth.new(Liquid::Template.parse(@template.html).render(
+        'product_title' => product.title,
+        'product_description' => product.body_html,
+        'product_image' => product.images[0].src
+    )).to_html
 
     @renderedhtml = "1"
     ERB.new(html, 0, "", "@renderedhtml").result(binding)
+
+
+    ERB.new(@renderedhtml, 0, "", "@renderedhtml").result(binding)
+
 
     if @template.style_type === 1
       premailer = Premailer.new(@renderedhtml, { :warn_level => Premailer::Warnings::SAFE, :with_html_string => true})
