@@ -75,11 +75,40 @@ class ProcessCheckoutsJob < ApplicationJob
             )
           end
           trigger = nil
+
+          # Initialize Product Info Fields
+          product_title = ""
+          product_description = ""
+          product_price = ""
+          product_image = ""
+
+
           if subscriber
             abandoned_cart.line_items.each do |product|
               logger.info("checking triggers")
               trigger = Trigger.where(app_id: app_id, hook_id: 3, product_id: product.product_id).first
-              if trigger.nil?
+
+              # If trigger found, store product info, and break
+              if !trigger.nil?
+
+                product = nil
+                # Search For Product Using Shopify API
+                product_found = false
+                puts trigger.product_id
+
+                if trigger.product_id
+                  begin
+                    product = ShopifyAPI::Product.find(trigger.product_id)
+                    product_title = product.title
+                    product_description = product.body_html
+                    product_price = product.variants[0].price
+                    product_image = product.images[0].src
+                  rescue => e
+                    puts e
+                    puts "Error: Pulling Product Info From Shopify"
+                  end
+                end
+
                 break
               end
             end
@@ -144,11 +173,14 @@ class ProcessCheckoutsJob < ApplicationJob
               job = EmailJob.where(app_id: app_id,
                                    funnel_id: funnel.id,
                                    node_id: node.id,
-                                   subscriber_id: subscriber.id).first
+                                   subscriber_id: subscriber.id,
+                                   product_title: product_title).first
 
               if job.nil? == false
                 logger.info("Jobs Already Exists")
               else
+
+
                 job = EmailJob.create(app_id: app_id,
                                       funnel_id: funnel.id,
                                       subscriber_id: subscriber.id,
@@ -156,7 +188,11 @@ class ProcessCheckoutsJob < ApplicationJob
                                       node_id: node.id,
                                       email_template_id: node.email_template_id,
                                       email_list_id: funnel.email_list_id,
-                                      sent: 0)
+                                      sent: 0,
+                                      product_title: product_title,
+                                      product_description: product_description,
+                                      product_price: product_price,
+                                      product_image: product_image)
               end
             else
               next
