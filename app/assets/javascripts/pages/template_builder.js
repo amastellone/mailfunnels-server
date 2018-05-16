@@ -228,7 +228,7 @@ $(function() {
 
         console.log('here');
 
-        $('#contentarea').find("img").attr('src', assetValue);
+        $('.active-img-selected').attr('src', assetValue);
 
         toggleImageUploadModal();
 
@@ -266,6 +266,26 @@ $(function() {
     }
 
 
+    $(document).on({
+        mouseenter: function () {
+
+            if ($(this).attr('class') === 'mf-dynamic-image-placeholder') {
+                console.log('DONT CHANGE');
+                return;
+            }
+            console.log('mouse-over');
+            $('.active-img-selected').attr('class', '');
+
+            $(this).attr('class', 'active-img-selected');
+        },
+        mouseleave: function () {
+            //stuff to do on mouse leave
+        }
+    }, '#contentarea img'); //pass the element as an argument to .on
+
+
+
+
     function init() {
         // $('.left_col').hide();
 
@@ -280,6 +300,8 @@ $(function() {
             snippetFile: '/template_builder/assets/minimalist-basic/snippets.html',
             toolbar: 'left',
             onImageBrowseClick: function () {
+                console.log($(this));
+                console.log($("#contentarea").find('#active-input').val());
                 toggleImageUploadModal();
             },
             onDrop: function (event, ui) {
@@ -325,8 +347,16 @@ $(function() {
                 [30, "Coming Soon"],
                 [19, "Separator"],
                 [100, "Custom Code"]
-            ]
+            ],
+            customTags: [["Product Title", "{{product_title}}"],
+                ["Product Description", "{{product_description}}"],
+                ["Product Price", "{{product_price}}"],
+                ["Product Image URL", "{{product_image}}"],
+                ["Abandoned Checkout URL", "{{abandoned_checkout_url}}"]],
         });
+
+
+        $('.cb-icon-ticket').attr('class', 'cb-icon-ticket mf_blue');
 
         $("#contentarea").data('contentbuilder').loadHTML(current_html);
 
