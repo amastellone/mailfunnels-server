@@ -510,8 +510,6 @@ textarea:focus {
 
 
 
-
-
 .mf-builder-action-btn {
     margin-top: 0;
     margin-bottom: 0;
@@ -533,6 +531,29 @@ textarea:focus {
 
 .mf-email-builder-contentarea {
     background: #ffffff;
+}
+
+.mf-btn-builder-action {
+    padding: 7px 25px;
+    font-size: 1em;
+    line-height: 2em;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    max-width: 100%;
+
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    /*white-space: nowrap;*/
+    word-wrap: break-word !important;
+    -webkit-transition: all 0.16s ease;
+    transition: all 0.16s ease;
 }
 
 

@@ -8,7 +8,7 @@
 ***********************************/
 
 
-.container > .row, .container > div > .row {padding-top:10px;padding-bottom:10px} 
+.container > .row, .container > div > .row {padding-top:10px; padding-bottom:10px; max-width: 100%;}
 .row img { margin:1.4em 0 1em; }
 
 
@@ -82,7 +82,7 @@ h6 span {font-size: inherit;line-height:inherit;}
 p span {font-size: inherit; line-height:inherit;}
 li span {font-size: inherit; line-height:inherit;}
 
-a {color: #009E91;} 
+a {color: #009E91; word-wrap: break-word; text-overflow: ellipsis;}
 hr {border:none;border-top: rgba(0, 0, 0, 0.18) 1px solid;margin: 2em 0 !important;}    
 img {max-width:100%;}
 figure {margin:0}
@@ -416,7 +416,9 @@ img.bordered {border: #ccc 1px solid;}
     font-size: 1em;
     line-height: 2em;
     border-radius: 0;
-    letter-spacing: 3px;    
+    letter-spacing: 3px;
+    max-width: 100%;
+    width: auto;
 
     display: inline-block;
     margin-bottom: 0;
@@ -427,9 +429,20 @@ img.bordered {border: #ccc 1px solid;}
     cursor: pointer;
     background-image: none;
     border: 1px solid transparent;
-    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word !important;
     -webkit-transition: all 0.16s ease;
     transition: all 0.16s ease;
+}
+
+@media only screen and (max-width: 600px) {
+    .is-btn {
+        padding: 7px 10px;
+        font-size: 0.75em;
+        word-wrap: break-word !important;
+    }
 }
 
 /* ghost1 default */
@@ -503,7 +516,9 @@ img.bordered {border: #ccc 1px solid;}
     font-size: 1em;
     line-height: 2em;
     border-radius: 5px;
-    letter-spacing: 1px;    
+    letter-spacing: 1px;
+    max-width: 100%;
+    width: auto;
 
     display: inline-block;
     margin-bottom: 0;
@@ -514,13 +529,24 @@ img.bordered {border: #ccc 1px solid;}
     cursor: pointer;
     background-image: none;
     border: 1px solid transparent;
-    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word !important;
     -webkit-transition: all 0.16s ease;
     transition: all 0.16s ease;
 }
 
-.btn.btn-primary {color: #ffffff;background-color: #08c9b9;}
-.btn.btn-primary:hover {color: #ffffff;background-color: #07b0a2;border-color: #07b0a2;}
+@media only screen and (max-width: 600px) {
+    .btn {
+        padding: 7px 10px;
+        font-size: 0.75em;
+        word-wrap: break-word !important;
+    }
+}
+
+.btn.btn-primary {color: #ffffff;background-color: #409ad7;}
+.btn.btn-primary:hover {color: #ffffff;background-color: #409ad7;border-color: #409ad7;}
 .btn.btn-default {color: #333333;background-color: #d3d3d3;}
 .btn.btn-default:hover {color: #111;background-color: #ccc;border-color: #ccc;}
 

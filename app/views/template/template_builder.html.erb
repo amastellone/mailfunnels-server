@@ -32,18 +32,13 @@
     </script>
 
 
-    <link href="/template_builder/assets/minimalist-basic/content.css" rel="stylesheet" type="text/css" />
+    <!--<link href="/template_builder/assets/minimalist-basic/content.css" rel="stylesheet" type="text/css" />-->
+    <link href="/template_builder/assets/email_style_1.css" rel="stylesheet" type="text/css" />
     <link href="/contentbuilder/contentbuilder.css" rel="stylesheet" type="text/css" />
     <script src="/contentbuilder/contentbuilder.js" type="text/javascript"></script>
 
     <%= javascript_include_tag 'pages/template_builder.js' %>
 
-    <style>
-      .is-container {  margin: 90px auto; max-width: 1050px; width:100%; padding:0 35px; box-sizing:border-box; }
-      @media all and (max-width: 1080px) {
-        .is-container { margin:0; }
-      }
-    </style>
 
 
     <div class="hidden">
@@ -75,7 +70,7 @@
             <button id="email_list_submit_button" type="button" class="btn btn-sm btn-primary pull-right hidden" style="background: #3a99d9; font-size: 12px;">Save & Exit</button>
             <button id="template_save_button" type="button" class="btn btn-sm btn-primary pull-right" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Save Changes</button>
             <a id="send_test_email" data-toggle="modal" data-target="#mf-template-settings-modal" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Settings</a>
-            <a id="mf-set-default" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Make Default</a>
+            <a id="mf-set-default" class="btn btn-sm btn-primary mf-btn-builder-action pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Make Default</a>
             <a id="mf-template-clear-button" class="btn btn-sm btn-primary pull-right m-r-5" style="background: #3a99d9; font-size: 12px; margin-bottom: 0;">Start Over</a>
           </div>
 
@@ -88,10 +83,10 @@
     <div class="row mf-email-builder-row" style="background: #ffffff;">
 
       <div class="col-xs-12">
-        <div class="mf-email-builder-contentarea is-container">
+        <div class="mf-email-builder-contentarea container">
 
           <!--  START CONTENT BUILDER -->
-          <div id="contentarea" class="is-container" style="margin-bottom: 0px;">
+          <div id="contentarea" style="margin-bottom: 0px;">
 
 
           </div>
