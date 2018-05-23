@@ -248,32 +248,38 @@ class TemplateController < ShopifyApp::AuthenticatedController
     end
 
 
+    subscriber_first_name = @app.user.first_name
+    subscriber_last_name = @app.user.last_name
+
     if @template.is_dynamic and params[:product_id] != ''
       product = ShopifyAPI::Product.find(params[:product_id])
 
       puts product.to_s
 
       @email_content = RedCloth.new(Liquid::Template.parse(@template.html).render(
-          'product_title' => product.title,
+          'first_name'          => subscriber_first_name,
+          'last_name'           => subscriber_last_name,
+          'product_title'       => product.title,
           'product_description' => product.body_html,
-          'product_image' => product.images[0].src,
-          'product_price' => product.variants[0].price
+          'product_image'       => product.images[0].src,
+          'product_price'       => product.variants[0].price
       )).to_html
 
     else
 
       @email_content = RedCloth.new(Liquid::Template.parse(@template.html).render(
-          'product_title' => "Product Name",
+          'first_name'          => subscriber_first_name,
+          'last_name'           => subscriber_last_name,
+          'product_title'       => "Product Name",
           'product_description' => "Product Description",
-          'product_image' => 'https://s3-us-west-2.amazonaws.com/mailfunnels-dev/store_placeholder.png',
-          'product_price' => '19.99'
+          'product_image'       => 'https://s3-us-west-2.amazonaws.com/mailfunnels-dev/store_placeholder.png',
+          'product_price'       => '19.99'
       )).to_html
 
     end
 
     @renderedhtml = "1"
     ERB.new(html, 0, "", "@renderedhtml").result(binding)
-
 
     if @template.style_type === 1
       premailer = Premailer.new(@renderedhtml, { :warn_level => Premailer::Warnings::SAFE, :with_html_string => true})

@@ -348,13 +348,16 @@ $(function() {
                 [19, "Separator"],
                 [100, "Custom Code"]
             ],
-            customTags: [["Product Title", "{{product_title}}"],
+            customTags: [
+                ["Subscriber First Name", "{{first_name}}"],
+                ["Subscriber Last Name", "{{last_name}}"],
+                ["Product Title", "{{product_title}}"],
                 ["Product Description", "{{product_description}}"],
                 ["Product Price", "{{product_price}}"],
                 ["Product Image URL", "{{product_image}}"],
-                ["Abandoned Checkout URL", "{{abandoned_checkout_url}}"]],
+                ["Abandoned Checkout URL", "{{abandoned_checkout_url}}"]
+            ],
         });
-
 
         $('.cb-icon-ticket').attr('class', 'cb-icon-ticket mf_blue');
 

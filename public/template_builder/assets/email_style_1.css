@@ -1,7 +1,7 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600,800);
 body,
 html {
-    font-size: 100%
+    font-size: 1em;
 }
 
 body,
@@ -1085,7 +1085,6 @@ img.bordered {
     display: inline-block;
     margin-bottom: 0;
     font-weight: normal;
-    text-align: center;
     text-decoration: none;
     vertical-align: middle;
     cursor: pointer;
@@ -1097,6 +1096,8 @@ img.bordered {
     word-wrap: break-word !important;
     -webkit-transition: all 0.16s ease;
     transition: all 0.16s ease;
+    background: #dfdfdf;
+    color: #000000;
 }
 
 @media only screen and (max-width: 600px) {
