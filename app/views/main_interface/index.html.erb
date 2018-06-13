@@ -4,6 +4,14 @@
             ShopifyApp.Bar.initialize({
                 icon: '/mailfunnels-logo.jpg',
                 buttons: {
+                    primary: [
+                        { label: 'Kickstarter Appointment',
+                            message: 'mf_kickstart_support',
+                            callback: function(){
+                                window.open('http://mailfunnels.com/kickstart', '_blank');
+                            }
+                        }
+                    ],
                     secondary: [
                         { label: 'Facebook Group',
                             message: 'facebook_group',
@@ -11,7 +19,7 @@
                                 window.open('https://www.facebook.com/groups/1899392843717613/', '_blank');
                             }
                         },
-                        { label: 'Become a MailFunnels Affiliate',
+                        { label: 'Become an Affiliate',
                             message: 'mailfunnels_affiliate',
                             callback: function(){
                                 window.open('http://mailfunnels.com/jv', '_blank');
